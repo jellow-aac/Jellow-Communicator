@@ -72,7 +72,7 @@ public class FeedbackActivityTalkBack extends BaseActivity{
     public void sendEmailFeedback(View v){
         if((mEasyToUse != null) && (mClearPictures != null) && (mClearVoice != null) && (mNavigate != null)) {
             Intent email = new Intent(Intent.ACTION_SEND);
-            email.putExtra(Intent.EXTRA_EMAIL, new String[]{"dsource.in@gmail.com"});
+            email.putExtra(Intent.EXTRA_EMAIL, new String[]{"jellowcommunicator@gmail.com"});
             email.putExtra(Intent.EXTRA_SUBJECT, "Jellow Feedback");
             email.putExtra(Intent.EXTRA_TEXT, "Easy to use: " + mEasyToUse.getSelectedItem() +
                     "\nClear Pictures: " + mClearPictures.getSelectedItem() + "\nClear Voices: "

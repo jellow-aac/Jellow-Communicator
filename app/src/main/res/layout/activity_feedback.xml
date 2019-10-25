@@ -95,7 +95,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/feedback_tv_height"
                 android:text="@string/commentSuggestions"
-                style="@style/defaultTextViewStyle"/>
+                style="@style/defaultTextViewStyle"
+                android:layout_marginBottom="@dimen/feedback_tv_commentMargin_bottom"/>
             <EditText
                 android:id="@+id/comments"
                 android:layout_width="match_parent"

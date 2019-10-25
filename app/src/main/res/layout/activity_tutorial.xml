@@ -22,7 +22,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginRight="@dimen/tutorial_parent_margin_right"
-            android:layout_marginEnd="@dimen/tutorial_parent_margin_right">
+            android:layout_marginEnd="@dimen/tutorial_parent_margin_right"
+            android:paddingEnd="@dimen/tutorial_ll_padding_right"
+            android:paddingRight="@dimen/tutorial_ll_padding_right">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -332,6 +334,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:layout_marginTop="@dimen/tutorial_tv_text_margin_vertical"
                     android:layout_marginBottom="@dimen/tutorial_tv_text_margin_vertical">
                     <TextView
                         android:id="@+id/bullet6"
@@ -352,7 +355,6 @@
                         android:layout_toEndOf="@+id/bullet6"
                         android:layout_toRightOf="@+id/bullet6"
                         android:layout_marginBottom="@dimen/tutorial_tv_text_margin_vertical"
-                        android:layout_marginTop="@dimen/tutorial_tv_text_margin_vertical"
                         android:paddingBottom="@dimen/tutorial_tv_text_padding_bottom"
                         android:text="@string/ttsDesc"
                         style="@style/defaultTextViewStyle"/>

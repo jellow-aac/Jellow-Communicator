@@ -21,7 +21,9 @@
             <LinearLayout
                 android:layout_width="@dimen/about_scroll_width"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/about_ll_padding_right"
+                android:paddingRight="@dimen/about_ll_padding_right">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -396,18 +398,6 @@
                                     android:layout_marginStart="@dimen/about_tv_margin"
                                     android:paddingBottom="@dimen/about_tv_padding_bottom"
                                     android:importantForAccessibility="yes"/>
-                                <TextView
-                                    android:id="@+id/tv34"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:autoLink="web"
-                                    android:text="@string/about_je_link"
-                                    style="@style/defaultTextViewStyle"
-                                    android:layout_marginTop="@dimen/about_tv_margin"
-                                    android:layout_marginLeft="@dimen/about_tv_margin"
-                                    android:layout_marginStart="@dimen/about_tv_margin"
-                                    android:paddingBottom="@dimen/about_tv_padding_bottom"
-                                    android:importantForAccessibility="no"/>
                             </LinearLayout>
                         </LinearLayout>
                         <LinearLayout

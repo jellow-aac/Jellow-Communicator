@@ -20,6 +20,8 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.models.SecureKeys;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,7 +44,6 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
-import androidx.annotation.NonNull;
 import se.simbio.encryption.Encryption;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
@@ -223,29 +224,53 @@ public class ProfileFormActivity extends SpeechEngineBaseActivity {
 
     private String getBloodGroup() {
         switch(mBloodGroup.getSelectedItem().toString()){
+            case "A positive":
             case "A+ve":
             case "अ +":
+            case"এ+":
+            case"ஏ+":
                 return "A+ve";
+            case "A negative":
             case "A-ve":
             case "अ -":
+            case"এ-":
+            case"ஏ-":
                 return "A-ve";
+            case "B positive":
             case "B+ve":
             case "ब +":
+            case "বি+":
+            case"பி+":
                 return "B+ve";
+            case "B negative":
             case "B-ve":
             case "ब -":
+            case"বি-":
+            case"பி-":
                 return "B-ve";
+            case "A B positive":
             case "AB+ve":
             case "अब +":
+            case"এবি+":
+            case"ஏபி+":
                 return "AB+ve";
+            case "A B negative":
             case "AB-ve":
             case "अब -":
+            case"এবি-":
+            case"ஏபி-":
                 return "AB-ve";
+            case "O positive":
             case "O+ve":
             case "ओ +":
+            case"ও+":
+            case"ஒ+":
                 return "O+ve";
+            case "O negative":
             case "O-ve":
             case "ओ -":
+            case"ও-":
+            case"ஒ-":
                 return "O-ve";
             default:
                 return "not selected";

@@ -116,12 +116,6 @@
             android:screenOrientation="landscape" />
 
         <activity
-            android:name=".LanguageSelectTalkBackActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/Language"
-            android:screenOrientation="landscape" />
-
-        <activity
             android:name=".SearchActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/search_act_title"
@@ -139,64 +133,11 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".makemyboard.RepositionIconsActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/Language"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".makemyboard.BoardSearchActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/search_act_title"
-            android:theme="@style/Theme.AppCompat.Translucent"
-            android:windowSoftInputMode="adjustNothing" />
-        <activity
-            android:name=".makemyboard.HomeActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".makemyboard.edit_reposition_module.ui.activity.AddEditIconAndCategoryActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"
-            android:theme="@style/Base.Theme.AppCompat" />
-        <activity
-            android:name=".makemyboard.utility.SetupMMB"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".makemyboard.icon_select_module.view.activity.IconSelectActivity"
-            android:label="Select your icons"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".makemyboard.AddVerbiageDialog"
+            android:name=".utility.DialogBox"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Translucent" />
-        <activity
-            android:name=".makemyboard.iActivity.BoardListActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/my_boards"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".makemyboard.BoardActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/my_boards"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".makemyboard.utility.DialogBox"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.Translucent" />
-        <activity android:name=".makemyboard.DemActivtiy" />
+
 
         <meta-data
             android:name="com.google.android.gms.version"

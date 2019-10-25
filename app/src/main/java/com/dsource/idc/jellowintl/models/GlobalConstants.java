@@ -59,4 +59,13 @@ public class GlobalConstants {
     public final static int LANGUAGE_STATE_CHANGED = 1;
 
     public final static int LANGUAGE_STATE_DB_CREATE = 2;
+
+
+    public static final String DIALOG_TYPE ="dialog_type";
+
+    public static final String GRID_DIALOG = "grid_dialog";
+
+    public static final int NORMAL_TYPE = 1251;
+
+    public static final int CATEGORY_TYPE = 9509;
 }

@@ -17,18 +17,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuCompat;
 import androidx.room.Room;
 
-import com.dsource.idc.jellowintl.makemyboard.edit_reposition_module.ui.activity.AddEditIconAndCategoryActivity;
-import com.dsource.idc.jellowintl.makemyboard.BoardActivity;
-import com.dsource.idc.jellowintl.makemyboard.iActivity.BaseBoardActivity;
-import com.dsource.idc.jellowintl.makemyboard.iActivity.BoardListActivity;
-import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;
-import com.dsource.idc.jellowintl.makemyboard.HomeActivity;
-import com.dsource.idc.jellowintl.makemyboard.RepositionIconsActivity;
-import com.dsource.idc.jellowintl.makemyboard.icon_select_module.view.activity.IconSelectActivity;
 import com.dsource.idc.jellowintl.models.AppDatabase;
+import com.dsource.idc.jellowintl.models.GlobalConstants;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
+
+import static com.dsource.idc.jellowintl.utility.Analytics.setCrashlyticsCustomKey;
+import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 
 public class BaseActivity extends AppCompatActivity{
     final private String APP_DB_NAME = "jellow_app_database";
@@ -61,7 +57,7 @@ public class BaseActivity extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(getBoardClass().contains(getVisibleAct()) || getNonMenuClass().contains(getVisibleAct()))
+        if(getNonMenuClass().contains(getVisibleAct()))
             return false;
         super.onCreateOptionsMenu(menu);
         MenuCompat.setGroupDividerEnabled(menu, true);
@@ -246,18 +242,6 @@ public class BaseActivity extends AppCompatActivity{
             SequenceActivity.class.getSimpleName();
     }
 
-    private String getBoardClass() {
-        return
-                AddEditIconAndCategoryActivity.class.getSimpleName()+ ","+
-                        BoardSearchActivity.class.getSimpleName() + ","+
-                        HomeActivity.class.getSimpleName() + ","+
-                        IconSelectActivity.class.getSimpleName() + ","+
-                        BoardActivity.class.getSimpleName() + ","+
-                        BoardListActivity.class.getSimpleName() + ","+
-                        BaseBoardActivity.class.getSimpleName() + ","+
-                        RepositionIconsActivity.class.getSimpleName();
-    }
-
     private String getNonMenuClass() {
         return UserRegistrationActivity.class.getSimpleName();
     }
@@ -273,6 +257,25 @@ public class BaseActivity extends AppCompatActivity{
 
     public void setVisibleAct(String visibleAct) {
         sVisibleAct = visibleAct;
+    }
+
+    public void setGridSize(){
+        if(getSession().getGridSize() == GlobalConstants.NINE_ICONS_PER_SCREEN){
+            setUserProperty("GridSize", "9");
+            setCrashlyticsCustomKey("GridSize", "9");
+        }else if(getSession().getGridSize() == GlobalConstants.FOUR_ICONS_PER_SCREEN){
+            setUserProperty("GridSize", "4");
+            setCrashlyticsCustomKey("GridSize", "4");
+        }else if(getSession().getGridSize() == GlobalConstants.THREE_ICONS_PER_SCREEN){
+            setUserProperty("GridSize", "3");
+            setCrashlyticsCustomKey("GridSize", "3");
+        }else if(getSession().getGridSize() == GlobalConstants.TWO_ICONS_PER_SCREEN){
+            setUserProperty("GridSize", "2");
+            setCrashlyticsCustomKey("GridSize", "2");
+        }else if(getSession().getGridSize() == GlobalConstants.ONE_ICON_PER_SCREEN){
+            setUserProperty("GridSize", "1");
+            setCrashlyticsCustomKey("GridSize", "1");
+        }
     }
 
 

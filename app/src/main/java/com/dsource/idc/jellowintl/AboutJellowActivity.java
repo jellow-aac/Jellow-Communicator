@@ -1,7 +1,6 @@
 package com.dsource.idc.jellowintl;
 
 import android.os.Bundle;
-import android.text.Html;
 import android.text.util.Linkify;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
@@ -28,9 +27,9 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
     private Button mBtnSpeak, mBtnStop;
     private TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9, tv10, tv11, tv12, tv13, tv14, tv15, tv16,
             tv17, tv18, tv19, tv20, tv21, tv22, tv23, tv24, tv25, tv26, tv27, tv28, tv29, tv30, tv31,
-            tv32, tv33, tv34, tv35, tv36, tv37;
+            tv32, tv33, tv35, tv36, tv37;
     private String mSpeechTxt, mGenInfo, mSoftInfo, mTermofUse, mCredits,
-            mAppLink, mIntro1, mIntro2, mIntro3, mIntro4, mIntro5, mIntro6, mIntro7, mIntro8,
+            mIntro1, mIntro2, mIntro3, mIntro4, mIntro5, mIntro6, mIntro7, mIntro8,
             mIntro9, mIntro10, mIntro11, mIntro12, mIntro13, mIntro14, mIntro15, mIntro16, mIntro17,
             mIntro18, mIntro19, mIntro20, mIntro21, mIntro22, mIntro23, mIntro24, mIntro25, mIntro26,
             mIntro27, mIntro28, mIntro29, mIntro30, mIntro31, mIntro32, mSpeak, mStop;
@@ -135,7 +134,6 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
         tv31= findViewById(R.id.tv31);
         tv32= findViewById(R.id.tv32);
         tv33= findViewById(R.id.tv33);
-        tv34= findViewById(R.id.tv34);
         tv35= findViewById(R.id.tv35);
         tv36= findViewById(R.id.tv36);
         tv37= findViewById(R.id.tv37);
@@ -169,11 +167,7 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
         mIntro11 = getString(R.string.about_je_intro11);
         mIntro12 = getString(R.string.about_je_intro12);
         mIntro13 = getString(R.string.about_je_intro13);
-        mAppLink = getString(R.string.about_je_link);
         mIntro14 = getString(R.string.about_je_intro14);
-        mIntro14 = mIntro14.concat(" "+
-                Html.fromHtml("<a href=\"mailto:ravi@iitb.ac.in\">ravi@iitb.ac.in</a>") +
-                " or "+ Html.fromHtml("<a href=\"mailto:jellowcommunicator@gmail.com\">jellowcommunicator@gmail.com</a>"));
         mCredits = getString(R.string.credits);
         mIntro15 = getString(R.string.about_je_intro15);
         mIntro16 = getString(R.string.about_je_intro16);
@@ -301,13 +295,7 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
         tv37.setText(mIntro32);
         mBtnSpeak.setText(mSpeak);
         mBtnStop.setText(mStop);
-        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-            mIntro13 = mIntro13.concat(" "+ mAppLink);
-            tv15.setText(mIntro13);
-            tv34.setVisibility(View.GONE);
-        }else {
-            tv34.setText(mAppLink);
-            Linkify.addLinks(tv16, Linkify.EMAIL_ADDRESSES);
-        }
+        Linkify.addLinks(tv15, Linkify.WEB_URLS);
+        Linkify.addLinks(tv16, Linkify.EMAIL_ADDRESSES);
     }
 }

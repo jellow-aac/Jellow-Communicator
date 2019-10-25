@@ -81,7 +81,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         langList.remove(LangValueMap.get(getSession().getLanguage()));
         langList.add(0, LangValueMap.get(getSession().getLanguage()));
         adapter_lan = new CustomArrayAdapter(this, R.layout.simple_spinner_dropdown_item,
-                /*populateCountryNameByUserType(*/langList/*)*/);
+                langList);
         languageSelect.setText(langList.get(0));
         selectedLanguage = langList.get(0);
 
@@ -113,6 +113,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
                 }
             }
         });
+        updateViewsForNewLangSelect();
     }
 
     private void hideViewsForNonTtsLang(boolean disableViews) {

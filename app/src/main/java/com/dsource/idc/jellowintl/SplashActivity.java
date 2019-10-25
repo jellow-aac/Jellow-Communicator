@@ -73,13 +73,7 @@ public class SplashActivity extends BaseActivity {
 
     private void setUserParameters() {
         if(getSession().isGridSizeKeyExist()) {
-            if(getSession().getGridSize() == GlobalConstants.NINE_ICONS_PER_SCREEN){
-                setUserProperty("GridSize", "9");
-                setCrashlyticsCustomKey("GridSize", "9");
-            }else{
-                setUserProperty("GridSize", "3");
-                setCrashlyticsCustomKey("GridSize", "3");
-            }
+            setGridSize();
         }else{
             setUserProperty("GridSize", "9");
             setCrashlyticsCustomKey("GridSize", "9");

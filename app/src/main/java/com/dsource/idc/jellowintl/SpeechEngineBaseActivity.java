@@ -200,8 +200,16 @@ public class SpeechEngineBaseActivity extends BaseActivity{
                 sTts.setLanguage(new Locale("es","ES"));
                 break;
             case ENG_IN:
-            sTts.setLanguage(new Locale("en","IN"));
-            break;
+                sTts.setLanguage(new Locale("en","IN"));
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
+                    for (Voice v : sTts.getVoices()) {
+                        if (v.getName().equals("en-in-x-cxx#female_1-local")) {
+                            sTts.setVoice(v);
+                            break;
+                        }
+                    }
+                }
+                break;
             case TA_IN:
                 sTts.setLanguage(new Locale("ta","IN"));
                 break;
@@ -215,6 +223,14 @@ public class SpeechEngineBaseActivity extends BaseActivity{
             case MR_IN:
             default:
                 sTts.setLanguage(new Locale("hi","IN"));
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
+                    for (Voice v : sTts.getVoices()) {
+                        if (v.getName().equals("hi-in-x-cfn-local")) {
+                            sTts.setVoice(v);
+                            break;
+                        }
+                    }
+                }
                 break;
         }
     }

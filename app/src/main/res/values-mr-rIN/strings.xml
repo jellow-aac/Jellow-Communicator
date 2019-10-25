@@ -21,7 +21,6 @@
 
     <string name="app_name">जेलो</string>
     <string name="action_settings">सेटिंग्स</string>
-    <string name="Profile">प्रोफाइल</string>
 
     <string name="Language">भाषा</string>
     <string name="saveLanguage">भाषा बदला</string>
@@ -77,7 +76,6 @@
     <string name="subtype_en_US">क्रमिक \'कखग\' कीबोर्ड</string>
 
     <string name="action_bar_title">होम</string>
-    <string name="txtLanguage">भाषा</string>
     <string name="txtSpeechSpeed">भाषण गति</string>
     <string name="txtVoiceSpeech">आवाजाचा स्तर</string>
     <string name="txtDisplayMode">प्रदर्शन प्रकार</string>
@@ -92,7 +90,6 @@
 
 
     <string name="menuProfile">प्रोफाइल</string>
-    <string name="menuMyBoards">माझे बोर्ड</string>
     <string name="menuAbout">जेलोची माहिती</string>
     <string name="menuTutorials">ट्यूटोरियल</string>
     <string name="menuKeyboardInput">कीबोर्ड नियंत्रण</string>
@@ -111,13 +108,6 @@
     <string name="easyToNavigate">मार्गनिर्देशन करण्यास सोपे</string>
     <string name="commentSuggestions">टिप्पणी/सल्ले</string>
     <string name="submit">सबमिट करा</string>
-    <string name="appLoading">अॅप चालू होत आहे…</string>
-    <string name="activateGoogleTts">१. गूगल टेक्स्ट-टू-स्पीच इंजिन निवडा</string>
-    <string name="changeDefaultToHindi">२. आवडीची भाषा डिफ़ॉल्ट बनवा</string>
-    <string name="downloadVoiceTts">३. आवडीच्या भाषेचा व्हॉइस डेटा डाउनलोड करा</string>
-    <string name="activate">सक्रिय करा</string>
-    <string name="cancel">बंद करा</string>
-    <string name="keyboardControl">कीबोर्ड नियंत्रण:</string>
     <string name="serial_keyboard_title">सिरियल कीबोर्ड:</string>
     <string name="serial_keyboard_info">जेलो कम्युनिकेटर ऍप्लिकेशनमध्ये सिरीयल कीबोर्ड उपलब्ध आहे. हा कीबोर्ड शिक्षकांच्या प्रतिक्रियांच्या आधारे तयार केला आहे. या कीबोर्डमध्ये वर्णमालेनुसार अक्षरांची क्रमवारी आहे. त्यामुळे, वापरकर्ते सिरीयल कीबोर्डवरील अक्षरांचा अंदाज सहजपणे लावू शकतात. हा कीबोर्ड नवीन भाषा शिकणाऱ्यांसाठी उपयुक्त आहे. अक्षरांच्या व्यतिरिक्त या सिरीयल कीबोर्डमध्ये ० ते ९ पर्यंत अंक आणि चिन्हे आहेत, जे दररोज बोलण्याच्या प्रक्रियेसाठी महत्वाचे आहेत.</string>
     <string name="keyboardControlTxt">आपल्या पसंतीचा कीबोर्ड निवडण्यासाठी आणि त्याला डिफ़ॉल्ट बनविण्यासाठी तुम्हाला २ चरण पूर्ण करावे लागतील:</string>
@@ -126,7 +116,6 @@
     <string name="serialKeyboard">क्रमिक \'कखग\' कीबोर्ड</string>
     <string name="step2">चरण २: निवडलेला कीबोर्ड डिफ़ॉल्ट बनवा</string>
     <string name="saveAsDefault">सेट करा</string>
-    <string name="voiceControl">आवाज नियंत्रण:</string>
     <string name="getKeyboardControl">कीबोर्ड नियंत्रण</string>
     <string name="childName">मुलाचे नाव *</string>
     <string name="caregiverName">काळजी घेणाऱ्या व्यक्तीचे नाव</string>
@@ -136,16 +125,8 @@
     <string name="bloodGroup">रक्त गट</string>
     <string name="detailSaved">माहिती सेव केली आहे</string>
     <string name="invalid_emailId"> हा ई- मेल आयडी चुकीचा आहे</string>
-    <string name="invalidContactNumber">कृपया बरोबर संपर्क नंबरची नोंदणी करा</string>
     <string name="enterTheName">कृपया आपल्या मुलाचे नाव दाखिल करा</string>
     <string name="search_act_title">जेलो अॅप्लिकेशन मध्ये आइकॉन्स शोधा</string>
-    <string name="resetPreferenceMessage">
-       <![CDATA[ <ul>
-            <li>वापरकर्त्याने सर्वात जास्त वापरलेले आवडते आइकॉन जेलो अॅप्लिकेशन लक्षात ठेवते, आणि ते आइकॉन स्क्रीन वरती सर्वात पहिल्यांदा प्रदर्शित करते.</li><br/>
-            <li>आइकॉन्सला रीसेट केल्यावर, सर्व आइकॉन मुळ क्रमामध्ये येतील जसे ते पहिल्या वेळेस अॅप्लिकेशनमध्ये प्रदर्शित होते.</li><br/>
-            <li>आपल्याला आइकॉन्स रीसेट करायचे आहेत का?</li><br/><br/>
-       </ul>]]>
-    </string>
     <string name="iconsHasBeenReset">आयकॉन रीसेट झाले आहेत.</string>
     <string name="speak">बोला</string>
     <string name="stop">थांबा</string>
@@ -163,10 +144,7 @@
     <string name="seqActDesc">जेलोचा वापर मुलांना रोजची कामे क्रमानुसार शिकवण्यासाठी केला जाऊ शकतो. जेलोचा वापर या प्रकारे करताना कोणत्याही क्रमाच्या बटनावर क्लिक करुन वापरकर्ता स्क्रीनच्या दोन्ही बाजूंचे भाववाहक बटन बघू शकतात.</string>
     <string name="toiletSeq">शौचालय क्रमाचे चरण:</string>
     <string name="expBtnSeq">क्रमामधील भाववाहक बटन:</string>
-    <string name="ttsDesc">जेलोचा वापर इंग्रजी, हिंदी आणि बंगाली मध्ये करण्यासाठी कृपया आपल्या डिव्हाइसच्या \'भाषा\' सेटिंग्समध्ये जाऊन गूगल टेक्सट टू स्पीच सक्रिय करा. गूगल टेक्सट टू स्पीच च्या सेटिंग्स मध्ये, प्रथम पसंतीच्या भाषेला डीफॉल्ट बनवा आणि नंतर पसंतीच्या भाषेचा व्हॉइस डेटा डाउनलोड करा.</string>
-    <string name="softwareVersion">सॉफ्टवेयर संस्करण:</string>
-    <string name="string_to_speak">बोलण्यासाठी येथे शब्द लिहा</string>
-    <string name="speak_written_text">लिखित शब्द बोला</string>
+    <string name="ttsDesc">जेलोचा वापर इंग्रजी, हिंदी, बंगाली, तमिळ, स्पॅनिश, जर्मन आणि फ्रेंच मध्ये करण्यासाठी कृपया आपल्या डिव्हाइसच्या \'भाषा\' सेटिंग्समध्ये जाऊन गूगल टेक्सट टू स्पीच सक्रिय करा. गूगल टेक्सट टू स्पीच च्या सेटिंग्स मध्ये, प्रथम पसंतीच्या भाषेला डीफॉल्ट बनवा आणि नंतर पसंतीच्या भाषेचा व्हॉइस डेटा डाउनलोड करा.</string>
     <string name="resetPrefPointOne">वापरकर्त्याने सर्वात जास्त वापरलेले आवडते आइकॉन जेलो अॅप्लिकेशन लक्षात ठेवते, आणि ते आइकॉन स्क्रीन वरती सर्वात पहिल्यांदा प्रदर्शित करते.</string>
     <string name="resetPrefPointTwo">आइकॉन्सला रीसेट केल्यावर, सर्व आइकॉन मुळ क्रमामध्ये येतील जसे ते पहिल्या वेळेस अॅप्लिकेशनमध्ये प्रदर्शित होते.</string>
     <string name="resetPrefPointThree">आपल्याला आइकॉन्स रीसेट करायचे आहेत का?</string>
@@ -197,16 +175,12 @@
     <string name="change_language_line5">चरण ३: आपल्या डिव्हाइसवर _ साठी व्हॉइस डेटा उपलब्ध आहे का हे तपासा. नसल्यास व्हॉइस डेटा डाउनलोड करा. व्हॉइस डेटा उपलब्ध नसल्यास, कृपया इंटरनेट चालू करा आणि निवडलेल्या भाषेसाठी व्हॉइस डेटा डाउनलोड करा. प्रक्रिया थांबली असेल तर, कृपया आपले इंटरनेट कनेक्शन तपासा आणि पुन्हा प्रयत्न करा.</string>
     <string name="txtChangeLanguage">डिफॉल्ट भाषा बदला:</string>
     <string name="txtApplyChanges">चरण ४: नवीन भाषा डीफॉल्ट बनविण्यासाठी \'भाषा बदला\' बटनावर क्लिक करा</string>
-    <string name="txt_intro6_skipTtsSetup">ज्या उपकरणांमध्ये गूगल टेक्स्ट-टू-स्पीच इंजिन आधीपासूनच सक्रिय आहे, अशा उपकरणांमध्ये वापरकर्ते या स्क्रीनला स्वाइप करुन पुढे जाऊ शकतात.</string>
     <string name="txt_actLangSel_downloadDat">व्हॉइस डेटा तपासा</string>
     <string name="language_downloaded">_ भाषा डाउनलोड झाली आहे</string>
     <string name="language_downloading">_ भाषा डाउनलोड होत आहे</string>
-    <string name="ok">पुढे जा</string>
-    <string name="call_permission_info">कॉल करण्यासाठी सध्या परवानगी उपलब्ध नाही। कोणत्याही संकटाच्या वेळी जेलो अॅप्लिकेशन मधून कॉल करण्यासाठी परवानगी आवश्यक आहे.</string>
     <string name="granted_call_permission_req">कॉल करण्याची परवानगी दिली आहे.</string>
     <string name="rejected_call_permission_req">कॉल करण्याची परवानगी नाही.</string>
     <string name="grant_permission_from_settings">सेटिंग्स मध्ये जा आणि कॉल करण्याची परवानगी द्या.</string>
-    <string name="request">परवानगी द्या</string>
     <string name="userGroup">वापरकर्ता वर्ग *</string>
     <string name="groupTeacher">थेरपिस्ट/शिक्षक</string>
     <string name="groupParent">पालक/केयर गिवर</string>
@@ -236,7 +210,7 @@
     <string name="about_je_intro4">या प्रमुख भाववाहक आइकॉनांच्या मदतीने जेलोचे वापरकर्ते त्यांच्या आवडी-निवडी आणि गरजा इतरांना सांगू शकतात.</string>
     <string name="about_je_intro5">जेलो चा वापर मुले अत्यंत सहजपणे शिकु शकतात.</string>
     <string name="about_je_intro6">जेलो अॅप्लिकेशन एंड्रॉयड टैबलेटसाठी अनुकूलित आहे.</string>
-    <string name="about_je_intro7">जेलो अॅप्लिकेशन सध्या इंग्रजी, हिंदी, बंगाली, मराठी, तमिळ, स्पॅनिश, जर्मन, फ्रेंच आणि इटालियन या भाषांमध्ये उपलब्ध आहे.</string>
+    <string name="about_je_intro7">जेलो अॅप्लिकेशन सध्या इंग्रजी, हिंदी, बंगाली, मराठी, तमिळ, स्पॅनिश, जर्मन आणि फ्रेंच या भाषांमध्ये उपलब्ध आहे.</string>
     <string name="software_info">सॉफ्टवेयर आवृत्ती: _</string>
     <string name="about_je_intro8">जेलो अॅप्लिकेशनची वर्तमान आवृत्ती _ आहे. जेलो अॅप्लिकेशनचा विकास सध्या चालू आहे. या संदर्भात आपले काही सल्ले असल्यास, कृपया "अभिप्राय" टॅब मध्ये सबमिट करा.</string>
     <string name="terms_of_use">वापरण्याच्या अटी आणि नियम</string>
@@ -244,8 +218,8 @@
     <string name="about_je_intro10">जेलो अॅप्लिकेशन सबंधित सर्व कार्यांचे श्रेय इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे यांना दिले जाते.</string>
     <string name="about_je_intro11">जेलो अॅप्लिकेशनचे सर्व कन्टेन्ट (समाविष्ट केलेले चिन्ह, लेआउट, आर्किटेक्चर, व्हिज्युअल आइडेन्टिटी, भाषांतर आणि सॉफ्टवेयर कोड) शेयर किंवा समावून घेतला जाऊ शकतो परंतु व्यावसायिक उद्देशांसाठी वापरला जाऊ शकत नाही.</string>
     <string name="about_je_intro12">जेंव्हा कन्टेन्टचा वापर केला जाईल तेंव्हा तुम्हाला विनंती आहे की, तुम्ही इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे (आयआयटी-बी) प्रति आभार व्यक्त करा.</string>
-    <string name="about_je_intro13">जेलो अॅप्लिकेशन येथे डाउनलोड करण्यासाठी उपलब्ध आहे:</string>
-    <string name="about_je_intro14">जर कोणाला जेलोचा विकास करायचा असेल तर, त्यांना विंनती आहे की, जेलो प्रोजेक्टचे प्रमुख संशोधक प्राध्यापक रवि पूवैया यांना संपर्क करा.</string>
+    <string name="about_je_intro13">जेलो अॅप्लिकेशन http://www.jellow.org येथे डाउनलोड करण्यासाठी उपलब्ध आहे.</string>
+    <string name="about_je_intro14">जर कोणाला जेलोचा विकास करायचा असेल तर, त्यांना विंनती आहे की, जेलो प्रोजेक्टचे प्रमुख संशोधक प्राध्यापक रवि पूवैया यांना jellowcommunicator@gmail.com किंवा ravi@iitb.ac.in ई-मेलवर संपर्क करा.</string>
     <string name="credits">आभार सूची:</string>
     <string name="about_je_intro15"> प्रोजेक्ट अन्वेषण, संकल्पना आणि पर्यवेक्षण:</string>
     <string name="about_je_intro16">प्राध्यापक रवि पूवैया और डॉ. अजंता सेन</string>
@@ -278,7 +252,6 @@
     <!--Content description-->
     <string name="language_download_in_process">Language download in process</string>
     <string name="child_s_name">child\'s name</string>
-    <string name="caregiver_s_contact_number">केयर गिवरचा संपर्क नंबर| या डिवाईसच्या सिम नंबर पेक्षा वेगळा असावा </string>
     <string name="user_s_group">user\'s group</string>
     <string name="enter_home_address">enter home address</string>
     <string name="enter_caregiver_s_contact_number">enter caregiver\'s contact number</string>
@@ -301,7 +274,7 @@
     <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">Caregiver\'s Contact number other than this device\'s sim number</string>
     <string name="select_country_code">select country code</string>
     <string name="caregiver_s_email_address">caregiver\'s email address</string>
-    <string name="txt_registration_usergrp_desc">(Choose the person who will be using Jellow on this device)</string>
+    <string name="txt_registration_usergrp_desc">(जी व्यक्ती या डिव्हाइसवर जेलोचा वापर करणार आहे तिला निवडा)</string>
     <string name="like">आवडते</string>
     <string name="yes">हो</string>
     <string name="more">जास्तं</string>
@@ -317,7 +290,6 @@
     <string name="intro5_cd">This image again shows the screenshot of the home page of Jellow. In this image, the 6 expressive buttons arranged as 3 each of either side of the central category buttons have been highlighted with all other buttons faded out. To the left of the central grid of category buttons, arranged from top to bottom are the 3 expressive buttons of “Like” represented by a “Smiley face” icon, “Yes” represented by a “check mark” icon, and “More” represented by a “Plus sign” icon. To the right of the category buttons, arranged from top to bottom are the expressive icons of “Don’t like” represented by a sad face” icon, “No” represented by the “cross” icon and “Less” represented by the “Minus sign” icon. Also labeled in the image are the 3 navigational buttons at the bottom of the screen. From left to right these are “Back”, “Home”, and “Keyboard”</string>
     <string name="talkback_single_click">select</string>
     <string name="talkback_dropdown_menu">access countries list</string>
-    <string name="close_dialog">close dialog.</string>
     <string name="next">next</string>
     <string name="previous">previous</string>
     <string name="edttxt_msg">Type here to speak</string>
@@ -336,14 +308,10 @@
     <string name="lang_setting_option1_cd">“The image below shows the 3 steps involved in setting up the Google text-to-speech engine that is used by Jellow. The image is made up of 3 screenshots of the “Text to speech output” and “Google TTS settings” within a user’s device. In the first image corresponding to “Text-to-speech output”, there are 2 preferred engines visible, first, the “Samsung Text-to-Speech engine” and second, the “Google Text-to-Speech engine”. The user is seen to select the “Google Text-to-Speech engine” as the first step.</string>
     <string name="lang_setting_option2_cd">The second image corresponds to the second step in this process where the user is seen to now click on the “Gear” symbol corresponding to the “Settings” of the “Google Text-to-Speech engine”</string>
     <string name="lang_setting_option3_cd">The third image is the third step in this process where now the user is at the “Google TTS options” screen. The second item on this screen which is a toggle switch for “Use Wi-Fi only” has been highlighted in this image. The user is asked to turn off or disable this switch in this step.”</string>
-    <string name="lang_setting_option3_gtt3_cd">The third image corresponds to the third step  in this process where the user is seen to  now click on the “Language\" option on the  Google TTS voice data page. The user is seen to set  \"Hindi(India)\" as the default language of the  Google Text-to-Speech engine.</string>
     <!--end content description-->
 
     <string name="txt_tts_stting">टेक्स्ट-टू-स्पीच सेटिंग्स</string>
     <string name="change_language_tts_wifi">चरण २: खाली दिलेल्या \'टेक्स्ट-टू-स्पीच सेटिंग्स\' बटनाला टॅप करून गूगल टेक्स्ट-टू-स्पीच च्या सेटिंग्स वर जा आणि \'केवळ वाय-फाय चा वापर करा\' या बटनाला बंद करा. जर हे बटण सेटिंग्समध्ये आधीपासूनच बंद केले असेल तर, कृपया पुढे जा.</string>
-    <string name="icon_update_msg">अॅप्लिकेशनमधील भाषांसाठी आइकॉन्स अपडेट होत आहेत :</string>
-    <!--<string name="add_new_language">नवीन भाषा डाउनलोड करा किंवा उपस्थित भाषा डिलीट करा.</string>-->
-    <string name="disable_wifi_only">कृपया मागील चरणात \"केवळ वाय-फाय चा वापर करा\" या बटनाला बंद करा.</string>
     <string name="txtStep2">चरण २:</string>
     <string name="close">close dialog</string>
     <string name="access_dialog_title">dialog with options.</string>
@@ -358,8 +326,13 @@
     <string name="acc_lang_span_span">स्पॅनिश (स्पेन)</string>
     <string name="acc_lang_tamil_in">तमिळ</string>
     <string name="acc_lang_german_ger">जर्मन (जर्मनी)</string>
-    <string name="acc_lang_french_fr">फ्रेंच (फ्रांस)</string>
-    <string name="acc_lang_italian_it">इटालियन (इटली)</string>
+
+    <string name="_1_icon">१ आयकॉन</string>
+    <string name="_2_icons">२ आयकॉन</string>
+    <string name="_3_icons">३ आयकॉन</string>
+    <string name="_4_icons">४ आयकॉन</string>
+    <string name="_9_icons">९ आयकॉन</string>
+    <string name="number_of_icons_per_screen">प्रति स्क्रीन आइकॉन संख्या</string>
 
     <string name="level_1_screen">Level one screen</string>
     <string name="level_2_screen">Level two screen</string>
@@ -376,49 +349,4 @@
     <string name="switch_access_info_three">सॅमसंग वापरकर्ते फोनच्या सेटिंग्स मध्ये ऍक्सेसिबिलिटी श्रेणी मध्ये  "डेक्स्टेरिटी आणि इंटरैक्शन" पर्याया मध्ये  स्विच एक्सेस सुविधा पाहू शकतात.</string>
     <string name="switch_access_info_four">एक स्विचसह स्विच ऍक्सेसिबिलिटी वापरण्यासाठी - सेटिंग्स  उघडा -> ऍक्सेसिबिलिटी वर जा -> स्विच एक्सेस चालू करा -> यूएसबी किंवा ब्लूटूथ स्विच निवडा -> सेटिंग्स मध्ये जा आणि स्विचची संख्या एक निवडा.</string>
     <string name="switch_access_info_five">दोन स्विचसह स्विच ऍक्सेसिबिलिटी वापरण्यासाठी - सेटिंग्स  उघडा -> ऍक्सेसिबिलिटी वर जा -> स्विच एक्सेस चालू करा -> यूएसबी किंवा ब्लूटूथ स्विच निवडा -> सेटिंग्स मध्ये जा आणि स्विचची संख्या दोन निवडा. नंतर स्कॅनिंगचा प्रकार निवडा आणि पुढे क्लिक करून दोन्ही स्विचसाठी क्रिया निवडा. त्यानंतर स्विचची चाचणी करून प्रक्रिया पूर्ण करा.</string>
-
-
-    <!--String resources for MMB-->
-    <string name="exit_warning">तुम्हाला मागे जायचे आहे का?</string>
-    <string name="expressive_heading">भाववाहक</string>
-    <string name="icon_select_exit_warning" >आपण सेलेक्ट केलेल्या श्रेणी डिलीट होऊ शकतात</string>
-    <string name="current_board">वर्तमान बोर्ड</string>
-    <string name="place_holder_text">आपण निवडलेले आयकॉन येथे दिसेल</string>
-    <string name="board_name">बोर्डचे नाव </string>
-    <string name="_1_icon">१ आयकॉन</string>
-    <string name="_2_icons">२ आयकॉन</string>
-    <string name="_3_icons">३ आयकॉन</string>
-    <string name="_4_icons">४ आयकॉन</string>
-    <string name="_9_icons">९ आयकॉन</string>
-    <string name="number_of_icons_per_screen">प्रति स्क्रीन आइकॉन संख्या</string>
-    <string name="select_all">सर्व निवडा</string>
-    <string name="reset">रीसेट करा</string>
-    <string name="select_icon_title">आयकॉन निवडा</string>
-    <string name="default_text" >डिफ़ॉल्ट</string>
-    <string name="add_category">श्रेणी जोडा</string>
-    <string name="add_icon">आयकॉन जोडा</string>
-    <string name="edit_icon">आयकॉन संपादित करा</string>
-    <string name="addicon_title">आयकॉन जोडा/संपादित करा</string>
-    <string name="rep_activity_title">आयकॉन चे स्थान बदला</string>
-    <string name="i_like">मला आवडते</string>
-    <string name="really_like">मला खरोखर आवडते</string>
-    <string name="i_want">मला पाहिजे</string>
-    <string name="really_want">मला खरोखर पाहिजे</string>
-    <string name="want_more">मला अजुन पाहिजे</string>
-    <string name="really_want_more">मला खरोखर अजुन जास्त पाहिजे</string>
-    <string name="i_dont_like">मला आवडत नाही</string>
-    <string name="really_dont_like">मला खरोखर आवडत नाही</string>
-    <string name="dont_want">मला नको</string>
-    <string name="really_dont_want">मला खरोखर नको</string>
-    <string name="dont_want_more">मला आणखी नको</string>
-    <string name="really_dont_want_more">मला खरोखर आणखी जास्त नको</string>
-    <string name="please_enter_name">कृपया नाव दाखिल करा</string>
-    <string name="photos">फोटो</string>
-    <string name="library">जेलो चे आयकॉन</string>
-    <string name="icon_name">आयकॉन चे नाव</string>
-    <string name="category_name">श्रेणीचे नाव</string>
-    <string name="all_boards">सर्व भाषा</string>
-    <string name="add_board">बोर्ड जोडा</string>
-    <string name="boards_count">बोर्ड</string>
-    <string name="custom_icon">कस्टम आयकॉन</string>
 </resources>

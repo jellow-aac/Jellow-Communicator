@@ -21,7 +21,6 @@
 
     <string name="app_name">ஜெல்லோ</string>
     <string name="action_settings">அமைப்பு</string>
-    <string name="Profile">சுயவிவரங்கள்</string>
 
     <string name="Language">மொழி</string>
     <string name="saveLanguage">மாற்றங்களைப் பயன்படுத்து</string>
@@ -75,7 +74,6 @@
     <string name="simple_ime">ஜெல்லோ விசைப்பலகை</string>
     <string name="subtype_en_US">அகரவரிசை</string>
     <string name="action_bar_title">முகப்பு</string>
-    <string name="txtLanguage">மொழி</string>
     <string name="txtSpeechSpeed">வேகமான பேச்சு</string>
     <string name="txtVoiceSpeech">குரல் சுருதி</string>
     <string name="txtDisplayMode">திரை வகை</string>
@@ -89,7 +87,6 @@
     <string name="checkConnectivity">நீங்கள் இணையத் தொடர்பில் இல்லை. தயவுகூர்த்து இணையத்தை இயக்கவும்</string>
 
     <string name="menuProfile">சுயவிவரங்கள்</string>
-    <string name="menuMyBoards">எனது பலகைகள்</string>
     <string name="menuAbout">ஜெல்லோவை பற்றி</string>
     <string name="menuTutorials">பயிற்சி</string>
     <string name="menuKeyboardInput">விசைப்பலகை கட்டுப்பாடு</string>
@@ -108,13 +105,6 @@
     <string name="easyToNavigate">உட்செல்ல சுலபமானது</string>
     <string name="commentSuggestions">கருத்து/ பரிந்துரை</string>
     <string name="submit">சமர்ப்பி</string>
-    <string name="appLoading">செயலி ஏற்றுகிறது…</string>
-    <string name="activateGoogleTts">1.கூகுள் டிஎஸ்எஸ்ஐ செயல்படுத்து</string>
-    <string name="changeDefaultToHindi">தேர்ந்தெடுக்கப்பட்ட மொழியை வழக்கமான மொழியாக மாற்றுக</string>
-    <string name="downloadVoiceTts">தேர்ந்தெடுத்த மொழியில் குரலை பதிவிறக்குக</string>
-    <string name="activate">செயல்படுத்து</string>
-    <string name="cancel">இல்லை</string>
-    <string name="keyboardControl">விசைப்பலகை கட்டுப்பாடு</string>
     <string name="serial_keyboard_title">வரிசை விசைபலகை:</string>
     <string name="serial_keyboard_info">ஜெல்லோவானது அதன் பிரத்யேக \'Serial Jellow keyboard\ விசைபலகையை கொண்டுள்ளது. இந்த விசைபலகையானது பல்வேறு சிறப்பு கல்வியாளர்கள் மற்றும் ஆசிரியர்களின் பரிந்துரையின் பேரில் அகரவரிசைப் படி அமைக்கப்பட்டுள்ளது(ஆங்கிலத்தில் \'A\' வில் இருந்து தொடங்கும்). இது பயனருக்கு இலகுவாக ஒரு எழுத்தில் இடத்தை கண்டுபிடிக்க உதவுகிறது மேலும் இது கல்வி கற்க தொடங்கி இருக்கும் குழந்தைகளுக்கு மிகவும் உதவியாக இருக்கும். இதேபோல், எண்களும் தினசரி உபயோகத்திற்கு ஏற்ற வகையில் 0–9 வரை வரிசை படுத்தப்பட்டுஉள்ளது</string>
     <string name="keyboardControlTxt">உங்கள் தேர்வின்படி விசைப்பலகையை இயக்க மற்றும் அதனை முதன்மையாக மாற்றநீங்கள் இரண்டு படிகளை முடிக்க வேண்டும்ம</string>
@@ -123,7 +113,6 @@
     <string name="serialKeyboard">அகரவரிசை விசைப்பலகை</string>
     <string name="step2">படி 2: முதன்மை விருப்பமாக விசைப்பலகையைச் சேமிக்க</string>
     <string name="saveAsDefault">இயல்பானதாக செமி</string>
-    <string name="voiceControl">இயல்பானதாக செமி</string>
     <string name="getKeyboardControl">விசைப்பலகை கட்டுப்பாடு</string>
     <string name="childName">குழந்தையின் பெயர் *</string>
     <string name="caregiverName">பதுகாவலரின் பெயரை</string>
@@ -133,19 +122,12 @@
     <string name="bloodGroup">இரத்த வகை</string>
     <string name="detailSaved">விபரங்கள் சேமிக்கபட்டன</string>
     <string name="invalid_emailId">தவறான மின்னஞ்சல் முகவரி</string>
-    <string name="invalidContactNumber">தவறான தொடர்பு எண்</string>
     <string name="enterTheName">தயவுகூர்ந்து உங்கள் குழந்தையின் பெயரை உள்ளிடவும்</string>
     <string name="search_act_title">ஜெல்லோவில் சின்னங்களைக் கண்டறி</string>
-    <string name="resetPreferenceMessage">
-       <![CDATA[ <ul>
-            <li>ஜெல்லோ பயனரின் \'அதிகம் உபயோகித்த அல்லது தேர்ந்தேடுத்த\' சின்னத்தை நினைவு கூர்ந்து அதனை முதன்மை விருப்பமாக திரையில் காட்டும்</li><br/>
-            <li>விருப்பங்களை மறு அமைப்பு செய்ததும், சின்னங்கள் செயலியை முதலில் தொடங்கும்போது எந்த இடத்தில இருந்ததோ அந்த இடத்திற்கு சென்றுவிடும் </li><br/>
-            <li>நீங்கள் விருப்பங்களை மறு அமைப்பு செய்ய வேண்டுமா?</li><br/><br/>
-       </ul>]]>
-    </string>
     <string name="iconsHasBeenReset">விருப்பங்கள் மறு அமைப்பு செய்யப்பட்டன.</string>
     <string name="speak">பேசு </string>
     <string name="stop">நிறுத்து</string>
+    <!--not translated-->
     <string name="about_jellow_speech">ஜெல்லோ சின்னங்களில் இருந்து பேச்சை வெளிப்படுத்தும்  தகவல் தொடர்பாளர்  ஆகும். இது பேசுவதற்கு பயிற்சி எடுப்போருக்கும் மற்றும் பேச சிரமப்படுவோர்  பயன்படுத்தும் வகையில் உருவாக்கப்பட்டது இது  மும்பையில் உள்ள பாம்பே இந்திய தொழில்நுட்ப நிறுவனத்தின் தொழில்துறை வடிவமைப்பு மையத்தில் உருவாக்கப்பட்டது ஒரு உணர்ச்சி மொழி நெறிமுறை(Emotional language proto call) நாவல் திட்ட மேலாளர்களால் கற்பனை செய்யப்பட்டு ஜெல்லோவின் மொழியாற்றலை மேம்படுத்த உருவாக்கப்பட்டது. உணர்ச்சி மொழி நெறிமுறை இடைமுகத்தின் மையத்தை உருவாக்குகின்ற 6 அடிப்படையான சின்னங்களைக் குறிக்கிறது. இந்த அடிப்படை சின்னங்களைக் கொண்டு குழந்தைகள் தங்கள் விருப்பு, வெறுப்பு,மற்றும் தேவைகளை மற்றவர்களுடன் தொடர்புகொள்ள முடியும். ஜெல்லோ எளிதாக கற்கும் வண்ணம் குழந்தைக்கு நட்புரீதியான இடைமுகத்துடன் கருவாக்கப்பட்டுள்ளது. இந்த செயலி Andoid Tablet களுக்கு  உகந்ததாக வடிவமைக்கப்பட்டுள்ளது.</string>
     <string name="catBtnDesc">ஜெல்லோ 9 வகைப் பொத்தான்களையும் 6 வெளிப்பாட்டுப் பொத்தான்களையும் கொண்டுள்ளது</string>
     <string name="catBtn">வகை பொத்தான்</string>
@@ -161,9 +143,6 @@
     <string name="expBtnSeq">தொடர்நிகழ்வில் உள்ள வெளிப்பாட்டுப் பொத்தான்</string>
     <!--not translated-->
     <string name="ttsDesc">To use Jellow in English, Hindi and Bengali, please activate <b>\'Google text-to-speech (TTS)\'</b> within <b>\'Language\'</b> settings of your device. Within Google TTS settings, first change the <b>default language</b> to preferred language and then download voice for preferred language through the <b>\'Install voice data\'</b> option</string>
-    <string name="softwareVersion">மென்பொருள் பதிப்பு: </string>
-    <string name="string_to_speak">பேசுவதற்கான வார்த்தைகளை இங்கு உள்ளிடவும்</string>
-    <string name="speak_written_text">எழுதப்பட்ட வாக்கியத்தை பேசு \</string>
     <string name="resetPrefPointOne">ஜெல்லோ பயனரின் \'அதிகம் உபயோகித்த அல்லது தேர்ந்தேடுத்த\' சின்னத்தை நினைவு கூர்ந்து அதனை முதன்மை விருப்பமாக திரையில் காட்டும்</string>
     <string name="resetPrefPointTwo">விருப்பங்களை மறு அமைப்பு செய்ததும், சின்னங்கள் செயலியை முதலில் தொடங்கும்போது எந்த இடத்தில இருந்ததோ அந்த இடத்திற்கு சென்றுவிடும்</string>
     <string name="resetPrefPointThree">நீங்கள் விருப்பங்களை மறு அமைப்பு செய்ய வேண்டுமா?</string>
@@ -194,16 +173,12 @@
     <string name="txtChangeLanguage">முதன்மை மொழியை மாற்று</string>
 
     <string name="txtApplyChanges">படி 4: புதிய மொழியை இயல்பான மொழியாக மாற்ற \'மாற்றங்களை பயன்படுத்தவும்\' வில் சொடுக்கவும்</string>
-    <string name="txt_intro6_skipTtsSetup">கூகுள் டிஎஸ்எஸ் ஏற்க்கனவே செயல்பாட்டில் உள்ள சாதனங்கள்: இந்த படிநிலையைத்  தவிர்க்கவும்</string>
     <string name="txt_actLangSel_downloadDat">குரல் தரவினை சரிபார்க்கவும்</string>
     <string name="language_downloaded">_ மொழி பதிவிறக்கப்பட்டது</string>
     <string name="language_downloading">_ மொழி பதிவிறக்கப்படுகிறது</string>
-    <string name="ok">சரி</string>
-    <string name="call_permission_info">அழைப்பிற்கான  அனுமதி கிடைக்கவில்லை. அவசர காலங்களில் அழைப்பினை விடுக்க அழைப்பிற்கான  அனுமதி தேவைப்படுகிறது.</string>
     <string name="granted_call_permission_req">அழைப்பிற்கான அனுமதி தரப்பட்டது</string>
     <string name="rejected_call_permission_req">அழைப்பிற்கான அனுமதி மறுக்கப்பட்டுள்ளது</string>
     <string name="grant_permission_from_settings">அமைப்பிலிருந்து அழைப்பிற்கான அனுமதியை செயல்படுத்து</string>
-    <string name="request">வேண்டுகோள்</string>
     <string name="userGroup">பயனர் தொகுதி *</string>
     <string name="groupTeacher">சிகிச்சை அளிப்பவர்/ஆசிரியர்</string>
     <string name="groupParent">பெற்றோர்/பாதுகாவலர்</string>
@@ -232,8 +207,7 @@
     <string name="about_je_intro4">. இந்த அடிப்படை சின்னங்களைக் கொண்டு குழந்தைகள் தங்கள் விருப்பு, வெறுப்பு,மற்றும் தேவைகளை மற்றவர்களுடன் தொடர்புகொள்ள முடியும்.</string>
     <string name="about_je_intro5">ஜெல்லோ எளிதாக கற்கும் வண்ணம் குழந்தைக்கு நட்புரீதியான இடைமுகத்துடன் கருவாக்கப்பட்டுள்ளது.</string>
     <string name="about_je_intro6">இந்த செயலி Andoid Tablet களுக்கு  உகந்ததாக வடிவமைக்கப்பட்டுள்ளது.</string>
-    <!--not translated-->
-    <string name="about_je_intro7">Jellow is currently available in English, Hindi, Bengali and Marathi.</string>
+    <string name="about_je_intro7">ஜெல்லோ தற்போது ஆங்கிலம், இந்தி, பெங்காலி, மராத்தி, தமிழ், ஸ்பானிஷ், ஜெர்மன் மற்றும் பிரஞ்சு மொழிகளில் கிடைக்கிறதுஜெல்லோ தற்போது ஆங்கிலம், இந்தி, பெங்காலி, மராத்தி, தமிழ், ஸ்பானிஷ், ஜெர்மன் மற்றும் பிரஞ்சு மொழிகளில் கிடைக்கிறது</string>
     <string name="software_info">மென்பொருள் பதிப்பு: _</string>
     <string name="about_je_intro8">ஜெல்லோவின் தற்போதைய மென்பொருள் பதிப்பு _. செயலி மேம்பாட்டின் கீழ் உள்ளது. செயலிக்கான உங்களது பரிந்துரைகளை \'பின்னூட்டத்தை\' பயன்படுத்தி தெரிவிக்கவும் அல்லது jellowcommunicator@gmail.com என்ற மின்னஞ்சல் முகவரிக்கு மின்னஞ்சல் அனுப்பவும்</string>
     <string name="terms_of_use">உபயோகித்தளுக்கான விதிமுறைகள்</string>
@@ -242,7 +216,7 @@
     <string name="about_je_intro11">இந்த செயலியின் தகவல்கள் உள்ளடக்கமாகிய சின்னங்கள், வெளியமைப்பு, கட்டமைப்பு, காட்சி அடையாளம்  போன்றவை பகிர்ந்து கொள்ளக் கூடியன. அனால் அவற்றை வணிக நோக்கங்களுக்காக பயன்படுத்த முடியாது</string>
     <string name="about_je_intro12">இந்த செயலியின் உள்ளடக்கங்களைப் பயன்படுத்தும்போது மும்பையிலுள்ள இந்திய தொழில்நுட்ப நிறுவனத்திற்கு தெரியப்படுத்தவும்</string>
     <string name="about_je_intro13">ஜெல்லோவை www.jellow.org என்ற வலைத்தளத்தில் பதிவிறக்கலாம்</string>
-    <string name="about_je_intro14">ஜெல்லோவை மேலும் மேம்படுத்த விரும்பினால் பேராசிரியர் ரவி பூவையா விற்கு ravi@iitb.ac.in என்ற முகவரிக்கு  மின்னஞ்சல் அனுப்புங்கள்</string>
+    <string name="about_je_intro14">ஜெல்லோவை மேலும் மேம்படுத்த விரும்பினால் பேராசிரியர் ரவி பூவையா விற்கு jelllowcommunicator@gmail.com அல்லது ravi@iitb.ac.in என்ற முகவரிக்கு  மின்னஞ்சல் அனுப்புங்கள்</string>
     <string name="credits">நன்மதிப்பிற்கு உரியோர்:</string>
     <string name="about_je_intro15">கருத்துருவாக்கம், திட்ட விசாரணை மற்றும் மேலாண்மை:</string>
     <string name="about_je_intro16">பேராசிரியர் ரவி பூவையா  மற்றும் டாக்டர் அஜந்தா சென்</string>
@@ -276,7 +250,6 @@
     <!--Content description-->
     <string name="language_download_in_process">மொழி பதிவிறக்கம் நடைபெறுகிறது</string>
     <string name="child_s_name">குழந்தையின் பெயர். தேவையான பகுதி </string>
-    <string name="caregiver_s_contact_number">பாதுகாவலரின் தொடர்பு எண்ணை</string>
     <string name="user_s_group">பயனர் தொகுதி. தேவையான பகுதி </string>
     <string name="enter_home_address">வீட்டு முகவரியை உள்ளிடவும்</string>
     <string name="enter_caregiver_s_contact_number">பாதுகாவலரின் தொடர்பு  எண்ணை உள்ளிடவும்</string>
@@ -315,7 +288,6 @@
     <string name="intro5_cd">இப்படம் மறுபடியும் ஜெல்லோவின் முகப்பு பக்கத்தின் திரை பிடிப்பையே காட்டுகிறது. இப்படத்தில் 6 வெளிப்பாடு போத்தங்களும் மத்திய வகை போத்தங்களுக்கு இருபுறத்திலும் முன்மூன்றாக இருப்பதை உயர்த்திக் காட்டுகிறது மாற்ற [பொத்தான்கள் மங்கலாக்கப்பட்டுள்ளன. மத்திய வகை போதன்களுக்கு இடப்புறத்தில் மேலிருந்து கீழாக அமைக்கப்பட்டுள்ள "விருப்பம்" வகையின் 3 வெளிப்பாடு பொத்தான்களும்  சிரிப்புமுகச் சின்னத்தால் குறித்து காட்டப்பட்டுள்ளன, "வேண்டும்" வகை சரிபார்த்தல் குறியீட்டால் குறித்து காட்டப்பட்டு உள்ளது மட்டும் "மேலும்" வகையானது கூட்டல் சின்னத்தால் குறித்து கட்டப்பட்டு உள்ளது. வகைப்போத்தங்களின் வலது புறத்தில் மெலிந்து கீழாக அமையகப்பட்டுள்ள வெளிப்படை சின்னங்கலாவன "விருப்பமில்லை"  என்பது "சோக முகத்துடனும்", "வேண்டாம்" என்பது "பெருக்கல்" குறியீட்டிலும், மற்றும் "குறைவாக" என்பது "கழித்தல்" குறியீட்டிலும் காட்டப்பட்டுள்ளது. மேலும் 3 வழிசெல்லும் பொத்தான்கள் திரையின் கீழ் காட்டப்பட்டுள்ளன. இடமிருந்து வலமாக உள்ள அவையாவன "பின்செல்", "முகப்பு", "விசைப்பலகை"</string>
     <string name="talkback_single_click">தேர்ந்தெடு</string>
     <string name="talkback_dropdown_menu">நாடுகளின் பட்டியலைப் பெற</string>
-    <string name="close_dialog">உரையாடலை மூடு</string>
     <string name="next">அடுத்து</string>
     <string name="previous">முந்தைய</string>
     <string name="edttxt_msg">பேசுவதற்கு இங்கு வார்த்தைகளை உள்ளிடுக</string>
@@ -334,12 +306,9 @@
     <string name="lang_setting_option1_cd">கீழ்காணும் படம் ஜெல்லோவில் பயன்படுத்தப்படும் கூகுள் டெக்ஸ்ட் டு ஸ்பீச் இயக்கியை அமைப்பதற்க்கான 3 படிநிலைகளைக் காட்டுகிறது. இந்த படம் பயனர் சாதனத்தினுள் உள்ள  , “Text to speech output” மற்றும் “Google TTS settings” இன் 3 திரைப்பிடிப்புகளைக் கொண்டு உருவாக்கப்பட்டுள்ளது. முதல் படம் \"Text-to-speech output\" க்கானது. இங்கு  2 விருப்பமான இயக்கிகள் காட்டப்பட்டுள்ளன. முதலாவதாக" சாம்சுங் டெக்ஸ்ட் டு ஸ்பீச் இயக்கி " மற்றும் இரண்டாவதாக "கூகுள் டெக்ஸ்ட் டு ஸ்பீச் இயக்கி" ஆகியவை காட்டப்பட்டுள்ளன. பயனர் முதல் படிநிலையில் "கூகுள் டெக்ஸ்ட் டு ஸ்பீச் இயக்கி" ஐ தேர்ந்தெடுப்பதாக காட்டப்பட்டுள்ளது</string>
     <string name="lang_setting_option2_cd">இரண்டாவது படம் இரண்டாவது படிநிலைக்கானது. இங்கு பயனர் கூகுள் டெக்ஸ்ட் டு ஸ்பீச் இயக்கியின் "அமைப்பு" க்கு செல்ல உதவும் "கியர்" குறியீட்டை சொடுக்குவது போல காட்டப்பட்டுள்ளது.</string>
     <string name="lang_setting_option3_cd">மூன்றாவது படம் மூன்றாவது படிநிலையைக் காட்டுகிறது. இப்படத்தில் பயனர் , “Google TTS options” திரையில் உள்ளார். இப்படத்தில் இரண்டாவதாக “Use Wi-Fi only” ஐ மாற்றுவதரற்க்கான பொத்தான் உயர்த்திக் கட்டப்பட்டுள்ளது.பயனர் இப்படிநிலையில் இந்த பொத்தானை turn off or disable செய்யுமாறு கேட்டுக்கொள்ளப் படுகிறார்.</string>
-    <string name="lang_setting_option3_gtt3_cd">மூன்றாவது படம் மூன்றாவது படிநிலையைக் காட்டுகிறது. இப்படத்தில் பயனர்  Google TTS voice data பக்கத்தில் \"Language\" தெரிவில் சொடுக்குமாறு காட்டப்பட்டுள்ளது. பயனர்  Google Text-to-Speech இயக்கிக்கான இயல்பு மொழியாக \"Hindi(India)\"  ஐ தேர்ந்தெடுப்பதாக காட்டப்பட்டுள்ளது</string>
 
     <string name="txt_tts_stting">டிஎஸ்எஸ் அமைப்புகள்</string>
     <string name="change_language_tts_wifi">படி 2: கூகுள் டிஎஸ்எஸ் இயக்கியின் அமைப்பிற்க்குச் சென்று "யூஸ் வை-பை ஒன்லி" ஐ அணை. ஏற்க்கனவே இது செய்யப்பட்டிருப்பின் இந்த நிலையைக் கைவிடவும்.</string>
-    <string name="icon_update_msg">இருக்கும் மொழி (கள்) க்கான சின்னங்களை புதுப்பிக்கிறது:</string>
-    <string name="disable_wifi_only">\"யூஸ் வை-பை ஒன்லி\" ஐ அணைக்க முந்தைய படிநிலையை முடிக்கவும்</string>
     <string name="txtStep2">படிநிலை 2:</string>
     <string name="close">உரையாடலை மூடு</string>
     <string name="access_dialog_title">விருப்பங்களோடு கூடிய உரையாடல்</string>
@@ -354,9 +323,13 @@
     <string name="acc_lang_span_span">ஸ்பானிஷ்(ஸ்பெயின்)</string>
     <string name="acc_lang_tamil_in">தமிழ்(இந்தியா)</string>
     <string name="acc_lang_german_ger">ஜேர்மன்(ஜெர்மனி)</string>
-    <string name="acc_lang_french_fr">பிரெஞ்சு(பிரான்ஸ்)</string>
-    <!--not translated-->
-    <string name="acc_lang_italian_it">Italiano (Italian)</string>
+
+    <string name="_1_icon">1 சின்னம்</string>
+    <string name="_2_icons">2 சின்னங்கள்</string>
+    <string name="_3_icons">3 சின்னங்கள்</string>
+    <string name="_4_icons">4 சின்னங்கள்</string>
+    <string name="_9_icons">9 சின்னங்கள்</string>
+    <string name="number_of_icons_per_screen">ஒரு திரையில் எத்தனை சின்னங்கள் வேண்டும்?</string>
 
     <string name="level_1_screen">முதலாவது நிலையின் திரை</string>
     <string name="level_2_screen">இரண்டாவது நிலையின் திரை</string>
@@ -373,49 +346,4 @@
     <string name="switch_access_info_three">சாம்சங் பயனாளர்கள் தொலைபேசி அமைப்பின் accessibility வகையில் “dexterity and interaction" தெரிவில் சுவிட்ச் வசதியைக் காணலாம்</string>
     <string name="switch_access_info_four">சுவிட்ச் அணுகலை ஒரு சுவிட்ச் இல் பெற- Open settings(தொலைபேசியில் அமைப்பினைத் திறந்த உடன் ) -> Go to accessibility (accessibility சென்று) -> Turn on the switch access (switch access ஐ ஆன் செய்க) -> Choose switches either USB or Bluetooth switches (USB அல்லது Bluetooth இல் எதனை சுவிட்ச் செய்ய சென்று தேர்ந்தெடுக்கவும்) -> Go to settings and Choose number of switches as one switch(அமைப்பில் சென்று number of switch இல்  one switch என தேர்ந்தெடுக்கவும்)</string>
     <string name="switch_access_info_five">சுவிட்ச் அணுகலை இரு சுவிட்ச் இல் பெற-Open settings(தொலைபேசியில் அமைப்பினைத் திறந்த உடன் ) -> Go to accessibility (accessibility சென்று) -> Turn on the switch access (switch access ஐ ஆன் செய்க) -> Choose switches either USB or Bluetooth switches (USB அல்லது Bluetooth இல் எதனை சுவிட்ச் செய்ய சென்று தேர்ந்தெடுக்கவும்) -> Go to settings and Choose number of switches as one switch(அமைப்பில் சென்று number of switch இல் two switches என தேர்ந்தெடுக்கவும்) . பிறகு,type of scanning ஐ தேர்ந்தெடுத்து,next ஐ அழுத்தி இரு சுவிட்சுகளுக்கு அனுமதி அளித்து சுவிட்சுகளை சரிபார்த்துக்கொண்டு செயல்பாட்டை முடிக்கவும்.</string>
-
-
-    <!--String resources for MMB-->
-    <string name="exit_warning">நீங்கள் உறுதியாக வெளியேற நினைக்கிறீரா?</string>
-    <string name="expressive_heading">வெளிப்பாடு </string>
-    <string name="icon_select_exit_warning">தேர்ந்தேடுத்தவைகள் இழக்கப்படும்!</string>
-    <string name="current_board">தற்போதைய பலகை</string>
-    <string name="place_holder_text">நீங்கள் தேர்வு செய்த சின்னம் இங்கு காண்பிக்கப்படும்</string>
-    <string name="board_name">பலகையின் பெயர்</string>
-    <string name="_1_icon">1 சின்னம்</string>
-    <string name="_2_icons">2 சின்னங்கள்</string>
-    <string name="_3_icons">3 சின்னங்கள்</string>
-    <string name="_4_icons">4 சின்னங்கள்</string>
-    <string name="_9_icons">9 சின்னங்கள்</string>
-    <string name="number_of_icons_per_screen">ஒரு திரையில் எத்தனை சின்னங்கள் வேண்டும்?</string>
-    <string name="select_all">அனைத்தையும் தேர்ந்தெடு</string>
-    <string name="reset">மீட்டு அமை</string>
-    <string name="select_icon_title">சின்னங்களைத் தேர்ந்தெடு</string>
-    <string name="default_text" >இயல்பு நிலை</string>
-    <string name="add_category">வகையினைச் சேர்</string>
-    <string name="add_icon">சின்னத்தைச் சேர்</string>
-    <string name="edit_icon">சின்னத்தை மாற்று</string>
-    <string name="addicon_title">சின்னங்களைச் சேர்/ மாற்று</string>
-    <string name="rep_activity_title">சின்னங்களின் இடத்தை மாற்று</string>
-    <string name="i_like">எனக்கு பிடிக்கும்</string>
-    <string name="really_like">எனக்கு மிகவும் பிடிக்கும்</string>
-    <string name="i_want">எனக்கு வேண்டும்</string>
-    <string name="really_want">எனக்கு கண்டிப்பாக வேண்டும்</string>
-    <string name="want_more">எனக்கு மேலும் வேண்டும்</string>
-    <string name="really_want_more">எனக்கு கண்டிப்பாக மேலும் வேண்டும்</string>
-    <string name="i_dont_like">எனக்கு பிடிக்கவில்லை</string>
-    <string name="really_dont_like">எனக்கு சுத்தமாகப் பிடிக்கவில்லை</string>
-    <string name="dont_want">எனக்கு வேண்டாம்</string>
-    <string name="really_dont_want">எனக்கு உண்மையாக வேண்டாம்</string>
-    <string name="dont_want_more">எனக்கு மேலும் வேண்டாம்</string>
-    <string name="really_dont_want_more">உனக்கு உண்மையாக மேலும் வேண்டாம்</string>
-    <string name="please_enter_name">பெயரை உள்ளிடவும்</string>
-    <string name="photos">புகைப்படங்கள்</string>
-    <string name="library">நூலகம்</string>
-    <string name="icon_name">சின்னத்தின் பெயர்</string>
-    <string name="category_name">வகையின் பெயர்</string>
-    <string name="all_boards">அனைத்து மொழிகளும்</string>
-    <string name="add_board">பலகையினைச் சேர்</string>
-    <string name="boards_count">பலகைகள்</string>
-    <string name="custom_icon">தனிப்பயன் சின்னம்</string>
 </resources>

@@ -1208,11 +1208,8 @@ public class LevelTwoActivity extends LevelBaseActivity{
                             if(isNoTTSLanguage()) {
                                 speakInQueue(level2IconObjects[mLevelTwoItemPos].getMM());
                             }else {
-                                String contact = getSession().getCaregiverNumber();
-                                contact = contact.substring(0, contact.length() - 3);
-                                contact = contact.replaceAll(".", "$0 ").replace("+", "plus");
                                 String speechTxt = level2IconObjects[mLevelTwoItemPos].getMM();
-                                speechTxt = speechTxt.replace("_", contact);
+                                speechTxt = speechTxt.replace("_", getContactWithSpacesBetweenDigits());
                                 speak(speechTxt);
                             }
                             mUec.createSendFbEventFromTappedView(18,
@@ -1240,11 +1237,8 @@ public class LevelTwoActivity extends LevelBaseActivity{
                             if(isNoTTSLanguage()) {
                                 speakInQueue(level2IconObjects[mLevelTwoItemPos].getM());
                             }else {
-                                String contact = getSession().getCaregiverNumber();
-                                contact = contact.substring(0, contact.length() - 3);
-                                contact = contact.replaceAll(".", "$0 ").replace("+", "plus");
                                 String speechTxt = level2IconObjects[mLevelTwoItemPos].getMM();
-                                speechTxt = speechTxt.replace("_", contact);
+                                speechTxt = speechTxt.replace("_", getContactWithSpacesBetweenDigits());
                                 speak(speechTxt);
                             }
                             mUec.createSendFbEventFromTappedView(17,
@@ -1882,6 +1876,27 @@ public class LevelTwoActivity extends LevelBaseActivity{
             case  8: return getString(R.string.oNeg);
             default: return "";
         }
+    }
+
+    /**
+     * <p>This function add spaces between each in character digit in caregiver number.
+     * Also, it replaces '+' symbol with 'plus' text.
+     * This form of caregiver number used to speak mobile number via Speech Engine in
+     * Help -> About Me category icon.
+     * @return The modified caregiver number.</p>
+     * */
+    private String getContactWithSpacesBetweenDigits() {
+        String contact = getSession().getCaregiverNumber();
+        contact = contact.substring(0, contact.length() - 3);
+        contact =
+                (SessionManager.ES_ES+SessionManager.FR_FR). contains(getSession().getLanguage()) ?
+
+                        contact.replaceAll("[0-9]{1,2}", "$0 ").
+                                replace("+", "plus ")    :
+
+                        contact.replaceAll(".", "$0 ").
+                                replace("+", "plus");
+        return contact;
     }
 
     /**
