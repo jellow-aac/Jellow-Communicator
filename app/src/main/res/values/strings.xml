@@ -279,7 +279,7 @@
     <string name="langauge_correction_message"> \'"-"\' language is not setup correctly. Press \'"_"\' to fix the language. \n Or you can switch to default language by pressing \'"$"\'.</string>
     <string name="changeLanguage">Fix The Language</string>
     <string name="dialog_default_language_option">Default Language</string>
-    <string name="privacy_link">I have read Jellow\'s <font color="#dc5252"><b><u>privacy policy.</u></b></font></string>
+    <string name="privacy_link">I have read Jellow\'s <![CDATA[<font color="#dc5252"><b><u>privacy policy.</u></b></font>]]></string>
     <string name="consent_privacy">Please read and then check privacy policy consent.</string>
 
     <!--Content description-->

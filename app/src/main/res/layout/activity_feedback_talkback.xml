@@ -19,7 +19,7 @@
             android:layout_marginRight="@dimen/feedback_scroll_margin_right"
             android:layout_marginEnd="@dimen/feedback_scroll_margin_right">
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/feedback_scroll_width"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
@@ -99,7 +99,8 @@
                     android:gravity="start"
                     android:inputType="textMultiLine"
                     android:imeOptions="actionDone"
-                    style="@style/defaultTextViewStyle"/>
+                    style="@style/defaultTextViewStyle"
+                    android:background="@drawable/rounded_back"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/feedback_extra_space_height"/>

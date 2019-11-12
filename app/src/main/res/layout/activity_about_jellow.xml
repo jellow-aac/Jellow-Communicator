@@ -19,11 +19,11 @@
             android:fillViewport="true"
             android:fadeScrollbars="false">
             <LinearLayout
-                android:layout_width="@dimen/about_scroll_width"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingEnd="@dimen/about_ll_padding_right"
-                android:paddingRight="@dimen/about_ll_padding_right">
+                android:layout_marginRight="@dimen/about_ll_margin_right"
+                android:layout_marginEnd="@dimen/about_ll_margin_right">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

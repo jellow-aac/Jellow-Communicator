@@ -246,7 +246,7 @@
     <string name="langauge_correction_message"> \'"-"\' भाषेचा सेटअप चुकलेला आहे. भाषेचा सेटअप  अचूक करण्यासाठी \'"_"\' बटन दाबा. किंवा \'"$"\' बटण दाबून तुम्ही डीफॉल्ट भाषा निवडू शकता.</string>
     <string name="changeLanguage">भाषेची सेटिंग अचूक करा</string>
     <string name="dialog_default_language_option">डिफ़ॉल्ट भाषा</string>
-    <string name="privacy_link">मी जेलोची <font color="#dc5252"><b><u>प्रायव्हसी पॉलिसी</u></b></font> वाचली आहे.</string>
+    <string name="privacy_link">मी जेलोची <![CDATA[<font color="#dc5252"><b><u>प्रायव्हसी पॉलिसी</u></b></font>]]> वाचली आहे.</string>
     <string name="consent_privacy">कृपया वाचा आणि प्रायव्हसी पॉलिसीच्या चेक बॉक्सवर क्लिक करा.</string>
 
     <!--Content description-->

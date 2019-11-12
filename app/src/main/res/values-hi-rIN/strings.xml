@@ -242,7 +242,7 @@
     <string name="langauge_correction_message"> \'"-"\' भाषा का सेटअप सही नहीं है। भाषा का सेटअप  ठीक करने के लिए \'"_"\' बटन दबाएँ। या फिर आप \'"$"\ का बटन दबाकर डिफ़ॉल्ट भाषा चुने।</string>
     <string name="changeLanguage">भाषा की सेटिंग ठीक करें</string>
     <string name="dialog_default_language_option">डिफ़ॉल्ट भाषा</string>
-    <string name="privacy_link">मैंने जेलो की <font color="#dc5252"><b><u>प्राइवेसी पॉलिसी</u></b></font> को पढ़ा है।</string>
+    <string name="privacy_link">मैंने जेलो की <![CDATA[<font color="#dc5252"><b><u>प्राइवेसी पॉलिसी</u></b></font>]]> को पढ़ा है।</string>
     <string name="consent_privacy">कृपया पढ़ें और प्राइवेसी पॉलिसी के चेक बॉक्स पर क्लिक करें।</string>
 
     <!--Content description-->

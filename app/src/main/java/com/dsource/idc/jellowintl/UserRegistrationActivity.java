@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
@@ -20,6 +21,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -244,7 +246,7 @@ public class UserRegistrationActivity extends BaseActivity {
                         emergencyContact, eMailId, mUserGroup).execute();
             }
         });
-
+        ((TextView)findViewById(R.id.tv_pivacy_link)).setText(Html.fromHtml(getString(R.string.privacy_link)));
         if(!getSession().getName().isEmpty()){
             etName.setText(getSession().getName());
             etEmergencyContact.setText(getSession().getCaregiverNumber());

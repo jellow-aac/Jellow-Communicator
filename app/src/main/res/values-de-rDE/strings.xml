@@ -241,7 +241,7 @@
     <string name="langauge_correction_message"> \'"-"\' wird nicht richtig eingestellt. \'"_"\' drücken, um die Sprache richtigzustellen. Oder Sie können auf die Standardsprache schalten, indem Sie \'"$"\' drücken.</string>
     <string name="changeLanguage">Sprache richtigstellen</string>
     <string name="dialog_default_language_option">Standardsprache</string>
-    <string name="privacy_link">Ich habe die <font color="#dc5252"><b><u>Datenschutzerklärung</u></b></font> zur Kenntniss genommen.</string>
+    <string name="privacy_link">Ich habe die <![CDATA[<font color="#dc5252"><b><u>Datenschutzerklärung</u></b></font>]]> zur Kenntniss genommen.</string>
     <string name="consent_privacy">Bitte lesen Sie die Datenzschutzlinie sorgfältig durch und dann bestätigen.</string>
 
 

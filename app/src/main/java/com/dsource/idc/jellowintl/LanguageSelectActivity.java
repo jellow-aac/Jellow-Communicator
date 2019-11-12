@@ -1,8 +1,7 @@
 package com.dsource.idc.jellowintl;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -10,22 +9,12 @@ import android.speech.tts.TextToSpeech;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.view.accessibility.AccessibilityManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.ListViewCompat;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
@@ -34,7 +23,6 @@ import com.dsource.idc.jellowintl.models.GlobalConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static com.dsource.idc.jellowintl.LanguageDownloadActivity.CLOSE;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
@@ -56,10 +44,10 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.TA_IN;
 public class LanguageSelectActivity extends SpeechEngineBaseActivity {
     String selectedLanguage, mLangChanged;
     Button save, languageSelect;
-    CustomArrayAdapter adapter_lan;
     // Variable hold strings from regional string.xml file.
     private String mStep1, mStep2, mRawStrStep2, mStep3, mStep4;
     private AlertDialog dialog;
+    String[] langList = new String[LangValueMap.size()];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,14 +64,17 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         mLangChanged = getString(R.string.languageChanged);
 
         languageSelect = findViewById(R.id.btn_lang_select);
-        ArrayList<String> langList = new ArrayList<>();
-        langList.addAll(Arrays.asList(LanguageFactory.getAvailableLanguages()));
-        langList.remove(LangValueMap.get(getSession().getLanguage()));
-        langList.add(0, LangValueMap.get(getSession().getLanguage()));
-        adapter_lan = new CustomArrayAdapter(this, R.layout.simple_spinner_dropdown_item,
-                langList);
-        languageSelect.setText(langList.get(0));
-        selectedLanguage = langList.get(0);
+        {
+            ArrayList<String> rawLangList = new ArrayList<>();
+            rawLangList.addAll(Arrays.asList(LanguageFactory.getAvailableLanguages()));
+            rawLangList.remove(LangValueMap.get(getSession().getLanguage()));
+            rawLangList.add(0, LangValueMap.get(getSession().getLanguage()));
+            for (int i = 0; i < LangValueMap.size(); i++) {
+                langList[i] = rawLangList.get(i);
+            }
+        }
+        languageSelect.setText(langList[0]);
+        selectedLanguage = langList[0];
 
         setImageUsingGlide(R.drawable.tts_wifi_1, ((ImageView) findViewById(R.id.ivAddLang1)));
         setImageUsingGlide(R.drawable.tts_wifi_2, ((ImageView) findViewById(R.id.ivAddLang2)));
@@ -254,55 +245,15 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
 
     public void showAvailableLanguageDialog(View view) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final View dialogView = LayoutInflater.from(this).inflate(R.layout.language_select_list_parent, null);
-        ((ListViewCompat)dialogView.findViewById(R.id.list_language_list)).setAdapter(adapter_lan);
-        builder.setView(dialogView);
+        builder.setSingleChoiceItems(langList, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                performLanguageSelection(langList[which]);
+            }
+        });
         dialog = builder.create();
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.show();
-    }
-
-    private class CustomArrayAdapter extends ArrayAdapter{
-        Context context;
-        int layout;
-        List arrayList;
-
-        public CustomArrayAdapter(Context context, int layout, List<String> arrayList) {
-            super(context, layout, arrayList);
-            this.context = context;
-            this.layout = layout;
-            this.arrayList = arrayList;
-        }
-
-        @Override
-        public View getDropDownView(final int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
-            LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            return vi.inflate(R.layout.simple_spinner_dropdown_item, null);
-        }
-
-        @SuppressLint({"ViewHolder", "InflateParams"})
-        @Override
-        public View getView(final int position, View convertView, final ViewGroup parent) {
-            LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = vi.inflate(R.layout.simple_spinner_dropdown_item, null);
-            final RadioButton rb = convertView.findViewById(R.id.rb_select_lang);
-            ((TextView)convertView.findViewById(R.id.tv_lang_name)).setText(arrayList.get(position).toString());
-            convertView.findViewById(R.id.ll_parent_language_list_item).
-                    setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            rb.setChecked(true);
-                            performLanguageSelection(arrayList.get(position).toString());
-                        }
-                    });
-            rb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    performLanguageSelection(arrayList.get(position).toString());
-                }
-            });
-            return convertView;
-        }
     }
 
     private void performLanguageSelection(String selectedLanguage) {
@@ -320,81 +271,5 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         }
         languageSelect.setText(selectedLanguage);
         dialog.dismiss();
-    }
-
-    private List<String> populateCountryNameByUserType(ArrayList<String> langNameToBeShorten) {
-        String[] shortenLanguageNames = new String[langNameToBeShorten.size()];
-        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-            for (int i = 0; i < langNameToBeShorten.size(); i++) {
-                switch (langNameToBeShorten.get(i)) {
-                    case "मराठी":
-                        shortenLanguageNames[i] = getString(R.string.acc_lang_marathi);
-                        break;
-                    case "हिंदी":
-                        shortenLanguageNames[i] = getString(R.string.acc_lang_hindi);
-                        break;
-                    case "বাঙালি":
-                        shortenLanguageNames[i] = getString(R.string.acc_lang_bengali);
-                        break;
-                    case "English (India)":
-                        shortenLanguageNames[i] = getString(R.string.acc_lang_eng_in);
-                        break;
-                    case "English (United Kingdom)":
-                        shortenLanguageNames[i] = getString(R.string.acc_lang_eng_gb);
-                        break;
-                    case "English (United States)":
-                        shortenLanguageNames[i] = getString(R.string.acc_lang_eng_us);
-                        break;
-                    case "English (Australia)":
-                        shortenLanguageNames[i] = getString(R.string.acc_lang_eng_au);
-                        break;
-                    case "Spanish (Spain)":
-                        shortenLanguageNames[i] = getString(R.string.acc_lang_span_span);
-                        break;
-                    case "தமிழ்":
-                        shortenLanguageNames[i] = getString(R.string.acc_lang_tamil_in);
-                        break;
-                    case "Deutsch (Deutschland)":
-                        shortenLanguageNames[i] = getString(R.string.acc_lang_german_ger);
-                        break;
-                    default:
-                        shortenLanguageNames[i] = langNameToBeShorten.get(i);
-                        break;
-                }
-            }
-        }else {
-            for (int i = 0; i < langNameToBeShorten.size(); i++) {
-                switch (langNameToBeShorten.get(i)) {
-                    case "English (India)":
-                        shortenLanguageNames[i] = "English (IN)";
-                        break;
-                    case "English (United Kingdom)":
-                        shortenLanguageNames[i] = "English (UK)";
-                        break;
-                    case "English (United States)":
-                        shortenLanguageNames[i] = "English (US)";
-                        break;
-                    case "English (Australia)":
-                        shortenLanguageNames[i] = "English (AU)";
-                        break;
-                    case "Spanish (Spain)":
-                        shortenLanguageNames[i] = "Spanish (ES)";
-                        break;
-                    case "Tamil (India)":
-                        shortenLanguageNames[i] = "Tamil (IN)";
-                        break;
-                    case "Deutsch (Deutschland)":
-                        shortenLanguageNames[i] = "Deutsch (DE)";
-                        break;
-                    case "French (France)":
-                        shortenLanguageNames[i] = "French (FR)";
-                        break;
-                    default:
-                        shortenLanguageNames[i] = langNameToBeShorten.get(i);
-                        break;
-                }
-            }
-        }
-        return Arrays.asList(shortenLanguageNames);
     }
 }

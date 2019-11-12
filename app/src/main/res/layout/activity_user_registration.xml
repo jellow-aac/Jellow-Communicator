@@ -201,6 +201,7 @@
                     android:layout_height="wrap_content"
                     android:checked="false"/>
                 <TextView
+                    android:id="@+id/tv_pivacy_link"
                     style="@style/defaultTextViewStyle"
                     android:text="@string/privacy_link"
                     android:layout_marginEnd="@dimen/user_reg_tv_group"

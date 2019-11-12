@@ -242,7 +242,7 @@
     <string name="langauge_correction_message">\'"-"\' ভাষাটি ঠিকমতো সেটআপ করা হয়নি। ভাষার সেটিং ঠিক করার জন্য \'"_"\' বাটনটা প্রেস করুন। অথবা, ডিফল্ট ভাষায় সুইচ করুন। এটা  করতে \'"$"\' প্রেস করুন।</string>
     <string name="changeLanguage">ভাষার সেটিং ঠিক করুন।</string>
     <string name="dialog_default_language_option">ডিফল্ট ল্যাংগুয়েজ</string>
-    <string name="privacy_link">আমি জেল্লোর <font color="#dc5252"><b><u>প্রাইভেসী পলিসি</u></b></font> পড়েছি।</string>
+    <string name="privacy_link">আমি জেল্লোর <![CDATA[<font color="#dc5252"><b><u>প্রাইভেসী পলিসি</u></b></font>]]> পড়েছি।</string>
     <string name="consent_privacy">অনুগ্রহ করে জিল্লুর প্রাইভেসি পলিসি পড়ুন এবং সেই হিসেবে চেক করুন</string>
 
 

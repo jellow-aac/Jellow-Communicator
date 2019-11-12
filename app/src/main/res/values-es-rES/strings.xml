@@ -69,8 +69,7 @@
         <item>cuatro</item>
         <item>nueve</item>
     </string-array>
-
-    <string name="change_language_line2">Schritt 1: Wählen Sie eine heruntergeladene Sprache im Dropdownmenü:</string>
+    <string name="change_language_line2">1er Paso: Seleccione el idoma de la lista desplegable </string>
     <string name="simple_ime">Teclado de Jellow</string>
     <string name="subtype_en_US">Teclado en orden alfabético</string>
 
@@ -169,9 +168,9 @@
     <string name="txt_registration_selectLangDesc_contentDesc">Selecciona un idioma para Jellow. Campo obligatorio.</string>
     <string name="txt_registration_registerBtn">REGISTRARSE</string>
     <string name="enternonemptycontact">Por favor, escribe un número de contacto válido</string>
-    <string name="change_language_line5">Schritt 3: Die Verfügbarkeit der Stimme für _ prüfen. Wenn nicht vorhanden, dann herunterladen. Falls der Download-Vorgang angehalten wird, wiederholen.</string>
+    <string name="change_language_line5">3er Paso: Comprueba si los datos de voz para _ están disponibles en tu dispositivo. Si no, por favor, descarga los datos de voz para el idioma seleccionado. En caso de que la barra de progreso se atasque, por favor reinica la aplicación o inténtalo de nuevo.</string>
     <string name="txtChangeLanguage">Cambiar idioma predeterminado:</string>
-    <string name="txtApplyChanges">4º paso: Haz clic en \"Guardar cambios\" para establecer el nuevo idioma predeterminado.</string>
+    <string name="txtApplyChanges">4to paso: Haz clic en \"Guardar cambios\" para establecer el nuevo idioma predeterminado.</string>
     <string name="txt_actLangSel_downloadDat">Comprueba los datos de voz</string>
     <string name="language_downloaded">_ Idioma descargado</string>
     <string name="language_downloading">Descargando _</string>
@@ -242,7 +241,7 @@
     <string name="langauge_correction_message">La idioma de \'"-"\' no se ha configurado correctamente. Pulsar \'"_"\' de corregir la idioma. O puede cambiar a la idioma predeterminado pulsando \'"$"\'</string>
     <string name="changeLanguage">Corregir la idioma</string>
     <string name="dialog_default_language_option">Idioma predeterminado</string>
-    <string name="privacy_link">He leído<font color="#dc5252"><b><u>la Política de Privacidad</u></b></font> de Jellow</string>
+    <string name="privacy_link">He leído <![CDATA[<font color="#dc5252"><b><u>la Política de Privacidad</u></b></font>]]> de Jellow</string>
     <string name="consent_privacy">Favor de leer y marcar el consentimiento de la Política de Privacidad</string>
 
 
@@ -307,7 +306,7 @@
     <string name="lang_setting_option3_cd">La tercera imagen es el tercer paso en este proceso donde el usuario está en la pantalla de las "Opciones de Texto a voz de Google". El conmutador de "Solo Wi-Fi" está resaltado en esta imagen. Se pide al usuario que apague o desactive este conmutador este paso.</string>
 
     <string name="txt_tts_stting">Ajustes de Texto a voz</string>
-    <string name="change_language_tts_wifi">Schritt 2: Google TTS-Einstellungen öffnen und \"Nur WLAN nutzen\" ausschalten. Falls schon ausgeschaltet, diesen Schritt überspringen</string>
+    <string name="change_language_tts_wifi">2da Paso: Ve a "Ajustes" de Texto a voz de Google y apaga "Solo Wi-Fi" tocando debajo el boton de "Texto a voz de Google". Si esta opción ya está desactivada, salta este paso.</string>
     <string name="txtStep2">2º paso:</string>
     <string name="close">Cerrar diálogo</string>
     <string name="access_dialog_title">Diálogo con opciones</string>

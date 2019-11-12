@@ -38,10 +38,10 @@ public class JellowIcon extends AbstractDataProvider.Data implements Serializabl
         this.parent2 = p3;
     }
 
-    public JellowIcon(String verbiageID,String IconTitle,String drawable){
+    public JellowIcon(String verbiageID,String IconTitle,String IconSpeech,String drawable){
         this.iconDrawable = drawable;
         this.iconTitle =IconTitle;
-        this.iconSpeech = IconTitle;
+        this.iconSpeech = IconSpeech;
         this.verbiageId=verbiageID;
         try {
             parent0 = Integer.parseInt(verbiageID.substring(2,4))-1;

@@ -17,8 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingEnd="@dimen/key_ll_padding_right"
-            android:paddingRight="@dimen/key_ll_padding_right">
+            android:layout_marginRight="@dimen/key_ll_margin_right"
+            android:layout_marginEnd="@dimen/key_ll_margin_right">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

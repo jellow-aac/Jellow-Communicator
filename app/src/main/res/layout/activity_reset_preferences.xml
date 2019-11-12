@@ -19,8 +19,6 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/reset_pref_ll_margin_right"
             android:layout_marginEnd="@dimen/reset_pref_ll_margin_right"
-            android:paddingEnd="@dimen/reset_pref_ll_padding_right"
-            android:paddingRight="@dimen/reset_pref_ll_padding_right"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="wrap_content"

@@ -133,8 +133,7 @@
     <dimen name="about_parent_margin_right">8dp</dimen>
     <dimen name="about_parent_margin_top">19dp</dimen>
     <dimen name="about_parent_margin_bottom">19dp</dimen>
-    <dimen name="about_scroll_width">@dimen/custom_match_parent</dimen>
-    <dimen name="about_ll_padding_right">12dp</dimen>
+    <dimen name="about_ll_margin_right">12dp</dimen>
     <dimen name="about_bullet_margin_top">8dp</dimen>
     <dimen name="about_bullet_scale">.7</dimen>
     <dimen name="about_tv_margin">8dp</dimen>
@@ -175,7 +174,7 @@
     <dimen name="key_set_scroll_margin_left">19dp</dimen>
     <dimen name="key_set_scroll_margin_right">8dp</dimen>
     <dimen name="key_set_scroll_margin_vertical">19dp</dimen>
-    <dimen name="key_ll_padding_right">12dp</dimen>
+    <dimen name="key_ll_margin_right">12dp</dimen>
     <dimen name="key_set_bullet_scale">.7</dimen>
     <dimen name="key_set_bullet_margin_top">8dp</dimen>
     <dimen name="key_set_tv_margin_top">8dp</dimen>
@@ -238,8 +237,7 @@
     <dimen name="access_parent_margin_left">19dp</dimen>
     <dimen name="access_parent_margin_right">8dp</dimen>
     <dimen name="access_parent_margin_vertical">19dp</dimen>
-    <dimen name="access_scroll_margin_end">@dimen/custom_match_parent</dimen>
-    <dimen name="access_ll_padding_right">12dp</dimen>
+    <dimen name="access_ll_margin_right">12dp</dimen>
     <dimen name="access_bullet_scale">.7</dimen>
     <dimen name="access_bullet_margin_top">8dp</dimen>
     <dimen name="access_tv_margin_top">8dp</dimen>
@@ -262,7 +260,6 @@
     <dimen name="reset_pref_parent_margin_left">19dp</dimen>
     <dimen name="reset_pref_parent_margin_right">8dp</dimen>
     <dimen name="reset_pref_ll_margin_right">0dp</dimen>
-    <dimen name="reset_pref_ll_padding_right">12dp</dimen>
     <dimen name="reset_pref_bullet_margin_right">4dp</dimen>
     <dimen name="reset_pref_bullet_scale">.7</dimen>
     <dimen name="reset_pref_ll_margin_top">19dp</dimen>
@@ -276,6 +273,7 @@
     <dimen name="feedback_scroll_margin_left">19dp</dimen>
     <dimen name="feedback_scroll_margin_right">8dp</dimen>
     <dimen name="feedback_parent_margin_right">16dp</dimen>
+    <dimen name="feedback_scroll_width">@dimen/custom_match_parent</dimen>
     <dimen name="feedback_tv_height">22dp</dimen>
     <item name="feedback_rb_scale_size" type="dimen" format="float">0.6</item>
     <dimen name="feedback_rb_margin_left">-50dp</dimen>
@@ -295,10 +293,6 @@
     <dimen name="fb_tb_spinner_height">22dp</dimen>
     <dimen name="fb_tb_spinner_width">90dp</dimen>
     <dimen name="fb_tb_et_margin_left">-2dp</dimen>
-
-    <!--Dimensions related to the Custom Dialog-->
-    <dimen name="dialog_box_text_size">16sp</dimen>
-    <dimen name="custom_dialog_width">300dp</dimen>
 
 
     <!--Dimensions Related to the Grid DialogBox-->

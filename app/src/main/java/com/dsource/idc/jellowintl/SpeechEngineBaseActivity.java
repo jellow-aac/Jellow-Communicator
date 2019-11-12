@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
 
+import static com.dsource.idc.jellowintl.factories.PathFactory.UNIVERSAL_FOLDER;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getAudioPath;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BE_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
@@ -278,7 +279,7 @@ public class SpeechEngineBaseActivity extends BaseActivity{
     }
 
     public void createUserProfileRecordingsUsingTTS() {
-        final String path = getDir(MR_IN, Context.MODE_PRIVATE).getAbsolutePath() + "/audio/";
+        final String path = getDir(UNIVERSAL_FOLDER, Context.MODE_PRIVATE).getAbsolutePath() + "/audio/";
         sTts.setLanguage(new Locale("hi", "IN"));
         try {
             String emailId = getSession().getEmailId().replaceAll(".", "$0 ").replace(".", "dot");

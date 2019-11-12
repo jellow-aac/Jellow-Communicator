@@ -237,7 +237,7 @@
     <string name="langauge_correction_message"> La langue \'"-"\' n\'est pas configurée correctement. Veuillez appuyer sur \'"_"\' pour fixer la langage. Ou vous pouvez passer par la langue défaut en appuyant \'"$"\'.</string>
     <string name="changeLanguage">Fixer la langue</string>
     <string name="dialog_default_language_option">La langue par défaut</string>
-    <string name="privacy_link">J\'ai lu <font color="#dc5252"><b><u>la Politique de Confidentialité</u></b></font> de Jellow.</string>
+    <string name="privacy_link">J\'ai lu <![CDATA[<font color="#dc5252"><b><u>la Politique de Confidentialité</u></b></font>]]> de Jellow.</string>
     <string name="consent_privacy">Veuillez lire et donc accepter les conditions.</string>
 
     <!--Content description-->
