@@ -66,7 +66,7 @@ public class SplashActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()) {
-            resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
+            resetAnalytics(this, getSession().getUserId());
         }
         setUserParameters();
     }

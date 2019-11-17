@@ -152,7 +152,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
         super.onResume();
         setVisibleAct(LevelThreeActivity.class.getSimpleName());
         if(!isAnalyticsActive()){
-            resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
+            resetAnalytics(this, getSession().getUserId());
         }
         // Start measuring user app screen timer .
         startMeasuring();

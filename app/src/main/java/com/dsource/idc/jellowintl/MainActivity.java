@@ -51,7 +51,6 @@ import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
-import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
@@ -244,7 +243,7 @@ public class MainActivity extends LevelBaseActivity{
         super.onResume();
         setVisibleAct(MainActivity.class.getSimpleName());
         if(!isAnalyticsActive()){
-            resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
+            resetAnalytics(this, getSession().getUserId());
         }
         // Start measuring user app screen timer.
         startMeasuring();
@@ -1382,9 +1381,9 @@ public class MainActivity extends LevelBaseActivity{
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
-                        String userId = maskNumber(getSession().getCaregiverNumber().substring(1));
                         FirebaseDatabase db = FirebaseDatabase.getInstance();
-                        DatabaseReference ref = db.getReference(BuildConfig.DB_TYPE+"/users/" + userId);
+                        DatabaseReference ref = db.getReference(BuildConfig.DB_TYPE+"/users/" +
+                                getSession().getUserId());
                         ref.child("versionCode").setValue(BuildConfig.VERSION_CODE);
                     }
                 }

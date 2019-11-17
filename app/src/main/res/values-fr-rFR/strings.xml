@@ -111,13 +111,14 @@
     <string name="step2">Étape 2: Sauvegarder le clavier par défaut</string>
     <string name="saveAsDefault">Sauvgarder par défaut</string>
     <string name="getKeyboardControl">Le contrôle du clavier</string>
-    <string name="childName">Nom de l\'enfant *</string>
-    <string name="caregiverName">nom du soignant</string>
-    <string name="careGiverContact">Numéro de contact de soignant d\'un autre appareil que le numéro de cette appareil *</string>
-    <string name="homeAddress">L\'addresse</string>
-    <string name="emailAddress">L\'addresse courriel *</string>
-    <string name="bloodGroup">Le groupe sanguin</string>
+    <string name="childName">Nom de l\'enfant **</string>
+    <string name="caregiverName">nom du soignant **</string>
+    <string name="careGiverContact">Numéro de contact de soignant d\'un autre appareil que le numéro de cette appareil **</string>
+    <string name="homeAddress">L\'addresse **</string>
+    <string name="emailAddress">L\'addresse courriel **</string>
+    <string name="bloodGroup">Le groupe sanguin **</string>
     <string name="detailSaved">Les détailes sont sauvegardées</string>
+    <string name="invalid_address">Adresse invalide</string>
     <string name="invalid_emailId">Adresse courriel invalide</string>
     <string name="enterTheName">Veuillez saisir le nom de votre enfant</string>
     <string name="search_act_title">Rechercher les icônes</string>
@@ -159,9 +160,8 @@
     <string name="txt_intro7_getStarted">Commencez-vous</string>
     <string name="txt_registration_jellowCalluDesc">(C\'est dans cette façon dans laquelle Jellow va vous appeler)</string>
     <string name="txt_registration_emergencynoDesc">(À utiliser pour la correspondance en cas d\'urgence dans lequel l\'enfant est concerné)</string>
-    <string name="txt_registration_emailDesc">(Avertir vous de la diffusion des mises à jour)</string>
-    <string name="txt_registration_selectLangDesc">Sélectionner la langue pour Jellow *</string>
-    <string name="txt_registration_selectLangDesc_contentDesc">Sélectionner la langue pour Jellow. Le champ requis</string>
+    <string name="txt_registration_selectLangDesc">Sélectionner la langue pour Jellow **</string>
+    <string name="txt_registration_selectLangDesc_contentDesc">Sélectionner la langue pour Jellow. Le champ requis. **</string>
     <string name="txt_registration_registerBtn">Inscrivez-vous</string>
     <string name="enternonemptycontact">Veuillez entrez votre numèro de téléphone</string>
     <string name="change_language_line5">Étape 3: Assurez-vous que la donnée vocale d\'_ est disponibles sur votre terminal. Si non, veuillez télécharger la donnée vocale  pour la langue choisie. Au cas où la processus aurait retardé, veuillez vérifier votre connexion Internet et réessayez</string>
@@ -173,10 +173,6 @@
     <string name="granted_call_permission_req">La permission d\'appel est accordée.</string>
     <string name="rejected_call_permission_req">La permission d\'appel est refusée.</string>
     <string name="grant_permission_from_settings">Activer la permission d\'appel dans le réglage</string>
-    <string name="userGroup">La groupe d\'utilisateurs *</string>
-    <string name="groupTeacher">Un thérapeute/ un professeur</string>
-    <string name="groupParent">Un parent/ un gardien</string>
-    <string name="invalid_usergroup">Veuillez choisir le groupe d\'utilisateurs</string>
     <string name="txtEnableBuiltInCalling">Permettre les appels d\'urgence sur Jellow</string>
     <string name="dismiss">Rejeter</string>
     <string name="register_user">Veuillez attendre l\'inscription est en cours d\'affichage…</string>
@@ -237,13 +233,13 @@
     <string name="langauge_correction_message"> La langue \'"-"\' n\'est pas configurée correctement. Veuillez appuyer sur \'"_"\' pour fixer la langage. Ou vous pouvez passer par la langue défaut en appuyant \'"$"\'.</string>
     <string name="changeLanguage">Fixer la langue</string>
     <string name="dialog_default_language_option">La langue par défaut</string>
+    <string name="txt_data_info">** Les détails susmentionnés seront uniquement conservés dans votre téléphone. Ce ne seront pas utilisés ou téléchargés sur le cloud ou un serveur ( incluant le serveur / cloud de Jellow ou tierce personne)</string>
     <string name="privacy_link">J\'ai lu <![CDATA[<font color="#dc5252"><b><u>la Politique de Confidentialité</u></b></font>]]> de Jellow.</string>
     <string name="consent_privacy">Veuillez lire et donc accepter les conditions.</string>
 
     <!--Content description-->
     <string name="language_download_in_process">Téléchargement de la langue est en cours</string>
-    <string name="child_s_name">nom de l\'enfant. Le champ requis</string>
-    <string name="user_s_group">La groupe d\'utilisateurs. Le champ requis</string>
+    <string name="child_s_name">nom de l\'enfant. Le champ requis. **</string>
     <string name="enter_home_address">Entrez votre adresse de domicile</string>
     <string name="enter_caregiver_s_contact_number">Entrez le numéro de contact d\'aidant</string>
     <string name="enter_caregiver_s_name">Entrez le nom d\'aidant</string>
@@ -262,10 +258,9 @@
     <string name="gtts2">La deuxième image correspends au deuxiem étape dans cet processus où c\'est vu qu\'utilisateur maintenant choisir le symbol d\' "équipement" qui correspends au "Réglages" dans le système "Synthèse vocale Google"</string>
     <string name="gtts3">La troisième image correspends au troisiem étape dans cet processus où l\'utilisateur est sur l\'écran de "Synthèse vocale". Cet écran propose plusieurs options des données vocales dont "Français (France)", "Allemand (Allmagne)", "Hindi (Inde)", "Hongoris (Hongrie)" et "Indonésien (Indonésie)". L\'option de "Voix de Hindi (Inde)" est  souligné et indique un option de "Ensemble vocal 1" avec une taille de 19 Mb qui peut être téléchargé. Un doigt d\'utilisateur est vu en cliquent l\'icône de télécharger pour ensemble vocal 1 de "Voix de Hindi (Inde)"</string>
     <string name="enter_child_s_name">Entrez le nom de l\'enfant:</string>
-    <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">Numéro de contact de soignant d\'un autre appareil que le numéro de cette appareil. Le champ requis</string>
+    <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">Numéro de contact de soignant d\'un autre appareil que le numéro de cette appareil. Le champ requis. **</string>
     <string name="select_country_code">Sélectionner l\'indicatif du pays</string>
-    <string name="caregiver_s_email_address">adresse électronique du soignant. Le champ requis</string>
-    <string name="txt_registration_usergrp_desc">(Choisir la personne qui utilisera Jellow sur cet appareil)</string>
+    <string name="caregiver_s_email_address">adresse électronique du soignant. Le champ requis. **</string>
     <string name="like">Aime</string>
     <string name="yes">Oui</string>
     <string name="more">Plus</string>
@@ -285,8 +280,6 @@
     <string name="previous">Précédent</string>
     <string name="edttxt_msg">Entrez ici pour parler</string>
     <string name="keyboard_open">Ouvrir le clavier</string>
-    <string name="therapist_or_teacher_cd">Un orthophoniste ou un professeur</string>
-    <string name="parent_or_caregiver_cd">Un parent ou un gardien</string>
     <string name="child_s_name_dialog_btn">Mon nom</string>
     <string name="caregiverName_dialog_btn">nom du soignant</string>
     <string name="caregiver_s_email_address_dialog_btn">adresse électronique du soignant</string>

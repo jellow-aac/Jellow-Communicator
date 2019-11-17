@@ -7,6 +7,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
 import com.dsource.idc.jellowintl.BuildConfig;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.UserRegistrationActivity;
@@ -14,9 +17,6 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Random;
-
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 public class JellowFirebaseMessageService extends FirebaseMessagingService {
 

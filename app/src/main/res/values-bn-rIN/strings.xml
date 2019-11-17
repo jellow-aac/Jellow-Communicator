@@ -112,13 +112,14 @@
     <string name="step2">দ্বিতীয় ধাপঃ কীবোর্ডটিকে ডিফল্ট পছন্দ হিসেবে সেভ করো</string>
     <string name="saveAsDefault">ডিফল্ট হিসেবে সেভ করো</string>
     <string name="getKeyboardControl">কীবোর্ড নিয়ন্ত্রণ</string>
-    <string name="childName">শিশুর নাম *</string>
-    <string name="caregiverName">কেয়ারগিভারের নাম </string>
-    <string name="careGiverContact">এই ডিভাইসের সিম নম্বর ছাড়া অন্যের তত্ত্বাবধানকারীর যোগাযোগ নম্বর দিন *</string>
-    <string name="homeAddress">বাড়ির ঠিকানা</string>
-    <string name="emailAddress">ই-মেলের ঠিকানা *</string>
-    <string name="bloodGroup">রক্তের গ্রুপ</string>
+    <string name="childName">শিশুর নাম **</string>
+    <string name="caregiverName">কেয়ারগিভারের নাম **</string>
+    <string name="careGiverContact">এই ডিভাইসের সিম নম্বর ছাড়া অন্যের তত্ত্বাবধানকারীর যোগাযোগ নম্বর দিন **</string>
+    <string name="homeAddress">বাড়ির ঠিকানা **</string>
+    <string name="emailAddress">ই-মেলের ঠিকানা **</string>
+    <string name="bloodGroup">রক্তের গ্রুপ **</string>
     <string name="detailSaved">খুঁটিনাটি তথ্যগুলি সেভ করা হল</string>
+    <string name="invalid_address">অকার্যকরী ঠিকানা</string>
     <string name="invalid_emailId">অকার্যকরী ই-মেল ঠিকানা</string>
     <string name="enterTheName">দয়া করে আপনার সন্তানের নাম লিখুন</string>
     <string name="search_act_title">জেলোতে কথার আইকন</string>
@@ -161,9 +162,8 @@
     <string name="txt_intro7_getStarted">শুরু করো</string>
     <string name="txt_registration_jellowCalluDesc">( এভাবেই জেলো আপনাকে সম্বোধন করে )</string>
     <string name="txt_registration_emergencynoDesc">( শিশুর আপৎকালীন বিপদ সম্পর্কে অবহিত করতে )</string>
-    <string name="txt_registration_emailDesc">( জেলো-র আপডেট সম্পর্কে আপনাকে অবহিত করতে )</string>
-    <string name="txt_registration_selectLangDesc">জেলো-র জন্য একটি ভাষা বেছে নিন *</string>
-    <string name="txt_registration_selectLangDesc_contentDesc">জেলো-র জন্য একটি ভাষা বেছে নিন। প্রয়োজনীয় ক্ষেত্র</string>
+    <string name="txt_registration_selectLangDesc">জেলো-র জন্য একটি ভাষা বেছে নিন **</string>
+    <string name="txt_registration_selectLangDesc_contentDesc">জেলো-র জন্য একটি ভাষা বেছে নিন। প্রয়োজনীয় ক্ষেত্র। **</string>
     <string name="txt_registration_registerBtn">নথিভুক্ত করুন</string>
     <string name="enternonemptycontact">কার্যকরী যোগাযোগের নাম্বার দিন</string>
     <string name="change_language_line5">তৃতীয় ধাপঃ যাচাই করে দেখুন _-র জন্য ভয়েস ডেটা আপনার যন্ত্রে মজুত আছে কি না। ইন্টারনেটে তীর্থযাত্রী চালু করুন এবং নির্বাচিত ভাষাতে ভয়েস ডেটা ডাউনলোড করুন। প্রক্রিয়াটি স্থগিত হলে দয়া করে আপনার ইন্টারনেট সংযোগ চেক করুন এবং পুনরায় চেষ্টা করুন।</string>
@@ -175,10 +175,6 @@
     <string name="granted_call_permission_req">কথা বলার অনুমতি প্রদত্ত হল</string>
     <string name="rejected_call_permission_req">কথা বলার অনুমতি অস্বীকৃত হল</string>
     <string name="grant_permission_from_settings">সেটিংস-এ গিয়ে কথা বলার অনুমতি সক্রিয় করুন</string>
-    <string name="userGroup">ব্যবহারকারী গোষ্ঠী *</string>
-    <string name="groupTeacher">থেরাপিস্ট/ শিক্ষক</string>
-    <string name="groupParent">অভিভাবক/ কেয়ারগিভার</string>
-    <string name="invalid_usergroup">ব্যবহারকারী গোষ্ঠীকে নির্বাচন করুন</string>
     <string name="txtEnableBuiltInCalling">জেলো থেকে জরুরি অবস্থায় কল গ্রহণ সক্রিয় করুন</string>
     <string name="dismiss">বাদ দিন</string>
     <string name="register_user">রেজিস্ট্রেশন চলাকালীন দয়া করে অপেক্ষা করুন…</string>
@@ -248,8 +244,7 @@
 
     <!--Content description-->
     <string name="language_download_in_process">ভাষা ডাউনলোড করা হচ্ছে</string>
-    <string name="child_s_name">শিশুর নাম। প্রয়োজনীয় ক্ষেত্র</string>
-    <string name="user_s_group">ব্যবহারকারীর গ্রুপ। প্রয়োজনীয় ক্ষেত্র</string>
+    <string name="child_s_name">শিশুর নাম। প্রয়োজনীয় ক্ষেত্র। **</string>
     <string name="enter_home_address">বাড়ির ঠিকানা লিখুন</string>
     <string name="enter_caregiver_s_contact_number">কেয়ারগিভারের যোগাযোগের নাম্বার লিখুন</string>
     <string name="enter_caregiver_s_name">কেয়ারগিভারের লিখুন</string>
@@ -268,10 +263,9 @@
     <string name="gtts2">দ্বিতীয় ছবিটি এই প্রক্রিয়ার দ্বিতীয় ধাপ সংক্রান্ত, যেখানে ব্যবহারকারীকে দেখা যায় " গিয়ার " চিহ্নে ক্লিক করতে, যা আসলে " google text to speech " -এর " সেটিংস " সংক্রান্ত।</string>
     <string name="gtts3">তৃতীয় ছবিটি হচ্ছে প্রক্রিয়ার তৃতীয় ধাপ, যখন ব্যবহারকারী রয়েছে "google TTS voice data" স্ক্রিনে। এই স্ক্রিনে রয়েছে একাধিক স্বর নির্বাচনের সু্যোগ, যেমন - “French (France)”, “German (Germany)”, “Hindi (India)”, “Hungarian (Hungary)”, and “Indonesian (Indonesia)”। " hindi ( india)  " অপশনটি রঙিন রয়েছে, যা দেখাচ্ছে ১৯ এমবি-র  " voice set 1 " নামক অপশনটি ডাউনলোডের জন্য লভ্য। ব্যবহারকারীর আঙুল উক্ত অপশনে ক্লিক করতে দেখা যায়।</string>
     <string name="enter_child_s_name">শিশুর নাম লিখুন</string>
-    <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">এই ডিভাইসের সিম নম্বর ছাড়া অন্যের তত্ত্বাবধানকারীর যোগাযোগ নম্বর দিন। প্রয়োজনীয় ক্ষেত্র</string>
+    <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">এই ডিভাইসের সিম নম্বর ছাড়া অন্যের তত্ত্বাবধানকারীর যোগাযোগ নম্বর দিন। প্রয়োজনীয় ক্ষেত্র। **</string>
     <string name="select_country_code">দেশের কোড লিখুন</string>
-    <string name="caregiver_s_email_address">কেয়ারগিভারের ইমেলের ঠিকানা। প্রয়োজনীয় ক্ষেত্র</string>
-    <string name="txt_registration_usergrp_desc">এই ডিভাইসে জেলো ব্যবহার করা হবে ব্যক্তি নির্বাচন করুন</string>
+    <string name="caregiver_s_email_address">কেয়ারগিভারের ইমেলের ঠিকানা। প্রয়োজনীয় ক্ষেত্র। **</string>
     <string name="like">পছন্দ করি</string>
     <string name="yes">হ্যাঁ</string>
     <string name="more">আরও</string>
@@ -291,8 +285,6 @@
     <string name="previous">আগে</string>
     <string name="edttxt_msg">কথা বলতে এখানে লিখুন।</string>
     <string name="keyboard_open">কীবোর্ড খুলুন।</string>
-    <string name="therapist_or_teacher_cd">থেরাপিস্ট বা শিক্ষক</string>
-    <string name="parent_or_caregiver_cd">অভিভাবক বা কেয়ারগিভার</string>
     <string name="child_s_name_dialog_btn">আমার নাম</string>
     <string name="caregiverName_dialog_btn">কেয়ারগিভারের নাম</string>
     <string name="caregiver_s_email_address_dialog_btn">কেয়ারগিভারের ইমেলের ঠিকানা</string>

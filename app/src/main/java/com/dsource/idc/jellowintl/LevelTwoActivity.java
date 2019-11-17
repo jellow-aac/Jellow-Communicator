@@ -250,7 +250,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
         super.onResume();
         setVisibleAct(LevelTwoActivity.class.getSimpleName());
         if(!isAnalyticsActive()){
-            resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
+            resetAnalytics(this, getSession().getUserId());
         }
         // Start measuring user app screen timer .
         startMeasuring();

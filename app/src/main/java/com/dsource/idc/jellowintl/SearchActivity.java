@@ -166,7 +166,7 @@ public class SearchActivity extends SpeechEngineBaseActivity {
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()){
-            resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
+            resetAnalytics(this, getSession().getUserId());
         }
         // Start measuring user app screen timer.
         startMeasuring();
@@ -287,7 +287,7 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
             activityIntent.putExtra(mContext.getString(R.string.from_search),mContext.getString(R.string.search_tag));
 
         }
-        else //Level 3
+        else if (!icon.isSequenceIcon())//Level 3
         {
             activityIntent=new Intent(mContext, LevelThreeActivity.class);
             activityIntent.putExtra(mContext.getString(R.string.from_search),mContext.getString(R.string.search_tag));
@@ -297,9 +297,13 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
             activityIntent.putExtra(mContext.getString(R.string.level_2_item_pos_tag),icon.getLevelTwo());
             //Level 3 Icon reference to be highlighted
             activityIntent.putExtra(mContext.getString(R.string.search_parent_2),icon.getLevelThree());
-          //  String levelTitle = getIconTitleLevel2(icon.getLevelOne())[icon.getLevelTwo()].replace("…", "");
-            //Bread crumb paths
-           // activityIntent.putExtra(menuPath,getActionBarTitle(icon.getLevelOne())+""+levelTitle+"/");
+        }else{ //Level 3, Sequence
+            activityIntent=new Intent(mContext, SequenceActivity.class);
+            activityIntent.putExtra(mContext.getString(R.string.from_search),mContext.getString(R.string.search_tag));
+            //Level 2 parent
+            activityIntent.putExtra(mContext.getString(R.string.level_2_item_pos_tag),icon.getLevelTwo());
+            //Level 3 Icon reference to be highlighted
+            activityIntent.putExtra(mContext.getString(R.string.search_parent_2),icon.getLevelThree());
         }
         return activityIntent;
     }

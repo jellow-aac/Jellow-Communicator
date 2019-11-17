@@ -124,6 +124,30 @@ public class SequenceActivity extends LevelBaseActivity{
         resetCategoryIconBorders();
         /*In sequence, expressive buttons are invisible initially*/
         hideExpressiveBtn(true);
+        try {
+        String s = getIntent().getExtras().getString(getString(R.string.from_search));
+            if (s != null)
+                if (s.equals(getString(R.string.search_tag))) {
+                    highlightSearchedItem();
+                }
+        }
+        catch (NullPointerException e)
+        {
+            //Not from Search Activity
+        }
+    }
+
+    private void highlightSearchedItem() {
+        int iconIndex = getIntent().getExtras().getInt(getString(R.string.search_parent_2));
+        for (int i=0;i<(iconIndex / 3);i++)
+            mBtnNext.callOnClick();
+
+        if (iconIndex % 3 == 0)
+            setBorderToView(findViewById(R.id.borderView1), 7);
+        else if (iconIndex % 3 == 1)
+            setBorderToView(findViewById(R.id.borderView2), 7);
+        else
+            setBorderToView(findViewById(R.id.borderView3), 7);
     }
 
     @Override
@@ -131,7 +155,7 @@ public class SequenceActivity extends LevelBaseActivity{
         super.onResume();
         setVisibleAct(SequenceActivity.class.getSimpleName());
         if(!isAnalyticsActive()){
-            resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
+            resetAnalytics(this, getSession().getUserId());
         }
         // Start measuring user app screen timer .
         startMeasuring();
@@ -659,8 +683,19 @@ public class SequenceActivity extends LevelBaseActivity{
                     // When keyboard is not open simply set result and close the activity.
                     mUec.createSendFbEventFromTappedView(27, "", "");
                     mIvBack.setImageResource(R.drawable.back_pressed);
-                    setResult(RESULT_OK);
-                    finish();
+                    String str = getIntent().getExtras().getString(getString(R.string.from_search));
+                    if(str != null && !str.isEmpty() && str.equals(getString(R.string.search_tag))) {
+                        Intent intent = new Intent(SequenceActivity.this, LevelTwoActivity.class);
+                        intent.putExtra(getString(R.string.level_one_intent_pos_tag), 1/*1 is index for Daily Activities*/);
+                        intent.putExtra("search_and_back", true);
+                        intent.putExtra(getString(R.string.intent_menu_path_tag), getIntent().
+                                getExtras().getString(getString(R.string.intent_menu_path_tag)));
+                        startActivity(intent);
+                        finish();
+                    }else{
+                        setResult(RESULT_OK);
+                        finish();
+                    }
                 }
                 showActionBarTitle(true);
             }
@@ -1534,6 +1569,7 @@ public class SequenceActivity extends LevelBaseActivity{
             case 4: gd.setColor(ContextCompat.getColor(this, R.color.colorMore)); break;
             case 5: gd.setColor(ContextCompat.getColor(this, R.color.colorLess)); break;
             case 6: gd.setColor(ContextCompat.getColor(this, R.color.colorSelect)); break;
+            case 7: gd.setColor(ContextCompat.getColor(this,R.color.search_highlight)); break;
             default: gd.setColor(ContextCompat.getColor(this, android.R.color.transparent));
         }
     }

@@ -11,6 +11,8 @@ public class JellowIcon extends AbstractDataProvider.Data implements Serializabl
     private String verbiageId, iconDrawable, iconTitle, iconSpeech;
     @Keep
     private int parent0, parent1, parent2;
+    @Keep
+    private boolean isSequenceIcon;
 
     /**
      * @iconType stores the type of the icon
@@ -47,6 +49,7 @@ public class JellowIcon extends AbstractDataProvider.Data implements Serializabl
             parent0 = Integer.parseInt(verbiageID.substring(2,4))-1;
             parent1 = Integer.parseInt(verbiageID.substring(4,6))-1;
             parent2 = Integer.parseInt(verbiageID.substring(6,10))-1;
+            isSequenceIcon = verbiageID.contains("SS") && parent2 != -1;
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -152,5 +155,13 @@ public class JellowIcon extends AbstractDataProvider.Data implements Serializabl
 
     public void setType(int iconType) {
         this.iconType =iconType;
+    }
+
+    public boolean isSequenceIcon() {
+        return isSequenceIcon;
+    }
+
+    public void setSequenceIcon(boolean sequenceIcon) {
+        isSequenceIcon = sequenceIcon;
     }
 }

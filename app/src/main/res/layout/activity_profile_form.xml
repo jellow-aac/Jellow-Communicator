@@ -128,9 +128,9 @@
                     android:text="@string/emailAddress"
                     android:fontFamily="@font/mukta_semibold"
                     style="@style/defaultTextViewStyle"
-                    android:contentDescription="@string/email_address"/>
+                    android:contentDescription="@string/caregiver_s_email_address"/>
                 <EditText
-                    android:id="@+id/etEmailId"
+                    android:id="@+id/etEmailAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/profile_view_margin_bottom"
@@ -140,40 +140,6 @@
                     android:imeOptions="actionDone"
                     android:inputType="textEmailAddress"
                     android:contentDescription="@string/enter_caregiver_s_email_address"/>
-                <TextView
-                    android:id="@+id/tvUserGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/userGroup"
-                    android:fontFamily="@font/mukta_semibold"
-                    style="@style/defaultTextViewStyle"
-                    android:contentDescription="@string/user_s_group"/>
-                <RadioGroup
-                    android:id="@+id/radioUserGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/profile_view_margin_bottom"
-                    android:importantForAccessibility="no">
-                    <RadioButton
-                        android:id="@+id/radioTherapist"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/defaultTextViewStyle"
-                        android:textSize="@dimen/profile_radio_btn_txt_size"
-                        android:text="@string/groupTeacher"
-                        android:contentDescription="@string/therapist_or_teacher_cd"
-                        android:importantForAccessibility="yes"/>
-                    <RadioButton
-                        android:id="@+id/radioParent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/defaultTextViewStyle"
-                        android:textSize="@dimen/profile_radio_btn_txt_size"
-                        android:layout_marginBottom="@dimen/profile_radio_btn_margin_bottom"
-                        android:text="@string/groupParent"
-                        android:contentDescription="@string/parent_or_caregiver_cd"
-                        android:importantForAccessibility="yes"/>
-                </RadioGroup>
 
                 <TextView
                     android:id="@+id/tvBloodGrp"
@@ -187,6 +153,12 @@
                     android:layout_width="@dimen/profile_spinner_width"
                     android:layout_height="@dimen/profile_spinner_height"
                     android:background="@drawable/custom_spinner_view"/>
+                <TextView
+                    android:id="@+id/tv_info"
+                    style="@style/defaultTextViewStyle"
+                    android:text="@string/txt_data_info"
+                    android:layout_marginTop="@dimen/user_reg_btn_margin_top"
+                    android:layout_marginBottom="@dimen/profile_view_margin_bottom"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/profile_view_height" />

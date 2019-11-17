@@ -282,23 +282,23 @@ public class SpeechEngineBaseActivity extends BaseActivity{
         final String path = getDir(UNIVERSAL_FOLDER, Context.MODE_PRIVATE).getAbsolutePath() + "/audio/";
         sTts.setLanguage(new Locale("hi", "IN"));
         try {
-            String emailId = getSession().getEmailId().replaceAll(".", "$0 ").replace(".", "dot");
-            String contactNo = getSession().getCaregiverNumber();
-            contactNo = contactNo.substring(0, contactNo.length()-3);
-            contactNo = contactNo.replaceAll(".", "$0 ").replace("+", "plus");
+            String emailId = getSession().getEmailId().
+                    replaceAll(".", "$0 ").replace(".", "dot");
+            String contactNo = getSession().getCaregiverNumber().
+                    replaceAll(".", "$0 ").replace("+", "plus");
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 File name = new File(path+ "name.mp3");
-                Log.e("File : ", String.valueOf(name.createNewFile()));
+                Log.i("File : ", String.valueOf(name.createNewFile()));
                 File email = new File(path+ "email.mp3");
-                Log.e("File : ", String.valueOf(email.createNewFile()));
+                Log.i("File : ", String.valueOf(email.createNewFile()));
                 File contact = new File(path+ "contact.mp3");
-                Log.e("File : ", String.valueOf(contact.createNewFile()));
+                Log.i("File : ", String.valueOf(contact.createNewFile()));
                 File caregiverName = new File(path+ "caregiverName.mp3");
-                Log.e("File : ", String.valueOf(caregiverName.createNewFile()));
+                Log.i("File : ", String.valueOf(caregiverName.createNewFile()));
                 File address = new File(path+ "address.mp3");
-                Log.e("File : ", String.valueOf(address.createNewFile()));
+                Log.i("File : ", String.valueOf(address.createNewFile()));
                 File bloodGroup = new File(path+ "bloodGroup.mp3");
-                Log.e("File : ", String.valueOf(bloodGroup.createNewFile()));
+                Log.i("File : ", String.valueOf(bloodGroup.createNewFile()));
                 sTts.synthesizeToFile(getSession().getName(), null, name, UTTERANCE_ID);
                 sTts.synthesizeToFile(emailId, null, email, UTTERANCE_ID);
                 sTts.synthesizeToFile(contactNo, null, contact, UTTERANCE_ID);

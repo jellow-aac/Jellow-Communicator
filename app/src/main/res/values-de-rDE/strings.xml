@@ -115,13 +115,14 @@
     <string name="step2">Schritt 2: Gewählte Tastatur als Standard sichern</string>
     <string name="saveAsDefault">Als Standard sichern</string>
     <string name="getKeyboardControl">Tastatursteuerung</string>
-    <string name="childName">Name des Kindes: *</string>
-    <string name="caregiverName">Name der Bezugsperson</string>
-    <string name="careGiverContact">Kontakt der Bezugsperson außer der SIM-Handyummer dieses Geräts *</string>
-    <string name="homeAddress">Adresse</string>
-    <string name="emailAddress">Email-Adresse *</string>
-    <string name="bloodGroup">Blutgruppe</string>
+    <string name="childName">Name des Kindes: **</string>
+    <string name="caregiverName">Name der Bezugsperson **</string>
+    <string name="careGiverContact">Kontakt der Bezugsperson außer der SIM-Handyummer dieses Geräts **</string>
+    <string name="homeAddress">Adresse **</string>
+    <string name="emailAddress">Email-Adresse **</string>
+    <string name="bloodGroup">Blutgruppe **</string>
     <string name="detailSaved">Daten gespeichert</string>
+    <string name="invalid_address">ungültige Adresse</string>
     <string name="invalid_emailId">ungültige Email-Adresse</string>
     <string name="enterTheName">Namen Ihres Kindes eingeben</string>
     <string name="search_act_title">Icons in Jellow durchsuchen</string>
@@ -163,9 +164,8 @@
     <string name="txt_intro7_getStarted">Starten</string>
     <string name="txt_registration_jellowCalluDesc">(So nennt Sie Jellow)</string>
     <string name="txt_registration_emergencynoDesc">(Zum Kontaktieren im Notfall bezüglich des Kindes)</string>
-    <string name="txt_registration_emailDesc">(Sich über die Jellow-Aktualisierungen informieren lassen)</string>
-    <string name="txt_registration_selectLangDesc">Sprache für Jellow setzen *</string>
-    <string name="txt_registration_selectLangDesc_contentDesc">Sprache für Jellow setzen. Pflichtfeld</string>
+    <string name="txt_registration_selectLangDesc">Sprache für Jellow setzen **</string>
+    <string name="txt_registration_selectLangDesc_contentDesc">Sprache für Jellow setzen. Pflichtfeld. **</string>
     <string name="txt_registration_registerBtn">Registrieren</string>
     <string name="enternonemptycontact">Eine gültige Handynummer eingeben</string>
     <string name="change_language_line5">Schritt 3: Die Verfügbarkeit der Stimme für _ prüfen. Wenn nicht vorhanden, dann herunterladen. Falls der Download-Vorgang angehalten wird, wiederholen.</string>
@@ -177,10 +177,6 @@
     <string name="granted_call_permission_req">Anrufberechtigungen erteilt</string>
     <string name="rejected_call_permission_req">Anrufberechtigungen abgelehnt</string>
     <string name="grant_permission_from_settings">Anrufberechtigungen in Einstellungen erteilen</string>
-    <string name="userGroup">Benutzergruppe *</string>
-    <string name="groupTeacher">Therapeut/-in oder Lehrer/-in</string>
-    <string name="groupParent">Eltern/Bezugsperson</string>
-    <string name="invalid_usergroup">Wählen Sie bitte eine Benutzergruppe</string>
     <string name="txtEnableBuiltInCalling">Notanruf von Jellow aktivieren</string>
     <string name="dismiss">Ausblenden</string>
     <string name="register_user">Bitte warten, Registrierung in Arbeit…</string>
@@ -247,8 +243,7 @@
 
     <!--Content description-->
     <string name="language_download_in_process">Sprache wird heruntergeladen</string>
-    <string name="child_s_name">Name des Kindes. Pflichtfeld</string>
-    <string name="user_s_group">Benutzergruppe. Pflichtfeld</string>
+    <string name="child_s_name">Name des Kindes. Pflichtfeld. **</string>
     <string name="enter_home_address">Adresse eingeben</string>
     <string name="enter_caregiver_s_contact_number">Handynummer der Bezugsperson eingeben</string>
     <string name="enter_caregiver_s_name">Name der Bezugsperson eingeben</string>
@@ -267,10 +262,9 @@
     <string name="gtts2">Das zweite Bild zeigt den Schritt 2 des Vorgangs auf, wo der Benutzer beim Klicken des \"Zahnradsymbols\" ist, das der \"Google Text-to-Speech-Engine\"-Einstellungen kennzeichnet.</string>
     <string name="gtts3">Das dritte Bild beschreibt den Schritt 3 des Vorgangs, wo der Benutzer vor dem \"Google TTS-Sprachdaten\"-Bildschirm ist. Dieser Schritt stellt mehrere Stimmoptionen inklusive \"Deutsch (Deutschland)\", \"Französisch (Frankreich)\", \"Hindi (Indien)\", \"Indonesisch (Indonesien)\" und \"Ungarisch (Ungarn)\" zum Herunterladen bereit. Die Sprache \"Deutsch (Deutschland)\" wird hervorgehoben, wobei das \"Stimm-Set 1\" mit einer Datengröße von ____MB zum Herunterladen bereit ist.</string>
     <string name="enter_child_s_name">Name des Kindes eingeben</string>
-    <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">Kontakt der Bezugsperson außer der SIM-Handyummer dieses Geräts. Pflichtfeld</string>
+    <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">Kontakt der Bezugsperson außer der SIM-Handyummer dieses Geräts. Pflichtfeld. **</string>
     <string name="select_country_code">Ihre Landesvorwahl wählen</string>
-    <string name="caregiver_s_email_address">Email-Adresse der Bezugsperson. Pflichtfeld</string>
-    <string name="txt_registration_usergrp_desc">(Die Person wählen, die auf diesem Gerät Jellow benutzt)</string>
+    <string name="caregiver_s_email_address">Email-Adresse der Bezugsperson. Pflichtfeld. **</string>
     <string name="like">mögen</string>
     <string name="yes">Ja</string>
     <string name="more">Mehr</string>
@@ -290,8 +284,6 @@
     <string name="previous">Zurück</string>
     <string name="edttxt_msg">Zum Sprechen hier tippen</string>
     <string name="keyboard_open">Tastatur öffnen</string>
-    <string name="therapist_or_teacher_cd">Therapeut/Therapeutin oder Lehrer/Lehrerin</string>
-    <string name="parent_or_caregiver_cd">Eltern oder Bezugsperson</string>
     <string name="child_s_name_dialog_btn">Mein Name</string>
     <string name="caregiverName_dialog_btn">Name der Bezugsperson</string>
     <string name="caregiver_s_email_address_dialog_btn">Email-Adresse der Bezugsperson</string>

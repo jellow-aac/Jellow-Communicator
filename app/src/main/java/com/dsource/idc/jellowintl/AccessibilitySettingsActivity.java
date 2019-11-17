@@ -14,6 +14,8 @@ import com.google.android.youtube.player.YouTubeThumbnailView;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
+import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class AccessibilitySettingsActivity extends BaseActivity {
     private final String VISUAL_ACCESS_VIDEO_ID = "QDU1Qp-u2Zs";
@@ -37,8 +39,22 @@ public class AccessibilitySettingsActivity extends BaseActivity {
         super.onResume();
         setVisibleAct(AccessibilitySettingsActivity.class.getSimpleName());
         if(!isAnalyticsActive()) {
-            resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
+            resetAnalytics(this, getSession().getUserId());
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Check if pushId is older than 24 hours (86400000 millisecond).
+        // If yes then create new pushId (user session)
+        // If no then do not create new pushId instead user existing and
+        // current session time is saved.
+        long sessionTime = validatePushId(getSession().getSessionCreatedAt());
+        getSession().setSessionCreatedAt(sessionTime);
+
+        // Stop measuring user app screen timer.
+        stopMeasuring("AccessibilitySettingActivity");
     }
 
     @Override

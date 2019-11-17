@@ -125,13 +125,15 @@
     <string name="step2">Step 2: Save Keyboard as default option</string>
     <string name="saveAsDefault">SAVE AS DEFAULT</string>
     <string name="getKeyboardControl">Keyboard Control</string>
-    <string name="childName">Child\'s Name *</string>
-    <string name="caregiverName">Caregiver\'s Name</string>
-    <string name="careGiverContact">Caregiver\'s Contact number other than this device\'s sim number *</string>
-    <string name="homeAddress">Home Address</string>
-    <string name="emailAddress">Email Address *</string>
-    <string name="bloodGroup">Blood Group</string>
+    <string name="childName">Child\'s Name **</string>
+    <string name="privacyLink" translatable="false">http://www.jellow.org/privacypolicy/index.php</string>
+    <string name="caregiverName">Caregiver\'s Name **</string>
+    <string name="careGiverContact">Caregiver\'s Contact number other than this device\'s sim number **</string>
+    <string name="homeAddress">Home Address **</string>
+    <string name="emailAddress">Email Address **</string>
+    <string name="bloodGroup">Blood Group **</string>
     <string name="detailSaved">Details saved</string>
+    <string name="invalid_address">Invalid address</string>
     <string name="invalid_emailId">Invalid email address</string>
     <string name="enterTheName">Please enter your Child\'s name</string>
     <string name="search_act_title">Search Icons in Jellow</string>
@@ -176,19 +178,14 @@
     <string name="txt_intro7_getStartedDesc">Now you are ready to get started with Jellow</string>
     <string name="txt_intro7_getStarted">GET STARTED</string>
     <string name="completed_intro" translatable="false">com.dsource.idc.jellow.completed_intro</string>
-    <string name="encrypt_data" translatable="false">com.dsource.idc.jellow.encrypt_data</string>
     <string name="last_session_created" translatable="false">com.dsource.idc.jellow.last_session_created</string>
-    <string name="user_group" translatable="false">com.dsource.idc.jellow.user_group</string>
     <string name="enable_calling" translatable="false">com.dsource.idc.jellow.enable_calling</string>
-    <string name="random_val" translatable="false">com.dsource.idc.jellow.random_val</string>
     <string name="string_msg" translatable="false">com.dsource.idc.jellow.string_message</string>
-    <string name="updated_user_data_on_firebase" translatable="false">com.dsource.idc.jellow.update_on_fb</string>
     <string name="last_crash_reported" translatable="false">com.dsource.idc.jellow.last_crash_reported</string>
     <string name="txt_registration_jellowCalluDesc">(This is how Jellow calls you)</string>
     <string name="txt_registration_emergencynoDesc">(To be used for correspondence in case of an emergency involving the child.)</string>
-    <string name="txt_registration_emailDesc">(To notify you about the release of Jellow updates)</string>
-    <string name="txt_registration_selectLangDesc">Select a Language for Jellow *</string>
-    <string name="txt_registration_selectLangDesc_contentDesc">Select a Language for Jellow. Required field</string>
+    <string name="txt_registration_selectLangDesc">Select a Language for Jellow **</string>
+    <string name="txt_registration_selectLangDesc_contentDesc">Select a Language for Jellow. Required field. **</string>
     <string name="txt_registration_registerBtn">REGISTER</string>
     <string name="enternonemptycontact">Please enter valid contact number</string>
     <string name="change_language_line5">Step 3: Check if voice data for _ is available on your device. If not please turn on internet and download voice data for selected language. In case process is stalled please check your internet connection and retry</string>
@@ -200,12 +197,6 @@
     <string name="granted_call_permission_req">Call permission is granted.</string>
     <string name="rejected_call_permission_req">Call permission is denied.</string>
     <string name="grant_permission_from_settings">Enable call permission from settings.</string>
-    <string name="userGroup">User Group *</string>
-    <string name="groupTeacher">Therapist/Teacher</string>
-    <string name="groupParent">Parent/Caregiver</string>
-    <string name="groupParentOnly" translatable="false">Parent</string>
-    <string name="groupTeacherOnly" translatable="false">Therapist</string>
-    <string name="invalid_usergroup">Please choose user group.</string>
     <string name="txtEnableBuiltInCalling">Enable emergency calling from Jellow</string>
     <string name="dismiss">Dismiss</string>
     <string name="register_user">Please wait registration is in process…</string>
@@ -279,13 +270,13 @@
     <string name="langauge_correction_message"> \'"-"\' language is not setup correctly. Press \'"_"\' to fix the language. \n Or you can switch to default language by pressing \'"$"\'.</string>
     <string name="changeLanguage">Fix The Language</string>
     <string name="dialog_default_language_option">Default Language</string>
+    <string name="txt_data_info">** The data above will only be stored on your phone. It will not be used or uploaded to any cloud or server (including Jellow\'s or third party\'s server/cloud).</string>
     <string name="privacy_link">I have read Jellow\'s <![CDATA[<font color="#dc5252"><b><u>privacy policy.</u></b></font>]]></string>
     <string name="consent_privacy">Please read and then check privacy policy consent.</string>
 
     <!--Content description-->
     <string name="language_download_in_process">Language download in process</string>
-    <string name="child_s_name">child\'s name. Required field</string>
-    <string name="user_s_group">user group. Required field</string>
+    <string name="child_s_name">child\'s name. Required field. **</string>
     <string name="enter_home_address">enter home address</string>
     <string name="enter_caregiver_s_contact_number">enter caregiver\'s contact number</string>
     <string name="enter_caregiver_s_name">enter caregiver\'s name</string>
@@ -304,10 +295,9 @@
     <string name="gtts2">The second image corresponds to the second step in this process where the user is seen to now click on the, “Gear” symbol corresponding to the, “Settings” of the, “Google Text-to-Speech engine”</string>
     <string name="gtts3">The third image is the third step in this process where now the user is at the, “Google TTS voice data” screen. This screen provides multiple voice options including “French (France)”, “German (Germany)”, “Hindi (India)”, “Hungarian (Hungary)”, and “Indonesian (Indonesia)”. The, “Hindi (India) voice” option is highlighted and shows an option of “Voice set 1” with a size of 19MB that is available for download. The user’s finger is seen to click on the download icon for the voice set 1 for the, “Hindi (India)voice”.</string>
     <string name="enter_child_s_name">Enter child\'s name</string>
-    <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">Caregiver\'s Contact number other than this device\'s sim number. Required field</string>
+    <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">Caregiver\'s Contact number other than this device\'s sim number. Required field. **</string>
     <string name="select_country_code">select country code</string>
-    <string name="caregiver_s_email_address">caregiver\'s email address. Required field</string>
-    <string name="txt_registration_usergrp_desc">(Choose the person who will be using Jellow on this device)</string>
+    <string name="caregiver_s_email_address">caregiver\'s email address. Required field. **</string>
     <string name="like">like</string>
     <string name="yes">Yes</string>
     <string name="more">more</string>
@@ -327,8 +317,6 @@
     <string name="previous">previous</string>
     <string name="edttxt_msg">Type here to speak</string>
     <string name="keyboard_open">open keyboard</string>
-    <string name="therapist_or_teacher_cd">Therapist or teacher</string>
-    <string name="parent_or_caregiver_cd">Parent or caregiver</string>
     <string name="child_s_name_dialog_btn">My name</string>
     <string name="caregiverName_dialog_btn">Caregiver\'s name</string>
     <string name="caregiver_s_email_address_dialog_btn">Caregiver\'s email address</string>

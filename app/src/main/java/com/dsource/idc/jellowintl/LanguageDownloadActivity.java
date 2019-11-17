@@ -135,7 +135,7 @@ public class LanguageDownloadActivity extends BaseActivity {
         super.onResume();
         setVisibleAct(LanguageDownloadActivity.class.getSimpleName());
         if(!isAnalyticsActive()) {
-            resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
+            resetAnalytics(this, getSession().getUserId());
         }
         isConnected = isConnectedToNetwork((ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE));
         if(isConnected) {

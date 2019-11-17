@@ -29,8 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/user_reg_scroll_parent_padding_left"
-            android:paddingStart="@dimen/user_reg_scroll_parent_padding_left"
+            android:layout_marginRight="@dimen/profile_parent_ll_margin_right"
+            android:layout_marginEnd="@dimen/profile_parent_ll_margin_right"
             tools:ignore="RtlSymmetry">
 
             <TextView
@@ -106,19 +106,19 @@
                 style="@style/defaultTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/caregiver_s_email_address"
+                android:contentDescription="@string/homeAddress"
                 android:fontFamily="@font/mukta_semibold"
-                android:text="@string/emailAddress" />
+                android:text="@string/homeAddress" />
 
             <TextView
                 style="@style/defaultTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/txt_registration_emailDesc"
+                android:text="@string/txt_registration_emergencynoDesc"
                 android:textSize="@dimen/user_reg_subhead" />
 
             <EditText
-                android:id="@+id/etEmailId"
+                android:id="@+id/etEmailAddress"
                 style="@style/defaultTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -127,47 +127,6 @@
                 android:ems="10"
                 android:imeOptions="actionDone"
                 android:inputType="textEmailAddress" />
-
-            <TextView
-                style="@style/defaultTextViewStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/user_s_group"
-                android:fontFamily="@font/mukta_semibold"
-                android:text="@string/userGroup" />
-            <TextView
-                style="@style/defaultTextViewStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_registration_usergrp_desc"
-                android:textSize="@dimen/user_reg_subhead"/>
-
-            <RadioGroup
-                android:id="@+id/radioUserGroup"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/user_reg_et_bottom"
-                android:contentDescription="@string/user_s_group"
-                android:importantForAccessibility="no">
-
-                <RadioButton
-                    android:id="@+id/radioTherapist"
-                    style="@style/defaultTextViewStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/groupTeacher"
-                    android:contentDescription="@string/therapist_or_teacher_cd"
-                    android:importantForAccessibility="yes" />
-
-                <RadioButton
-                    android:id="@+id/radioParent"
-                    style="@style/defaultTextViewStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/groupParent"
-                    android:contentDescription="@string/parent_or_caregiver_cd"
-                    android:importantForAccessibility="yes" />
-            </RadioGroup>
 
             <TextView
                 style="@style/defaultTextViewStyle"
@@ -187,14 +146,18 @@
                 android:paddingEnd="@dimen/user_reg_spinner_right_padding"
                 android:layout_marginBottom="@dimen/user_reg_et_bottom"
                 android:background="@drawable/custom_spinner_view"/>
+            <TextView
+                android:id="@+id/tv_info"
+                style="@style/defaultTextViewStyle"
+                android:text="@string/txt_data_info"
+                android:layout_marginTop="@dimen/user_reg_btn_margin_top"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/user_reg_btn_margin_top"
-                android:layout_marginBottom="@dimen/user_reg_tv_group"
                 android:importantForAccessibility="yes"
-                android:layout_gravity="center_vertical">
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/user_reg_btn_margin_top">
                 <CheckBox
                     android:id="@+id/cb_privacy_consent"
                     android:layout_width="wrap_content"

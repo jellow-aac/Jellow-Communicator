@@ -1,5 +1,6 @@
 package com.dsource.idc.jellowintl;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,7 +10,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
@@ -19,7 +19,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,10 +30,8 @@ import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DropDownMenu;
 import com.dsource.idc.jellowintl.factories.LanguageFactory;
 import com.dsource.idc.jellowintl.models.GlobalConstants;
-import com.dsource.idc.jellowintl.models.SecureKeys;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,34 +39,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.gson.Gson;
 import com.hbb20.CountryCodePicker;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Random;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-
-import se.simbio.encryption.Encryption;
+import java.util.UUID;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.getAnalytics;
-import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
 import static com.dsource.idc.jellowintl.utility.Analytics.setCrashlyticsCustomKey;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
@@ -77,24 +58,20 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.UNIVERSAL_PACKAGE;
 
 /**
- * Created by user on 5/25/2016.
+ * Created by Rahul on 12 Nov, 2019.
  */
-public class UserRegistrationActivity extends BaseActivity {
-    private final String privacyLink = "http://www.jellow.org/privacypolicy/index.php";
+public class UserRegistrationActivity extends BaseActivity implements CheckNetworkStatus {
     public static final String LCODE = "lcode";
     public static final String TUTORIAL = "tutorial";
 
     private Button bRegister;
-    private EditText etName, etEmergencyContact, etEmailId;
-    private FirebaseDatabase mDB;
+    private EditText etName, etEmergencyContact, etAddress;
     private DatabaseReference mRef;
     private CountryCodePicker mCcp;
-    private String mUserGroup;
     Spinner languageSelect;
     String[] languagesCodes = new String[LangMap.size()],
             languageNames = new String[LangMap.size()];
     String selectedLanguage;
-    String name, emergencyContact, eMailId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,18 +81,15 @@ public class UserRegistrationActivity extends BaseActivity {
         setActivityTitle(getString(R.string.menuUserRegistration));
         findViewById(R.id.iv_action_bar_back).setVisibility(View.GONE);
         getSession().changePreferencesFile(this);
-        //Reset Board Language
-        getSession().setCurrentBoardLanguage("");
 
-        if (!getSession().getCaregiverNumber().equals("")) {
-            getAnalytics(this, getSession().getCaregiverNumber().substring(1));
+        if (!getSession().getUserId().equals("")) {
+            getAnalytics(this, getSession().getUserId());
             getSession().setSessionCreatedAt(new Date().getTime());
-            Crashlytics.setUserIdentifier(maskNumber(getSession().getCaregiverNumber().substring(1)));
+            Crashlytics.setUserIdentifier(getSession().getUserId());
         }
+
         if (getSession().isUserLoggedIn()) {
             if (LanguageFactory.isLanguageDataAvailable(this) && getSession().isCompletedIntro()) {
-                if (!getSession().getUpdatedFirebase())
-                    updateFirebaseDatabase();
                 startActivity(new Intent(this, SplashActivity.class));
             }else if(!LanguageFactory.isLanguageDataAvailable(this)){
                 startActivity(new Intent(UserRegistrationActivity.this,
@@ -135,7 +109,7 @@ public class UserRegistrationActivity extends BaseActivity {
             getSession().setBlood(-1);
         }
 
-        mDB = FirebaseDatabase.getInstance();
+        FirebaseDatabase mDB = FirebaseDatabase.getInstance();
         mRef = mDB.getReference(BuildConfig.DB_TYPE + "/users");
 
         languagesCodes = LanguageFactory.getAvailableLanguages();
@@ -143,6 +117,7 @@ public class UserRegistrationActivity extends BaseActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         etName = findViewById(R.id.etName);
         etName.clearFocus();
+        ((TextView)findViewById(R.id.tv_pivacy_link)).setText(Html.fromHtml(getString(R.string.privacy_link)));
         etEmergencyContact = findViewById(R.id.etEmergencyContact);
         mCcp = findViewById(R.id.ccp);
         if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE)))
@@ -159,18 +134,15 @@ public class UserRegistrationActivity extends BaseActivity {
             }
             @Override public void onCcpDialogCancel(DialogInterface dialogInterface) {}
         });
-        etEmailId= findViewById(R.id.etEmailId);
+        etAddress = findViewById(R.id.etEmailAddress);
         bRegister = findViewById(R.id.bRegister);
         findViewById(R.id.childName).setFocusableInTouchMode(true);
         findViewById(R.id.childName).setFocusable(true);
 
         languageSelect = findViewById(R.id.langSelectSpinner);
-
-        ArrayAdapter<String> adapter_lan = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter_lan = new ArrayAdapter<>(this,
                 R.layout.simple_spinner_item, populateCountryNameByUserType(languageNames));
-
         adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         languageSelect.setAdapter(adapter_lan);
         languageSelect.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -195,40 +167,21 @@ public class UserRegistrationActivity extends BaseActivity {
                             getString(R.string.enterTheName), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                name = etName.getText().toString().trim();
 
-                // Emergency contact is contact number of a caregiver/teacher/parent/therapist.
-                // of a child. The contact with country code without preceding '+' and succeding
-                // extra 3 random digits are added to emergency contact and is used as unique
-                // identifier. Extra 3 digits are added to surpass Firebase behavior.
-                // Random number generator logic:
-                // max = 1000 and min = 100
-                // num = new Random().nextInt((max - min)+1) + min
-                // This will ensure 3 digit random number.
                 if(!etEmergencyContact.getText().toString().matches("[0-9]+")){
                     bRegister.setEnabled(true);
                     Toast.makeText(UserRegistrationActivity.this,
                             getString(R.string.enternonemptycontact), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                getSession().setExtraValToContact(String.valueOf(new Random().nextInt(900) + 100));
-                emergencyContact = mCcp.getFullNumber().concat(getSession().getExtraValToContact());
 
-                eMailId = etEmailId.getText().toString().trim();
-                if (!isValidEmail(eMailId)){
+                if (etAddress.getText().toString().trim().isEmpty()){
                     bRegister.setEnabled(true);
-                    Toast.makeText(UserRegistrationActivity.this,getString(R.string.invalid_emailId),
+                    Toast.makeText(UserRegistrationActivity.this,getString(R.string.invalid_address),
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                RadioGroup radioGroup = findViewById(R.id.radioUserGroup);
-                if(radioGroup.getCheckedRadioButtonId() == -1){
-                    bRegister.setEnabled(true);
-                    Toast.makeText(UserRegistrationActivity.this,
-                            getString(R.string.invalid_usergroup), Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 CheckBox cb = findViewById(R.id.cb_privacy_consent);
                 if (!cb.isChecked()){
                     bRegister.setEnabled(true);
@@ -240,220 +193,14 @@ public class UserRegistrationActivity extends BaseActivity {
                 if(selectedLanguage == null)
                     return;
 
-                mUserGroup = (radioGroup.getCheckedRadioButtonId() == R.id.radioParent) ?
-                        getString(R.string.groupParentOnly): getString(R.string.groupTeacherOnly);
-                new NetworkConnectionTest(UserRegistrationActivity.this, name,
-                        emergencyContact, eMailId, mUserGroup).execute();
+                new NetworkConnectionTest(UserRegistrationActivity.this).execute();
             }
         });
-        ((TextView)findViewById(R.id.tv_pivacy_link)).setText(Html.fromHtml(getString(R.string.privacy_link)));
+
         if(!getSession().getName().isEmpty()){
             etName.setText(getSession().getName());
             etEmergencyContact.setText(getSession().getCaregiverNumber());
-            etEmailId.setText(getSession().getEmailId());
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setVisibleAct(UserRegistrationActivity.class.getSimpleName());
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Crashlytics.log("Paused "+getLocalClassName());
-    }
-
-    @Override
-    public void onUserInteraction() {
-        super.onUserInteraction();
-        addAccessibilityDelegateToSpinners();
-    }
-
-    private void addAccessibilityDelegateToSpinners() {
-        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-            languageSelect.setAccessibilityDelegate(new View.AccessibilityDelegate() {
-                @Override
-                public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
-                    super.onInitializeAccessibilityEvent(host, event);
-                    if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
-                        bRegister.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
-                    }
-                }
-            });
-        }
-    }
-
-    private boolean isValidEmail(CharSequence target) {
-        return target != null && Patterns.EMAIL_ADDRESS.matcher(target).matches();
-    }
-
-    private void updateFirebaseDatabase() {
-        String userId = maskNumber(getSession().getCaregiverNumber().substring(1));
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
-        DatabaseReference ref = db.getReference(BuildConfig.DB_TYPE+"/users/" + userId);
-        {
-            SecureKeys secureKey = new Gson().fromJson(getSession().getEncryptedData(), SecureKeys.class);
-            if (secureKey == null)
-                return;
-            Encryption encryption = Encryption.getDefault(secureKey.getKey(), secureKey.getSalt(), new byte[16]);
-            String encryptedEmailId = encrypt(getSession().getEmailId(), encryption),
-                    encryptedName = encrypt(getSession().getName(), encryption),
-                    encryptedUserGroup = encrypt(getSession().getUserGroup(), encryption),
-                    encryptedBloodGroup = encrypt(getShortBloodGroup(getSession().getBlood()), encryption),
-                    encryptedCareGiverName = encrypt(getSession().getCaregiverName(), encryption),
-                    encryptedAddress = encrypt(getSession().getAddress(), encryption);
-            if (encryptedEmailId.isEmpty() || encryptedName.isEmpty() ||
-                    encryptedUserGroup.isEmpty() || encryptedBloodGroup.isEmpty() ||
-                    encryptedCareGiverName.isEmpty() || encryptedAddress.isEmpty())
-                return;
-            ref.child("email").setValue(encryptedEmailId);
-            ref.child("emergencyContact").setValue(userId);
-            ref.child("name").setValue(encryptedName);
-            ref.child("userGroup").setValue(encryptedUserGroup);
-            ref.child("bloodGroup").setValue(encryptedBloodGroup);
-            if (!getSession().getCaregiverNumber().isEmpty())
-                ref.child("caregiverName").setValue(encryptedCareGiverName);
-
-            if (!getSession().getAddress().isEmpty())
-                ref.child("address").setValue(encryptedAddress);
-            ref.child("updatedOn").setValue(ServerValue.TIMESTAMP);
-            setUserProperty("GridSize", "9");
-            setUserProperty("PictureViewMode", "PictureText");
-            getSession().setUpdatedFirebase(true);
-        }
-    }
-
-    private void encryptStoreUserInfo(final String name, final String contact,
-                                      final String email, final String userGroup) {
-        FirebaseStorage storage =  FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
-        StorageReference pathReference = storageRef.child("jellow-json.json");
-        final long ONE_MEGABYTE = 1024 * 1024;
-        pathReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                String jsonData = new String(bytes, StandardCharsets.UTF_8);
-                getSession().setEncryptionData(jsonData);
-                SecureKeys secureKey = new Gson().
-                        fromJson(getSession().getEncryptedData(), SecureKeys.class);
-                Crashlytics.log("Created secure key.");
-                {
-                    Encryption encryption = Encryption.getDefault(secureKey.getKey(), secureKey.getSalt(), new byte[16]);
-                    String encryptedName = encrypt(name, encryption),
-                            encryptedEmail = encrypt(email, encryption),
-                            encryptedCountry = encrypt(mCcp.getSelectedCountryEnglishName(), encryption),
-                            encryptedLang = encrypt(selectedLanguage, encryption),
-                            encryptedUserGroup = encrypt(userGroup, encryption);
-
-                    if(encryptedName.isEmpty() || encryptedEmail.isEmpty() ||
-                            encryptedCountry.isEmpty() || encryptedLang.isEmpty() ||
-                            encryptedUserGroup.isEmpty()){
-                        bRegister.setEnabled(true);
-                        Toast.makeText(UserRegistrationActivity.this,
-                                getString(R.string.error_in_registration), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    createUser(encryptedName, contact,
-                            encryptedEmail,
-                            encryptedCountry,
-                            encryptedLang,
-                            encryptedUserGroup, userGroup);
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                Crashlytics.logException(exception);
-                bRegister.setEnabled(true);
-            }
-        });
-    }
-
-    private String encrypt(String plainText, Encryption encryption) {
-        try {
-            return encryption.encrypt(plainText).trim();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (InvalidAlgorithmParameterException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
-    private void createUser(final String name, final String emergencyContact, String eMailId,
-                            String country, String firstLang, final String userGroup,
-                            final String decUserGroup)
-    {
-        try {
-            final String userId = maskNumber(emergencyContact);
-            getAnalytics(UserRegistrationActivity.this, emergencyContact);
-            getSession().setSessionCreatedAt(new Date().getTime());
-            HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("email", eMailId);
-            map.put("emergencyContact", userId);
-            map.put("name", name);
-            map.put("country", country);
-            map.put("firstLanguage", firstLang);
-            map.put("userGroup", userGroup);
-            map.put("versionCode", BuildConfig.VERSION_CODE);
-            map.put("joinedOn", ServerValue.TIMESTAMP);
-            mRef.child(userId).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        getSession().setUserLoggedIn(true);
-                        getSession().setLanguage(LangMap.get(selectedLanguage));
-                        getSession().setGridSize(GlobalConstants.NINE_ICONS_PER_SCREEN);
-                        getSession().setUserGroup(decUserGroup);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("LanguageSet", "First time "+ LangMap.get(selectedLanguage));
-                        setUserProperty("UserId", userId);
-                        setUserProperty("UserLanguage", LangMap.get(selectedLanguage));
-                        setUserProperty("UserGroup", decUserGroup);
-                        setUserProperty("GridSize", "9");
-                        setUserProperty("PictureViewMode", "PictureText");
-                        bundleEvent("Language", bundle);
-                        Crashlytics.setUserIdentifier(userId);
-                        setCrashlyticsCustomKey("GridSize", "9");
-                        setCrashlyticsCustomKey("PictureViewMode", "PictureText");
-                        bundle.clear();
-                        bundle.putString(LCODE, UNIVERSAL_PACKAGE);
-                        bundle.putBoolean(TUTORIAL, true);
-                        startActivity(new Intent(UserRegistrationActivity.this,
-                                LanguageDownloadActivity.class).putExtras(bundle));
-                        finish();
-                    } else {
-                        bRegister.setEnabled(true);
-                        Crashlytics.log("User data not added.");
-                        Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
-                    }
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Crashlytics.log("User data not added.");
-                    Crashlytics.logException(e);
-                    bRegister.setEnabled(true);
-                    Toast.makeText(UserRegistrationActivity.this, getString(R.string.error_in_registration), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } catch (Exception e){
-            Crashlytics.logException(e);
+            etAddress.setText(getSession().getAddress());
         }
     }
 
@@ -533,25 +280,114 @@ public class UserRegistrationActivity extends BaseActivity {
         return shortenLanguageNames;
     }
 
-    public void openPrivacyPolicyPage(View view){
-        startActivity(new Intent("android.intent.action.VIEW", Uri.parse(privacyLink)));
+    @Override
+    public void onReceiveNetworkState(int state) {
+        if (state == GlobalConstants.NETWORK_CONNECTED){
+            Toast.makeText(UserRegistrationActivity.this,
+                    getString(R.string.register_user), Toast.LENGTH_SHORT).show();
+            autoLoginAndSetupUser();
+        }else {
+            bRegister.setEnabled(true);
+            Toast.makeText(UserRegistrationActivity.this,
+                    getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
+        }
     }
 
-    private class NetworkConnectionTest extends AsyncTask<Void, Void, Boolean>{
-        private Context mContext;
-        private String mName,  mEmailId, mUserGroup;
+    private void autoLoginAndSetupUser() {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
+        mAuth.signInAnonymously()
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Crashlytics.log("User logged in");
+                            getSession().setName(etName.getText().toString().trim());
+                            getSession().setCaregiverNumber(mCcp.getFullNumberWithPlus());
+                            getSession().setUserCountryCode(mCcp.getSelectedCountryCode());
+                            getSession().setEmailId(etAddress.getText().toString().trim());
+                            getSession().setUserId(UUID.randomUUID().toString());
 
-        public NetworkConnectionTest(Context context, String name, String emergencyContact,
-                                     String eMailId, String userGroup) {
-            mContext = context;
-            mName = name;
-            mEmailId = eMailId;
-            mUserGroup = userGroup;
+                            getAnalytics(UserRegistrationActivity.this, getSession().getUserId());
+                            getSession().setSessionCreatedAt(new Date().getTime());
+                            HashMap<String, Object> map = new HashMap<>();
+                            map.put("firstLanguage", selectedLanguage);
+                            map.put("versionCode", BuildConfig.VERSION_CODE);
+                            map.put("joinedOn", ServerValue.TIMESTAMP);
+                            mRef.child(getSession().getUserId()).setValue(map)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        getSession().setUserLoggedIn(true);
+                                        getSession().setLanguage(LangMap.get(selectedLanguage));
+                                        getSession().setGridSize(GlobalConstants.NINE_ICONS_PER_SCREEN);
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("LanguageSet", "First time "+ LangMap.get(selectedLanguage));
+                                        setUserProperty("UserId", getSession().getUserId());
+                                        setUserProperty("UserLanguage", LangMap.get(selectedLanguage));
+                                        setUserProperty("GridSize", "9");
+                                        setUserProperty("PictureViewMode", "PictureText");
+                                        bundleEvent("Language", bundle);
+                                        Crashlytics.setUserIdentifier(getSession().getUserId());
+                                        setCrashlyticsCustomKey("GridSize", "9");
+                                        setCrashlyticsCustomKey("PictureViewMode", "PictureText");
+                                        bundle.clear();
+                                        bundle.putString(LCODE, UNIVERSAL_PACKAGE);
+                                        bundle.putBoolean(TUTORIAL, true);
+                                        startActivity(new Intent(UserRegistrationActivity.this,
+                                                LanguageDownloadActivity.class).putExtras(bundle));
+                                        finish();
+                                    } else {
+                                        bRegister.setEnabled(true);
+                                        Crashlytics.log("User data not added.");
+                                        Toast.makeText(UserRegistrationActivity.this,
+                                                getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    bRegister.setEnabled(true);
+                                    Crashlytics.log("User data not added.");
+                                    Crashlytics.logException(e);
+                                    Toast.makeText(UserRegistrationActivity.this,
+                                            getString(R.string.error_in_registration), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                        }else
+                            Toast.makeText(UserRegistrationActivity.this,
+                                    getString(R.string.error_in_registration), Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(UserRegistrationActivity.this,
+                        e.getMessage(), Toast.LENGTH_SHORT).show();
+                bRegister.setEnabled(true);
+            }
+        });
+    }
+
+    public void openPrivacyPolicyPage(View view){
+        startActivity(new Intent("android.intent.action.VIEW",
+                Uri.parse(getString(R.string.privacy_link))));
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private class NetworkConnectionTest extends AsyncTask<Void, Void, Boolean> {
+        private Context context;
+        private CheckNetworkStatus listener;
+
+        NetworkConnectionTest(Context context) {
+            this.context = context;
+            this.listener = (CheckNetworkStatus) context;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            if(!isConnectedToNetwork((ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE)))
+            if(!isConnectedToNetwork((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)))
                 return false;
             try {
                 URL url = new URL("http://www.google.com");
@@ -574,33 +410,9 @@ public class UserRegistrationActivity extends BaseActivity {
         protected void onPostExecute(Boolean isConnected) {
             super.onPostExecute(isConnected);
             if(isConnected){
-                Toast.makeText(mContext, getString(R.string.register_user), Toast.LENGTH_SHORT).show();
-                FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                mAuth.signOut();
-                mAuth.signInAnonymously()
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    getSession().setName(mName);
-                                    getSession().setCaregiverNumber("+".concat(emergencyContact));
-                                    getSession().setUserCountryCode(mCcp.getSelectedCountryCode());
-                                    getSession().setEmailId(mEmailId);
-                                    encryptStoreUserInfo(mName, emergencyContact, eMailId, mUserGroup);
-                                    Crashlytics.log("User logged in");
-                                }else
-                                    Toast.makeText(mContext, getString(R.string.error_in_registration), Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        bRegister.setEnabled(true);
-                    }
-                });
+                listener.onReceiveNetworkState(GlobalConstants.NETWORK_CONNECTED);
             }else{
-                bRegister.setEnabled(true);
-                Toast.makeText(mContext, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
+                listener.onReceiveNetworkState(GlobalConstants.NETWORK_DISCONNECTED);
             }
         }
     }

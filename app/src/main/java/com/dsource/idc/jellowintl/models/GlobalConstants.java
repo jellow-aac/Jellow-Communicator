@@ -68,4 +68,8 @@ public class GlobalConstants {
     public static final int NORMAL_TYPE = 1251;
 
     public static final int CATEGORY_TYPE = 9509;
+
+    public static final int NETWORK_CONNECTED = 0;
+
+    public static final int NETWORK_DISCONNECTED = 1;
 }

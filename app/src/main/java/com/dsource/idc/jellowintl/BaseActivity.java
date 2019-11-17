@@ -34,10 +34,7 @@ public class BaseActivity extends AppCompatActivity{
 
     @Override
     protected void attachBaseContext(Context newBase) {
-       SessionManager s = new SessionManager(newBase);
-       if(s.getCurrentBoardLanguage()==null||s.getCurrentBoardLanguage().equals(""))
-           super.attachBaseContext((LanguageHelper.onAttach(newBase)));
-       else super.attachBaseContext(LanguageHelper.onAttach(newBase,s.getCurrentBoardLanguage()));
+       super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
 
     @Override
@@ -221,20 +218,6 @@ public class BaseActivity extends AppCompatActivity{
         }
     }
 
-    public String getShortBloodGroup(int bloodGroup) {
-        switch(bloodGroup){
-            case 1: return "A+ve";
-            case 2: return "A-ve";
-            case 3: return "B+ve";
-            case 4: return "B-ve";
-            case 5: return "AB+ve";
-            case 6: return "AB-ve";
-            case 7: return "O+ve";
-            case 8: return "O-ve";
-            default: return "not selected";
-        }
-    }
-
     private String getLevelClass() {
         return MainActivity.class.getSimpleName() + "," +
             LevelTwoActivity.class.getSimpleName() + "," +
@@ -278,15 +261,8 @@ public class BaseActivity extends AppCompatActivity{
         }
     }
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
+    public boolean isValidEmail(CharSequence target) {
+        return target != null && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
 }
 
