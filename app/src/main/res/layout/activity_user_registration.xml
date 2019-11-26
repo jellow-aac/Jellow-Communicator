@@ -118,7 +118,7 @@
                 android:textSize="@dimen/user_reg_subhead" />
 
             <EditText
-                android:id="@+id/etEmailAddress"
+                android:id="@+id/etAddress"
                 style="@style/defaultTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

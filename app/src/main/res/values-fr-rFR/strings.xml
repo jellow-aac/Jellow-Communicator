@@ -198,6 +198,7 @@
     <string name="about_je_intro5">Jellow est conçu comme favorable aux enfants avec une interface conviviale.</string>
     <string name="about_je_intro6">L\'application est optimisé pour les tablettes Android.</string>
     <string name="about_je_intro7">Jellow est actuellement proposé en Anglais, Bengali, Marathi, Tamil, Espagnol, Allemagne et Français</string>
+    <string name="play_video">lire la vidéo</string>
     <string name="software_info">Version de logiciel: _</string>
     <string name="about_je_intro8">La version actuelle de Jellow est _ L\'application est en cours de mise au point complémentaire. Donc, si vous avez des suggestions que vous pouvez nous fournir veuillez envoyer vos commentaires dans la partie de "Feedback" or écrivez-nous à jellowcommunicator@gmail.com."</string>
     <string name="terms_of_use">Les conditions d\'utilisation</string>
@@ -233,7 +234,7 @@
     <string name="langauge_correction_message"> La langue \'"-"\' n\'est pas configurée correctement. Veuillez appuyer sur \'"_"\' pour fixer la langage. Ou vous pouvez passer par la langue défaut en appuyant \'"$"\'.</string>
     <string name="changeLanguage">Fixer la langue</string>
     <string name="dialog_default_language_option">La langue par défaut</string>
-    <string name="txt_data_info">** Les détails susmentionnés seront uniquement conservés dans votre téléphone. Ce ne seront pas utilisés ou téléchargés sur le cloud ou un serveur ( incluant le serveur / cloud de Jellow ou tierce personne)</string>
+    <string name="txt_data_info">** Los datos anteriores pasan a ser grabados en su móvil. Respetamos su privacidad por lo tanto no se va a utilisar o subido al cloud de almacenamiento o servidor ( incluido al servidor/ al cloud de almacenamiento de Jellow o tercera persona</string>
     <string name="privacy_link">J\'ai lu <![CDATA[<font color="#dc5252"><b><u>la Politique de Confidentialité</u></b></font>]]> de Jellow.</string>
     <string name="consent_privacy">Veuillez lire et donc accepter les conditions.</string>
 
@@ -324,7 +325,11 @@
     <string name="close_searchbar">Fermer la barre de recherche</string>
     <string name="txt_accessibility_setting">Paramètres Accesibilité</string>
     <string name="visual_access_title">Accessibilité visuelle:</string>
-    <string name="visual_access_info">La fonction d\'accessibilité visuelle de Jellow permettent maintenant les utilisateurs avec les troubles de la vision notamment les personnes aveugles ou malvoyantes, d\'utiliser Jellow et communiquer efficacement avec les autres. Elle utilise le système de "Talk Back" sur le Smartphone Android, il vous permet de découvrir dans l\'application. Quand ce système est mis en marche l\'utilisateur pourra avoir l\'entrée audio détaillant toutes les choses qu\'il touche sur l\'écran. L\'utilisateur peut aussi assigner les gestes personnalisés ou utiliser les gestes par défaut dans "Talk Back" lorsqu\'ils interagissent avec Jellow. Par exemple, une glisse vers la droite permet l\'utilisateur défile simultanément les icônes sur l\'écran. De la même façon, en appuyant deux fois n\'importe où sur l\'écran permet l\'utilisateur de choisir un icône de leur choix.</string>
+    <string name="visual_access_info_one">La fonction d\'accessibilité visuelle de Jellow permettent maintenant les utilisateurs avec les troubles de la vision notamment les personnes aveugles ou malvoyantes, d\'utiliser Jellow et communiquer efficacement avec les autres.</string>
+    <string name="visual_access_info_two">Elle utilise le système de "Talk Back" sur le Smartphone Android, il vous permet de découvrir dans l\'application.</string>
+    <string name="visual_access_info_three">Quand ce système est mis en marche l\'utilisateur pourra avoir l\'entrée audio détaillant toutes les choses qu\'il touche sur l\'écran.</string>
+    <string name="visual_access_info_four">L\'utilisateur peut aussi assigner les gestes personnalisés ou utiliser les gestes par défaut dans "Talk Back" lorsqu\'ils interagissent avec Jellow.</string>
+    <string name="visual_access_info_five">Par exemple, une glisse vers la droite permet l\'utilisateur défile simultanément les icônes sur l\'écran. De la même façon, en appuyant deux fois n\'importe où sur l\'écran permet l\'utilisateur de choisir un icône de leur choix.</string>
     <string name="switch_access_title">Contrôle de Séléction:</string>
     <string name="switch_access_info_one">Contrôle de Séléction facilitent la navigation dans l\'application pour les personnes handicapées moteur. La fonction permet la navigation en utilisant un ou deux commutateurs.</string>
     <string name="switch_access_info_two">Pour activer cette fonction l\'utilisateur doit activer "Accès au sectionneur" dans la partie d\'accesibilité dans les réglages de votre portable.</string>

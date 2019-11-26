@@ -232,6 +232,7 @@ public class IconFactory {
         }
 
         Collections.sort(iconNames);
+
         String[] iconNameArray = new String[iconNames.size()];
         return iconNames.toArray(iconNameArray);
     }

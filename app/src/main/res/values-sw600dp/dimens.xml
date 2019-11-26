@@ -110,7 +110,7 @@
     <dimen name="profile_scroll_size">4dp</dimen>
     <dimen name="profile_view_margin_bottom">19dp</dimen>
     <dimen name="profile_et_margin_left">-4dp</dimen>
-    <dimen name="profile_parent_ll_margin_right">0dp</dimen>
+    <dimen name="profile_parent_ll_margin_right">16dp</dimen>
     <dimen name="profile_ccp_txt_size">20sp</dimen>
     <dimen name="profile_spinner_width">175dp</dimen>
     <dimen name="profile_spinner_height">40dp</dimen>

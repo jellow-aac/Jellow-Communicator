@@ -134,7 +134,7 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
             }
             @Override public void onCcpDialogCancel(DialogInterface dialogInterface) {}
         });
-        etAddress = findViewById(R.id.etEmailAddress);
+        etAddress = findViewById(R.id.etAddress);
         bRegister = findViewById(R.id.bRegister);
         findViewById(R.id.childName).setFocusableInTouchMode(true);
         findViewById(R.id.childName).setFocusable(true);
@@ -305,7 +305,7 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
                             getSession().setName(etName.getText().toString().trim());
                             getSession().setCaregiverNumber(mCcp.getFullNumberWithPlus());
                             getSession().setUserCountryCode(mCcp.getSelectedCountryCode());
-                            getSession().setEmailId(etAddress.getText().toString().trim());
+                            getSession().setAddress(etAddress.getText().toString().trim());
                             getSession().setUserId(UUID.randomUUID().toString());
 
                             getAnalytics(UserRegistrationActivity.this, getSession().getUserId());

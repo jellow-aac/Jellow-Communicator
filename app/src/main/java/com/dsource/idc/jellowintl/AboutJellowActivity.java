@@ -1,5 +1,7 @@
 package com.dsource.idc.jellowintl;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.util.Linkify;
 import android.view.View;
@@ -7,13 +9,8 @@ import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.dsource.idc.jellowintl.utility.DeveloperKey;
-import com.google.android.youtube.player.YouTubeStandalonePlayer;
-import com.google.android.youtube.player.YouTubeThumbnailView;
-
 import java.util.HashMap;
 
-import static com.dsource.idc.jellowintl.ThumbnailListener.JELLOW_INFO_VIDEO_ID;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
@@ -58,9 +55,6 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
                 stopAudio();
             }
         });
-
-        ((YouTubeThumbnailView)findViewById(R.id.thumbnailJellowInfo)).
-                initialize(DeveloperKey.DEVELOPER_KEY, new ThumbnailListener(this));
     }
 
     @Override
@@ -91,13 +85,6 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
         super.onBackPressed();
         stopSpeaking();
         finish();
-    }
-
-    public void startVideoIntent(View view){
-        startActivityForResult(YouTubeStandalonePlayer.createVideoIntent(
-                AboutJellowActivity.this, DeveloperKey.DEVELOPER_KEY,
-                JELLOW_INFO_VIDEO_ID, 0, false, false), 0);
-
     }
 
     private void initializeViews() {
@@ -297,5 +284,9 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
         mBtnStop.setText(mStop);
         Linkify.addLinks(tv15, Linkify.WEB_URLS);
         Linkify.addLinks(tv16, Linkify.EMAIL_ADDRESSES);
+    }
+
+    public void playInfoVideo(View view){
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=5LXDcPBYCyA")));
     }
 }

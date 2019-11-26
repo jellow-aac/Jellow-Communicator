@@ -208,14 +208,15 @@
                             android:layout_marginStart="@dimen/about_tv_margin"
                             android:paddingBottom="@dimen/about_tv_padding_bottom"/>
                     </LinearLayout>
-                    <com.google.android.youtube.player.YouTubeThumbnailView
-                        android:id="@+id/thumbnailJellowInfo"
-                        android:layout_width="@dimen/access_yt_thumbnail_width"
-                        android:layout_height="@dimen/access_yt_thumbnail_height"
-                        android:src="@drawable/no_thumbnail"
-                        android:layout_marginTop="@dimen/access_tv_margin_top"
-                        android:paddingBottom="@dimen/access_tv_margin_bottom"
-                        android:onClick="startVideoIntent"/>
+                    <Button
+                        android:id="@+id/btn_access_video_two"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/about_btn_height"
+                        android:textSize="@dimen/about_btn_txt_size"
+                        android:text="@string/play_video"
+                        android:paddingLeft="@dimen/about_btn_padding_left"
+                        android:paddingRight="@dimen/about_btn_padding_left"
+                        android:onClick="playInfoVideo"/>
 
                 </LinearLayout>
                 <LinearLayout

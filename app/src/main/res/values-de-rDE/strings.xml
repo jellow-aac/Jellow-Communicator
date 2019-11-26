@@ -202,6 +202,7 @@
     <string name="about_je_intro5">Jellow wird als eine kinderfreundliche App mit leicht erlernbarem Interface entworfen.</string>
     <string name="about_je_intro6">Die App ist für Android-Tablets optimiert.</string>
     <string name="about_je_intro7">Jellow ist zurzeit auf Englisch, Hindi, Bengali, Marathi, Tamil, Spanisch, Deutsch, Französisch verfügbar.</string>
+    <string name="play_video">video afspelen</string>
     <string name="software_info">Softwareversion: _</string>
     <string name="about_je_intro8">Die aktuelle Version Jellows ist _. Die App wird allerdings weiterentwickelt. Falls Sie Vorschläge oder Bemerkungen haben, teilen Sie diese im Feedback-Tab mit oder schreiben Sie uns an jellowcommunicator@gmail.com</string>
     <string name="terms_of_use">Nutzungsbedingungen</string>
@@ -237,6 +238,7 @@
     <string name="langauge_correction_message"> \'"-"\' wird nicht richtig eingestellt. \'"_"\' drücken, um die Sprache richtigzustellen. Oder Sie können auf die Standardsprache schalten, indem Sie \'"$"\' drücken.</string>
     <string name="changeLanguage">Sprache richtigstellen</string>
     <string name="dialog_default_language_option">Standardsprache</string>
+    <string name="txt_data_info">** Aus sicherheitsgründen werden Ihre persönlichen Daten nur auf Ihrem Gerät gespeichert. Wir nehmen Ihren Datenschutz ernst und geben Ihre Daten weder an Drittperson (Server/Cloud) weiter, noch speichern wir sie auf der Jellow-Cloud).</string>
     <string name="privacy_link">Ich habe die <![CDATA[<font color="#dc5252"><b><u>Datenschutzerklärung</u></b></font>]]> zur Kenntniss genommen.</string>
     <string name="consent_privacy">Bitte lesen Sie die Datenzschutzlinie sorgfältig durch und dann bestätigen.</string>
 
@@ -330,7 +332,11 @@
 
     <string name="txt_accessibility_setting">Bedienungshilfen</string>
     <string name="visual_access_title">Visuelle Barrierefreiheit:</string>
-    <string name="visual_access_info">Die visuelle Barrierefreiheitsfunktion Jellows ermöglicht den Benutzern mit Sehbehinderung oder Blindheit den Gebrauch von Jellow sowie eine wirksame Kommunikation mit anderen. Sie verwendet die \'Talk-Back-Funktion\' auf Android-Smartphones innerhalb der App zu navigieren. Wenn die \'Talk-Back-Funktion\' des Geräts eingeschaltet ist, kann der Benutzer die Audiobeschreibung von allem erhalten, was er auf dem Bildschirm berührt. Der Benutzer kann sogar benutzerdefinierte Gesten erstellen oder die voreingestellten Gesten von \'Talk Back\' bei Interaktion mit Jellow verwenden. Zum Beispiel, das Doppelklicken irgendwo auf dem Bildschirm wird den Benutzern die Auswahl eines gewünschten Icons ermöglichen.</string>
+    <string name="visual_access_info_one">Die visuelle Barrierefreiheitsfunktion Jellows ermöglicht den Benutzern mit Sehbehinderung oder Blindheit den Gebrauch von Jellow sowie eine wirksame Kommunikation mit anderen.</string>
+    <string name="visual_access_info_two">Sie verwendet die \'Talk-Back-Funktion\' auf Android-Smartphones innerhalb der App zu navigieren.</string>
+    <string name="visual_access_info_three">Wenn die \'Talk-Back-Funktion\' des Geräts eingeschaltet ist, kann der Benutzer die Audiobeschreibung von allem erhalten, was er auf dem Bildschirm berührt.</string>
+    <string name="visual_access_info_four">Der Benutzer kann sogar benutzerdefinierte Gesten erstellen oder die voreingestellten Gesten von \'Talk Back\' bei Interaktion mit Jellow verwenden.</string>
+    <string name="visual_access_info_five">Zum Beispiel, das Doppelklicken irgendwo auf dem Bildschirm wird den Benutzern die Auswahl eines gewünschten Icons ermöglichen.</string>
     <string name="switch_access_title">Schalterzugriff:</string>
     <string name="switch_access_info_one">Der Schalterzugriff vereinfacht den Personen mit motorischen Einschränkungen das Navigieren in der App. Die Funktion ermöglicht das Navigieren mithilfe eines Schalters oder zwei Schalter.</string>
     <string name="switch_access_info_two">Um diese Funktion zu aktivieren, muss der Benutzer \"Schalterzugriff\" in Bedienungshilfen in Telefoneinstellungen einschalten.</string>

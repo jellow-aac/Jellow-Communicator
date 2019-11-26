@@ -1887,7 +1887,6 @@ public class LevelTwoActivity extends LevelBaseActivity{
      * */
     private String getContactWithSpacesBetweenDigits() {
         String contact = getSession().getCaregiverNumber();
-        contact = contact.substring(0, contact.length() - 3);
         contact =
                 (SessionManager.ES_ES+SessionManager.FR_FR). contains(getSession().getLanguage()) ?
 

@@ -202,6 +202,7 @@
     <string name="about_je_intro5">Jellow es apto para menores y tiene una interfaz fácil de entender.</string>
     <string name="about_je_intro6">La aplicación está diseñada para tabletas de Android</string>
     <string name="about_je_intro7">Actualmente, Jellow está disponible en inglés, hindi, bengali, marathi, tamil, español, alemán e frances.</string>
+    <string name="play_video">reproduce el video</string>
     <string name="software_info">Versión de software: _</string>
     <string name="about_je_intro8">La versión actual de Jellow es _. La aplicación está en desarrollo. Por eso, si tienes alguna sugerencia, por favor envíala en la página de retroalimentación jellowcommunicator@gmail.com."</string>
     <string name="terms_of_use">Términos de Uso</string>
@@ -237,7 +238,7 @@
     <string name="langauge_correction_message">La idioma de \'"-"\' no se ha configurado correctamente. Pulsar \'"_"\' de corregir la idioma. O puede cambiar a la idioma predeterminado pulsando \'"$"\'</string>
     <string name="changeLanguage">Corregir la idioma</string>
     <string name="dialog_default_language_option">Idioma predeterminado</string>
-    <string name="txt_data_info">** Los datos anteriores pasan a ser grabados en su móvil. No se va a utilisar o subido al cloud de almacenamiento o servidor ( incluido al servidor/ al cloud de almacenamiento de Jellow o tercera persona)</string>
+    <string name="txt_data_info">** Los datos anteriores pasan a ser grabados en su móvil. Respetamos su privacidad por lo tanto no se va a utilisar o subido al cloud de almacenamiento o servidor ( incluido al servidor/ al cloud de almacenamiento de Jellow o tercera persona)</string>
     <string name="privacy_link">He leído <![CDATA[<font color="#dc5252"><b><u>la Política de Privacidad</u></b></font>]]> de Jellow</string>
     <string name="consent_privacy">Favor de leer y marcar el consentimiento de la Política de Privacidad</string>
 
@@ -330,7 +331,11 @@
 
     <string name="txt_accessibility_setting">Ajustes de Accesibilidad</string>
     <string name="visual_access_title">Accesibilidad visual</string>
-    <string name="visual_access_info">La herramienta de Accesibilidad visual del Jellow ayuda a los usuarios con los problemas visuales y la ceguera para comunicar con los demás por Jellow. Se utiliza la función de \'TalkBack\' en un aparato de Android para navegar por esta aplicación. Cuando la \'Talk back\' está activado, el usuario puede escuchar a mensajes de voz que describen todo lo que él toca en la pantalla. El usuario también puede asignar gestos nuevos o usar los predeterminados de \'Talk back\' para interactuar con Jellow. Por ejemplo, deslizar el dedo hacia la derecha permite al usuario para desplazarse los iconos en la pantalla.</string>
+    <string name="visual_access_info_one">La herramienta de Accesibilidad visual del Jellow ayuda a los usuarios con los problemas visuales y la ceguera para comunicar con los demás por Jellow.</string>
+    <string name="visual_access_info_two">Se utiliza la función de \'TalkBack\' en un aparato de Android para navegar por esta aplicación.</string>
+    <string name="visual_access_info_three">Cuando la \'Talk back\' está activado, el usuario puede escuchar a mensajes de voz que describen todo lo que él toca en la pantalla.</string>
+    <string name="visual_access_info_four">El usuario también puede asignar gestos nuevos o usar los predeterminados de \'Talk back\' para interactuar con Jellow.</string>
+    <string name="visual_access_info_five">Por ejemplo, deslizar el dedo hacia la derecha permite al usuario para desplazarse los iconos en la pantalla.</string>
     <string name="switch_access_title">Accesibilidad mediante interruptores</string>
     <string name="switch_access_info_one">Accesibilidad mediante interruptores hace la aplicación más fácil para los usuarios con discapacidad motoriz. La función permite navegar por uno o dos interruptres</string>
     <string name="switch_access_info_two">Para activar esta función el usuario tiene que activar \"Accesibilidad mediante interruptores\" en la Accesibilidad de los Ajustes de aparato</string>

@@ -2,16 +2,37 @@
 All notable changes to this project will be documented in this file.
 
 ##[2.0]
+### Added
+- Added new languages Tamil, Spanish, German & French
+- Extra new icons in Spanish 41 language -> in Eating -> Breakfast, Lunch/Dinner, Snacks, Drinks categories.
+- Added menu icon which opens a new dialog on home screen to select "Number of icons per screen". 
+- Added separate screenshots for each language for Intro as well as Tutorial screen. 
+
+### Updates
+- Added the search functionality in Activity Sequences.
+- Removed unused data collection.
+- Unified the language packages. Now for all language there is common language icon set. Each language will have its own json file to load contents.
+- Optimized the category icon loading.
+- Registration page now stores the icon user name, caregiver number and home address as mandatory field.
+- Updated the language switching process. User can switch to any language in 4 steps (excluding Marathi)
+ a. Select language
+ b. Disable "Wi-fi Only" button
+ c. Check Text-to-speech data
+ d. Apply changes
+- Marathi language will download the audio package on demand. Then in 2 steps user can able switch to Marathi language.
+
+### Removed
+- The setting at intro screen which setups the Test-to-speech engine language upfront.
+- Removed Intro screen for Google Text-to-speech setup and "wifi-only".
+- Removed size specific screens. Each screen now have one layout for all size screens. The layout uses different dimensions for different screen sizes.
 
 ##[1.3.4-rc4]
-### Added
 - AccessibilitySettingsActivity and layout. This activity will has buttons that will take user to Accessibility settings directly. 
   Also, this activity has description about Switch, Visual Accessibility with respective link.
 
 ### Updates
 - Updated the credits in Research, Vocabulary Development and User Studies
-- Added the contents serial keyboard in KeyboardControlActivity.    
-
+- Added the contents serial keyboard in KeyboardControlActivity.
 
 ##[1.3.2-rc3]
 - Fixed the issue. The Model classes not able to serialize the json data on release build. Added the the annotation (@SerializedName(""))for every data variable in model class. 

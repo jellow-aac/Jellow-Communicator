@@ -148,7 +148,6 @@ public class LevelUiUtils {
     public static void startCall(Context context, String contact){
         //removing extra digits (these digits are added to make mobile number unique)
         // stored during registration.
-        contact = contact.substring(0, contact.length()-3);
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse(contact));
         context.startActivity(callIntent);

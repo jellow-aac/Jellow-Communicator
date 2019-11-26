@@ -916,7 +916,7 @@ public class SequenceActivity extends LevelBaseActivity{
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(19, getPrefixTag()
-                            +"_"+ mIconCode[count + mFlgHideExpBtn]+"DGlobalConstants.SHORT_SPEECH", "");
+                            +"_"+ mIconCode[count + mFlgHideExpBtn]+"D0", "");
                         speak(seqIconObjects[count + mFlgHideExpBtn - 1].getD());
                         mFlgDontLike = GlobalConstants.LONG_SPEECH;
                     }
