@@ -39,6 +39,8 @@
     <dimen name="twoIcon_parentPaddingVertical">32dp</dimen>
     <dimen name="twoIcon_width">94dp</dimen>
     <dimen name="twoIcon_textSize">14sp</dimen>
+    <dimen name="twoIcon_borderThickness">5dp</dimen>
+    <dimen name="twoIcon_innerRadius">42dp</dimen>
 
     <!--3 icons configuration-->
     <dimen name="threeIcon_parentVertical">32dp</dimen>
@@ -46,9 +48,11 @@
     <dimen name="threeIcon_width">94dp</dimen>
     <dimen name="threeIcon_textWidth">112dp</dimen>
     <dimen name="threeIcon_textSize">12sp</dimen>
+    <dimen name="threeIcon_borderThickness">5dp</dimen>
+    <dimen name="threeIcon_innerRadius">42dp</dimen>
 
     <!--4 icons configuration-->
-    <!--Below custom_wrap_content property will ge used only for 720dp resources-->
+    <!--Below custom_wrap_content property will be used only for 720dp resources-->
     <item name="custom_wrap_content" format="integer" type="dimen">-2</item>
     <item name="custom_match_parent" format="integer" type="dimen">-1</item>
 
@@ -56,11 +60,8 @@
     <dimen name="fourIcon_width">94dp</dimen>
     <dimen name="fourIcon_textWidth">112dp</dimen>
     <dimen name="fourIcon_textSize">12sp</dimen>
-
-    <!--Common resources for 2 icon, 3 icon & 4 icon layout-->
-    <dimen name="twoIcon_borderThickness">5dp</dimen>
-    <dimen name="twoIcon_innerRadius">42dp</dimen>
-    <!---->
+    <dimen name="fourIcon_borderThickness">5dp</dimen>
+    <dimen name="fourIcon_innerRadius">42dp</dimen>
 
     <!--9 icons configuration-->
     <dimen name="nineIcon_parentHorizontal">0dp</dimen>
@@ -118,8 +119,8 @@
     <dimen name="profile_view_margin_bottom">10dp</dimen>
     <dimen name="profile_et_margin_left">-4dp</dimen>
     <dimen name="profile_ccp_txt_size">14sp</dimen>
-    <dimen name="profile_spinner_width">205dp</dimen>
     <dimen name="profile_spinner_height">30dp</dimen>
+    <dimen name="profile_spinner_right_padding">24dp</dimen>
     <dimen name="profile_view_height">56dp</dimen>
     <dimen name="profile_save_btn_padding_left">8dp</dimen>
     <dimen name="profile_save_btn_height">30dp</dimen>

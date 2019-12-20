@@ -135,7 +135,6 @@
         <activity
             android:name=".utility.DialogBox"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Translucent" />
 
 

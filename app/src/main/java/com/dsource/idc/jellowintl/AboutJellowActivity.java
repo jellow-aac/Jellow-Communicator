@@ -9,6 +9,8 @@ import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.dsource.idc.jellowintl.factories.PathFactory;
+
 import java.util.HashMap;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
@@ -21,6 +23,7 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
  */
 
 public class AboutJellowActivity extends SpeechEngineBaseActivity {
+    final String ABOUT_ME_AUDIO_FILE ="about_me.mp3";
     private Button mBtnSpeak, mBtnStop;
     private TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9, tv10, tv11, tv12, tv13, tv14, tv15, tv16,
             tv17, tv18, tv19, tv20, tv21, tv22, tv23, tv24, tv25, tv26, tv27, tv28, tv29, tv30, tv31,
@@ -29,7 +32,8 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
             mIntro1, mIntro2, mIntro3, mIntro4, mIntro5, mIntro6, mIntro7, mIntro8,
             mIntro9, mIntro10, mIntro11, mIntro12, mIntro13, mIntro14, mIntro15, mIntro16, mIntro17,
             mIntro18, mIntro19, mIntro20, mIntro21, mIntro22, mIntro23, mIntro24, mIntro25, mIntro26,
-            mIntro27, mIntro28, mIntro29, mIntro30, mIntro31, mIntro32, mSpeak, mStop;
+            mIntro27, mIntro28, mIntro29, mIntro30, mIntro31, mIntro32, mSpeak, mStop, mPause;
+    private boolean isMediaPaused = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +44,22 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
         initializeViews();
         loadStrings();
         setTextToTextViews();
-
+        createAudioFileForSpeech(mSpeechTxt);
         mBtnSpeak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speak(mSpeechTxt);
+                if (isMediaPaused) {
+                    resumeMediaAudio();
+                    isMediaPaused = false;
+                    mBtnSpeak.setText(mPause);
+                }else if (!isMediaRunning()) {
+                    playAudio(PathFactory.getBaseDirectoryPath(AboutJellowActivity.this) + ABOUT_ME_AUDIO_FILE);
+                    mBtnSpeak.setText(mPause);
+                }else{
+                    pauseAudio();
+                    isMediaPaused = true;
+                    mBtnSpeak.setText(mSpeak);
+                }
             }
         });
 
@@ -53,6 +68,8 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
             public void onClick(View v) {
                 stopSpeaking();
                 stopAudio();
+                stopMediaAudio();
+                isMediaPaused = false;
             }
         });
     }
@@ -175,11 +192,13 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
         mIntro31 = getString(R.string.about_je_intro31);
         mSpeak = getString(R.string.speak);
         mStop = getString(R.string.stop);
+        mPause = getString(R.string.pause);
         mIntro32 = getString(R.string.about_je_intro32);
 
         mSpeechTxt = getString(R.string.about_jellow_speech);
-        if(getSession().getLanguage().equals(HI_IN))
+        if(getSession().getLanguage().equals(HI_IN)) {
             versionCode = versionCode.replace(".", " दशम् लक ");
+        }
         mSpeechTxt = mSpeechTxt.contains("_") ?
                 mSpeechTxt.replace("_", versionCode) : mSpeechTxt;
     }
@@ -284,6 +303,7 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
         mBtnStop.setText(mStop);
         Linkify.addLinks(tv15, Linkify.WEB_URLS);
         Linkify.addLinks(tv16, Linkify.EMAIL_ADDRESSES);
+        Linkify.addLinks(tv9, Linkify.EMAIL_ADDRESSES);
     }
 
     public void playInfoVideo(View view){

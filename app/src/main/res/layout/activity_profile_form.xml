@@ -150,14 +150,21 @@
                     style="@style/defaultTextViewStyle"/>
                 <Spinner
                     android:id="@+id/bloodgroup"
-                    android:layout_width="@dimen/profile_spinner_width"
+                    android:layout_width="wrap_content"
                     android:layout_height="@dimen/profile_spinner_height"
+                    android:paddingRight="@dimen/profile_spinner_right_padding"
+                    android:paddingEnd="@dimen/profile_spinner_right_padding"
                     android:background="@drawable/custom_spinner_view"/>
                 <TextView
                     android:id="@+id/tv_info"
                     style="@style/defaultTextViewStyle"
                     android:text="@string/txt_data_info"
-                    android:layout_marginTop="@dimen/user_reg_btn_margin_top"
+                    android:layout_marginTop="@dimen/user_reg_btn_margin_top"/>
+                <TextView
+                    android:id="@+id/view_privacy_policy"
+                    style="@style/defaultTextViewStyle"
+                    android:text="@string/txt_view_privacy_policy"
+                    android:onClick="openPrivacyPolicyPage"
                     android:layout_marginBottom="@dimen/profile_view_margin_bottom"/>
                 <View
                     android:layout_width="match_parent"

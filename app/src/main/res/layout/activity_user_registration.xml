@@ -166,7 +166,7 @@
                 <TextView
                     android:id="@+id/tv_pivacy_link"
                     style="@style/defaultTextViewStyle"
-                    android:text="@string/privacy_link"
+                    android:text="@string/privacy_link_info"
                     android:layout_marginEnd="@dimen/user_reg_tv_group"
                     android:layout_marginRight="@dimen/user_reg_tv_group"
                     android:onClick="openPrivacyPolicyPage"/>

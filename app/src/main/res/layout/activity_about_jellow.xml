@@ -582,6 +582,45 @@
                                     android:gravity="center"
                                     android:importantForAccessibility="no"/>
                                 <TextView
+                                    android:id="@+id/tv40"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/about_je_intro40"
+                                    android:layout_marginLeft="@dimen/about_credit_tv_margin_left"
+                                    android:layout_marginStart="@dimen/about_credit_tv_margin_left"
+                                    android:fontFamily="@font/mukta_semibold"
+                                    style="@style/defaultTextViewStyle"/>
+                            </LinearLayout>
+                            <TextView
+                                android:id="@+id/tv41"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/about_je_intro41"
+                                style="@style/defaultTextViewStyle"
+                                android:layout_marginLeft="@dimen/about_credit_name_margin_left"
+                                android:layout_marginStart="@dimen/about_credit_name_margin_left"
+                                android:paddingBottom="@dimen/about_tv_padding_bottom"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="@dimen/about_credit_title_ll_margin_bottom">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black_eighty"
+                                    android:text="@string/bullet"
+                                    android:scaleX="@dimen/about_bullet_scale"
+                                    android:scaleY="@dimen/about_bullet_scale"
+                                    android:layout_gravity="center_vertical"
+                                    android:gravity="center"
+                                    android:importantForAccessibility="no"/>
+                                <TextView
                                     android:id="@+id/tv36"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"

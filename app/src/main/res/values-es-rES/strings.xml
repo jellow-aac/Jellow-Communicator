@@ -80,7 +80,7 @@
     <string name="txtVoiceVolume">Volumen de sonido</string>
     <string name="txtNumOfPerPerScr">Número de iconos de categoría por pantalla</string>
     <string name="txtDemo">DEMOSTRACIÓN DE HABLA</string>
-    <string name="txtSave">GUARDAR</string>
+    <string name="txtSave">GUARDAR (Save)</string>
     <string name="demoTtsSpeech">¡Hola! Estás utilizando Jellow Communicator.</string>
     <string name="savedSettingsMessage">Ajustes guardados</string>
     <string name="languageChanged">Idioma cambiado</string>
@@ -127,8 +127,9 @@
     <string name="search_act_title">Buscar iconos en Jellow</string>
     <string name="iconsHasBeenReset">Las preferencias han sido restablecidas.</string>
     <string name="speak">Hablar</string>
+    <string name="pause">Pausa</string>
     <string name="stop">Para</string>
-    <string name="about_jellow_speech">Jellow es un comunicador que utiliza iconos para activar el habla y también se puede usar para aprender a hablar o por quienes tienen dificultades de habla. Jellow es apto para menores para aprender palabras y categorias comúnes de su vida cotidiana. Los iconos de Jellow son coloridos y pueden ayudar a los niños para desarrollar una relación entre las imagenes y sus etiquetas corespondientes. Se ha desarrollado en IDC School of Design, IIT-Bombay, Mumbai. Los Investigadores concibieron y desarrollaron un innovador Protocolo de Idioma Emocional (Emotional Language Protocol o ELP) para mejorar la habilidad de lenguaje de Jellow. ELP representa los 6 iconos expresivos que forman el núcleo de la interfaz. Con estos iconos principales, el niño puede comunicar lo que le gusta o no le gusta y sus necesidades. Jellow es apto para menores y tiene una interfaz fácil de entender. La aplicación está diseñada para tabletas de Android. Actualmente, Jellow está disponible en inglés, hindi, bengali, marathi, tamil, español, alemán e frances. La versión actual de Jellow es _ . La versión actual de Jellow es 5.0. La aplicación está en desarrollo. Por eso, si tienes alguna sugerencia, por favor envíala en la página de retroalimentación o a jellowcommunicator@gmail.com. Jellow se distribuye bajo licencia de Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Jellow es una aplicación creada por Indian Institute of Technology Bombay. El contenido (iconos, plano, arquitectura, diseño, traducción y códigos) puede ser compartido y adoptado pero no puede ser usado con objetivos comerciales. Cuando uses el contenido, agradeceríamos que valoraras la labor de Indian Institute of Technology, Bombay. Jellow está disponible para descargar en w w w dot j e l l o w dot o r g. Si tienes interés en desarrollar más el código, por favor escribe al Profesor Ravi Poovaiah, r a v i @ i i t b dot a c dot i n o al j e l l o w c o m m u n i c a t o r @ g m a i l dot c o m</string>
+    <string name="about_jellow_speech">Jellow es un comunicador que utiliza iconos para activar el habla y también se puede usar para aprender a hablar o por quienes tienen dificultades de habla. Jellow es apto para menores para aprender palabras y categorias comúnes de su vida cotidiana. Los iconos de Jellow son coloridos y pueden ayudar a los niños para desarrollar una relación entre las imagenes y sus etiquetas corespondientes. Se ha desarrollado en IDC School of Design, IIT-Bombay, Mumbai. Los Investigadores concibieron y desarrollaron un innovador Protocolo de Idioma Emocional (Emotional Language Protocol o ELP) para mejorar la habilidad de lenguaje de Jellow. ELP representa los 6 iconos expresivos que forman el núcleo de la interfaz. Con estos iconos principales, el niño puede comunicar lo que le gusta o no le gusta y sus necesidades. Jellow es apto para menores y tiene una interfaz fácil de entender. La aplicación está diseñada para tabletas de Android. Actualmente, Jellow está disponible en inglés, hindi, bengali, marathi, tamil, español, alemán e frances. La versión actual de Jellow es _ . La versión actual de Jellow es 5.0. La aplicación está en desarrollo. Por eso, si tienes alguna sugerencia, por favor envíala en la página de retroalimentación o a jellowcommunicator@gmail.com. Jellow se distribuye bajo licencia de Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Jellow es una aplicación creada por Indian Institute of Technology Bombay. El contenido (iconos, plano, arquitectura, diseño, traducción y códigos) puede ser compartido y adoptado pero no puede ser usado con objetivos comerciales. Cuando uses el contenido, agradeceríamos que valoraras la labor de Indian Institute of Technology, Bombay. Jellow está disponible para descargar en w w w dot j e l l o w dot o r g. Si tienes interés en desarrollar más el código, por favor escribe al Profesor Ravi Poovaiah, al j e l l o w c o m m u n i c a t o r @ g m a i l dot c o m</string>
     <string name="catBtnDesc">Jellow tiene 9 botones de categorías principales y 6 botones expresivos laterales</string>
     <string name="catBtn">Botones de categoría :</string>
     <string name="expBtn">Botones expresivos :</string>
@@ -211,7 +212,7 @@
     <string name="about_je_intro11">El contenido (iconos, plano, arquitectura, diseño, traducción y códigos) puede ser compartido y adoptado pero no puede ser usado con objetivos comerciales.</string>
     <string name="about_je_intro12">Cuando uses el contenido, agradeceríamos que valoraras la labor de Indian Institute of Technology, Bombay.</string>
     <string name="about_je_intro13">Jellow está disponible para descargar en www.jellow.org</string>
-    <string name="about_je_intro14">Si tienes interés en desarrollar más el código, por favor escribe al Profesor Ravi Poovaiah, jellowcommunicator@gmail.com o ravi@iitb.ac.in</string>
+    <string name="about_je_intro14">Si tienes interés en desarrollar más el código, por favor escribe al Profesor Ravi Poovaiah, jellowcommunicator@gmail.com</string>
     <string name="credits">Créditos:</string>
     <string name="about_je_intro15">Concepción de la idea, Investigación del proyecto y Supervisión:</string>
     <string name="about_je_intro16">Prof. Ravi Poovaiah y Dr. Ajanta Sen</string>
@@ -233,13 +234,16 @@
     <string name="about_je_intro30">El proyecto de E-kalpa es patrocinado por MHRD, Microsoft Design Expo 2004 bajo NMECIT y por UNICEF Innovation Fund con una subvención de un año.</string>
     <string name="about_je_intro38">Estudio longitudinal y Pruebas de Campo del Jellow Communicator</string>
     <string name="about_je_intro39">Topiwala National Medical College and B.Y.L Nair Charitable Hospital (Departamentos de Psiquiatría y Audiología y Logopedia)</string>
+    <string name="about_je_intro40">El diseño UX/UI y coordinacíon general:</string>
+    <string name="about_je_intro41">Professor Ravi Poovaiah, Roopa Narayan Sahoo, Vinaya Tawde</string>
     <string name="feedback_talkback_heading">En una escala de 1 a 5, por favor valora los siguientes aspectos</string>
 
     <string name="langauge_correction_message">La idioma de \'"-"\' no se ha configurado correctamente. Pulsar \'"_"\' de corregir la idioma. O puede cambiar a la idioma predeterminado pulsando \'"$"\'</string>
     <string name="changeLanguage">Corregir la idioma</string>
     <string name="dialog_default_language_option">Idioma predeterminado</string>
     <string name="txt_data_info">** Los datos anteriores pasan a ser grabados en su móvil. Respetamos su privacidad por lo tanto no se va a utilisar o subido al cloud de almacenamiento o servidor ( incluido al servidor/ al cloud de almacenamiento de Jellow o tercera persona)</string>
-    <string name="privacy_link">He leído <![CDATA[<font color="#dc5252"><b><u>la Política de Privacidad</u></b></font>]]> de Jellow</string>
+    <string name="txt_view_privacy_policy">Lea <![CDATA[<font color="#dc5252"><b><u>la Política de Privacidad</u></b></font>]]> de Jellow</string>
+    <string name="privacy_link_info">He leído <![CDATA[<font color="#dc5252"><b><u>la Política de Privacidad</u></b></font>]]> de Jellow</string>
     <string name="consent_privacy">Favor de leer y marcar el consentimiento de la Política de Privacidad</string>
 
 
@@ -301,7 +305,7 @@
 
     <string name="txt_tts_stting">Ajustes de Texto a voz</string>
     <string name="change_language_tts_wifi">2da Paso: Ve a "Ajustes" de Texto a voz de Google y apaga "Solo Wi-Fi" tocando debajo el boton de "Texto a voz de Google". Si esta opción ya está desactivada, salta este paso.</string>
-    <string name="txtStep2">2º paso:</string>
+    <string name="txtStep2">2da paso:</string>
     <string name="close">Cerrar diálogo</string>
     <string name="access_dialog_title">Diálogo con opciones</string>
 

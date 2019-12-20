@@ -70,7 +70,7 @@
         </RelativeLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:layout_width="375dp"
+            android:layout_width="412dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:scrollbars="vertical"

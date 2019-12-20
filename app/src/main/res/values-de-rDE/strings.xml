@@ -81,7 +81,7 @@
     <string name="txtVoiceVolume">Sprechlautstärke</string>
     <string name="txtNumOfPerPerScr">Anzahl von Icons auf dem Bildschirm</string>
     <string name="txtDemo">Sprech demo</string>
-    <string name="txtSave">Speichern</string>
+    <string name="txtSave">Speichern (Save)</string>
     <string name="demoTtsSpeech">Hallo! Sie benutzen Jellow Communicator.</string>
     <string name="savedSettingsMessage">Einstellungen gespeichert</string>
     <string name="languageChanged">Sprache gespeichert</string>
@@ -128,8 +128,9 @@
     <string name="search_act_title">Icons in Jellow durchsuchen</string>
     <string name="iconsHasBeenReset">Benutzerpräferenzen zurückgesezt</string>
     <string name="speak">Sprechen</string>
+    <string name="pause">Pause</string>
     <string name="stop">Halten</string>
-    <string name="about_jellow_speech">Jellow ist eine kommunikative App, die durch Gebrauch von Icons und Bildern das Sprechen ermöglicht. Die App ist geeignet sowohl für diejenigen, die das Sprechen lernen als auch für diejenigen, die Schwierigkeiten beim Sprechen haben. Jellow kann von Kleinkindern sowie von denjenigen benutzt werden, die gerade erst mit dem Lernen begonnen haben, um Wörter, Begriffe und Ausdrücke zu lernen, die sorgfältig in unterschiedlichen Kategorien eingeordnet worden sind. Die farbigen und benutzerfreundlichen Icons Jellows ermöglichen und vereinfachen den Kindern das Lernen, indem sie einen Zusammenhang zwischen Bildern und dementsprechenden Begriffen herstellen. Jellow wird in \"IDC School of Design\" an Indian Institute of Technology Bombay (Mumbai) entwickelt. Um Jellows Lernfähigkeit zu verbessern, wurde von den Projekt-Forschern ein neuartiges \"Emotional Language Protokoll (ELP)\" entworfen und entwickelt. Das ELP führt 6 expressive Icons ein, die als Grundlage für das ganze Interface dienen. Der Benutzer kann mithilfe dieser Icons seine Vorlieben, Abneigungen und Bedürfnisse vermitteln. Jellow wird als eine kinderfreundliche App mit leicht erlernbarem Interface entworfen. Jellow wird für Android-Tablets optimiert und ist zurzeit auf Englisch, Hindi, Bengali, Marathi, Tamil, Spanisch, Deutsch, Französisch verfügbar. Die aktuelle Version Jellows ist _. Die App wird allerdings weiterentwickelt. Falls Sie Vorschläge oder Bemerkungen haben, teilen Sie uns diese in dem Feedback-Tab mit oder schreiben Sie uns an jellowcommunicator@gmail.com. Jellow wird unter der Lizenz der Creative-Common-Attribution Share Alike 4.0 veröffentlicht und Indian Institute of Technology Bombay zugeschrieben. Der Inhalt dieser App inklusiv der Icons, Gestaltung, Übersetzung, visuellen Identität, des Aufbaus und der Softwarecodes kann zu gemeinnützigen, nicht gewerblichen Zwecken geteilt und übernommen werden, in welchem Fall wird es Sie um die Anerkennung von Indian Institute of Technology Bombay gebeten. Jellow ist auf www dot jellow dot org zum Downloaden vorhanden. Bei Interesse an Weiterentwicklung des Codes, können Sie an Professor Ravi Poovaiah schreiben: ravi@ i i t b dot a c . i n ; j e l l o w c o m m u n i c a t o r @ g m a i l . c o m </string>
+    <string name="about_jellow_speech">Jellow ist eine kommunikative App, die durch Gebrauch von Icons und Bildern das Sprechen ermöglicht. Die App ist geeignet sowohl für diejenigen, die das Sprechen lernen als auch für diejenigen, die Schwierigkeiten beim Sprechen haben. Jellow kann von Kleinkindern sowie von denjenigen benutzt werden, die gerade erst mit dem Lernen begonnen haben, um Wörter, Begriffe und Ausdrücke zu lernen, die sorgfältig in unterschiedlichen Kategorien eingeordnet worden sind. Die farbigen und benutzerfreundlichen Icons Jellows ermöglichen und vereinfachen den Kindern das Lernen, indem sie einen Zusammenhang zwischen Bildern und dementsprechenden Begriffen herstellen. Jellow wird in \"IDC School of Design\" an Indian Institute of Technology Bombay (Mumbai) entwickelt. Um Jellows Lernfähigkeit zu verbessern, wurde von den Projekt-Forschern ein neuartiges \"Emotional Language Protokoll (ELP)\" entworfen und entwickelt. Das ELP führt 6 expressive Icons ein, die als Grundlage für das ganze Interface dienen. Der Benutzer kann mithilfe dieser Icons seine Vorlieben, Abneigungen und Bedürfnisse vermitteln. Jellow wird als eine kinderfreundliche App mit leicht erlernbarem Interface entworfen. Jellow wird für Android-Tablets optimiert und ist zurzeit auf Englisch, Hindi, Bengali, Marathi, Tamil, Spanisch, Deutsch, Französisch verfügbar. Die aktuelle Version Jellows ist _. Die App wird allerdings weiterentwickelt. Falls Sie Vorschläge oder Bemerkungen haben, teilen Sie uns diese in dem Feedback-Tab mit oder schreiben Sie uns an jellowcommunicator@gmail.com. Jellow wird unter der Lizenz der Creative-Common-Attribution Share Alike 4.0 veröffentlicht und Indian Institute of Technology Bombay zugeschrieben. Der Inhalt dieser App inklusiv der Icons, Gestaltung, Übersetzung, visuellen Identität, des Aufbaus und der Softwarecodes kann zu gemeinnützigen, nicht gewerblichen Zwecken geteilt und übernommen werden, in welchem Fall wird es Sie um die Anerkennung von Indian Institute of Technology Bombay gebeten. Jellow ist auf www dot jellow dot org zum Downloaden vorhanden. Bei Interesse an Weiterentwicklung des Codes, können Sie an Professor Ravi Poovaiah schreiben: j e l l o w c o m m u n i c a t o r @ g m a i l . c o m </string>
     <string name="catBtnDesc">Jellow hat 9 Hauptkategorien-Tasten und 6 expressive Tastenstring</string>
     <string name="catBtn">Kategorien-Tasten:</string>
     <string name="expBtn">Expressive Tasten:</string>
@@ -211,7 +212,7 @@
     <string name="about_je_intro11">Der Inhalt dieser App inklusive der Icons, visuellen Identität, Übersetzung, Softwarecodes und des Aufbaus kann zu gemeinnützigen, nicht gewerblichen Zwecken geteilt und übernommen werden.</string>
     <string name="about_je_intro12">Wenn der Inhalt gebraucht wird, wird Sie um die Anerkennung von Indian Institute of Technology Bombay gebeten.</string>
     <string name="about_je_intro13">Jellow kann auf www.jellow.org heruntergeladen werden.</string>
-    <string name="about_je_intro14">Bei Interesse an Weiterentwicklung der Codes können Sie an Professor Ravi Poovaiah an jellowcommunicator@gmail.com of ravi@iitb.ac.in schreiben.</string>
+    <string name="about_je_intro14">Bei Interesse an Weiterentwicklung der Codes können Sie an Professor Ravi Poovaiah an jellowcommunicator@gmail.com schreiben.</string>
     <string name="credits">Credits:</string>
     <string name="about_je_intro15">Ideekonzeption, Projektforschung und Projektbeaufsichtigung:</string>
     <string name="about_je_intro16">Prof. Dr. Ravi Poovaiah, Dr. Ajanta Sen</string>
@@ -233,13 +234,16 @@
     <string name="about_je_intro30">E-Kalpa Projekt gestiftet unter NMEICT von MHRD, Indien; Microsoft Design Expo 2004 und 1-jährige Anschubfinanzierung von UNICEF.</string>
     <string name="about_je_intro38">Longitudinalnutzerstudie und Feldversuche von Jellow Communicator:</string>
     <string name="about_je_intro39">Topiwala National Medical College and B.Y.L Nair Charitable Hospital (Departments of Psychiatry and Audiology and Speech Therapy), Mumbai, Indien</string>
+    <string name="about_je_intro40">UX / UI Design und Gesamtkoordination:</string>
+    <string name="about_je_intro41">Prof. Dr. Ravi Poovaiah, Roopa Narayan Sahoo, Vinaya Tawde</string>
     <string name="feedback_talkback_heading">Bewerten Sie bitte auf einer Skala von 1 bis 5</string>
 
     <string name="langauge_correction_message"> \'"-"\' wird nicht richtig eingestellt. \'"_"\' drücken, um die Sprache richtigzustellen. Oder Sie können auf die Standardsprache schalten, indem Sie \'"$"\' drücken.</string>
     <string name="changeLanguage">Sprache richtigstellen</string>
     <string name="dialog_default_language_option">Standardsprache</string>
     <string name="txt_data_info">** Aus sicherheitsgründen werden Ihre persönlichen Daten nur auf Ihrem Gerät gespeichert. Wir nehmen Ihren Datenschutz ernst und geben Ihre Daten weder an Drittperson (Server/Cloud) weiter, noch speichern wir sie auf der Jellow-Cloud).</string>
-    <string name="privacy_link">Ich habe die <![CDATA[<font color="#dc5252"><b><u>Datenschutzerklärung</u></b></font>]]> zur Kenntniss genommen.</string>
+    <string name="txt_view_privacy_policy">Lesen Sie die <![CDATA[<font color="#dc5252"><b><u>Datenschutzerklärung</u></b></font>]]> zur Kenntniss genommen.</string>
+    <string name="privacy_link_info">Ich habe die<![CDATA[<font color="#dc5252"><b><u>Datenschutzerklärung</u></b></font>]]> zur Kenntniss genommen.</string>
     <string name="consent_privacy">Bitte lesen Sie die Datenzschutzlinie sorgfältig durch und dann bestätigen.</string>
 
 

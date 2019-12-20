@@ -102,14 +102,14 @@
 
     <string name="endString"> </string>
 
-    <string name="aPos" translatable="false">\'A\' Positive</string>
-    <string name="aNeg" translatable="false">\'A\' Negative</string>
-    <string name="bPos" translatable="false">B Positive</string>
-    <string name="bNeg" translatable="false">B Negative</string>
-    <string name="abPos" translatable="false">A B Positive</string>
-    <string name="abNeg" translatable="false">A B Negative</string>
-    <string name="oPos" translatable="false">O Positive</string>
-    <string name="oNeg" translatable="false">O Negative</string>
+    <string name="aPos" translatable="false">A, Positive</string>
+    <string name="aNeg" translatable="false">A, Negative</string>
+    <string name="bPos" translatable="false">B, Positive</string>
+    <string name="bNeg" translatable="false">B, Negative</string>
+    <string name="abPos" translatable="false">A B, Positive</string>
+    <string name="abNeg" translatable="false">A B, Negative</string>
+    <string name="oPos" translatable="false">O, Positive</string>
+    <string name="oNeg" translatable="false">O, Negative</string>
     <string name="easyToUse">Easy to Use</string>
     <string name="clearPictures">Clear Pictures</string>
     <string name="clearVoice">Clear Voice</string>
@@ -140,8 +140,9 @@
 
     <string name="iconsHasBeenReset">Preferences have been reset.</string>
     <string name="speak">Speak</string>
+    <string name="pause">Pause</string>
     <string name="stop">Stop</string>
-    <string name="about_jellow_speech">Jellow is a communicator, using icons to enable speech and can be used by those learning to speak, or those who have difficulty with speech. Jellow can also be used by toddlers and early learners to learn words and categories frequently used in their daily lives. Jellow\'s colourful and friendly icons can help children develop an association between pictures and their corresponding word labels. It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai. A novel Emotional Language Proto call or ELP was conceived and developed by the project investigators, in order to enhance the language ability of Jellow. ELP represents the 6 expressive icons that form the core of the interface. Using these core icons, the child can communicate their likes, dislikes, and needs with others. Jellow is conceived as children-friendly with an easy-to-learn interface. The application is optimized for Android tablets.Jellow is currently available in English, Hindi, Bengali, Marathi, Tamil, Spanish, German and French. The current version of Jellow is _. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab or write to us at jellowcommunicator@gmail.com. Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Work on Jellow is attributed to the Indian Institute of Technology Bombay. The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes. When the content is used, we request you to acknowledge Indian Institute of Technology Bombay. Jellow is available for download at www dot jellow dot o r g. If interested in further developing the code, please write to Professor Ravi Poovaiah at ravi @ i i t b dot a c.in or at j e l l o w c o m m u n i c a t o r @ g m a i l . c o m</string>
+    <string name="about_jellow_speech">Jellow is a communicator, using icons to enable speech and can be used by those learning to speak, or those who have difficulty with speech. Jellow can also be used by toddlers and early learners to learn words and categories frequently used in their daily lives. Jellow\'s colourful and friendly icons can help children develop an association between pictures and their corresponding word labels. It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai. A novel Emotional Language Proto call or ELP was conceived and developed by the project investigators, in order to enhance the language ability of Jellow. ELP represents the 6 expressive icons that form the core of the interface. Using these core icons, the child can communicate their likes, dislikes, and needs with others. Jellow is conceived as children-friendly with an easy-to-learn interface. The application is optimized for Android tablets.Jellow is currently available in English, Hindi, Bengali, Marathi, Tamil, Spanish, German and French. The current version of Jellow is _. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab or write to us at jellowcommunicator@gmail.com. Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Work on Jellow is attributed to the Indian Institute of Technology Bombay. The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes. When the content is used, we request you to acknowledge Indian Institute of Technology Bombay. Jellow is available for download at www dot jellow dot o r g. If interested in further developing the code, please write to Professor Ravi Poovaiah at j e l l o w c o m m u n i c a t o r @ g m a i l . c o m</string>
     <string name="catBtnDesc">Jellow has 9 central category buttons and 6 expressive side buttons:</string>
     <string name="catBtn">Category buttons:</string>
     <string name="expBtn">Expressive buttons:</string>
@@ -244,7 +245,7 @@
     <string name="about_je_intro11">The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes.</string>
     <string name="about_je_intro12">When the content is used, we request you to acknowledge Indian Institute of Technology Bombay.</string>
     <string name="about_je_intro13">Jellow is available for download at</string>
-    <string name="about_je_intro14">If interested in further developing the code, please write to Professor Ravi Poovaiah at jellowcommunicator@gmail.com or ravi@iitb.ac.in</string>
+    <string name="about_je_intro14">If interested in further developing the code, please write to Professor Ravi Poovaiah at jellowcommunicator@gmail.com</string>
     <string name="credits">Credits:</string>
     <string name="about_je_intro15">Idea Conception, Project Investigation and Supervision:</string>
     <string name="about_je_intro16">Professor Ravi Poovaiah and Dr Ajanta Sen</string>
@@ -266,13 +267,17 @@
     <string name="about_je_intro30">E-kalpa project sponsored under NMEICT by MHRD, Microsoft Design Expo 2004 and a 1-year seed grant through the UNICEF Innovation Fund</string>
     <string name="about_je_intro38">Longitudinal user studies and field testing of Jellow Communicator:</string>
     <string name="about_je_intro39">Topiwala National Medical College and B.Y.L Nair Charitable Hospital (Departments of Psychiatry and Audiology and Speech Therapy)</string>
+    <string name="about_je_intro40">UX/UI Design and Overall coordination:</string>
+    <string name="about_je_intro41">Professor Ravi Poovaiah, Roopa Narayan Sahoo and Vinaya Tawde</string>
     <string name="feedback_talkback_heading">On a scale of 1 to 5, please rate the following</string>
 
     <string name="langauge_correction_message"> \'"-"\' language is not setup correctly. Press \'"_"\' to fix the language. \n Or you can switch to default language by pressing \'"$"\'.</string>
     <string name="changeLanguage">Fix The Language</string>
     <string name="dialog_default_language_option">Default Language</string>
     <string name="txt_data_info">** The data above will only be stored on your device. We value your privacy hence it will not be used or uploaded to any server/cloud (including Jellow\'s or third party\'s).</string>
-    <string name="privacy_link">I have read Jellow\'s <![CDATA[<font color="#dc5252"><b><u>privacy policy.</u></b></font>]]></string>
+    <string name="txt_view_privacy_policy">Read Jellow\'s <![CDATA[<font color="#dc5252"><b><u>privacy policy.</u></b></font>]]></string>
+    <string name="privacy_link_info">I have read Jellow\'s <![CDATA[<font color="#dc5252"><b><u>privacy policy.</u></b></font>]]></string>
+    <string name="privacy_link" translatable="false">http://jellow.org/privacypolicy/index.php</string>
     <string name="consent_privacy">Please read and then check privacy policy consent.</string>
 
     <!--Content description-->

@@ -1,38 +1,39 @@
 <resources>
     <!--1 icons configuration-->
     <dimen name="oneIcon_parentHorizontal">56dp</dimen>
-    <dimen name="oneIcon_parentVertical">32dp</dimen>
+    <dimen name="oneIcon_parentVertical">12dp</dimen>
     <dimen name="oneIcon_parentPadding">0dp</dimen>
-    <dimen name="oneIcon_width">144dp</dimen>
+    <dimen name="oneIcon_width">172dp</dimen>
     <dimen name="oneIcon_textSize">18sp</dimen>
     <dimen name="oneIcon_borderThickness">6dp</dimen>
-    <dimen name="oneIcon_innerRadius">66dp</dimen>
+    <dimen name="oneIcon_innerRadius">80dp</dimen>
 
     <!--2 icons configuration-->
-    <dimen name="twoIcon_parentHorizontal">22dp</dimen>
-    <dimen name="twoIcon_parentVertical">24dp</dimen>
+    <dimen name="twoIcon_parentHorizontal">12dp</dimen>
+    <dimen name="twoIcon_parentVertical">16dp</dimen>
     <dimen name="twoIcon_parentPaddingHorizontal">8dp</dimen>
-    <dimen name="twoIcon_parentPaddingVertical">32dp</dimen>
-    <dimen name="twoIcon_width">94dp</dimen>
-    <dimen name="twoIcon_textSize">14sp</dimen>
+    <dimen name="twoIcon_parentPaddingVertical">16dp</dimen>
+    <dimen name="twoIcon_width">148dp</dimen>
+    <dimen name="twoIcon_textSize">16sp</dimen>
+    <dimen name="twoIcon_borderThickness">5dp</dimen>
+    <dimen name="twoIcon_innerRadius">68dp</dimen>
 
     <!--3 icons configuration-->
-    <dimen name="threeIcon_parentVertical">32dp</dimen>
+    <dimen name="threeIcon_parentVertical">24dp</dimen>
     <dimen name="threeIcon_parentPaddingVertical">32dp</dimen>
-    <dimen name="threeIcon_width">94dp</dimen>
+    <dimen name="threeIcon_width">112dp</dimen>
     <dimen name="threeIcon_textWidth">112dp</dimen>
     <dimen name="threeIcon_textSize">12sp</dimen>
+    <dimen name="threeIcon_borderThickness">5dp</dimen>
+    <dimen name="threeIcon_innerRadius">51dp</dimen>
 
     <!--4 icons configuration-->
     <dimen name="fourIcon_parentVertical">4dp</dimen>
     <dimen name="fourIcon_width">94dp</dimen>
     <dimen name="fourIcon_textWidth">112dp</dimen>
     <dimen name="fourIcon_textSize">12sp</dimen>
-
-    <!--Common resources for 2 icon, 3 icon & 4 icon layout-->
-    <dimen name="twoIcon_borderThickness">5dp</dimen>
-    <dimen name="twoIcon_innerRadius">42dp</dimen>
-    <!---->
+    <dimen name="fourIcon_borderThickness">5dp</dimen>
+    <dimen name="fourIcon_innerRadius">42dp</dimen>
 
     <!--9 icons configuration-->
     <dimen name="nineIcon_parentHorizontal">0dp</dimen>

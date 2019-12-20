@@ -5,6 +5,7 @@ package com.dsource.idc.jellowintl;
  */
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
@@ -13,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -48,6 +50,7 @@ public class ProfileFormActivity extends SpeechEngineBaseActivity {
         etAddress = findViewById(R.id.etAddress);
         etEmailId = findViewById(R.id.etEmailAddress);
         mBloodGroup = findViewById(R.id.bloodgroup);
+        ((TextView)findViewById(R.id.view_privacy_policy)).setText(Html.fromHtml(getString(R.string.txt_view_privacy_policy)));
         if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                     R.array.bloodgroup_talkback, android.R.layout.simple_spinner_item);

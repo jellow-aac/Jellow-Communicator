@@ -116,7 +116,7 @@
                                 android:layout_width="94dp"
                                 android:layout_height="94dp"
                                 android:layout_gravity="center_horizontal"
-                                android:background="@drawable/border_drawable_nocolor_2_3_4_icon"/>
+                                android:background="@drawable/border_drawable_nocolor_4_icons"/>
                         </FrameLayout>
                             <ImageButton
                                 android:id="@+id/arrow1"
@@ -163,7 +163,7 @@
                                     android:layout_width="94dp"
                                     android:layout_height="94dp"
                                     android:layout_gravity="center_horizontal"
-                                    android:background="@drawable/border_drawable_nocolor_2_3_4_icon"/>
+                                    android:background="@drawable/border_drawable_nocolor_4_icons"/>
                             </FrameLayout>
                             <ImageButton
                                 android:id="@+id/arrow2"
@@ -207,7 +207,7 @@
                                 android:layout_width="94dp"
                                 android:layout_height="94dp"
                                 android:layout_gravity="center_horizontal"
-                                android:background="@drawable/border_drawable_nocolor_2_3_4_icon"/>
+                                android:background="@drawable/border_drawable_nocolor_4_icons"/>
                         </FrameLayout>
                         <TextView
                             android:id="@+id/bt3"

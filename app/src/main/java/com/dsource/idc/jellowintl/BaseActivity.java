@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.Menu;
@@ -198,6 +199,11 @@ public class BaseActivity extends AppCompatActivity{
 
     public void finishCurrentActivity(View view) {
         finish();
+    }
+
+    public void openPrivacyPolicyPage(View view){
+        startActivity(new Intent("android.intent.action.VIEW",
+                Uri.parse(getString(R.string.privacy_link))));
     }
 
     /**

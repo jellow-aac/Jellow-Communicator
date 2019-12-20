@@ -20,6 +20,7 @@ import java.util.Locale;
 
 import static com.dsource.idc.jellowintl.factories.PathFactory.UNIVERSAL_FOLDER;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getAudioPath;
+import static com.dsource.idc.jellowintl.factories.PathFactory.getBaseDirectoryPath;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BE_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.DE_DE;
@@ -183,56 +184,60 @@ public class SpeechEngineBaseActivity extends BaseActivity{
     }
 
     public void setSpeechEngineLanguage(String language) {
-        switch (language){
-            case ENG_UK:
-                sTts.setLanguage(Locale.UK);
-                break;
-            case ENG_US:
-                sTts.setLanguage(Locale.US);
-                break;
-            case ENG_AU:
-                sTts.setLanguage(new Locale("en", "AU"));
-                break;
-            case BN_IN:
-            case BE_IN:
-                sTts.setLanguage(new Locale("bn", "IN"));
-                break;
-            case ES_ES:
-                sTts.setLanguage(new Locale("es","ES"));
-                break;
-            case ENG_IN:
-                sTts.setLanguage(new Locale("en","IN"));
-                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
-                    for (Voice v : sTts.getVoices()) {
-                        if (v.getName().equals("en-in-x-cxx#female_1-local")) {
-                            sTts.setVoice(v);
-                            break;
+        try {
+            switch (language) {
+                case ENG_UK:
+                    sTts.setLanguage(Locale.UK);
+                    break;
+                case ENG_US:
+                    sTts.setLanguage(Locale.US);
+                    break;
+                case ENG_AU:
+                    sTts.setLanguage(new Locale("en", "AU"));
+                    break;
+                case BN_IN:
+                case BE_IN:
+                    sTts.setLanguage(new Locale("bn", "IN"));
+                    break;
+                case ES_ES:
+                    sTts.setLanguage(new Locale("es", "ES"));
+                    break;
+                case ENG_IN:
+                    sTts.setLanguage(new Locale("en", "IN"));
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
+                        for (Voice v : sTts.getVoices()) {
+                            if (v.getName().equals("en-in-x-cxx#female_1-local")) {
+                                sTts.setVoice(v);
+                                break;
+                            }
                         }
                     }
-                }
-                break;
-            case TA_IN:
-                sTts.setLanguage(new Locale("ta","IN"));
-                break;
-            case DE_DE:
-                sTts.setLanguage(Locale.GERMANY);
-                break;
-            case FR_FR:
-                sTts.setLanguage(Locale.FRANCE);
-                break;
-            case HI_IN:
-            case MR_IN:
-            default:
-                sTts.setLanguage(new Locale("hi","IN"));
-                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
-                    for (Voice v : sTts.getVoices()) {
-                        if (v.getName().equals("hi-in-x-cfn-local")) {
-                            sTts.setVoice(v);
-                            break;
+                    break;
+                case TA_IN:
+                    sTts.setLanguage(new Locale("ta", "IN"));
+                    break;
+                case DE_DE:
+                    sTts.setLanguage(Locale.GERMANY);
+                    break;
+                case FR_FR:
+                    sTts.setLanguage(Locale.FRANCE);
+                    break;
+                case HI_IN:
+                case MR_IN:
+                default:
+                    sTts.setLanguage(new Locale("hi", "IN"));
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
+                        for (Voice v : sTts.getVoices()) {
+                            if (v.getName().equals("hi-in-x-cfn-local")) {
+                                sTts.setVoice(v);
+                                break;
+                            }
                         }
                     }
-                }
-                break;
+                    break;
+            }
+        }catch (Exception e){
+            Crashlytics.log(e.getMessage());
         }
     }
 
@@ -321,6 +326,20 @@ public class SpeechEngineBaseActivity extends BaseActivity{
         }
     }
 
+    public void createAudioFileForSpeech(String aboutMe) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                File name = new File(getBaseDirectoryPath(this) + "about_me.mp3");
+                Log.i("File : ", String.valueOf(name.createNewFile()));
+                sTts.synthesizeToFile(aboutMe, null, name, UTTERANCE_ID);
+            } else {
+                sTts.synthesizeToFile(aboutMe, null,
+                        getBaseDirectoryPath(this) + "about_me.mp3");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 
     public synchronized void playAudio(String audioPath) {
         try {
@@ -331,6 +350,39 @@ public class SpeechEngineBaseActivity extends BaseActivity{
             mMediaPlayer.start();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void pauseAudio(){
+        try {
+            mMediaPlayer.pause();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void stopMediaAudio(){
+        try {
+            mMediaPlayer.stop();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void resumeMediaAudio(){
+        try {
+            mMediaPlayer.seekTo(mMediaPlayer.getCurrentPosition());
+            mMediaPlayer.start();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public boolean isMediaRunning(){
+        try {
+            return mMediaPlayer.isPlaying();
+        }catch (Exception e){
+            return false;
         }
     }
 

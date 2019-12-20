@@ -48,7 +48,7 @@
             android:layout_width="@dimen/threeIcon_width"
             android:layout_height="@dimen/threeIcon_width"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/border_drawable_nocolor_2_3_4_icon"/>
+            android:background="@drawable/border_drawable_nocolor_3_icons"/>
     </FrameLayout>
     <TextView
         android:id="@+id/te1"

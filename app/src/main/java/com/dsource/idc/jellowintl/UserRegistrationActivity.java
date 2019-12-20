@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
@@ -117,7 +116,7 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         etName = findViewById(R.id.etName);
         etName.clearFocus();
-        ((TextView)findViewById(R.id.tv_pivacy_link)).setText(Html.fromHtml(getString(R.string.privacy_link)));
+        ((TextView)findViewById(R.id.tv_pivacy_link)).setText(Html.fromHtml(getString(R.string.privacy_link_info)));
         etEmergencyContact = findViewById(R.id.etEmergencyContact);
         mCcp = findViewById(R.id.ccp);
         if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE)))
@@ -368,11 +367,6 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
                 bRegister.setEnabled(true);
             }
         });
-    }
-
-    public void openPrivacyPolicyPage(View view){
-        startActivity(new Intent("android.intent.action.VIEW",
-                Uri.parse(getString(R.string.privacy_link))));
     }
 
     @SuppressLint("StaticFieldLeak")

@@ -962,7 +962,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                             }else {
                                 String speechTxt = level2IconObjects[mLevelTwoItemPos].getYY();
                                 speechTxt = speechTxt.replace("_", getSession().getEmailId()
-                                        .replaceAll(".", "$0 ").replace(".", "dot"));
+                                        .replaceAll(".", ",$0 ").replace(".", "dot"));
                                 speak(speechTxt);
                             }
                             mUec.createSendFbEventFromTappedView(16,
@@ -994,7 +994,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                             }else {
                                 String speechTxt = level2IconObjects[mLevelTwoItemPos].getY();
                                 speechTxt = speechTxt.replace("_", getSession().getEmailId()
-                                        .replaceAll(".", "$0 ").replace(".", "dot"));
+                                        .replaceAll(".", ",$0 ").replace(".", "dot"));
                                 speak(speechTxt);
                             }
                             mUec.createSendFbEventFromTappedView(15,
@@ -1890,10 +1890,10 @@ public class LevelTwoActivity extends LevelBaseActivity{
         contact =
                 (SessionManager.ES_ES+SessionManager.FR_FR). contains(getSession().getLanguage()) ?
 
-                        contact.replaceAll("[0-9]{1,2}", "$0 ").
+                        contact.replaceAll("[0-9]{2}", "$0, ").
                                 replace("+", "plus ")    :
 
-                        contact.replaceAll(".", "$0 ").
+                        contact.replaceAll(".", "$0, ").
                                 replace("+", "plus");
         return contact;
     }
