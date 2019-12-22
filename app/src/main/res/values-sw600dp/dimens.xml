@@ -52,7 +52,7 @@
 
     <dimen name="board_edit_icon_size">200dp</dimen>
     <dimen name="board_edit_dialog_width">240dp</dimen>
-    <dimen name="edit_baord_dialog_margin_bottom">28dp</dimen>
+    <dimen name="edit_board_dialog_margin_bottom">28dp</dimen>
     <dimen name="edit_board_button_margin_top">8dp</dimen>
     <dimen name="edit_board_button_side_margin">10dp</dimen>
     <dimen name="edit_board_button_width">86dp</dimen>
@@ -67,7 +67,7 @@
     <dimen name="vl_exp_icon_width">64dp</dimen>
     <dimen name="vl_exp_icon_height">50dp</dimen>
     <dimen name="vl_padding">14dp</dimen>
-    <dimen name="edit_baord_dialog_side_margin">24dp</dimen>
+    <dimen name="edit_board_dialog_side_margin">24dp</dimen>
     <dimen name="drop_icon_size">28dp</dimen>
 
     <!--Dimensions related to the My Board Card-->
