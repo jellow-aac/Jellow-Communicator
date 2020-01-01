@@ -40,7 +40,7 @@ public class SpeechEngineBaseActivity extends BaseActivity{
 
     private final String UTTERANCE_ID = "com.dsource.idc.jellowintl.utterence.id";
     private HashMap<String, String> map;
-    private TextToSpeechError mErrorHandler;
+    private TextToSpeechCallBacks mErrorHandler;
 
     private MediaPlayer mMediaPlayer;
 
@@ -75,7 +75,9 @@ public class SpeechEngineBaseActivity extends BaseActivity{
         sTts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
             @Override public void onStart(String utteranceId) {}
 
-            @Override public void onDone(String utteranceId) {}
+            @Override public void onDone(String utteranceId) {
+                mErrorHandler.speechSynthesisCompleted();
+            }
 
             @Override
             public void onError(String utteranceId) {
@@ -151,36 +153,8 @@ public class SpeechEngineBaseActivity extends BaseActivity{
     }
 
 
-    public void registerSpeechEngineErrorHandle(TextToSpeechError handler){
+    public void registerSpeechEngineErrorHandle(TextToSpeechCallBacks handler){
         mErrorHandler = handler;
-    }
-
-    public String getSpeechEngineLanguage(){
-        String infoLang="", infoCountry="";
-        try {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                infoLang = sTts.getLanguage().getLanguage();
-                infoCountry = sTts.getLanguage().getCountry();
-            } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                infoLang = sTts.getDefaultLanguage().getLanguage().substring(0, 2);
-                infoCountry = sTts.getDefaultLanguage().getCountry().substring(0, 2);
-            } else {
-                //When below if case is false then variables infoLang & infoCountry are empty.
-                //Keeping infoLang & infoCountry variables empty and sending them with broadcast have no
-                //impact. Whenever they are empty, the broadcast is sent only to {@LanguageSelectActivity}
-                //class. And these broadcast intent response is not used when api is Lollipop or above.
-                if (sTts.getDefaultVoice() != null) {
-                    infoLang = sTts.getDefaultVoice().getLocale().getLanguage();
-                    infoCountry = sTts.getDefaultVoice().getLocale().getCountry();
-                }
-            }
-        }catch(Exception e){
-            //This error is ignored. Their might no language is set previously to text-to-speech
-            // engine and hence above retrieval of lang, country {infoLang, infoCountry} fails.
-            // If it is empty, the broadcast is sent to receiver with empty ("-r" value) tts language
-            // name and this gives error message to user in receiver code.
-        }
-        return infoLang.concat("-r".concat(infoCountry));
     }
 
     public void setSpeechEngineLanguage(String language) {
@@ -258,6 +232,10 @@ public class SpeechEngineBaseActivity extends BaseActivity{
         stopAudio();
     }
 
+    public boolean isEngineSpeaking(){
+       return sTts.isSpeaking();
+    }
+
     public void setSpeechRate(float rate){
         sTts.setSpeechRate(rate);
     }
@@ -282,6 +260,7 @@ public class SpeechEngineBaseActivity extends BaseActivity{
         }
         return  false;
     }
+
 
     public void createUserProfileRecordingsUsingTTS() {
         final String path = getDir(UNIVERSAL_FOLDER, Context.MODE_PRIVATE).getAbsolutePath() + "/audio/";
@@ -328,13 +307,13 @@ public class SpeechEngineBaseActivity extends BaseActivity{
 
     public void createAudioFileForSpeech(String aboutMe) {
         try {
+            File name = new File(getBaseDirectoryPath(this) + "about_jellow.mp3");
+            Log.i("File : ", String.valueOf(name.createNewFile()));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                File name = new File(getBaseDirectoryPath(this) + "about_me.mp3");
-                Log.i("File : ", String.valueOf(name.createNewFile()));
                 sTts.synthesizeToFile(aboutMe, null, name, UTTERANCE_ID);
             } else {
                 sTts.synthesizeToFile(aboutMe, null,
-                        getBaseDirectoryPath(this) + "about_me.mp3");
+                        getBaseDirectoryPath(this) + "about_jellow.mp3");
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -364,6 +343,7 @@ public class SpeechEngineBaseActivity extends BaseActivity{
     public void stopMediaAudio(){
         try {
             mMediaPlayer.stop();
+            mMediaPlayer.release();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -384,6 +364,20 @@ public class SpeechEngineBaseActivity extends BaseActivity{
         }catch (Exception e){
             return false;
         }
+    }
+
+    public boolean isMediaReady(String audioPath) {
+        try {
+            mMediaPlayer = new MediaPlayer();
+            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mMediaPlayer.setDataSource(audioPath);
+            mMediaPlayer.prepare();
+            mMediaPlayer.reset();
+        } catch (IOException e) {
+            mMediaPlayer.reset();
+            return false;
+        }
+        return true;
     }
 
     public void playInQueue(final String speechTextInQueue) {

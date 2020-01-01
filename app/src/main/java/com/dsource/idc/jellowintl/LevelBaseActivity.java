@@ -1,5 +1,6 @@
 package com.dsource.idc.jellowintl;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,8 +18,9 @@ import com.dsource.idc.jellowintl.utility.TextToSpeechErrorUtils;
 
 import java.util.Objects;
 
-public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextToSpeechError{
+public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextToSpeechCallBacks {
     private String mErrorMessage, mDialogTitle, mLanguageSetting, mSwitchLang;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +105,10 @@ public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextT
         getSupportActionBar().setTitle(title);
     }
 
+    public void setCustomKeyboardView(Context context){
+        this.context = context;
+    }
+
 
     /**Text-To-Speech Engine error callbacks implementations are following**/
     @Override
@@ -152,6 +158,23 @@ public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextT
                 new TextToSpeechErrorUtils(LevelBaseActivity.this).showErrorDialog();
             }
         });
+    }
+
+    @Override
+    public void speechSynthesisCompleted() {
+        if (context instanceof MainActivity){
+            MainActivity activity = (MainActivity) context;
+            activity.revertTheSpeakerIcon();
+        }else if (context instanceof LevelTwoActivity){
+            LevelTwoActivity activity = (LevelTwoActivity) context;
+            activity.revertTheSpeakerIcon();
+        }else if (context instanceof LevelThreeActivity){
+            LevelThreeActivity activity = (LevelThreeActivity) context;
+            activity.revertTheSpeakerIcon();
+        }else{
+            SequenceActivity activity = (SequenceActivity) context;
+            activity.revertTheSpeakerIcon();
+        }
     }
     /*-------------*/
 }

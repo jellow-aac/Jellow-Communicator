@@ -38,7 +38,6 @@
                     android:layout_width="82dp"
                     android:layout_height="76dp"
                     android:src="@drawable/more"
-
                     android:contentDescription="@string/more"/>
             </LinearLayout>
             <LinearLayout
@@ -71,7 +70,7 @@
         </RelativeLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:layout_width="375dp"
+            android:layout_width="424dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:scrollbars="vertical"
@@ -114,10 +113,18 @@
         <EditText
             android:id="@+id/et"
             android:layout_width="320dp"
-            android:layout_height="80dp"
+            android:layout_height="100dp"
             android:imeOptions="actionDone|flagNoExtractUi"
             android:textSize="20sp"
-            android:contentDescription="@string/edttxt_msg"/>
+            android:padding="8dp"
+            android:gravity="top|left"
+            android:scrollIndicators="right|end"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:fadeScrollbars="false"
+            android:scrollbars="vertical"
+            android:background="@drawable/rounded_back"
+            android:contentDescription="@string/edttxt_msg" />
         <ImageView
             android:id="@+id/ttsbutton"
             android:layout_width="48dp"

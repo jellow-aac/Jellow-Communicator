@@ -45,6 +45,7 @@
     <!--3 icons configuration-->
     <dimen name="threeIcon_parentVertical">32dp</dimen>
     <dimen name="threeIcon_parentPaddingVertical">32dp</dimen>
+    <dimen name="threeIcon_flHorizontal">10dp</dimen>
     <dimen name="threeIcon_width">94dp</dimen>
     <dimen name="threeIcon_textWidth">112dp</dimen>
     <dimen name="threeIcon_textSize">12sp</dimen>

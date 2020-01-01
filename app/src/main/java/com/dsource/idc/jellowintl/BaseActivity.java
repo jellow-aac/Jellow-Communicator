@@ -189,7 +189,10 @@ public class BaseActivity extends AppCompatActivity{
     public void setActivityTitle(String title){
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
-        ((TextView)findViewById(R.id.tvActionbarTitle)).setText(title);
+        if (title.contains("("))
+            ((TextView)findViewById(R.id.tvActionbarTitle)).setText(title.substring(0,title.indexOf("(")));
+        else
+            ((TextView)findViewById(R.id.tvActionbarTitle)).setText(title);
     }
 
     public void enableNavigationBack(){

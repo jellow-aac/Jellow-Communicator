@@ -20,9 +20,9 @@
     </string-array>
 
     <string name="app_name">जेलो</string>
-    <string name="action_settings">सेटिंग्स</string>
+    <string name="action_settings">सेटिंग्स (Settings)</string>
 
-    <string name="Language">भाषा</string>
+    <string name="Language">भाषा (Language)</string>
     <string name="saveLanguage">भाषा बदलें</string>
 
     <string-array name="bloodgroup">
@@ -86,15 +86,15 @@
     <string name="languageChanged">भाषा रक्षित की गई हैं</string>
     <string name="checkConnectivity">कृपया अपने इंटरनेट कनेक्टिविटी की जांच करें</string>
 
-    <string name="menuProfile">प्रोफाइल</string>
-    <string name="menuAbout">जेलो के बारे में</string>
-    <string name="menuTutorials">ट्यूटोरियल</string>
-    <string name="menuKeyboardInput">कीबोर्ड नियंत्रण</string>
-    <string name="menuResetPref">आइकॉन रीसेट करें</string>
-    <string name="menuFeedback">प्रतिक्रिया</string>
+    <string name="menuProfile">प्रोफाइल (Profile)</string>
+    <string name="menuAbout">जेलो के बारे में (About Jellow)</string>
+    <string name="menuTutorials">ट्यूटोरियल (Tutorial)</string>
+    <string name="menuKeyboardInput">कीबोर्ड नियंत्रण (Keyboard Control)</string>
+    <string name="menuResetPref">आइकॉन रीसेट करें (Reset Preferences)</string>
+    <string name="menuFeedback">प्रतिक्रिया (Feedback)</string>
     <string name="menuUserRegistration">रजिस्ट्रेशन स्क्रीन</string>
-    <string name="menuAccessibility">एक्सेसिबिलिटी</string>
-    <string name="menuClosePopup">मेन्यू बंद करें</string>
+    <string name="menuAccessibility">एक्सेसिबिलिटी (Accessibility)</string>
+    <string name="menuClosePopup">मेन्यू बंद करें (Close menu)</string>
     <string name="labelSplash">जेलो शुरू हो रहा है। कृपया प्रतीक्षा करें।</string>
 
     <string name="endString"> है।</string>
@@ -234,7 +234,7 @@
     <string name="about_je_intro30">ई-कल्पा प्रोजेक्ट NMEICT के अंतर्गत मानव संसाधन विकास मंत्रालय एवं माइक्रोसॉफ्ट डिजाईन एक्सपो २००४ द्वारा प्रायोजित। हमें यूनिसेफ (UNICEF) से १ साल के लिए सीड ग्रांट मिला है।</string>
     <string name="about_je_intro38">अनुदैर्ध्य उपयोगकर्ता अध्ययन और जेलो कम्युनिकेटर का क्षेत्र परीक्षण:</string>
     <string name="about_je_intro39">टोपीवाला नेशनल मेडिकल कॉलेज और बी.वाई.एल. नायर चैरिटेबल अस्पताल (मनोरोग तथा ऑडियोलॉजी और भाषण चिकित्सा विभाग)</string>
-    <string name="about_je_intro40">UX/UI Design and Overall coordination:</string>
+    <string name="about_je_intro40">यूएक्स/यूआई डिज़ाइन और समन्वय:</string>
     <string name="about_je_intro41">प्राध्यापक. रवि पूवैया, रूप नारायन साहू, विनया तावड़े</string>
     <string name="feedback_talkback_heading">१ से ५ के स्तर पर, कृपया रेट करें</string>
 

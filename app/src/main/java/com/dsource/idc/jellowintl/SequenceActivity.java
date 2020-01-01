@@ -143,11 +143,11 @@ public class SequenceActivity extends LevelBaseActivity{
             mBtnNext.callOnClick();
 
         if (iconIndex % 3 == 0)
-            setBorderToView(findViewById(R.id.borderView1), 7);
+            mIvCategoryIcon1.callOnClick();
         else if (iconIndex % 3 == 1)
-            setBorderToView(findViewById(R.id.borderView2), 7);
+            mIvCategoryIcon2.callOnClick();
         else
-            setBorderToView(findViewById(R.id.borderView3), 7);
+            mIvCategoryIcon3.callOnClick();
     }
 
     @Override
@@ -210,11 +210,12 @@ public class SequenceActivity extends LevelBaseActivity{
         mIvHome = findViewById(R.id.ivhome);
         mIvKeyboard = findViewById(R.id.keyboard);
         mIvTTs = findViewById(R.id.ttsbutton);
+        //Set button for tts callback
+        setCustomKeyboardView(this);
         //Initially custom input text speak button is invisible
         mIvTTs.setVisibility(View.INVISIBLE);
         mEtTTs = findViewById(R.id.et);
         mEtTTs.setVisibility(View.INVISIBLE);
-        mEtTTs.setSingleLine();
         originalKeyListener = mEtTTs.getKeyListener();
         // Initially make this field non-editable
         mEtTTs.setKeyListener(null);
@@ -1169,7 +1170,13 @@ public class SequenceActivity extends LevelBaseActivity{
     private void initTTsBtnListener() {
         mIvTTs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                if(isEngineSpeaking()){
+                    stopSpeaking();
+                    mIvTTs.setImageDrawable(getResources().getDrawable(R.drawable.ic_search_list_speaker));
+                    return;
+                }
                 speak(mEtTTs.getText().toString().concat("_"));
+                mIvTTs.setImageDrawable(getResources().getDrawable(R.drawable.ic_stop));
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -1595,5 +1602,15 @@ public class SequenceActivity extends LevelBaseActivity{
         } else {
             return Integer.toString(level2_3Position+1);
         }
+    }
+
+    public void revertTheSpeakerIcon(){
+        SequenceActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mIvTTs.setImageDrawable(getResources().getDrawable(R.drawable.ic_search_list_speaker));
+                mIvTTs.refreshDrawableState();
+            }
+        });
     }
 }

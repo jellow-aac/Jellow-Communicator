@@ -3,7 +3,6 @@ package com.dsource.idc.jellowintl;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.GradientDrawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -13,7 +12,6 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +20,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -219,9 +216,8 @@ public class MainActivity extends LevelBaseActivity{
                     mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
                     return;
                 }
-                //When view is found remove the scrollListener and highlight the background
-                GradientDrawable gd = (GradientDrawable) searchedView.findViewById(R.id.borderView).getBackground();
-                gd.setColor(ContextCompat.getColor(getApplicationContext(), R.color.search_highlight));
+                //When view is found remove the scrollListener and manually tap the icon.
+                tappedCategoryItemEvent(searchedView, pos);
                 mRecyclerView.removeOnScrollListener(scrollListener);
                 mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
                 if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
@@ -293,10 +289,10 @@ public class MainActivity extends LevelBaseActivity{
         mEtTTs = findViewById(R.id.et);
         //Initially custom input text is invisible
         mEtTTs.setVisibility(View.INVISIBLE);
-        mEtTTs.setSingleLine();
-        mEtTTs.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
         mIvTTs = findViewById(R.id.ttsbutton);
+        //Set button for tts callback
+        setCustomKeyboardView(this);
         //Initially custom input text speak button is invisible
         mIvTTs.setVisibility(View.INVISIBLE);
 
@@ -984,7 +980,13 @@ public class MainActivity extends LevelBaseActivity{
     private void initTTsBtnListener() {
         mIvTTs.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
+                if(isEngineSpeaking()){
+                    stopSpeaking();
+                    mIvTTs.setImageDrawable(getResources().getDrawable(R.drawable.ic_search_list_speaker));
+                    return;
+                }
                 speak(mEtTTs.getText().toString().concat("_"));
+                mIvTTs.setImageDrawable(getResources().getDrawable(R.drawable.ic_stop));
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -1398,5 +1400,15 @@ public class MainActivity extends LevelBaseActivity{
                         authenticateUserIfNot();
                     }
                 }).show();
+    }
+
+    public void revertTheSpeakerIcon(){
+        MainActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mIvTTs.setImageDrawable(getResources().getDrawable(R.drawable.ic_search_list_speaker));
+                mIvTTs.refreshDrawableState();
+            }
+        });
     }
 }

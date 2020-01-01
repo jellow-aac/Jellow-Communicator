@@ -3,7 +3,6 @@ package com.dsource.idc.jellowintl;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -21,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -223,8 +221,8 @@ public class LevelThreeActivity extends LevelBaseActivity{
                     mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,pos );
                     return;
                     }
-                GradientDrawable gd = (GradientDrawable) searchedView.findViewById(R.id.borderView).getBackground();
-                gd.setColor(ContextCompat.getColor(getApplicationContext(), R.color.search_highlight));
+                //When view is found remove the scrollListener and manually tap the icon.
+                tappedCategoryItemEvent(searchedView);
                 Log.d("Ayaz", "Step 4: Background is set and removing the scrollListener");
                 mRecyclerView.removeOnScrollListener(scrollListener);
                 mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
@@ -283,9 +281,9 @@ public class LevelThreeActivity extends LevelBaseActivity{
         mEtTTs = findViewById(R.id.et);
         //Initially custom input text is invisible
         mEtTTs.setVisibility(View.INVISIBLE);
-        mEtTTs.setVisibility(View.INVISIBLE);
-        mEtTTs.setSingleLine();
         mIvTTs = findViewById(R.id.ttsbutton);
+        //Set button for tts callback
+        setCustomKeyboardView(this);
         //Initially custom input text speak button is invisible
         mIvTTs.setVisibility(View.INVISIBLE);
 
@@ -1182,7 +1180,13 @@ public class LevelThreeActivity extends LevelBaseActivity{
     private void initTTsBtnListener() {
         mIvTTs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                if(isEngineSpeaking()){
+                    stopSpeaking();
+                    mIvTTs.setImageDrawable(getResources().getDrawable(R.drawable.ic_search_list_speaker));
+                    return;
+                }
                 speak(mEtTTs.getText().toString().concat("_"));
+                mIvTTs.setImageDrawable(getResources().getDrawable(R.drawable.ic_stop));
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -1276,7 +1280,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                 mLevelThreeItemPos, mLevelOneItemPos, mLevelTwoItemPos,
                     LanguageFactory.getCurrentLanguageCode(this), getAppDatabase());
         // retain state of expressive button when particular type category icon pressed
-        LevelUiUtils.setExpressiveIconConditionally(expressiveBtn, level3IconObjects[mLevelThreeItemPos]);
+        LevelUiUtils.setExpressiveIconConditionally(expressiveBtn, level3IconObjects[mArrSort[mLevelThreeItemPos]]);
         mIvBack.setImageResource(R.drawable.back);
     }
 
@@ -1585,5 +1589,15 @@ public class LevelThreeActivity extends LevelBaseActivity{
         } else {
             return Integer.toString(level2_3Position+1);
         }
+    }
+
+    public void revertTheSpeakerIcon(){
+        LevelThreeActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mIvTTs.setImageDrawable(getResources().getDrawable(R.drawable.ic_search_list_speaker));
+                mIvTTs.refreshDrawableState();
+            }
+        });
     }
 }

@@ -19,9 +19,9 @@
         <item>\tরাতের কাজ </item>
     </string-array>
     <string name="app_name">জেলো</string>
-    <string name="action_settings">সেটিংস্‌</string>
+    <string name="action_settings">সেটিংস্‌ (Settings)</string>
 
-    <string name="Language">ভাষা</string>
+    <string name="Language">ভাষা (Language)</string>
     <string name="saveLanguage">বদলগুলি প্রয়োগ করো</string>
     <string-array name="bloodgroup">
         <item>নির্বাচিত হয়নি</item>
@@ -84,15 +84,15 @@
     <string name="languageChanged">ভাষা সেভ করা হল</string>
     <string name="checkConnectivity">দয়া করে ইন্টারনেট সংযোগ যাচাই করো</string>
 
-    <string name="menuProfile">প্রোফাইল</string>
-    <string name="menuAbout">জেলো সম্পর্কে</string>
-    <string name="menuTutorials">টিউটোরিয়াল</string>
-    <string name="menuKeyboardInput">কীবোর্ড নিয়ন্ত্রণ</string>
-    <string name="menuResetPref">পছন্দগুলি রিসেট করো</string>
-    <string name="menuFeedback">প্রতিক্রিয়া</string>
+    <string name="menuProfile">প্রোফাইল (Profile)</string>
+    <string name="menuAbout">জেলো সম্পর্কে (About Jellow)</string>
+    <string name="menuTutorials">টিউটোরিয়াল (Tutorial)</string>
+    <string name="menuKeyboardInput">কীবোর্ড নিয়ন্ত্রণ (Keyboard Control)</string>
+    <string name="menuResetPref">পছন্দগুলি রিসেট করো (Reset Preferences)</string>
+    <string name="menuFeedback">প্রতিক্রিয়া (Feedback)</string>
     <string name="menuUserRegistration">নিবন্ধন পৃষ্ঠা</string>
-    <string name="menuAccessibility">অভিগম্যতা</string>
-    <string name="menuClosePopup">বন্ধ মেনু</string>
+    <string name="menuAccessibility">অভিগম্যতা (Accessibility)</string>
+    <string name="menuClosePopup">বন্ধ মেনু (Close menu)</string>
     <string name="labelSplash">জেলো লোড হচ্ছে। অনুগ্রহপূর্বক অপেক্ষা করুন!</string>
 
     <string name="endString"> </string>

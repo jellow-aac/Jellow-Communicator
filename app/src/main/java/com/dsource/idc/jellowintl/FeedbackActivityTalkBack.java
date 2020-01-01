@@ -1,6 +1,5 @@
 package com.dsource.idc.jellowintl;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -87,26 +86,13 @@ public class FeedbackActivityTalkBack extends BaseActivity{
         }
     }
 
-    public void sendWhatsAppFeedback(View v){
-        if((mEasyToUse != null) && (mClearPictures != null) && (mClearVoice != null) && (mNavigate != null)) {
-            String message = "Jellow Feedback\n Easy to use: " + mEasyToUse.getSelectedItem() +
-            "\nClear Pictures: " + mClearPictures.getSelectedItem() + "\nClear Voices: "
-                + mClearVoice.getSelectedItem() + "\nEasy to Navigate: " + mNavigate.getSelectedItem() +
-                    "\n\nComments and Suggestions:-\n" + ((EditText)findViewById(R.id.comments))
-                        .getText().toString();
-            Intent sendIntent = new Intent();
-            sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, message);
-            sendIntent.setType("text/plain");
-            sendIntent.setPackage("com.whatsapp");
-            try {
-                startActivity(sendIntent);
-            }catch (ActivityNotFoundException e){
-                e.printStackTrace();
-            }
-        }else{
-            Toast.makeText(FeedbackActivityTalkBack.this, strRateJellow, Toast.LENGTH_SHORT).show();
-        }
+    public void shareJellowApp(View v){
+        String message = getString(R.string.share_string);
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, message);
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
     }
 
     private void addAccessibilityDelegateToSpinners() {

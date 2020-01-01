@@ -20,9 +20,9 @@
     </string-array>
 
     <string name="app_name">Jellow</string>
-    <string name="action_settings">Einstellungen</string>
+    <string name="action_settings">Einstellungen (Settings)</string>
 
-    <string name="Language">Sprache</string>
+    <string name="Language">Sprache (Language)</string>
     <string name="saveLanguage">Änderungen speichern</string>
 
     <string-array name="bloodgroup">
@@ -87,15 +87,15 @@
     <string name="languageChanged">Sprache gespeichert</string>
     <string name="checkConnectivity">Keine Internetverbindung. Schalten Sie bitte das Internet an.</string>
 
-    <string name="menuProfile">Profil</string>
-    <string name="menuAbout">Über Jellow</string>
-    <string name="menuTutorials">Tutorial</string>
-    <string name="menuKeyboardInput">Tastatursteuerung</string>
-    <string name="menuResetPref">Einstellungen zurücksetzen</string>
-    <string name="menuFeedback">Feedback</string>
+    <string name="menuProfile">Profil (Profile)</string>
+    <string name="menuAbout">Über Jellow (About Jellow)</string>
+    <string name="menuTutorials">Tutorial (Tutorial)</string>
+    <string name="menuKeyboardInput">Tastatursteuerung (Keyboard Control)</string>
+    <string name="menuResetPref">Einstellungen zurücksetzen (Reset Preferences)</string>
+    <string name="menuFeedback">Feedback (Feedback)</string>
     <string name="menuUserRegistration">Anmeldeseite</string>
-    <string name="menuAccessibility">Bedienungshilfen</string>
-    <string name="menuClosePopup">Menü schließen</string>
+    <string name="menuAccessibility">Bedienungshilfen (Accessibility)</string>
+    <string name="menuClosePopup">Menü schließen (Close menu)</string>
     <string name="labelSplash">Jellow wird geladen, bitte warten!</string>
 
     <string name="endString"> </string>

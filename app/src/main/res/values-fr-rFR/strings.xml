@@ -20,8 +20,8 @@
     </string-array>
 
     <string name="app_name">Jellow</string>
-    <string name="action_settings">Réglage</string>
-    <string name="Language">Langue</string>
+    <string name="action_settings">Réglage (Settings)</string>
+    <string name="Language">Langue (Language)</string>
     <string name="saveLanguage">Apply Appliquer les changements</string>
 
     <string-array name="bloodgroup">
@@ -85,15 +85,15 @@
     <string name="savedSettingsMessage">Réglages sauvegardés</string>
     <string name="languageChanged">Changement de la langue</string>
     <string name="checkConnectivity">Vous n\'êtes pas connecté à l\'internet. Veuillez activer votre l\'internet</string>
-    <string name="menuProfile">Le profil</string>s
-    <string name="menuAbout">À propos de Jellow</string>
-    <string name="menuTutorials">Le tutoriel</string>
-    <string name="menuKeyboardInput">le contrôle du clavier</string>
-    <string name="menuResetPref">Réinitialiser les préférences</string>
-    <string name="menuFeedback">Les commentaires</string>
+    <string name="menuProfile">Le profil (Profile)</string>s
+    <string name="menuAbout">À propos de Jellow (About Jellow)</string>
+    <string name="menuTutorials">Le tutoriel (Tutorial)</string>
+    <string name="menuKeyboardInput">le contrôle du clavier (Keyboard Control)</string>
+    <string name="menuResetPref">Réinitialiser les préférences (Reset Preferences)</string>
+    <string name="menuFeedback">Les commentaires (Feedback)</string>
     <string name="menuUserRegistration">La page d\'inscription</string>
-    <string name="menuAccessibility">Accessibilité</string>
-    <string name="menuClosePopup">Quittez le menu</string>
+    <string name="menuAccessibility">Accessibilité (Accessibility)</string>
+    <string name="menuClosePopup">Quittez le menu (Close menu)</string>
     <string name="labelSplash">Chargement de Jellow est en cours. Veuillez patienter!</string>
     <string name="endString"> </string>
     <string name="easyToUse">Facile d\'utilisation</string>

@@ -1,6 +1,5 @@
 package com.dsource.idc.jellowintl;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -113,25 +112,12 @@ public class FeedbackActivity extends BaseActivity {
         }
     }
 
-    public void sendWhatsAppFeedback(View v){
-        if((strEaseOfUse != null) && (mClearPicture != null) && (mClearVoice != null) && (mEaseToNav != null) &&
-            (!strEaseOfUse.equals("0.0")) && (!mClearPicture.equals("0.0")) && (!mClearVoice.equals("0.0")) && (!mEaseToNav.equals("0.0"))) {
-        String message = "Jellow Feedback\n Easy to use: " + strEaseOfUse + "\nClear Pictures: "
-                + mClearPicture + "\nClear Voices: " + mClearVoice +
-                "\nEasy to Navigate: " + mEaseToNav + "\n\nComments and Suggestions:-\n"
-                + mEtComments.getText().toString();
+    public void shareJellowApp(View v){
+        String message = getString(R.string.share_string);
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, message);
         sendIntent.setType("text/plain");
-        sendIntent.setPackage("com.whatsapp");
-        try {
-            startActivity(sendIntent);
-        }catch (ActivityNotFoundException e){
-            e.printStackTrace();
-        }
-        }else{
-            Toast.makeText(FeedbackActivity.this, strRateJellow, Toast.LENGTH_SHORT).show();
-        }
+        startActivity(sendIntent);
     }
 }

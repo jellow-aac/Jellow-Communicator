@@ -118,9 +118,16 @@
         <EditText
             android:id="@+id/et"
             android:layout_width="628dp"
-            android:layout_height="80dp"
+            android:layout_height="100dp"
             android:textSize="20sp"
-            android:imeOptions="actionDone"
+            android:padding="12dp"
+            android:gravity="top|left"
+            android:scrollIndicators="right|end"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:fadeScrollbars="false"
+            android:scrollbars="vertical"
+            android:background="@drawable/rounded_back"
             android:contentDescription="@string/edttxt_msg"/>
         <ImageView
             android:id="@+id/ttsbutton"

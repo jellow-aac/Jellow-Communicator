@@ -22,7 +22,7 @@
 
 
     <!--1 icons configuration-->
-    <dimen name="oneIcon_parentHorizontal">112dp</dimen>
+    <dimen name="oneIcon_parentHorizontal">56</dimen>
     <dimen name="oneIcon_parentVertical">8dp</dimen>
     <dimen name="oneIcon_parentPadding">24dp</dimen>
     <dimen name="oneIcon_width">300dp</dimen>
@@ -31,18 +31,19 @@
     <dimen name="oneIcon_innerRadius">141dp</dimen>
 
     <!--2 icons configuration-->
-    <dimen name="twoIcon_parentHorizontal">30dp</dimen>
-    <dimen name="twoIcon_parentVertical">36dp</dimen>
-    <dimen name="twoIcon_parentPaddingHorizontal">8dp</dimen>
-    <dimen name="twoIcon_parentPaddingVertical">32dp</dimen>
+    <dimen name="twoIcon_parentHorizontal">16dp</dimen>
+    <dimen name="twoIcon_parentVertical">16dp</dimen>
+    <dimen name="twoIcon_parentPaddingHorizontal">4dp</dimen>
+    <dimen name="twoIcon_parentPaddingVertical">50dp</dimen>
     <dimen name="twoIcon_width">220dp</dimen>
     <dimen name="twoIcon_textSize">22sp</dimen>
     <dimen name="twoIcon_borderThickness">8dp</dimen>
     <dimen name="twoIcon_innerRadius">102dp</dimen>
 
     <!--3 icons configuration-->
-    <dimen name="threeIcon_parentVertical">64dp</dimen>
-    <dimen name="threeIcon_parentPaddingVertical">32dp</dimen>
+    <dimen name="threeIcon_parentVertical">42dp</dimen>
+    <dimen name="threeIcon_parentPaddingVertical">56dp</dimen>
+    <dimen name="threeIcon_flHorizontal">0dp</dimen>
     <dimen name="threeIcon_width">156dp</dimen>
     <dimen name="threeIcon_textWidth">205dp</dimen>
     <dimen name="threeIcon_textSize">20sp</dimen>
@@ -60,11 +61,11 @@
 
     <!--9 icons configuration-->
     <dimen name="nineIcon_parentHorizontal">0dp</dimen>
-    <dimen name="nineIcon_width">94dp</dimen>
-    <dimen name="nineIcon_textWidth">172dp</dimen>
+    <dimen name="nineIcon_width">103dp</dimen>
+    <dimen name="nineIcon_textWidth">192dp</dimen>
     <dimen name="nineIcon_textSize">16sp</dimen>
-    <dimen name="nineIcon_borderThickness">5dp</dimen>
-    <dimen name="nineIcon_innerRadius">42dp</dimen>
+    <dimen name="nineIcon_borderThickness">7dp</dimen>
+    <dimen name="nineIcon_innerRadius">45dp</dimen>
 
 
 </resources>

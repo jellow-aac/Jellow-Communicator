@@ -134,12 +134,13 @@
         <ImageButton
             android:id="@+id/bWhatsApp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/feedback_btn_height"
             android:layout_marginRight="@dimen/feedback_btn_margin_left"
             android:layout_marginEnd="@dimen/feedback_btn_margin_left"
-            android:src="@drawable/ic_whatsapp"
-            android:onClick="sendWhatsAppFeedback"
-            android:background="@android:color/transparent"
-            android:layout_gravity="center_vertical|end" />
+            android:src="@drawable/baseline_share_white"
+            android:onClick="shareJellowApp"
+            android:scaleType="fitCenter"
+            android:background="@drawable/custom_btn_view"
+            android:layout_gravity="center_vertical|end"/>
     </FrameLayout>
 </RelativeLayout>

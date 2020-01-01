@@ -20,9 +20,9 @@
     </string-array>
 
     <string name="app_name">जेलो</string>
-    <string name="action_settings">सेटिंग्स</string>
+    <string name="action_settings">सेटिंग्स (Settings)</string>
 
-    <string name="Language">भाषा</string>
+    <string name="Language">भाषा (Language)</string>
     <string name="saveLanguage">भाषा बदला</string>
 
 
@@ -89,15 +89,15 @@
     <string name="checkConnectivity">कृपया आपले इंटरनेट कनेक्शन तपासा </string>
 
 
-    <string name="menuProfile">प्रोफाइल</string>
-    <string name="menuAbout">जेलोची माहिती</string>
-    <string name="menuTutorials">ट्यूटोरियल</string>
-    <string name="menuKeyboardInput">कीबोर्ड नियंत्रण</string>
-    <string name="menuResetPref">आइकॉन रीसेट करा</string>
-    <string name="menuFeedback">प्रतिक्रिया</string>
+    <string name="menuProfile">प्रोफाइल (Profile)</string>
+    <string name="menuAbout">जेलोची माहिती (About Jellow)</string>
+    <string name="menuTutorials">ट्यूटोरियल (Tutorial)</string>
+    <string name="menuKeyboardInput">कीबोर्ड नियंत्रण (Keyboard Control)</string>
+    <string name="menuResetPref">आइकॉन रीसेट करा (Reset Preferences)</string>
+    <string name="menuFeedback">प्रतिक्रिया (Feedback)</string>
     <string name="menuUserRegistration">रजिस्ट्रेशन स्क्रीन</string>
     <string name="menuAccessibility">ऍक्सेसिबिलिटी</string>
-    <string name="menuClosePopup">मेनू बंद करा</string>
+    <string name="menuClosePopup">मेनू बंद करा (Close menu)</string>
     <string name="labelSplash">जेलो अॅप्लिकेशन चालू होत आहे. कृपया प्रतीक्षा करा!</string>
 
     <string name="endString"> </string>
@@ -239,7 +239,7 @@
     <string name="about_je_intro30">ई-कालपा प्रोजेक्ट NMEICT च्या अंतर्गत मानव संसाधन विकास मंत्रालय,  माइक्रोसॉफ्ट डिजाईन एक्सपो २००४ आणि यूनिसेफ इनोवेशन फंड (UNICEF) द्वारे प्रायोजित</string>
     <string name="about_je_intro38">अनुदैर्ध्य वापरकर्ता अध्ययन आणि जेलो कम्युनिकेटरचे क्षेत्र परीक्षण:</string>
     <string name="about_je_intro39">टोपीवाला नॅशनल मेडिकल कॉलेज आणि बी.वाय.एल. नायर चॅरिटेबल हॉस्पीटल (मनोचिकित्सा, ऑडिओलॉजी आणि भाषण चिकित्सा विभाग)</string>
-    <string name="about_je_intro40">UX/UI Design and Overall coordination:</string>
+    <string name="about_je_intro40">यूएक्स/यूआई डिज़ाइन आणि समन्वय:</string>
     <string name="about_je_intro41">प्राध्यापक. रवि पूवैया, रूप नारायन साहू, विनया तावड़े</string>
     <string name="feedback_talkback_heading">१ ते ५ च्या प्रमाणात, कृपया खाली रेट करा</string>
 

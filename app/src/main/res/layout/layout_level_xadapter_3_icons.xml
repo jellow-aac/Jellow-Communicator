@@ -12,7 +12,9 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/frame_layout">
+        android:id="@+id/frame_layout"
+        android:layout_marginStart="@dimen/threeIcon_flHorizontal"
+        android:layout_marginEnd="@dimen/threeIcon_flHorizontal">
         <RelativeLayout
             android:layout_width="wrap_content"
             android:visibility="gone"

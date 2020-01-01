@@ -20,9 +20,9 @@
     </string-array>
 
     <string name="app_name">ஜெல்லோ</string>
-    <string name="action_settings">செயல் அமைப்பு</string>
+    <string name="action_settings">செயல் அமைப்பு (Settings)</string>
 
-    <string name="Language">மொழி</string>
+    <string name="Language">மொழி (Language)</string>
     <string name="saveLanguage">மாற்றங்களை செயல்படுத்தவும்</string>
 
     <string-array name="bloodgroup">
@@ -86,15 +86,15 @@
     <string name="languageChanged">மொழி மாற்றப்பட்டது</string>
     <string name="checkConnectivity">நீங்கள் இணையத் தொடர்பில் இல்லை. தயவுசெய்து இணையத்தை இயக்கவும்.</string>
 
-    <string name="menuProfile">சுயவிவரங்கள்</string>
-    <string name="menuAbout">ஜெல்லோவை பற்றி</string>
-    <string name="menuTutorials">பயிற்சி அமைப்பு</string>
-    <string name="menuKeyboardInput">விசைப்பலகை கட்டுப்பாடு</string>
-    <string name="menuResetPref">விருப்பத் தேர்வுகளை மீட்டமைக்க</string>
-    <string name="menuFeedback">பின்னூட்டம்</string>
+    <string name="menuProfile">சுயவிவரங்கள் (Profile)</string>
+    <string name="menuAbout">ஜெல்லோவை பற்றி (About Jellow)</string>
+    <string name="menuTutorials">பயிற்சி அமைப்பு (Tutorial)</string>
+    <string name="menuKeyboardInput">விசைப்பலகை கட்டுப்பாடு (Keyboard Control)</string>
+    <string name="menuResetPref">விருப்பத் தேர்வுகளை மீட்டமைக்க (Reset Preferences)</string>
+    <string name="menuFeedback">பின்னூட்டம் (Feedback)</string>
     <string name="menuUserRegistration">பதிவிற்கான பக்கம்</string>
-    <string name="menuAccessibility">அணுகல்</string>
-    <string name="menuClosePopup">தேர்வு பட்டியலை மூடவும்</string>
+    <string name="menuAccessibility">அணுகல் (Accessibility)</string>
+    <string name="menuClosePopup">தேர்வு பட்டியலை மூடவும் (Close menu)</string>
     <string name="labelSplash">ஜெல்லோ இயங்க துவங்கியுள்ளது.காத்திருக்கவும்!</string>
 
     <string name="endString"> </string>

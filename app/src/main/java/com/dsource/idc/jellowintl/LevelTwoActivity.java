@@ -3,7 +3,6 @@ package com.dsource.idc.jellowintl;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -21,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -105,7 +103,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
       selected.*/
     private Integer[] mArrPeopleTapCount, mArrSort;
 
-    private String end, actionBarTitleTxt, mSpeak, mEnterCat;
+    private String actionBarTitleTxt, mSpeak, mEnterCat;
 
     /*Firebase event Collector class instance.*/
     private UserEventCollector mUec;
@@ -142,7 +140,6 @@ public class LevelTwoActivity extends LevelBaseActivity{
         initializeLayoutViews();
         initializeRecyclerViewAdapter();
         initializeViewListeners();
-        end = getString(R.string.endString);
         mSpeak = getString(R.string.speak);
         mEnterCat = getString(R.string.enter_category);
         /*Event recorded: Event{appId='com.dsource.idc.jellowintl.debug'*/ /*GridExpressiveIcon*/
@@ -231,9 +228,8 @@ public class LevelTwoActivity extends LevelBaseActivity{
                     mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,pos );
                     return;
                 }
-                //Setting the background of the  View
-                GradientDrawable gd = (GradientDrawable) searchedView.findViewById(R.id.borderView).getBackground();
-                gd.setColor(ContextCompat.getColor(getApplicationContext(), R.color.search_highlight));
+                //When view is found remove the scrollListener and manually tap the icon.
+                tappedCategoryItemEvent(searchedView, pos);
                 mRecyclerView.removeOnScrollListener(scrollListener);
                 mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
                 if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
@@ -328,10 +324,10 @@ public class LevelTwoActivity extends LevelBaseActivity{
         mEtTTs = findViewById(R.id.et);
         //Initially custom input text is invisible
         mEtTTs.setVisibility(View.INVISIBLE);
-        mEtTTs.setVisibility(View.INVISIBLE);
-        mEtTTs.setSingleLine();
 
         mIvTts = findViewById(R.id.ttsbutton);
+        //Set button for tts callback
+        setCustomKeyboardView(this);
         //Initially custom input text speak button is invisible
         mIvTts.setVisibility(View.INVISIBLE);
 
@@ -1391,7 +1387,13 @@ public class LevelTwoActivity extends LevelBaseActivity{
     private void initTTsBtnListener() {
         mIvTts.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                if(isEngineSpeaking()){
+                    stopSpeaking();
+                    mIvTts.setImageDrawable(getResources().getDrawable(R.drawable.ic_search_list_speaker));
+                    return;
+                }
                 speak(mEtTTs.getText().toString().concat("_"));
+                mIvTts.setImageDrawable(getResources().getDrawable(R.drawable.ic_stop));
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -2045,5 +2047,15 @@ public class LevelTwoActivity extends LevelBaseActivity{
         } else {
             return Integer.toString(level1Position + 1);
         }
+    }
+
+    public void revertTheSpeakerIcon(){
+        LevelTwoActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mIvTts.setImageDrawable(getResources().getDrawable(R.drawable.ic_search_list_speaker));
+                mIvTts.refreshDrawableState();
+            }
+        });
     }
 }
