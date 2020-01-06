@@ -5,6 +5,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.speech.tts.Voice;
@@ -225,6 +226,26 @@ public class SpeechEngineBaseActivity extends BaseActivity{
             sTts.speak(speechText.replace("_","").replace("-",""), TextToSpeech.QUEUE_FLUSH, map);
         else
             playAudio(getAudioPath(this)+speechText);
+    }
+
+    public void speakWithDelay(final String speechText){
+        final int interval = 1000; // 3 Second
+        Handler handler = new Handler();
+        Runnable runnable = new Runnable(){
+            public void run() {
+                stopSpeaking();
+                /*Extra symbol '_' is appended to end of every string from custom keyboard utterances.
+                 *Extra symbol '-' is appended to end of every string from make my board speak request.
+                 * Hence utterances will use tts engine to speak irrespective of type of language
+                 * (tts language or non tts) */
+                if (speechText.contains("_") || speechText.contains("-") || !isNoTTSLanguage())
+                    sTts.speak(speechText.replace("_","").
+                            replace("-",""), TextToSpeech.QUEUE_FLUSH, map);
+            }
+        };
+        handler.postAtTime(runnable, System.currentTimeMillis()+interval);
+        handler.postDelayed(runnable, interval);
+
     }
 
     public void stopSpeaking(){

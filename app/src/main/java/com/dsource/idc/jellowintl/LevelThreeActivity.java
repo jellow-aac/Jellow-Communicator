@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.text.method.KeyListener;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
@@ -84,7 +83,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
      button. When user presses expressive button and mShouldReadFullSpeech = true, it means that user
      is already selected a category icon and user intend to speak full sentence verbiage for a
      selected icon.*/
-    private boolean mShouldReadFullSpeech = false;
+    private boolean mShouldReadFullSpeech = false, mSearched = false;
     /*This variable hold the views populated in recycler view (category icon) list.*/
     private ArrayList<View> mRecyclerItemsViewList;
     /*This variable stores current tap mArrIconTapCount to every category icon populated in recycler view.*/
@@ -139,6 +138,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
       if(getIntent().getExtras().getString(getString(R.string.from_search))!=null) {
             if (getIntent().getExtras().getString(getString(R.string.from_search))
                     .equals(getString(R.string.search_tag))) {
+                 mSearched = true;
                 highlightSearchedItem();
             }
         }
@@ -223,7 +223,6 @@ public class LevelThreeActivity extends LevelBaseActivity{
                     }
                 //When view is found remove the scrollListener and manually tap the icon.
                 tappedCategoryItemEvent(searchedView);
-                Log.d("Ayaz", "Step 4: Background is set and removing the scrollListener");
                 mRecyclerView.removeOnScrollListener(scrollListener);
                 mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
                 if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
@@ -576,7 +575,8 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         intent.putExtra(getString(R.string.level_one_intent_pos_tag), mLevelOneItemPos);
                         intent.putExtra("search_and_back", true);
                         intent.putExtra(getString(R.string.intent_menu_path_tag), getIntent().
-                                getExtras().getString(getString(R.string.intent_menu_path_tag)));
+                                getExtras().getString(getString(R.string.intent_menu_path_tag)).
+                                split("/")[0] +"/");
                         startActivity(intent);
                         finish();
                     }else {
@@ -1268,10 +1268,17 @@ public class LevelThreeActivity extends LevelBaseActivity{
                     (mLevelOneItemPos == 7 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 1 ||
                             mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)) ||
                     (mLevelOneItemPos == 4 && mLevelTwoItemPos == 9)) {
-                speak(mSpeechText[mLevelThreeItemPos]);
+                if (!mSearched)
+                    speak(mSpeechText[mLevelThreeItemPos]);
+                else
+                    speakWithDelay(mSpeechText[mLevelThreeItemPos]);
             } else {
-                speak(mSpeechText[mArrSort[mLevelThreeItemPos]]);
+                if (!mSearched)
+                    speak(mSpeechText[mArrSort[mLevelThreeItemPos]]);
+                else
+                    speakWithDelay(mSpeechText[mArrSort[mLevelThreeItemPos]]);
             }
+            mSearched = false;
             mUec.createSendFbEventFromTappedView(12, mDisplayText[getTagPos()], "");
         }
         // increment category item touch count

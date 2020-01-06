@@ -88,7 +88,7 @@ public class MainActivity extends LevelBaseActivity{
      selected icon.*/
     private boolean mShouldReadFullSpeech = false;
     /* This flag indicates keyboard is open or not, true indicates is not open.*/
-    private boolean mKeyState = GlobalConstants.KEY_CLOSE;
+    private boolean mKeyState = GlobalConstants.KEY_CLOSE, mSearched = false;
     /*This variable hold the views populated in recycler view (category icon) list.*/
     private ArrayList<View> mRecyclerItemsViewList;
     /*Below array stores the speech text, below text, expressive button speech text,
@@ -129,6 +129,7 @@ public class MainActivity extends LevelBaseActivity{
             String s = getIntent().getExtras().getString(getString(R.string.from_search));
             if (s != null)
                 if (s.equals(getString(R.string.search_tag))) {
+                    mSearched = true;
                     highlightSearchedItem();
                 }
         }
@@ -1071,7 +1072,11 @@ public class MainActivity extends LevelBaseActivity{
                 intent.putExtra(getString(R.string.intent_menu_path_tag), title + "/");
                 startActivityForResult(intent, REQ_HOME);
             }else {
-                speak(level1IconObjects[position].getSpeech_Label());
+                if (!mSearched)
+                    speak(level1IconObjects[position].getSpeech_Label());
+                else
+                    speakWithDelay(level1IconObjects[position].getSpeech_Label());
+                mSearched = false;
                 // create event bundle for firebase
                 mUec.createSendFbEventFromTappedView(12,
                         level1IconObjects[position].getDisplay_Label().replace("…",""), "");

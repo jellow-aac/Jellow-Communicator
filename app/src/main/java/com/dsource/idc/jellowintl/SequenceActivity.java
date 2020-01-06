@@ -690,7 +690,8 @@ public class SequenceActivity extends LevelBaseActivity{
                         intent.putExtra(getString(R.string.level_one_intent_pos_tag), 1/*1 is index for Daily Activities*/);
                         intent.putExtra("search_and_back", true);
                         intent.putExtra(getString(R.string.intent_menu_path_tag), getIntent().
-                                getExtras().getString(getString(R.string.intent_menu_path_tag)));
+                                getExtras().getString(getString(R.string.intent_menu_path_tag)).
+                                split("/")[0] +"/");
                         startActivity(intent);
                         finish();
                     }else{

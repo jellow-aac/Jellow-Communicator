@@ -88,7 +88,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
     /*This flag is sets to true, when category icon is pressed followed by an expressive button;
      in this case the full sentence associated with selected expressive button is spoken.
      In case flag is false only expressive button is spoken out.*/
-    private boolean mShouldReadFullSpeech = false;
+    private boolean mShouldReadFullSpeech = false, mSearched = false;
     /*This variable hold the views populated in recycler view (category icon) list.*/
     private ArrayList<View> mRecyclerItemsViewList;
     /*This variable store current action bar title.*/
@@ -152,6 +152,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
         if(getIntent().getExtras().getString(getString(R.string.from_search))!=null) {
             if (getIntent().getExtras().getString(getString(R.string.from_search))
                     .equals(getString(R.string.search_tag))) {
+                mSearched = true;
                 highlightSearchedItem();
             }
         }
@@ -1464,7 +1465,11 @@ public class LevelTwoActivity extends LevelBaseActivity{
                 view.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
                 mUec.accessibilityPopupOpenedEvent(mSpeechText[position]);
             }else {
-                speak(mSpeechText[position]);
+                if (!mSearched)
+                    speak(mSpeechText[position]);
+                else
+                    speakWithDelay(mSpeechText[position]);
+                mSearched = false;
                 mUec.createSendFbEventFromTappedView(12, mDisplayText[position], "");
             }
         // In below if category icon selected in level one is neither people nor help.
@@ -1511,7 +1516,10 @@ public class LevelTwoActivity extends LevelBaseActivity{
                     mUec.createSendFbEventFromTappedView(12, mDisplayText[position]
                             .replace("…",""), "");
                 }else {
-                    speak(mSpeechText[position]);
+                    if (!mSearched)
+                        speak(mSpeechText[position]);
+                    else
+                        speakWithDelay(mSpeechText[position]);
                     mUec.createSendFbEventFromTappedView(12, mDisplayText[position]
                             .replace("…",""), "");
                 }

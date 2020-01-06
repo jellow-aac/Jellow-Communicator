@@ -285,6 +285,9 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
             activityIntent.putExtra(mContext.getString(R.string.search_parent_1),icon.getLevelTwo());
             //activityIntent.putExtra(menuPath,getActionBarTitle(icon.getLevelOne()));
             activityIntent.putExtra(mContext.getString(R.string.from_search),mContext.getString(R.string.search_tag));
+            String breadCrumbPath = getLevel1IconLabels()[icon.getLevelOne()].
+                    replace("…","") + "/ ";
+            activityIntent.putExtra(mContext.getString(R.string.intent_menu_path_tag), breadCrumbPath);
 
         }
         else if (!icon.isSequenceIcon())//Level 3
@@ -297,6 +300,10 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
             activityIntent.putExtra(mContext.getString(R.string.level_2_item_pos_tag),icon.getLevelTwo());
             //Level 3 Icon reference to be highlighted
             activityIntent.putExtra(mContext.getString(R.string.search_parent_2),icon.getLevelThree());
+            String breadCrumbPath = getLevel1IconLabels()[icon.getLevelOne()].
+                    replace("…","") + "/ " + getIconTitleLevel2(icon.getLevelOne())
+                    [icon.getLevelTwo()].replace("…","")+"/ ";
+            activityIntent.putExtra(mContext.getString(R.string.intent_menu_path_tag), breadCrumbPath);
         }else{ //Level 3, Sequence
             activityIntent=new Intent(mContext, SequenceActivity.class);
             activityIntent.putExtra(mContext.getString(R.string.from_search),mContext.getString(R.string.search_tag));
@@ -304,6 +311,10 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
             activityIntent.putExtra(mContext.getString(R.string.level_2_item_pos_tag),icon.getLevelTwo());
             //Level 3 Icon reference to be highlighted
             activityIntent.putExtra(mContext.getString(R.string.search_parent_2),icon.getLevelThree());
+            String breadCrumbPath = getLevel1IconLabels()[icon.getLevelOne()].
+                    replace("…","") + "/ " + getIconTitleLevel2(icon.getLevelOne())
+                    [icon.getLevelTwo()].replace("…","")+"/ ";
+            activityIntent.putExtra(mContext.getString(R.string.intent_menu_path_tag), breadCrumbPath);
         }
         return activityIntent;
     }
@@ -334,14 +345,14 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
 
         //If the "No icon found" condition comes then remove speaker
        if(thisIcon.getLevelOne()==-1)
-        {
-            holder.iconTitle.setText(R.string.icon_not_found);
-            holder.speakIcon.setVisibility(View.GONE);
-            holder.iconDir.setVisibility(View.GONE);
-            holder.iconImage.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_icon_not_found));
-            return;
-        }else {
-           GlideApp.with(mContext)
+       {
+           holder.iconTitle.setText(R.string.icon_not_found);
+           holder.speakIcon.setVisibility(View.GONE);
+           holder.iconDir.setVisibility(View.GONE);
+           holder.iconImage.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_icon_not_found));
+           return;
+       }else {
+          GlideApp.with(mContext)
                    .load(getIconPath(mContext,thisIcon.getIconDrawable())+".png")
                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                    .skipMemoryCache(false)

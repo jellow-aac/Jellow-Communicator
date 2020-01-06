@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.dsource.idc.jellowintl.factories.PathFactory;
+import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.util.HashMap;
 
@@ -43,18 +44,25 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
         setActivityTitle(getString(R.string.menuAbout));
         initializeViews();
         loadStrings();
-        createAudioFileForSpeech(mSpeechTxt);
+        if (getSession().getLanguage() != SessionManager.MR_IN)
+            createAudioFileForSpeech(mSpeechTxt);
         setTextToTextViews();
         mBtnSpeak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String mediaPath = PathFactory.getBaseDirectoryPath(AboutJellowActivity.this)
-                        + ABOUT_ME_AUDIO_FILE;
                 if (isMediaPaused) {
                     resumeMediaAudio();
                     isMediaPaused = false;
                     mBtnSpeak.setText(mPause);
                 } else if (!isMediaRunning()) {
+                    String mediaPath ="";
+                    if (getSession().getLanguage().equals(SessionManager.MR_IN)){
+                        mediaPath = PathFactory.getAudioPath(AboutJellowActivity.this)
+                                + getString(R.string.about_jellow_speech);
+                    }else {
+                        mediaPath = PathFactory.getBaseDirectoryPath(AboutJellowActivity.this)
+                                + ABOUT_ME_AUDIO_FILE;
+                    }
                     if (!isMediaReady(mediaPath))
                         return;
                     playAudio(mediaPath);
