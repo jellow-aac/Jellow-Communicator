@@ -33,7 +33,7 @@ public class SessionManager {
 
     public final static HashMap<String,String> LangMap = new HashMap<String,String>(){
         {
-            put ("Deutsch (Deutschland)", DE_DE);
+            put("German (Deutschland)", DE_DE);
             put("English (Australia)", ENG_AU);
             put("English (India)", ENG_IN);
             put("English (United Kingdom)", ENG_UK);
@@ -49,7 +49,7 @@ public class SessionManager {
 
     public final static HashMap<String,String> LangValueMap = new HashMap<String,String>(){
         {
-            put(DE_DE, "Deutsch (Deutschland)");
+            put(DE_DE, "German (Deutschland)");
             put(ENG_AU,"English (Australia)");
             put(ENG_IN,"English (India)");
             put(ENG_UK,"English (United Kingdom)");

@@ -3,10 +3,10 @@
     <dimen name="oneIcon_parentHorizontal">48dp</dimen>
     <dimen name="oneIcon_parentVertical">24dp</dimen>
     <dimen name="oneIcon_parentPadding">0dp</dimen>
-    <dimen name="oneIcon_width">248dp</dimen>
+    <dimen name="oneIcon_width">260dp</dimen>
     <dimen name="oneIcon_textSize">24sp</dimen>
     <dimen name="oneIcon_borderThickness">9dp</dimen>
-    <dimen name="oneIcon_innerRadius">115dp</dimen>
+    <dimen name="oneIcon_innerRadius">121dp</dimen>
 
     <!--2 icons configuration-->
     <dimen name="twoIcon_parentHorizontal">4dp</dimen>
@@ -31,8 +31,8 @@
     <!--4 icons configuration-->
     <dimen name="fourIcon_parentVertical">16dp</dimen>
     <dimen name="fourIcon_width">112dp</dimen>
-    <dimen name="fourIcon_textWidth">112dp</dimen>
-    <dimen name="fourIcon_textSize">14sp</dimen>
+    <dimen name="fourIcon_textWidth">132dp</dimen>
+    <dimen name="fourIcon_textSize">16sp</dimen>
     <dimen name="fourIcon_borderThickness">7dp</dimen>
     <dimen name="fourIcon_innerRadius">49.1dp</dimen>
 
@@ -40,7 +40,7 @@
     <dimen name="nineIcon_parentHorizontal">8dp</dimen>
     <dimen name="nineIcon_width">90dp</dimen>
     <dimen name="nineIcon_textWidth">162dp</dimen>
-    <dimen name="nineIcon_textSize">12sp</dimen>
+    <dimen name="nineIcon_textSize">13sp</dimen>
     <dimen name="nineIcon_borderThickness">5dp</dimen>
     <dimen name="nineIcon_innerRadius">40.1dp</dimen>
 

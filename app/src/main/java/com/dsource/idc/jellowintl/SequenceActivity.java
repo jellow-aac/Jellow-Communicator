@@ -1326,14 +1326,7 @@ public class SequenceActivity extends LevelBaseActivity{
             }
         });
 
-        if(position == (seqIconObjects.length-1)) {
-            ImageView[] btns = {ivLike, ivYes, ivAdd, ivDisLike, ivNo, ivMinus};
-            for (int i = 0; i < btns.length; i++) {
-                btns[i].setEnabled(false);
-                btns[i].setAlpha(GlobalConstants.DISABLE_ALPHA);
-                btns[i].setOnClickListener(null);
-            }
-        }
+        LevelUiUtils.setExpressiveIconConditionally(expressiveBtns, seqIconObjects[position]);
         enterCategory.setText(mSpeak);
         enterCategory.setOnClickListener(new View.OnClickListener() {
             @Override

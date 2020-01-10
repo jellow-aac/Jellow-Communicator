@@ -98,8 +98,6 @@
     <string name="menuClosePopup">Menü schließen (Close menu)</string>
     <string name="labelSplash">Jellow wird geladen, bitte warten!</string>
 
-    <string name="endString"> </string>
-
     <string name="easyToUse">benutzerfreundlich</string>
     <string name="clearPictures">scharfe Bilder</string>
     <string name="clearVoice">klare Stimme</string>
@@ -254,7 +252,6 @@
     <string name="enter_caregiver_s_contact_number">Handynummer der Bezugsperson eingeben</string>
     <string name="enter_caregiver_s_name">Name der Bezugsperson eingeben</string>
     <string name="enter_caregiver_s_email_address">Email-Adresse der Bezugsperson eingeben</string>
-    <string name="email_address">Email-Adresse</string>
     <string name="category_cd">Das Bild zeigt die Bildschirmaufnahme von der Startseite Jellows auf. Sie beinhaltet ein Gitternetz von 9 Icons namens Kategorien-Tasten, die in 3 Spalten und 3 Reihen angeordnet sind. Die 9 Kategorien-Tasten sind \"Begrüßungen und Gefühle\", \"Tägliche Aktivitäten\", \"Essen und Trinken\", \"Spaß\", \"Lernen\", \"Leute\", \"Orte\", \"Zeit und Wetter\" und \"Hilfe\". Darunter stehen die 3 Tasten zum Navigieren nämlich \"Zurück\", \"Startseite\" und \"Tastatur\". Auf der linken und der rechten Seite der zentralen Kategorien-Tasten gibt es je 3 expressive Icons. Auf der linken Seite gibt es die drei expressiven Tasten nämlich \"Gefällt mir\", \"Ja\" und \"Mehr\" bzw. auf der linken Seite die Tasten \"Gefällt mir nicht\", \"Nein\" und \"Weniger\". In der oberen rechten Ecke steht das Icon \"Einstellungen\\". Auf diesem Bild wird das zentrale Gitternetz hervorgehoben, während die anderen Icons abgeblendet worden sind.</string>
     <string name="expressive_cd">Dieses Bild zeigt nochmals die Bildschirmaufnahme von der Startseite Jellows auf. Auf diesem Bild werden die 6 expressive Tasten hervorgehoben, die je 3 auf linken und rechten Seite des zentralen Gitternetz stehen, während das zentrale Gitternetz abgeblendet worden ist. Die 3 von oben nach unten angeordneten Tasten auf der linken Seite sind - \"Gefällt mir\" dargestellt mit einem \"Smiley\" Icon, \"Ja\" dargestellt mit einem \"Häkchen\" Icon und \"Mehr\" dargestellt mit \"Plus\" Icon. Ebenso sind die 3 von oben nach unten angeordneten Tasten auf der rechten Seite - \"Gefällt mir nicht\" dargestellt mit einem "traurigen Gesicht" Icon, "Nein" dargestellt mit einem "Kreuz" Icon und "Weniger" dargestellt mit einem "Minus" Icon. Darüber hinaus sind die 3 Tasten zum Navigieren unten eingefügt, die jeweils von links nach rechts \"Zurück\", \"Startseite\" und \"Tastatur\" kennzeichnen.</string>
     <string name="pic4">Das Bild zeigt die Startseite Jellows auf, auf dem die zwei Icons \"Essen und Trinken\" und \"Ja\" hervorgehoben worden sind. Die anderen Tasten sind abgeblendet. Auf dem Bild wird es beschrieben, dass der Benutzer zuerst die Taste einer Kategorie zum Beispiel \"Essen\" und dann eine expressive Taste zum Beispiel \"Ja\" klicken muss, um Jellow zum Sprechen zu bringen.</string>
@@ -319,7 +316,7 @@
     <string name="acc_lang_eng_au">Englisch (Australien)</string>
     <string name="acc_lang_span_span">Spanisch (Spanien)</string>
     <string name="acc_lang_tamil_in">Tamil (Indien)</string>
-    <string name="acc_lang_german_ger">Deutsch (Deutschland)</string>
+    <string name="acc_lang_german_ger">German (Germany)</string>
 
     <string name="_1_icon">1 icon</string>
     <string name="_2_icons">2 icons</string>

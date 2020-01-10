@@ -235,7 +235,7 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
                     case "தமிழ்":
                         shortenLanguageNames[i] = getString(R.string.acc_lang_tamil_in);
                         break;
-                    case "Deutsch (Deutschland)":
+                    case "German (Deutschland)":
                         shortenLanguageNames[i] = getString(R.string.acc_lang_german_ger);
                         break;
                     default:
@@ -264,8 +264,8 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
                     case "Tamil (India)":
                         shortenLanguageNames[i] = "Tamil (IN)";
                         break;
-                    case "Deutsch (Deutschland)":
-                        shortenLanguageNames[i] = "Deutsch (DE)";
+                    case "German (Deutschland)":
+                        shortenLanguageNames[i] = "German (DE)";
                         break;
                     case "French (France)":
                         shortenLanguageNames[i] = "French (FR)";

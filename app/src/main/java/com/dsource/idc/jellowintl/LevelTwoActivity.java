@@ -167,11 +167,11 @@ public class LevelTwoActivity extends LevelBaseActivity{
             final int gridCode=new SessionManager(this).getGridSize();
             //Deciding the gridSize according to the gridCode
             int gridSize;
-            if(gridCode==1)
+            if(gridCode==GlobalConstants.NINE_ICONS_PER_SCREEN)
             gridSize=8;
             else gridSize=2;
             //Case with sorting is people which needs sorting.
-            if(p1==5)
+            if(p1==CATEGORY_ICON_PEOPLE)
             {
                 final int sortedIndex=getSortedIndex(s);
                 if(sortedIndex>gridSize) {
@@ -298,6 +298,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
     }
 
     private void clearSelectionAfterAccessibilityDialogClose() {
+        LevelUiUtils.enableAllExpressiveIcon(expressiveBtn);
         LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, GlobalConstants.NO_EXPR);
         LevelUiUtils.resetRecyclerAllItems(LevelTwoActivity.this, mRecyclerView,
                 mActionBtnClickCount, mFlgImage);
@@ -1520,6 +1521,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         speak(mSpeechText[position]);
                     else
                         speakWithDelay(mSpeechText[position]);
+                    mSearched = false;
                     mUec.createSendFbEventFromTappedView(12, mDisplayText[position]
                             .replace("…",""), "");
                 }
@@ -1770,36 +1772,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                 ivAdd.setContentDescription(getString(R.string.caregiver_s_contact_number_dialog_btn));
                 ivMinus.setContentDescription(getString(R.string.bloodGroup_dialog_btn));
             }else if(mLevelOneItemPos == CATEGORY_ICON_HELP){
-                if(level2IconObjects[position].getL().isEmpty()){
-                    ivLike.setEnabled(false);
-                    ivLike.setAlpha(GlobalConstants.DISABLE_ALPHA);
-                    ivLike.setOnClickListener(null);
-                }
-                if(level2IconObjects[position].getY().isEmpty()){
-                    ivYes.setEnabled(false);
-                    ivYes.setAlpha(GlobalConstants.DISABLE_ALPHA);
-                    ivYes.setOnClickListener(null);
-                }
-                if(level2IconObjects[position].getM().isEmpty()){
-                    ivAdd.setEnabled(false);
-                    ivAdd.setAlpha(GlobalConstants.DISABLE_ALPHA);
-                    ivAdd.setOnClickListener(null);
-                }
-                if(level2IconObjects[position].getD().isEmpty()){
-                    ivDisLike.setEnabled(false);
-                    ivDisLike.setAlpha(GlobalConstants.DISABLE_ALPHA);
-                    ivDisLike.setOnClickListener(null);
-                }
-                if(level2IconObjects[position].getN().isEmpty()){
-                    ivNo.setEnabled(false);
-                    ivNo.setAlpha(GlobalConstants.DISABLE_ALPHA);
-                    ivNo.setOnClickListener(null);
-                }
-                if(level2IconObjects[position].getS().isEmpty()){
-                    ivMinus.setEnabled(false);
-                    ivMinus.setAlpha(GlobalConstants.DISABLE_ALPHA);
-                    ivMinus.setOnClickListener(null);
-                }
+                LevelUiUtils.setExpressiveIconConditionally(expressiveBtns, level2IconObjects[position]);
             }
             enterCategory.setOnClickListener(new View.OnClickListener() {
                 @Override

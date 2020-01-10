@@ -53,7 +53,6 @@
                     android:layout_width="112dp"
                     android:layout_height="96dp"
                     android:src="@drawable/dontlike"
-                    android:background="#80f0"
                     android:contentDescription="@string/dont_like"/>
                 <ImageView
                     android:id="@+id/ivno"

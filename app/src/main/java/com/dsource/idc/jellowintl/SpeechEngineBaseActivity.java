@@ -229,7 +229,7 @@ public class SpeechEngineBaseActivity extends BaseActivity{
     }
 
     public void speakWithDelay(final String speechText){
-        final int interval = 1000; // 3 Second
+        final int interval = 1000; // 1 Second
         Handler handler = new Handler();
         Runnable runnable = new Runnable(){
             public void run() {
@@ -241,6 +241,8 @@ public class SpeechEngineBaseActivity extends BaseActivity{
                 if (speechText.contains("_") || speechText.contains("-") || !isNoTTSLanguage())
                     sTts.speak(speechText.replace("_","").
                             replace("-",""), TextToSpeech.QUEUE_FLUSH, map);
+                else
+                    playAudio(getAudioPath(SpeechEngineBaseActivity.this)+speechText);
             }
         };
         handler.postAtTime(runnable, System.currentTimeMillis()+interval);

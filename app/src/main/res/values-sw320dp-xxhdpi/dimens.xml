@@ -16,7 +16,7 @@
     <dimen name="twoIcon_width">148dp</dimen>
     <dimen name="twoIcon_textSize">16sp</dimen>
     <dimen name="twoIcon_borderThickness">5dp</dimen>
-    <dimen name="twoIcon_innerRadius">68dp</dimen>
+    <dimen name="twoIcon_innerRadius">69dp</dimen>
 
     <!--3 icons configuration-->
     <dimen name="threeIcon_parentVertical">24dp</dimen>

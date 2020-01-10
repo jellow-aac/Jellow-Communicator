@@ -10,17 +10,17 @@
 
     <!--2 icons configuration-->
     <dimen name="twoIcon_parentHorizontal">4dp</dimen>
-    <dimen name="twoIcon_parentVertical">4dp</dimen>
+    <dimen name="twoIcon_parentVertical">16dp</dimen>
     <dimen name="twoIcon_parentPaddingHorizontal">4dp</dimen>
     <dimen name="twoIcon_parentPaddingVertical">14dp</dimen>
-    <dimen name="twoIcon_width">168dp</dimen>
-    <dimen name="twoIcon_textSize">20sp</dimen>
+    <dimen name="twoIcon_width">140dp</dimen>
+    <dimen name="twoIcon_textSize">16sp</dimen>
     <dimen name="twoIcon_borderThickness">6dp</dimen>
-    <dimen name="twoIcon_innerRadius">78dp</dimen>
+    <dimen name="twoIcon_innerRadius">64dp</dimen>
 
     <!--3 icons configuration-->
     <dimen name="threeIcon_parentVertical">16dp</dimen>
-    <dimen name="threeIcon_parentPaddingVertical">32dp</dimen>
+    <dimen name="threeIcon_parentPaddingVertical">38dp</dimen>
     <dimen name="threeIcon_flHorizontal">0dp</dimen>
     <dimen name="threeIcon_width">102dp</dimen>
     <dimen name="threeIcon_textWidth">124dp</dimen>

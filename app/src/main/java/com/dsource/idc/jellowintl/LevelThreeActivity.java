@@ -1370,7 +1370,8 @@ public class LevelThreeActivity extends LevelBaseActivity{
             @Override
             public void onClick(View v) {
                 speak(mSpeechText[getTagPos()]);
-                mUec.createSendFbEventFromTappedView(12, mDisplayText[getTagPos()], "");
+                mUec.createSendFbEventFromTappedView(12, mDisplayText[getTagPos()]
+                        .replace("…",""), "");
             }
         });
 
@@ -1468,45 +1469,8 @@ public class LevelThreeActivity extends LevelBaseActivity{
                 dialog.dismiss();
             }
         });
-        if(isVerbiageAvailable(getTagPos())) {
-            ImageView[] btns = {ivLike, ivYes, ivAdd, ivDisLike, ivNo, ivMinus};
-            for (int i = 0; i < btns.length; i++) {
-                btns[i].setEnabled(false);
-                btns[i].setAlpha(GlobalConstants.DISABLE_ALPHA);
-                btns[i].setOnClickListener(null);
-            }
-        }else {
-            if(level3IconObjects[getTagPos()].getL().isEmpty()){
-                ivLike.setEnabled(false);
-                ivLike.setAlpha(GlobalConstants.DISABLE_ALPHA);
-                ivLike.setOnClickListener(null);
-            }
-            if(level3IconObjects[getTagPos()].getY().isEmpty()){
-                ivYes.setEnabled(false);
-                ivYes.setAlpha(GlobalConstants.DISABLE_ALPHA);
-                ivYes.setOnClickListener(null);
-            }
-            if(level3IconObjects[getTagPos()].getM().isEmpty()){
-                ivAdd.setEnabled(false);
-                ivAdd.setAlpha(GlobalConstants.DISABLE_ALPHA);
-                ivAdd.setOnClickListener(null);
-            }
-            if(level3IconObjects[getTagPos()].getD().isEmpty()){
-                ivDisLike.setEnabled(false);
-                ivDisLike.setAlpha(GlobalConstants.DISABLE_ALPHA);
-                ivDisLike.setOnClickListener(null);
-            }
-            if(level3IconObjects[getTagPos()].getN().isEmpty()){
-                ivNo.setEnabled(false);
-                ivNo.setAlpha(GlobalConstants.DISABLE_ALPHA);
-                ivNo.setOnClickListener(null);
-            }
-            if(level3IconObjects[getTagPos()].getS().isEmpty()){
-                ivMinus.setEnabled(false);
-                ivMinus.setAlpha(GlobalConstants.DISABLE_ALPHA);
-                ivMinus.setOnClickListener(null);
-            }
-        }
+        LevelUiUtils.setExpressiveIconConditionally(expressiveBtns, level3IconObjects
+                [mArrSort[mLevelThreeItemPos]]);
 
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
@@ -1531,19 +1495,10 @@ public class LevelThreeActivity extends LevelBaseActivity{
         dialog.getWindow().setAttributes(lp);
     }
 
-    private boolean isVerbiageAvailable(int position) {
-        return level3IconObjects[position].getL().isEmpty() &&
-            level3IconObjects[position].getY().isEmpty() &&
-            level3IconObjects[position].getM().isEmpty() &&
-            level3IconObjects[position].getD().isEmpty() &&
-            level3IconObjects[position].getN().isEmpty() &&
-            level3IconObjects[position].getS().isEmpty();
-    }
-
     private void clearSelectionAfterAccessibilityDialogClose() {
+        LevelUiUtils.enableAllExpressiveIcon(expressiveBtn);
         LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, GlobalConstants.NO_EXPR);
         mLevelThreeItemPos= GlobalConstants.NOT_SELECTED;
-        LevelUiUtils.disableAllExpressiveIcon(expressiveBtn);
         LevelUiUtils.resetRecyclerAllItems(LevelThreeActivity.this, mRecyclerView,
                 mActionBtnClickCount, mFlgImage);
         mShouldReadFullSpeech = false;

@@ -995,7 +995,6 @@ public class MainActivity extends LevelBaseActivity{
                 bundle.putString("utterence", mEtTTs.getText().toString());
                 bundleEvent("Keyboard", bundle);
 
-                //singleEvent("Keyboard", mEtTTs.getText().toString());
                 //if expressive buttons always disabled during custom text speech output
                 mIvLike.setEnabled(false);
                 mIvDontLike.setEnabled(false);
@@ -1042,6 +1041,7 @@ public class MainActivity extends LevelBaseActivity{
      * */
     public void tappedCategoryItemEvent(final View view, int position) {
         mFlgLike = mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = GlobalConstants.SHORT_SPEECH;
+        mIvHome.setImageResource(R.drawable.home);
         // reset all expressive button.
         LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, GlobalConstants.NO_EXPR);
         // reset every populated category icon before setting the border to selected icon.
@@ -1191,7 +1191,8 @@ public class MainActivity extends LevelBaseActivity{
             public void onClick(View v) {
                 // create event bundle for firebase
                 Bundle bundle = new Bundle();
-                bundle.putString("Icon", "Opened " + level1IconObjects[position].getDisplay_Label());
+                bundle.putString("Icon", "Opened " + level1IconObjects[position].getDisplay_Label()
+                        .replace("…",""));
                 bundleEvent("Grid", bundle);
 
                 Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);

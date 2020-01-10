@@ -93,11 +93,9 @@
     <string name="menuResetPref">Restablecer Preferencias (Reset Preferences)</string>
     <string name="menuFeedback">Retroalimentación (Feedback)</string>
     <string name="menuUserRegistration">Página de registro</string>
-    <string name="menuAccessibility">" Accessibility (Accessibility)"</string>
+    <string name="menuAccessibility">Accessibility (Accessibility)</string>
     <string name="menuClosePopup">Cerrar menú (Close menu)</string>
     <string name="labelSplash">Jellow se está cargando. ¡Espera, por favor!</string>
-
-    <string name="endString"> </string>
 
     <string name="easyToUse">Fácil de usar</string>
     <string name="clearPictures">Eliminar imágenes</string>
@@ -254,7 +252,6 @@
     <string name="enter_caregiver_s_contact_number">Escribe el número de contacto del cuidador</string>
     <string name="enter_caregiver_s_name">Escribe el nombre del cuidador</string>
     <string name="enter_caregiver_s_email_address">Escribe el correo electrónico del cuidador</string>
-    <string name="email_address">Correo electrónico</string>
     <string name="category_cd">La imagen muestra una captura de pantalla de la página de inicio de Jellow. La página de inicio consta de 9 iconos, se llaman los botones de categoría, que están ordenados en 3 columnas y 3 filas. Los 9 botones de categoría son "Saludar y sentir", "Actividades diarias", "Comer", "Diversión", "Aprendizaje", "Lugares", "Tiempo y Clima" y "Ayuda". Debajo de los botones de categoría hay 3 botones de navegación. Estos son "Atrás", "Inicio" y "Teclado" y están en el orden mencionado al fondo de la página de inicio. A la derecha y a la izquierda de los botones centrales de categorías, hay 3 botones expresivos a cada lado. A la iquierda, hay 3 botones de "Me gusta", "Sí" y "Más" en dicho orden. A la derecha, hay los otros 3 botones expresivos de "No me gusta", "No" y "Menos" en este orden. En la esquina superior derecha de la página de inicio hay un icono de ajustes. En esta imagen, los 9 iconos centrales están resaltados y los demás están borrosos.</string>
     <string name="expressive_cd">Esta imagen muestra la captura de pantalla de la página de inicio de Jellow. En esta imagen, los 6 botones expresivos están ubicados a cada lado de los botones centrales de categoría y están resaltados y los demás están borrosos. A la izquierda, se disponen de arriba abajo los 3 botones expresivos de "Me gusta", simbolizado por un icono de "Cara sonriente", "Sí" simbolizado por un "Visto" y "Más" simbolizado por un "Signo más". A la derecha, se disponen de arriba abajo los 3 botones expresivos de "No me gusta" simbolizado por una "Cara triste" , "No" simbolizado por una "Cruz" y "Menos" simbolizado por un "Signo menos". Además, se pueden ver los 3 botones de navegación al fondo de la pantalla, que son "Atrás", "Inicio" y "Teclado", de izquiereda a derecha.</string>
     <string name="pic4">Esta imagen tiene la pantalla de inicio de Jellow con solo los 2 iconos resaltados de "Comer" y "Sí". Los demás están borrososos. La imagen muestra que para hablar por Jellow, el usuario debe hacer clic en cualquier botón de categoría , por ejemplo el de "Comer" y después en un botón expresivo, por ejemplo "Sí". De esta manera, el usuario puede hablar por Jellow.</string>

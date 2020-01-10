@@ -13,7 +13,6 @@
         <item name="buttonStyle">@style/customButtonStyle</item>
         <item name="android:fontFamily">@font/mukta_regular</item>
         <item name="android:textAppearanceLargePopupMenu">@style/defaultTextViewStyle</item>
-        <item name="materialAlertDialogTheme">@style/materialDialogStyle</item>
     </style>
 
     <style name="CustomSeekbar" parent="Widget.AppCompat.SeekBar">

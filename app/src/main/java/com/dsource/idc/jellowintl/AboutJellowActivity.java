@@ -182,7 +182,7 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
         mIntro10 = getString(R.string.about_je_intro10);
         mIntro11 = getString(R.string.about_je_intro11);
         mIntro12 = getString(R.string.about_je_intro12);
-        mIntro13 = getString(R.string.about_je_intro13);
+        mIntro13 = getString(R.string.about_je_intro13) + " "+ getString(R.string.websiteLink);
         mIntro14 = getString(R.string.about_je_intro14);
         mCredits = getString(R.string.credits);
         mIntro15 = getString(R.string.about_je_intro15);

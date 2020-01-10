@@ -13,7 +13,6 @@
         <item name="buttonStyle">@style/customButtonStyle</item>
         <item name="android:fontFamily">@font/mukta_regular</item>
         <item name="android:textAppearanceLargePopupMenu">@style/defaultTextViewStyle</item>
-        <item name="materialAlertDialogTheme">@style/materialDialogStyle</item>
     </style>
     <style name="CustomSeekbar" parent="Widget.AppCompat.SeekBar">
         <item name="colorAccent">#dc5252</item>
@@ -139,11 +138,5 @@
     <style name="DialogAnimation_2">
         <item name="android:windowEnterAnimation">@anim/slide_up</item>
         <item name="android:windowExitAnimation">@anim/slide_bottom</item>
-    </style>
-
-    <style name="materialDialogStyle" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
-        <item name="android:scrollbarFadeDuration">0</item>
-        <item name="android:textColor">@color/black_eighty</item>
-        <item name="android:textColorAlertDialogListItem">@color/black_eighty</item>
     </style>
 </resources>

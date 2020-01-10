@@ -31,13 +31,13 @@
 
     <!--2 icons configuration-->
     <dimen name="twoIcon_parentHorizontal">8dp</dimen>
-    <dimen name="twoIcon_parentVertical">28dp</dimen>
+    <dimen name="twoIcon_parentVertical">8dp</dimen>
     <dimen name="twoIcon_parentPaddingHorizontal">8dp</dimen>
     <dimen name="twoIcon_parentPaddingVertical">32dp</dimen>
-    <dimen name="twoIcon_width">220dp</dimen>
+    <dimen name="twoIcon_width">240dp</dimen>
     <dimen name="twoIcon_textSize">22sp</dimen>
     <dimen name="twoIcon_borderThickness">8dp</dimen>
-    <dimen name="twoIcon_innerRadius">102dp</dimen>
+    <dimen name="twoIcon_innerRadius">112dp</dimen>
 
     <!--3 icons configuration-->
     <dimen name="threeIcon_parentVertical">30dp</dimen>
@@ -76,7 +76,6 @@
     <dimen name="user_reg_scroll_padding_right">0dp</dimen>
     <dimen name="user_reg_scroll_padding_top">12dp</dimen>
     <dimen name="user_reg_scroll_padding_bottom">0dp</dimen>
-    <dimen name="user_reg_scroll_parent_padding_left">7dp</dimen>
     <dimen name="user_reg_subhead">17sp</dimen>
     <dimen name="user_reg_etName">10dp</dimen>
     <dimen name="user_reg_ccp">20sp</dimen>
@@ -219,9 +218,11 @@
     <dimen name="setting_spinner_padding_right">0dp</dimen>
     <dimen name="setting_spinner_icon_width">90dp</dimen>
     <dimen name="setting_spinner_icon_height">40dp</dimen>
-    <dimen name="setting_extra_space_height">58dp</dimen>
+    <dimen name="setting_bottom_bar_height">58dp</dimen>
+    <dimen name="setting_extra_space_height">64dp</dimen>
     <dimen name="setting_btn_height">40dp</dimen>
     <dimen name="setting_btn_txt_size">20sp</dimen>
+    <dimen name="setting_btn_margin_bottom">32dp</dimen>
     <dimen name="setting_btn_padding_horizontal">8dp</dimen>
     <dimen name="setting_btn_margin_left">30dp</dimen>
 
@@ -241,8 +242,6 @@
     <dimen name="access_btn_height">40dp</dimen>
     <dimen name="access_btn_margin_left">30dp</dimen>
     <dimen name="access_btn_padding_horizontal">8dp</dimen>
-    <dimen name="access_yt_thumbnail_width">190dp</dimen>
-    <dimen name="access_yt_thumbnail_height">90dp</dimen>
 
     <!--activity_accessibility_settings.xml dimensions-->
     <dimen name="access_setting_extra_space">58dp</dimen>
@@ -277,6 +276,7 @@
     <dimen name="feedback_btn_height">40dp</dimen>
     <dimen name="feedback_btn_txt_size">20sp</dimen>
     <dimen name="feedback_btn_padding_left">8dp</dimen>
+    <dimen name="feedback_btn_share_margin_horizontal">4dp</dimen>
     <dimen name="feedback_btn_margin_left">30dp</dimen>
     <dimen name="feedback_tv_commentMargin_bottom">0dp</dimen>
 
