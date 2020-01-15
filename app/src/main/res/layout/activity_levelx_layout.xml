@@ -106,13 +106,13 @@
             android:contentDescription="@string/back"/>
     </RelativeLayout>
     <LinearLayout
-        android:layout_width="375dp"
+        android:layout_width="390dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal">
         <EditText
             android:id="@+id/et"
-            android:layout_width="320dp"
+            android:layout_width="335dp"
             android:layout_height="100dp"
             android:imeOptions="actionDone|flagNoExtractUi"
             android:textSize="20sp"
