@@ -63,6 +63,7 @@ public class TextDatabase {
         model.setLanguageCode(langCode);
         model.setTitle(holder.getIconName());
         model.setEventTag(holder.getIconVerbaige().getEvent_Tag());
+        model.setSearchTag(holder.getIconVerbaige().getSearchTag());
         database.verbiageDao().insertVerbiage(model);
     }
 

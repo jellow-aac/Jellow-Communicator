@@ -19,6 +19,9 @@ public class VerbiageModel {
     @ColumnInfo(name = "event_tag")
     private String eventTag;
 
+    @ColumnInfo(name = "Search_Tag")
+    private String searchTag;
+
     @ColumnInfo(name = "language_code")
     private String languageCode;
 
@@ -63,5 +66,13 @@ public class VerbiageModel {
 
     public void setEventTag(String eventTag) {
         this.eventTag = eventTag;
+    }
+
+    public String getSearchTag() {
+        return searchTag;
+    }
+
+    public void setSearchTag(String searchTag) {
+        this.searchTag = searchTag;
     }
 }

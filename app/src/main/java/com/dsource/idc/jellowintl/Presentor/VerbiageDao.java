@@ -34,6 +34,6 @@ public interface VerbiageDao {
     @Query("SELECT * FROM VerbiageModel where language_code  = (:languageCode) and id like :id")
     List<VerbiageModel> getVerbiageList(String  id,String languageCode);
 
-    @Query("SELECT * FROM VerbiageModel WHERE language_code  = (:languageCode) and title LIKE :iconTitle")
+    @Query("SELECT * FROM VerbiageModel WHERE language_code  = (:languageCode) and (title LIKE :iconTitle OR search_Tag like :iconTitle)")
     List<VerbiageModel> getVerbiageListByTitle(String iconTitle,String languageCode);
 }
