@@ -157,7 +157,12 @@
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </service>
+        </service>      
+        <activity android:name=".LanguagePackUpdateActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+        </activity>
     </application>
 
     <uses-feature android:name="android.hardware.telephony" android:required="false" />

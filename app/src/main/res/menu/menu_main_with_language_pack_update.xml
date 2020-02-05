@@ -21,6 +21,13 @@
             android:title="@string/menuKeyboardInput"
             app:showAsAction="never"/>
         <item
+            android:id="@+id/languagePackUpdate"
+            android:title="@string/lpu"
+            android:icon="@drawable/ic_system_update_large"
+            android:checked="true"
+            app:showAsAction="ifRoom"
+            android:orderInCategory="1"/>
+        <item
             android:id="@+id/languageSelect"
             android:title="@string/Language"
             app:showAsAction="never"/>

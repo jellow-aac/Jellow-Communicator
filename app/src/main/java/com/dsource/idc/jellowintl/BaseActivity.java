@@ -124,6 +124,12 @@ public class BaseActivity extends AppCompatActivity{
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
                 finish();
                 break;
+            case R.id.languagePackUpdate:
+                if(getVisibleAct().equals(LanguagePackUpdateActivity.class.getSimpleName()))
+                    break;
+                startActivity(new Intent(this, LanguagePackUpdateActivity.class));
+                finish();
+                break;
             case R.id.feedback:
                 if(getVisibleAct().equals(FeedbackActivity.class.getSimpleName()) ||
                         getVisibleAct().equals(FeedbackActivityTalkBack.class.getSimpleName()) )
