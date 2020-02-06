@@ -4,7 +4,6 @@ import android.content.Context;
 
 import java.io.File;
 
-import static com.dsource.idc.jellowintl.packageUpdate.FileUtils.getFile;
 import static com.dsource.idc.jellowintl.packageUpdate.FileUtils.getHmapFile;
 import static com.dsource.idc.jellowintl.packageUpdate.FileUtils.getUpdateFile;
 
@@ -34,7 +33,7 @@ public class UpdateFileFactory {
     }
 
     public static File getOldVerbiageSHA256MapJSON(Context context){
-        return getFile(context,FILE_VERBIAGE_SHA256MAP_JSON);
+        return getHmapFile(context,FILE_VERBIAGE_SHA256MAP_JSON);
     }
 
 }

@@ -10,8 +10,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import ir.mahdi.mzip.zip.ZipArchive;
-
 public class FileUtils {
 
     private static final String TAG = "jellowDebug";
@@ -68,20 +66,6 @@ public class FileUtils {
         return context.getDir(SessionManager.UNIVERSAL_PACKAGE, Context.MODE_PRIVATE);
     }
 
-    public static void unzip(String zipFilePath,String outputPath) {
-        ZipArchive zipArchive = new ZipArchive();
-        try {
-            ZipArchive.unzip(zipFilePath, outputPath, "");
-        } catch (Exception e) {
-            Log.d(TAG, "Error: unzipping " + zipFilePath);
-        }
-    }
-
-    public static void cleanUpdateFiles(Context context) {
-        File updateDir = getUpdateDir(context);
-        deleteDir(updateDir);
-    }
-
     public static boolean deleteDir(File dir){
         if(dir.isDirectory()){
             for(File file : dir.listFiles()){
@@ -131,11 +115,6 @@ public class FileUtils {
         return new File(hmapDir.getAbsolutePath(),fileName);
     }
 
-    public static File getFile(Context context,String fileName){
-        File baseDir = getBaseDir(context);
-        return new File(baseDir.getAbsolutePath(),fileName);
-    }
-
     public static boolean writeToFile(File file, String content){
         try{
             FileOutputStream outputStream = new FileOutputStream(file);
@@ -154,7 +133,6 @@ public class FileUtils {
         }
 
     }
-
 
     public static boolean renameFile(File oldFile,File newFile){
         boolean renameSuccess = oldFile.renameTo(newFile);

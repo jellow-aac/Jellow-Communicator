@@ -63,7 +63,7 @@ public class UpdateManager implements UpdateContract {
     private Context context;
     private ProgressReceiver progressReceiver;
     private int failedIconsDownloadsRetryCount, failedVerbiageDownloadsRetryCount;
-    private boolean isIconsUpdated = false;
+    private boolean isIconsUpdated = false, isVerbiageUpdated = false;
 
     public UpdateManager(Context context,ProgressReceiver progressReceiver) {
         this.iconDownloadQueue = new LinkedList<>();
@@ -87,7 +87,7 @@ public class UpdateManager implements UpdateContract {
 
     /**Download the hMap file for icons.**/
     private void downloadStage1(){
-        StorageReference refSHA256MapJSON = getIconsSHA256MapJSONRef(context);
+        StorageReference refSHA256MapJSON = getIconsSHA256MapJSONRef();
         File fSHA256MapJSON = getIconsSHA256MapJSON(context);
         FileDownloadTask downloadSHA256MapJSON = downloadSHA256MapJSON(fSHA256MapJSON,refSHA256MapJSON);
         downloadSHA256MapJSON.addOnCompleteListener(new OnCompleteListener<FileDownloadTask.TaskSnapshot>() {
@@ -146,7 +146,7 @@ public class UpdateManager implements UpdateContract {
     /**Download icon files**/
     private void downloadStage3(){
         File fUpdateDir = getUpdateIconsDir(context);
-        StorageReference drawablesRef = getDrawablesUpdateStorageRef(context);
+        StorageReference drawablesRef = getDrawablesUpdateStorageRef();
         updateStatusText(context.getString(R.string.lpu_download_icons));
         downloadIconFiles(fUpdateDir,drawablesRef);
         logGeneralEvents("Downloading Icon Files");
@@ -154,7 +154,7 @@ public class UpdateManager implements UpdateContract {
 
     /**Download the hMap file for verbiage.**/
     private void downloadStage4(){
-        StorageReference refSHA256MapJSON = getVerbiageSHA256MapJSONRef(context);
+        StorageReference refSHA256MapJSON = getVerbiageSHA256MapJSONRef();
         File fSHA256MapJSON = getVerbiageSHA256MapJSON(context);
         FileDownloadTask downloadSHA256MapJSON = downloadSHA256MapJSON(fSHA256MapJSON,refSHA256MapJSON);
         downloadSHA256MapJSON.addOnCompleteListener(new OnCompleteListener<FileDownloadTask.TaskSnapshot>() {
@@ -193,13 +193,6 @@ public class UpdateManager implements UpdateContract {
             onStageDownloadResult(UpdateTaskStage.STAGE_5,FAILED);
             return;
         }
-
-        /*if(!doesExist(fOldSHA256MapJSON)){
-            logFileNotFound("Old SHA256Map JSON");
-            onStageDownloadResult(UpdateTaskStage.STAGE_2,FAILED);
-            return;
-        }*/
-
         generateVerbiageHashMaps(fSHA256MapJSON,fOldSHA256MapJSON);
 
         int downloadQueueSize = generateVerbiageDownloadQueue();
@@ -207,7 +200,8 @@ public class UpdateManager implements UpdateContract {
 
         if(downloadQueueSize == 0){
             if (isIconsUpdated)
-                onUpdateTaskResult(UpdateTaskResult.PACKAGE_SUCCESSFULLY_UPDATED);
+                onStageDownloadResult(UpdateTaskStage.STAGE_6,SUCCESS);
+                //onUpdateTaskResult(UpdateTaskResult.PACKAGE_SUCCESSFULLY_UPDATED);
             else
                 onUpdateTaskResult(UpdateTaskResult.NO_UPDATES_FOUND);
         } else {
@@ -219,8 +213,9 @@ public class UpdateManager implements UpdateContract {
     /**Download verbiage files**/
     private void downloadStage6(){
         File fUpdateDir = getUpdateVerbiageDir(context);
-        StorageReference verbiageRef = getVerbiageUpdateStorageRef(context);
+        StorageReference verbiageRef = getVerbiageUpdateStorageRef();
         updateStatusText(context.getString(R.string.lpu_download_verbiage));
+        progressReceiver.onDownloadProgress(0,verbiageDownloadQueueSize);
         downloadVerbiageFiles(fUpdateDir,verbiageRef);
         logGeneralEvents("Downloading Verbiage Files");
     }
@@ -244,46 +239,50 @@ public class UpdateManager implements UpdateContract {
         }
         {
             //ICONS FILE MOVE TO "drawable" FOLDER
-            Set<String> icons = mapIconSHA256.keySet();
-            int totalFilesRenamed = 0;
-            for (String icon: icons) {
-                File fIcon = new File(getIconsDir(context),icon);
-                File nFIcon = new File(getUpdateIconsDir(context), icon);
-                if (!fIcon.exists()) {
-                    try {
-                        fIcon.createNewFile();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+            if(isIconsUpdated) {
+                Set<String> icons = mapIconSHA256.keySet();
+                int totalFilesRenamed = 0;
+                for (String icon : icons) {
+                    File fIcon = new File(getIconsDir(context), icon);
+                    File nFIcon = new File(getUpdateIconsDir(context), icon);
+                    if (!fIcon.exists()) {
+                        try {
+                            fIcon.createNewFile();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
+                    if (renameFile(nFIcon, fIcon))
+                        totalFilesRenamed++;
                 }
-                if(renameFile(nFIcon,fIcon))
-                    totalFilesRenamed++;
-            }
-            if(totalFilesRenamed != icons.size()){
-                onStageDownloadResult(UpdateTaskStage.STAGE_7,FAILED);
-                return;
+                if (totalFilesRenamed != icons.size()) {
+                    onStageDownloadResult(UpdateTaskStage.STAGE_7, FAILED);
+                    return;
+                }
             }
         }
         {
             //VERBIAGE FILE MOVE TO "drawable" FOLDER
-            Set<String> verbiages = mapVerbiageSHA256.keySet();
-            int totalFilesRenamed = 0;
-            for (String verbiage: verbiages) {
-                File fVerbiage = new File(getBaseDir(context),verbiage);
-                File nFVerbiage = new File(getUpdateVerbiageDir(context), verbiage);
-                if (!fVerbiage.exists()) {
-                    try {
-                        fVerbiage.createNewFile();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+            if(isVerbiageUpdated) {
+                Set<String> verbiages = mapVerbiageSHA256.keySet();
+                int totalFilesRenamed = 0;
+                for (String verbiage : verbiages) {
+                    File fVerbiage = new File(getBaseDir(context), verbiage);
+                    File nFVerbiage = new File(getUpdateVerbiageDir(context), verbiage);
+                    if (!fVerbiage.exists()) {
+                        try {
+                            fVerbiage.createNewFile();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
+                    if (renameFile(nFVerbiage, fVerbiage))
+                        totalFilesRenamed++;
                 }
-                if(renameFile(nFVerbiage,fVerbiage))
-                    totalFilesRenamed++;
-            }
-            if(totalFilesRenamed != verbiages.size()){
-                onStageDownloadResult(UpdateTaskStage.STAGE_7,FAILED);
-                return;
+                if (totalFilesRenamed != verbiages.size()) {
+                    onStageDownloadResult(UpdateTaskStage.STAGE_7, FAILED);
+                    return;
+                }
             }
         }
         {
@@ -589,6 +588,7 @@ public class UpdateManager implements UpdateContract {
     private void checkVerbiageDownloadingTaskCompleted(File fVerbiageDownloadDir, StorageReference refVerbiageDir){
         if(downloadedVerbiage.size() + failedVerbiageDownloadsQueue.size() == verbiageDownloadQueueSize){
             if(downloadedVerbiage.size() == verbiageDownloadQueueSize){
+                isVerbiageUpdated = true;
                 onVerbiageDownloadTaskCompleted(true);
             } else {
                 if(failedVerbiageDownloadsRetryCount <= FAILED_DOWNLOADS_RETRY_LIMIT){

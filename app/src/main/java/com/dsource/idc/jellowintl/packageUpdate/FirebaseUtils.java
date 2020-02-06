@@ -1,7 +1,5 @@
 package com.dsource.idc.jellowintl.packageUpdate;
 
-import android.content.Context;
-
 import com.dsource.idc.jellowintl.BuildConfig;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.firebase.storage.FirebaseStorage;
@@ -20,7 +18,7 @@ public class FirebaseUtils {
         return FirebaseStorage.getInstance().getReference();
     }
 
-    public static StorageReference getBaseUpdateStorageRef(Context context){
+    public static StorageReference getBaseUpdateStorageRef(){
         StorageReference updateRef = getBaseStorageRef().child(BUILD_TYPE).child(FB_UPDATES_DIR)
                 .child(SessionManager.UNIVERSAL_PACKAGE);
         logGeneralEvents(updateRef.getPath());
