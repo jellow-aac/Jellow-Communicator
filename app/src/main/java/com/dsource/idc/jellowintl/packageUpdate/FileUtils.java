@@ -13,6 +13,7 @@ import java.io.IOException;
 public class FileUtils {
 
     private static final String TAG = "jellowDebug";
+    private static final String PACKAGE_VERSION_DIR = "vc";
     private static final String DRAWABLES = "drawables";
     private static final String UPDATE_DIR = "update";
     private static final String HMAP_DIR = "hmaps";
@@ -100,6 +101,19 @@ public class FileUtils {
     public static File getUpdateFile(Context context,String fileName){
         File downloadDir = getUpdateDir(context);
         return new File(downloadDir.getAbsolutePath(),fileName);
+    }
+
+    public static File getVersionCodeFile(Context context,String fileName){
+        File vCodeDir = new File (getBaseDir(context), PACKAGE_VERSION_DIR);
+        if(!vCodeDir.exists()){
+            boolean created = vCodeDir.mkdirs();
+            if(created){
+                Log.d(TAG,"Success: Hmap Directory created");
+            } else {
+                Log.d(TAG,"Error: Hmap Directory creation failed");
+            }
+        }
+        return new File(vCodeDir.getAbsolutePath(),fileName);
     }
 
     public static File getHmapFile(Context context,String fileName){

@@ -20,6 +20,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.factories.LanguageFactory;
 import com.dsource.idc.jellowintl.models.GlobalConstants;
+import com.dsource.idc.jellowintl.packageUpdate.UpdatePackageCheckUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,6 +57,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         enableNavigationBack();
         setActivityTitle(getString(R.string.Language));
         LanguageFactory.deleteOldLanguagePackagesInBackground(this);
+        new UpdatePackageCheckUtils().checkLanguagePackageUpdateAvailable(this);
         mStep1 = getString(R.string.change_language_line2);
         mStep2 = getString(R.string.change_language_tts_wifi);
         mRawStrStep2 = getString(R.string.txtStep2);

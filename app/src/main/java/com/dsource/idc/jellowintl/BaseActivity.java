@@ -32,6 +32,7 @@ public class BaseActivity extends AppCompatActivity{
     private static SessionManager sSession;
     private static String sVisibleAct ="";
     private static AppDatabase sAppDatabase;
+    private Menu menu;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -68,6 +69,7 @@ public class BaseActivity extends AppCompatActivity{
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             menu.findItem(R.id.closePopup).setVisible(false);
         }
+        this.menu = menu;
         return true;
     }
 
@@ -278,6 +280,10 @@ public class BaseActivity extends AppCompatActivity{
 
     public boolean isValidEmail(CharSequence target) {
         return target != null && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+    }
+
+    public Menu getScreenMenu(){
+        return menu;
     }
 }
 

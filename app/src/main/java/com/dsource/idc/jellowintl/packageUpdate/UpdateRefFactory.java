@@ -8,8 +8,13 @@ import static com.dsource.idc.jellowintl.packageUpdate.LogUtils.logGeneralEvents
 public class UpdateRefFactory {
     private static final String FB_ICONS_SHA256MAP_JSON = "hmap_icons.json";
     private static final String FB_VERBIAGE_SHA256MAP_JSON = "hmap_verbiage.json";
+    private static final String FB_VERSION_CODE_JSON = "package_version.json";
     private static final String FB_DRAWABLES_DIR = "drawables";
     private static final String FB_VERBIAGE_DIR = "verbiage";
+
+    public static StorageReference getVersionCodeJSONRef(){
+        return getBaseUpdateStorageRef().child(FB_VERSION_CODE_JSON);
+    }
 
     public static StorageReference getIconsSHA256MapJSONRef(){
         return getBaseUpdateStorageRef().child(FB_ICONS_SHA256MAP_JSON);

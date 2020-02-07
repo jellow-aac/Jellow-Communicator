@@ -40,8 +40,10 @@ import static com.dsource.idc.jellowintl.packageUpdate.UpdateFileFactory.getIcon
 import static com.dsource.idc.jellowintl.packageUpdate.UpdateFileFactory.getOldIconsSHA256MapJSON;
 import static com.dsource.idc.jellowintl.packageUpdate.UpdateFileFactory.getOldVerbiageMapJSON;
 import static com.dsource.idc.jellowintl.packageUpdate.UpdateFileFactory.getOldVerbiageSHA256MapJSON;
+import static com.dsource.idc.jellowintl.packageUpdate.UpdateFileFactory.getOldVersionCodeMapJSON;
 import static com.dsource.idc.jellowintl.packageUpdate.UpdateFileFactory.getVerbiageMapJSON;
 import static com.dsource.idc.jellowintl.packageUpdate.UpdateFileFactory.getVerbiageSHA256MapJSON;
+import static com.dsource.idc.jellowintl.packageUpdate.UpdateFileFactory.getVersionCodeMapJSON;
 import static com.dsource.idc.jellowintl.packageUpdate.UpdateRefFactory.getDrawablesUpdateStorageRef;
 import static com.dsource.idc.jellowintl.packageUpdate.UpdateRefFactory.getIconsSHA256MapJSONRef;
 import static com.dsource.idc.jellowintl.packageUpdate.UpdateRefFactory.getVerbiageSHA256MapJSONRef;
@@ -237,8 +239,8 @@ public class UpdateManager implements UpdateContract {
             onStageDownloadResult(UpdateTaskStage.STAGE_7,FAILED);
             return;
         }
+        //ICONS FILE MOVE TO "drawables" FOLDER
         {
-            //ICONS FILE MOVE TO "drawable" FOLDER
             if(isIconsUpdated) {
                 Set<String> icons = mapIconSHA256.keySet();
                 int totalFilesRenamed = 0;
@@ -261,8 +263,8 @@ public class UpdateManager implements UpdateContract {
                 }
             }
         }
+        //VERBIAGE FILE MOVE TO "app_universal" FOLDER
         {
-            //VERBIAGE FILE MOVE TO "drawable" FOLDER
             if(isVerbiageUpdated) {
                 Set<String> verbiages = mapVerbiageSHA256.keySet();
                 int totalFilesRenamed = 0;
@@ -285,6 +287,7 @@ public class UpdateManager implements UpdateContract {
                 }
             }
         }
+        //MOVE ICONS HMAP FILE TO "hmaps" FOLDER
         {
             File fIconsSHA256MapJSON = getIconsSHA256MapJSON(context);
             File fOldIconsSHA256MapJSON = getOldIconsSHA256MapJSON(context);
@@ -298,6 +301,7 @@ public class UpdateManager implements UpdateContract {
                 return;
             }
         }
+        //MOVE VERBIAGE HMAP FILE TO "hmaps" FOLDER
         {
             File fVerbiageJSON = getVerbiageMapJSON(context);
             File fOldVerbiageJSON = getOldVerbiageMapJSON(context);
@@ -307,6 +311,20 @@ public class UpdateManager implements UpdateContract {
                 logGeneralEvents("Verbiage File Update Success");
             } else {
                 logGeneralEvents("Verbiage File Update Failed");
+                onStageDownloadResult(UpdateTaskStage.STAGE_7, FAILED);
+                return;
+            }
+        }
+        //MOVE PACKAGE VERSION FILE TO "vc" FOLDER
+        {
+            File fVersionCodeJSON = getVersionCodeMapJSON(context);
+            File fOldVersionCodeJSON = getOldVersionCodeMapJSON(context);
+            boolean verbiageCodeUpdated = updateMapJSONFile(fVersionCodeJSON, fOldVersionCodeJSON);
+
+            if (verbiageCodeUpdated) {
+                logGeneralEvents("Version Code Update Success");
+            } else {
+                logGeneralEvents("Version Code Update Failed");
                 onStageDownloadResult(UpdateTaskStage.STAGE_7, FAILED);
                 return;
             }

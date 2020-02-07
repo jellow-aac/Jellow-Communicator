@@ -1,7 +1,21 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-##[2.0]
+##[2.0.2] - Yet to release
+### Added
+- User can search in using english text for any icon in any language.
+- In "Language" screen, an update icon is added. The icon checks for changes in verbiage or icon.
+- Update icon will change if update available.
+
+
+##[2.0.1] - 15 January, 2020
+### Added
+- Fixed app shows english text at all places for menu screens.
+- Fixed the app crash on privacy link at user registration link.
+- Add play & Pause feature to About Jellow speak 
+
+
+##[2.0] - 24 November, 2019
 ### Added
 - Added new languages Tamil, Spanish, German & French
 - Extra new icons in Spanish 41 language -> in Eating -> Breakfast, Lunch/Dinner, Snacks, Drinks categories.
@@ -26,6 +40,7 @@ All notable changes to this project will be documented in this file.
 - Removed Intro screen for Google Text-to-speech setup and "wifi-only".
 - Removed size specific screens. Each screen now have one layout for all size screens. The layout uses different dimensions for different screen sizes.
 
+
 ##[1.3.4-rc4]
 - AccessibilitySettingsActivity and layout. This activity will has buttons that will take user to Accessibility settings directly. 
   Also, this activity has description about Switch, Visual Accessibility with respective link.
@@ -34,8 +49,10 @@ All notable changes to this project will be documented in this file.
 - Updated the credits in Research, Vocabulary Development and User Studies
 - Added the contents serial keyboard in KeyboardControlActivity.
 
+
 ##[1.3.2-rc3]
 - Fixed the issue. The Model classes not able to serialize the json data on release build. Added the the annotation (@SerializedName(""))for every data variable in model class. 
+
 
 ##[1.3.1-rc2]
 - Addition of Switch accessibility (Supports one switch, two switch with linear scanning or group scanning method).
@@ -49,6 +66,7 @@ All notable changes to this project will be documented in this file.
 - Removed dialog library com.afollestad.material-dialogs. Now app uses native material dialog when downloading a language and deleting a language.
 - Removed xml data files from values folder.  
 
+
 ##[1.2.5]  - 27, December 2018
 - Addition of Visual accessibility (TalkBack support).
 - Addition of new language: English (Australia)
@@ -57,6 +75,7 @@ All notable changes to this project will be documented in this file.
 - Addition of new layouts to support 19 : 9 notch screen ratio devices.
 - Corrected scrolls in intro screen.
 - Bug reported on Crashlytics.
+
 
 ##[1.2.4]  - 16, October 2018
 - Addition of new language: Marathi (India)
@@ -69,6 +88,7 @@ All notable changes to this project will be documented in this file.
 - Added scroll to intro screen
 - Added Google text-to-speech engine availability in Intro
 
+
 ##[1.2.3]  - 12, September 2018
 - Addition of new language: Bengali (India)
 - All items in the ‘Places’ category now have context-appropriate sub-categories.
@@ -77,6 +97,7 @@ All notable changes to this project will be documented in this file.
 - Clear, step-wise instructions to enable users to add/delete and change default languages within the app
 - Bug fixes in Emergency call functionality
 - Fixed other issues.
+
 
 ## [1.2.3]  -  23th, August 2018
 - This is alpha version.
@@ -88,7 +109,6 @@ All notable changes to this project will be documented in this file.
 
 ##FIXED
 - Issues reported on firebase.
-
 
 ## [1.2.2] -  22th, June 2018
 ##FIXED
@@ -125,6 +145,7 @@ All notable changes to this project will be documented in this file.
 - Crash after Oreo 8.0 1st April security update.
 - Other issues reported in Firebase crash reporter.
 
+
 ## [1.2.0]    -   19th, March 2018
 ### Added
 - Major additions.
@@ -150,8 +171,6 @@ All notable changes to this project will be documented in this file.
 - Added Text-to-speech engine as service in app
 - Added default exception handler.
  
-
-
 ### Changed
 - Replaced more button feature to scroll in recycler view.
 - Changed in the breadcrumb. Now items separated with "/" symbol.
@@ -165,10 +184,8 @@ All notable changes to this project will be documented in this file.
 - Update in database tables which stores user preferences.
 - Added simple view to show border on category icon.
 
-
 ### Removed
 - Removed library used to draw border to image icons.
-
 
 ### Fixed
 - app stop speaking when screen paused in About Jellow.
@@ -185,6 +202,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - Nougat users can now download app from Google Play store.
+
 
 ## [1.1.0] - April 3rd, 2017
 ### Added
