@@ -42,6 +42,7 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
         setContentView(R.layout.activity_about_jellow);
         enableNavigationBack();
         setActivityTitle(getString(R.string.menuAbout));
+        setNavigationUiConditionally();
         initializeViews();
         loadStrings();
         if (getSession().getLanguage() != SessionManager.MR_IN)

@@ -20,6 +20,7 @@ public class AccessibilitySettingsActivity extends BaseActivity {
         setContentView(R.layout.activity_accessibility_settings);
         enableNavigationBack();
         setActivityTitle(getString(R.string.menuAccessibility));
+        setNavigationUiConditionally();
     }
 
     @Override

@@ -43,6 +43,7 @@ public class ProfileFormActivity extends SpeechEngineBaseActivity {
         setContentView(R.layout.activity_profile_form);
         enableNavigationBack();
         setActivityTitle(getString(R.string.menuProfile));
+        setNavigationUiConditionally();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         etChildName = findViewById(R.id.etName);
         etCaregiverName = findViewById(R.id.etFathername);

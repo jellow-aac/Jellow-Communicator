@@ -115,14 +115,13 @@ public class LevelTwoActivity extends LevelBaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (isNotchDevice())
-            setContentView(R.layout.activity_levelx_layout_notch);
-        else
-            setContentView(R.layout.activity_levelx_layout);
+        setContentView(R.layout.activity_levelx_layout);
         // Get index of category icons (position in recycler view) selected in level one.
         mLevelOneItemPos = getIntent().getExtras().getInt(getString(R.string.level_one_intent_pos_tag));
         // Get and set title of category icons selected in level one.
         setLevelActionBar(getIntent().getExtras().getString(getString(R.string.intent_menu_path_tag)));
+        setNavigationUiConditionally();
+        adjustTopMarginForNavigationUi();
         // when layout is loaded on activity, using the tag attribute of a parent view in layout
         // the device size is identified. If device size is large (10' tablets) enable the
         // hardware acceleration. As seen in testing device, scrolling recycler items on 10' tab

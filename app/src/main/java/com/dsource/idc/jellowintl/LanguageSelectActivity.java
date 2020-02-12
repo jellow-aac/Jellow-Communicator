@@ -56,6 +56,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         setContentView(R.layout.activity_language_select);
         enableNavigationBack();
         setActivityTitle(getString(R.string.Language));
+        setNavigationUiConditionally();
         LanguageFactory.deleteOldLanguagePackagesInBackground(this);
         new UpdatePackageCheckUtils().checkLanguagePackageUpdateAvailable(this);
         mStep1 = getString(R.string.change_language_line2);

@@ -50,6 +50,7 @@ public class SettingActivity extends SpeechEngineBaseActivity {
         setContentView(R.layout.activity_settings);
         enableNavigationBack();
         setActivityTitle(getString(R.string.action_settings));
+        setNavigationUiConditionally();
 
         mOpenSetting = false;
         mSpinnerViewMode = findViewById(R.id.spinner3);

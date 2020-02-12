@@ -389,8 +389,6 @@
     <string name="lpu_parse_update">Parsing Download data &#8230;</string>
     <string name="lpu_download_icons">Downloading Icons &#8230;</string>
     <string name="lpu_download_verbiage">Downloading Verbiage &#8230;</string>
-    <string name="lpu_update_icon_data">Updating Icon Data &#8230;</string>
-    <string name="lpu_update_verbiage_data">Updating Verbiage Data &#8230;</string>
     <string name="lpu_update_success">Language pack successfully updated!!</string>
     <string name="lpu_toast_update_success">Update Success!!</string>
     <string name="lpu_toast_check_success">Update Check Success!!</string>

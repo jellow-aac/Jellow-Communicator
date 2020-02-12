@@ -3,11 +3,14 @@ package com.dsource.idc.jellowintl;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -98,6 +101,14 @@ public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextT
                 return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    public void adjustTopMarginForNavigationUi() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && isNotchDevice()) {
+            RelativeLayout rl = findViewById(R.id.parent);
+            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) rl.getLayoutParams();
+            lp.topMargin = 72;
+        }
     }
 
 

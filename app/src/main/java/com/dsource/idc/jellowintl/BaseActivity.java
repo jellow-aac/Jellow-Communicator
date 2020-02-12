@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
@@ -215,6 +217,16 @@ public class BaseActivity extends AppCompatActivity{
     public void openPrivacyPolicyPage(View view){
         startActivity(new Intent("android.intent.action.VIEW",
                 Uri.parse(getString(R.string.privacy_link))));
+    }
+
+    public void setNavigationUiConditionally() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && isNotchDevice()) {
+            View view = findViewById(R.id.parent);
+            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) view.getLayoutParams();
+            lp.topMargin = 24;
+            getWindow().setNavigationBarColor(getColor(R.color.transparent));
+        }
     }
 
     /**

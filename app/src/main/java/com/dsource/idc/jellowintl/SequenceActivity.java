@@ -105,11 +105,10 @@ public class SequenceActivity extends LevelBaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (isNotchDevice())
-            setContentView(R.layout.activity_sequence_notch);
-        else
-            setContentView(R.layout.activity_sequence);
+        setContentView(R.layout.activity_sequence);
         setLevelActionBar(getIntent().getExtras().getString(getString(R.string.intent_menu_path_tag)));
+        setNavigationUiConditionally();
+        adjustTopMarginForNavigationUi();
 
         mUec = new UserEventCollector();
         /*get position of category icon selected in level two*/

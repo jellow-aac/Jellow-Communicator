@@ -25,6 +25,7 @@ public class TutorialActivity extends BaseActivity {
         setContentView(R.layout.activity_tutorial);
         enableNavigationBack();
         setActivityTitle(getString(R.string.menuTutorials));
+        setNavigationUiConditionally();
         setImagesToImageViewUsingGlide();
     }
 

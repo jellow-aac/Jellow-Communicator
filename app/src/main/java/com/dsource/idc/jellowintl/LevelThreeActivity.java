@@ -105,11 +105,10 @@ public class LevelThreeActivity extends LevelBaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (isNotchDevice())
-            setContentView(R.layout.activity_levelx_layout_notch);
-        else
-            setContentView(R.layout.activity_levelx_layout);
+        setContentView(R.layout.activity_levelx_layout);
         setLevelActionBar(getIntent().getExtras().getString(getString(R.string.intent_menu_path_tag)));
+        setNavigationUiConditionally();
+        adjustTopMarginForNavigationUi();
 
         // when layout is loaded on activity, using the tag attribute of a parent view in layout
         // the device size is identified. If device size is large (10' tablets) enable the

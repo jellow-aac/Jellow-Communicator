@@ -43,6 +43,9 @@ public class Intro extends AppIntro {
         parentAct.setVisibleAct(Intro.class.getSimpleName());
         //Set the language database create preference
         parentAct.getSession().setLanguageChange(GlobalConstants.LANGUAGE_STATE_NO_CHANGE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && isNotchDevice()) {
+            getWindow().setNavigationBarColor(getColor(R.color.app_background));
+        }
         addSlide(SampleSlideFragment.newInstance(R.layout.intro, "intro"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro5, "intro5"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro2, "intro2"));
@@ -150,6 +153,13 @@ public class Intro extends AppIntro {
             Crashlytics.logException(e);
         }
     }
+
+    private boolean isNotchDevice(){
+        float aspectRatio = (float)this.getResources().getDisplayMetrics().widthPixels /
+                ((float)this.getResources().getDisplayMetrics().heightPixels);
+        return (aspectRatio >= 2.0 && aspectRatio <= 2.15);
+    }
+
 
     public void getStarted(View view) {
         parentAct.getSession().setCompletedIntro(true);

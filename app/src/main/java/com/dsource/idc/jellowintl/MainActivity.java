@@ -106,11 +106,10 @@ public class MainActivity extends LevelBaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (isNotchDevice())
-            setContentView(R.layout.activity_levelx_layout_notch);
-        else
-            setContentView(R.layout.activity_levelx_layout);
+        setContentView(R.layout.activity_levelx_layout);
         setLevelActionBar(getString(R.string.action_bar_title));
+        setNavigationUiConditionally();
+        adjustTopMarginForNavigationUi();
         mUec = new UserEventCollector();
         loadArraysFromResources();
         // Set the capacity of mRecyclerItemsViewList list to total number of category icons to be

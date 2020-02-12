@@ -24,6 +24,7 @@ public class FeedbackActivityTalkBack extends BaseActivity{
         setContentView(R.layout.activity_feedback_talkback);
         enableNavigationBack();
         setActivityTitle(getString(R.string.menuFeedback));
+        setNavigationUiConditionally();
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         findViewById(R.id.comments).clearFocus();
