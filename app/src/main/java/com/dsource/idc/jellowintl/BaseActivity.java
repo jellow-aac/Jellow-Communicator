@@ -64,8 +64,6 @@ public class BaseActivity extends AppCompatActivity{
         MenuCompat.setGroupDividerEnabled(menu, true);
         if(getLevelClass().contains(getVisibleAct()))
             getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
-        else if(getLanguageSettingsActivity().equals(getVisibleAct()))
-            getMenuInflater().inflate(R.menu.menu_main_with_language_pack_update, menu);
         else
             getMenuInflater().inflate(R.menu.menu_main, menu);
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
@@ -126,12 +124,6 @@ public class BaseActivity extends AppCompatActivity{
                 if(getVisibleAct().equals(ResetPreferencesActivity.class.getSimpleName()))
                     break;
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
-                finish();
-                break;
-            case R.id.languagePackUpdate:
-                if(getVisibleAct().equals(LanguagePackUpdateActivity.class.getSimpleName()))
-                    break;
-                startActivity(new Intent(this, LanguagePackUpdateActivity.class));
                 finish();
                 break;
             case R.id.feedback:

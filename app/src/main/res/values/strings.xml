@@ -396,4 +396,7 @@
     <string name="lpu_update_error">Error completing update!! Please try again.</string>
     <string name="lpu_toast_check_error">Update Failed!!</string>
     <string name="lpu_connectivity_error">Please Check Your Internet Connection!!</string>
+    <string name="update_now">Update now</string>
+    <string name="update_later">Later</string>
+    <string name="update_message">New content is available in the app. Do you want to update now?</string>
 </resources>

@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.widget.Button;
 
-import com.dsource.idc.jellowintl.R;
-
 import androidx.appcompat.app.AlertDialog;
+
+import com.dsource.idc.jellowintl.R;
 
 public class TextToSpeechErrorUtils {
     private Activity mActivity;
