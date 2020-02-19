@@ -1,11 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-##[2.0.2] - Yet to release
+##[2.1.0] - Yet to release
 ### Added
+- Make My Board
 - User can search in using english text for any icon in any language.
-- In "Language" screen, an update icon is added. The icon checks for changes in verbiage or icon.
+- In "Main Screen" and "Language"  screen, an update dialog is added. The dialog will notify user if language package has changes.
 - Update icon will change if update available.
+- Added the Telugu language
+- Fixed Android 10 Navigation UI issues.
 
 
 ##[2.0.1] - 15 January, 2020

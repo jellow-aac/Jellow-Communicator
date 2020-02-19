@@ -14,6 +14,7 @@
         android:layout_height="30dp"
         android:layout_centerInParent="true"
         android:layout_marginLeft="45dp"
+        style="@style/defaultTextViewStyle"
         android:layout_marginRight="45dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="@dimen/lang_dl_parent_margin_bottom"
@@ -23,7 +24,7 @@
         app:rcRadius="10dp"
         app:rcReverse="false"
         app:rcSecondaryProgressColor="@color/app_background"
-        android:contentDescription="@string/language_download_in_process" />
+        android:contentDescription="@string/language_download_in_process"/>
 
     <TextView
         android:id="@+id/status"

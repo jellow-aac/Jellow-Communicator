@@ -33,6 +33,7 @@ import com.dsource.idc.jellowintl.models.ExpressiveIcon;
 import com.dsource.idc.jellowintl.models.GlobalConstants;
 import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.models.MiscellaneousIcon;
+import com.dsource.idc.jellowintl.packageUpdate.UpdatePackageCheckUtils;
 import com.dsource.idc.jellowintl.utility.DialogKeyboardUtterance;
 import com.dsource.idc.jellowintl.utility.LevelUiUtils;
 import com.dsource.idc.jellowintl.utility.UserEventCollector;
@@ -136,6 +137,7 @@ public class MainActivity extends LevelBaseActivity{
         {
             //Not from Search Activity
         }
+        new UpdatePackageCheckUtils().checkLanguagePackageUpdateAvailable(this);
     }
 
     @Override
