@@ -1,14 +1,11 @@
 package com.dsource.idc.jellowintl.packageUpdate;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 
-import com.dsource.idc.jellowintl.LanguagePackUpdateActivity;
+import com.dsource.idc.jellowintl.LanguageSelectActivity;
 import com.dsource.idc.jellowintl.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -53,6 +50,12 @@ public class UpdatePackageCheckUtils {
     }
 
     private void compareVersionCode(Context context) {
+        LanguageSelectActivity activity;
+        if(context instanceof LanguageSelectActivity) {
+            activity = (LanguageSelectActivity) context;
+        }else{
+            return;
+        }
         File fVersionCodeJSON = getVersionCodeMapJSON(context);
         File fOldVersionCodeJSON = getOldVersionCodeMapJSON(context);
         if (!fOldVersionCodeJSON.exists()){
