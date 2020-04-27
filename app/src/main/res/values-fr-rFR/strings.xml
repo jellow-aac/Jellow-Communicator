@@ -229,7 +229,7 @@
     <string name="about_je_intro30">Le projet de E-kalpa être parrainés en NMEICT par le Ministère du développement des ressources humaines du Gouvernement (MHRD), Microsoft Design Expo 2004 et  une subvention d\'un an par le UNICEF le Fonds d\'innovation.</string>
     <string name="about_je_intro38">Les études longitudinales d\'utilisateur et les essais sur Jellow Communicator:</string>
     <string name="about_je_intro39">Topiwala National Medical College et B.Y.L Nair Charitable Hospital (les départements de psychiatrie, d\'audiologie et d\'orthophonie)</string>
-    <string name="about_je_intro40"> La conception UX/UI et coordination générale:</string>
+    <string name="about_je_intro40">La conception UX/UI et coordination générale:</string>
     <string name="about_je_intro41">Professor Ravi Poovaiah, Roopa Narayan Sahoo, Vinaya Tawde</string>
     <string name="feedback_talkback_heading">Sur une échelle de 1 à 5, veuillez évaluer les aspects suivants</string>
 
@@ -338,4 +338,42 @@
     <string name="switch_access_info_three">Les utilisateurs de Samsung peuvent trouver accès au sectionneur l\'option de "Dextérité et Intéraction" dans la catégorie d\'accésibilité dans les réglages de votre portable</string>
     <string name="switch_access_info_four">Pour utiliser Contrôle de Séléction avec un commutateur- Ouvrir Réglages -> Aller à Accésibilité -> Activer le Contrôle de Séléction -> Choisissez l\'interrupteur un USB ou une liaison Bluetooth -> Allez à Réglages et choissisez le nombre de commutateurs comme un commutateur.</string>
     <string name="switch_access_info_five">Pour utiliser Contrôle de Séléction avec deux commutateurs- Ouvrir Réglages -> Aller à Accésibilité -> Activer le Contrôle de Séléction -> Choisissez l\'interrupteur un USB ou une liaison Bluetooth -> Allez à Réglages et choissisez le nombre de commutateurs comme deux commutateurs, ensuite choissisez le type de numérisation, cliquez sur Suivant et assignez l\'action aux deux commutateurs et complétez la processus en testant les commutateurs</string>
+
+    <!--String resources for MMB-->
+    <string name="exit_warning">Vous-êtes sûr que vous voulez quitter?</string>
+    <string name="expressive_heading">Expressif</string>
+    <string name="icon_select_exit_warning">Votre choix sera perdu</string>
+    <string name="current_board">Le tableau actuel</string>
+    <string name="place_holder_text">L’icône sélectionné par vous sera disponible ici</string>
+    <string name="board_name">Nom du tableau</string>
+    <string name="select_all">Sélectionnez tous</string>
+    <string name="reset">Réinitialisation</string>
+    <string name="select_icon_title">Choissisez les icônes</string>
+    <string name="default_text" >Par défaut</string>
+    <string name="add_category">Ajouter une catégorie</string>
+    <string name="add_icon">Ajouter un icône</string>
+    <string name="edit_icon">Modifier l\'icône</string>
+    <string name="addicon_title">Ajouter / Modifier les icônes</string>
+    <string name="rep_activity_title">Repositionner les icônes</string>
+    <string name="i_like">J\'aime</string>
+    <string name="really_like">J\'aime bien</string>
+    <string name="i_want">Je veux</string>
+    <string name="really_want">Je veux vraiment</string>
+    <string name="want_more">Je veux plus</string>
+    <string name="really_want_more">Je veux vraiment encore</string>
+    <string name="i_dont_like">Je n\'aime pas</string>
+    <string name="really_dont_like">Je n\'aime pas du tout</string>
+    <string name="dont_want">Je ne veux pas</string>
+    <string name="really_dont_want">Je ne veux pas vraiment</string>
+    <string name="dont_want_more">Je ne veux plus</string>
+    <string name="really_dont_want_more">Je ne veux pas vraiment encore</string>
+    <string name="please_enter_name">Veuillez entrer un nom</string>
+    <string name="photos">Les photos</string>
+    <string name="library">La bibliothèque</string>
+    <string name="icon_name">Nom de l\'icône</string>
+    <string name="category_name">Nom de la catégorie</string>
+    <string name="all_boards">Tous les tableaux</string>
+    <string name="add_board">Ajouter les tableaux</string>
+    <string name="boards_count">Les tableaux</string>
+    <string name="custom_icon">L\'icône personnalisé</string>
 </resources>

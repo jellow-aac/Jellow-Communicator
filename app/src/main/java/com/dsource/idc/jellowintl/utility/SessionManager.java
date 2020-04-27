@@ -30,6 +30,7 @@ public class SessionManager {
     public final static String DE_DE = "de-rDE";
     public final static String FR_FR = "fr-rFR";
     public static final String UNIVERSAL_PACKAGE = "universal";
+    public final static String BOARD_ICON_LOCATION = "board_icons";
 
     public final static HashMap<String,String> LangMap = new HashMap<String,String>(){
         {
@@ -275,6 +276,28 @@ public class SessionManager {
         else if(lang_change.equals("Create"))
             return GlobalConstants.LANGUAGE_STATE_DB_CREATE;
         else return GlobalConstants.LANGUAGE_STATE_NO_CHANGE;
+    }
+
+    /**
+     * Ayaz
+     **/
+    public void setBoardDatabaseStatus(boolean set,String language)
+    {
+        String Tag="Board_Database"+language;
+        if(set)
+            storePreferenceKeyWithValue(String.class.toString(),Tag,"Yes");
+        else
+            storePreferenceKeyWithValue(String.class.toString(),Tag,"No");
+    }
+
+    public String getCurrentBoardLanguage() {
+        String Tag = "cur_board_lang";
+        return retrievePreferenceKeyWithValue(String.class.toString(),Tag).toString();
+    }
+
+    public void setCurrentBoardLanguage(String language){
+        String Tag = "cur_board_lang";
+        storePreferenceKeyWithValue(String.class.toString(),Tag,language);
     }
 
     public void changePreferencesFile(Context context){

@@ -147,6 +147,8 @@
         android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/profile_save_btn_height"
+        android:paddingLeft="@dimen/mmb_btn_pad"
+        android:paddingRight="@dimen/mmb_btn_pad"
         android:layout_gravity="center_vertical"
         android:textSize="@dimen/profile_save_btn_txt_size"
         android:layout_alignParentBottom="true"

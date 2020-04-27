@@ -2,6 +2,7 @@ package com.dsource.idc.jellowintl;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -20,6 +21,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuCompat;
 import androidx.room.Room;
 
+import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;
+import com.dsource.idc.jellowintl.makemyboard.Dialogs.DialogNoOfIconPerScreen;
+import com.dsource.idc.jellowintl.makemyboard.HomeActivity;
+import com.dsource.idc.jellowintl.makemyboard.activity.BaseBoardActivity;
+import com.dsource.idc.jellowintl.makemyboard.activity.BoardActivity;
+import com.dsource.idc.jellowintl.makemyboard.interfaces.GridSelectListener;
 import com.dsource.idc.jellowintl.models.AppDatabase;
 import com.dsource.idc.jellowintl.models.GlobalConstants;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
@@ -38,7 +45,10 @@ public class BaseActivity extends AppCompatActivity{
 
     @Override
     protected void attachBaseContext(Context newBase) {
-       super.attachBaseContext((LanguageHelper.onAttach(newBase)));
+       SessionManager s = new SessionManager(newBase);
+       if(s.getCurrentBoardLanguage()==null||s.getCurrentBoardLanguage().equals(""))
+           super.attachBaseContext((LanguageHelper.onAttach(newBase)));
+       else super.attachBaseContext(LanguageHelper.onAttach(newBase,s.getCurrentBoardLanguage()));
     }
 
     @Override
@@ -58,7 +68,7 @@ public class BaseActivity extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(getNonMenuClass().contains(getVisibleAct()))
+        if(getBoardClass().contains(getVisibleAct()) || getNonMenuClass().contains(getVisibleAct()))
             return false;
         super.onCreateOptionsMenu(menu);
         MenuCompat.setGroupDividerEnabled(menu, true);
@@ -246,6 +256,13 @@ public class BaseActivity extends AppCompatActivity{
             SequenceActivity.class.getSimpleName();
     }
 
+    private String getBoardClass() {
+        return BoardSearchActivity.class.getSimpleName() + ","+
+                HomeActivity.class.getSimpleName() + ","+
+                BoardActivity.class.getSimpleName() + ","+
+                BaseBoardActivity.class.getSimpleName();
+    }
+
     private String getNonMenuClass() {
         return UserRegistrationActivity.class.getSimpleName();
     }
@@ -288,6 +305,16 @@ public class BaseActivity extends AppCompatActivity{
 
     public Menu getScreenMenu(){
         return menu;
+    }
+
+    public void showGridDialog(GridSelectListener mGridSizeSelectListener) {
+        Intent gridDialog =new Intent(this, DialogNoOfIconPerScreen.class);
+        DialogNoOfIconPerScreen.mGridSelectionListener =mGridSizeSelectListener;
+        startActivity(gridDialog);
+    }
+
+    public boolean hasCameraHardware(){
+        return getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
     }
 }
 

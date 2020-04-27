@@ -14,6 +14,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/frame_layout">
+
+        <ImageView
+            android:id="@+id/icon1"
+            android:layout_width="@dimen/oneIcon_width"
+            android:layout_height="@dimen/oneIcon_width"
+            android:layout_gravity="center_horizontal"
+            android:background="@android:color/transparent" />
+        <View
+            android:id="@+id/borderView"
+            android:layout_width="@dimen/oneIcon_width"
+            android:layout_height="@dimen/oneIcon_width"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/border_drawable_nocolor_one_icon"/>
         <RelativeLayout
             android:layout_width="wrap_content"
             android:visibility="gone"
@@ -38,18 +51,6 @@
                 android:layout_marginLeft="@dimen/def_margin_flt"
                 />
         </RelativeLayout>
-        <ImageView
-            android:id="@+id/icon1"
-            android:layout_width="@dimen/oneIcon_width"
-            android:layout_height="@dimen/oneIcon_width"
-            android:layout_gravity="center_horizontal"
-            android:background="@android:color/transparent" />
-        <View
-            android:id="@+id/borderView"
-            android:layout_width="@dimen/oneIcon_width"
-            android:layout_height="@dimen/oneIcon_width"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/border_drawable_nocolor_one_icon"/>
     </FrameLayout>
     <TextView
         android:id="@+id/te1"

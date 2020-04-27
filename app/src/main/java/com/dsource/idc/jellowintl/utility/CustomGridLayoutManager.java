@@ -10,14 +10,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class CustomGridLayoutManager extends GridLayoutManager {
     private static final float MILLISECONDS_PER_INCH_9_ICONS = 50f;
-    private static final float MILLISECONDS_PER_INCH_3_ICONS=25f;
+    private static final float MILLISECONDS_PER_INCH_3_ICONS = 25f;
+    private static final float MILLISECONDS_PER_INCH_2_ICONS = 15f;
     private Context mContext;
     private int iconCount;
 
     public CustomGridLayoutManager(Context context, int spanCount, int iconCount) {
-        super(context,spanCount);
+        super(context, spanCount);
         mContext = context;
-        this.iconCount=iconCount;
+        this.iconCount = iconCount;
     }
 
     @Override
@@ -43,9 +44,11 @@ public class CustomGridLayoutManager extends GridLayoutManager {
                     (DisplayMetrics displayMetrics) {
                         //To decide the scroll speed
                         float speed;
-                        speed=MILLISECONDS_PER_INCH_9_ICONS/displayMetrics.densityDpi;
-                        if(iconCount==3)
-                        speed=MILLISECONDS_PER_INCH_3_ICONS/displayMetrics.densityDpi;
+                        speed = MILLISECONDS_PER_INCH_9_ICONS / displayMetrics.densityDpi;
+                        if (iconCount == 3)
+                            speed = MILLISECONDS_PER_INCH_3_ICONS / displayMetrics.densityDpi;
+                        if (iconCount == 2)
+                            speed = MILLISECONDS_PER_INCH_2_ICONS / displayMetrics.densityDpi;
 
                         return speed;
                     }

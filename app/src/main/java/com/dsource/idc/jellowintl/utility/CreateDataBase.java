@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 
 import com.dsource.idc.jellowintl.MainActivity;
-import com.dsource.idc.jellowintl.Presentor.TextDatabase;
 import com.dsource.idc.jellowintl.SplashActivity;
+import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.TextDatabase;
 import com.dsource.idc.jellowintl.models.AppDatabase;
 
 public class CreateDataBase extends AsyncTask {

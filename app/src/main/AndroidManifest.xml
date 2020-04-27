@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dsource.idc.jellowintl">
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".app.AppController"
@@ -18,7 +26,6 @@
         <activity android:name=".LevelBaseActivity" />
         <activity android:name=".BaseActivity" />
         <activity android:name=".SpeechEngineBaseActivity" />
-
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation|screenLayout"
@@ -28,7 +35,6 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-
         <activity
             android:name=".Intro"
             android:configChanges="keyboardHidden|orientation|screenLayout"
@@ -102,7 +108,6 @@
             android:name=".LevelThreeActivity"
             android:label="@string/level_3_screen"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".LanguageDownloadActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -114,7 +119,6 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/Language"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".SearchActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -132,15 +136,79 @@
             android:label="@string/menuFeedback"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".utility.DialogBox"
+	<activity android:name=".LanguagePackUpdateActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@style/Theme.AppCompat.Translucent" />
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+        </activity>
 
+        <activity
+            android:name=".makemyboard.BoardSearchActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/search_act_title"
+            android:theme="@style/Theme.AppCompat.Translucent"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".makemyboard.HomeActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity
+            android:name=".makemyboard.utility.SetupMMB"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".makemyboard.Dialogs.DialogAddVerbiage"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Translucent" />
+        <activity
+            android:name=".makemyboard.Dialogs.DialogAddEditIcon"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Translucent" />
+        <activity
+            android:name=".makemyboard.activity.BoardListActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/my_boards"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".makemyboard.activity.BoardActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/my_boards"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".makemyboard.Dialogs.DialogNoOfIconPerScreen"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Translucent" />
+        <activity
+            android:name=".makemyboard.activity.IconSelectActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".makemyboard.activity.AddEditActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".makemyboard.Dialogs.DialogAddBoard"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Translucent" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
         <service
             android:name=".SimpleIME"
             android:label="@string/simple_ime"
@@ -157,18 +225,7 @@
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </service>      
-        <activity android:name=".LanguagePackUpdateActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-        </activity>
+        </service>
     </application>
-
-    <uses-feature android:name="android.hardware.telephony" android:required="false" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

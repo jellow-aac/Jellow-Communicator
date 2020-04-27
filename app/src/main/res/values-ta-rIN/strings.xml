@@ -343,4 +343,42 @@
     <string name="switch_access_info_three">சாம்சங் பயனாளர்கள் தொலைபேசி அமைப்பின் accessibility வகையில் “dexterity and interaction" தெரிவில் சுவிட்ச் வசதியைக் காணலாம்</string>
     <string name="switch_access_info_four">சுவிட்ச் அணுகலை ஒரு சுவிட்ச் இல் பெற- Open settings(தொலைபேசியில் அமைப்பினைத் திறந்த உடன் ) -> Go to accessibility (accessibility சென்று) -> Turn on the switch access (switch access ஐ ஆன் செய்க) -> Choose switches either USB or Bluetooth switches (USB அல்லது Bluetooth இல் எதனை சுவிட்ச் செய்யவேண்டுமென்று தேர்ந்தெடுக்கவும்) -> Go to settings and Choose number of switches as one switch(அமைப்பில் சென்று number of switch இல்  one switch என தேர்ந்தெடுக்கவும்)</string>
     <string name="switch_access_info_five">சுவிட்ச் அணுகலை இரு சுவிட்ச் இல் பெற-Open settings(தொலைபேசியில் அமைப்பினைத் திறந்த உடன் ) -> Go to accessibility (accessibility சென்று) -> Turn on the switch access (switch access ஐ ஆன் செய்க) -> Choose switches either USB or Bluetooth switches (USB அல்லது Bluetooth இல் எதனை சுவிட்ச் செய்யவேண்டுமென்று தேர்ந்தெடுக்கவும்) -> Go to settings and Choose number of switches as one switch(அமைப்பில் சென்று number of switch இல் two switches என தேர்ந்தெடுக்கவும்) . பிறகு,type of scanning ஐ தேர்ந்தெடுத்து,next ஐ அழுத்தி இரு சுவிட்சுகளுக்கு அனுமதி அளித்து சுவிட்சுகளை சரிபார்த்துக்கொண்டு செயல்பாட்டை முடிக்கவும்.</string>
+
+    <!--String resources for MMB-->
+    <string name="exit_warning">நீங்கள் உறுதியாக வெளியேற நினைக்கிறீரா?</string>
+    <string name="expressive_heading">வெளிப்பாடு </string>
+    <string name="icon_select_exit_warning">தேர்ந்தேடுத்தவைகள் இழக்கப்படும்!</string>
+    <string name="current_board">தற்போதைய பலகை</string>
+    <string name="place_holder_text">நீங்கள் தேர்வு செய்த சின்னம் இங்கு காண்பிக்கப்படும்</string>
+    <string name="board_name">பலகையின் பெயர்</string>
+    <string name="select_all">அனைத்தையும் தேர்ந்தெடு</string>
+    <string name="reset">மீட்டு அமை</string>
+    <string name="select_icon_title">சின்னங்களைத் தேர்ந்தெடு</string>
+    <string name="default_text" >இயல்பு நிலை</string>
+    <string name="add_category">வகையினைச் சேர்</string>
+    <string name="add_icon">சின்னத்தைச் சேர்</string>
+    <string name="edit_icon">சின்னத்தை மாற்று</string>
+    <string name="addicon_title">சின்னங்களைச் சேர்/ மாற்று</string>
+    <string name="rep_activity_title">சின்னங்களின் இடத்தை மாற்று</string>
+    <string name="i_like">எனக்கு பிடிக்கும்</string>
+    <string name="really_like">எனக்கு மிகவும் பிடிக்கும்</string>
+    <string name="i_want">எனக்கு வேண்டும்</string>
+    <string name="really_want">எனக்கு கண்டிப்பாக வேண்டும்</string>
+    <string name="want_more">எனக்கு மேலும் வேண்டும்</string>
+    <string name="really_want_more">எனக்கு கண்டிப்பாக மேலும் வேண்டும்</string>
+    <string name="i_dont_like">எனக்கு பிடிக்கவில்லை</string>
+    <string name="really_dont_like">எனக்கு சுத்தமாகப் பிடிக்கவில்லை</string>
+    <string name="dont_want">எனக்கு வேண்டாம்</string>
+    <string name="really_dont_want">எனக்கு உண்மையாக வேண்டாம்</string>
+    <string name="dont_want_more">எனக்கு மேலும் வேண்டாம்</string>
+    <string name="really_dont_want_more">உனக்கு உண்மையாக மேலும் வேண்டாம்</string>
+    <string name="please_enter_name">பெயரை உள்ளிடவும்</string>
+    <string name="photos">புகைப்படங்கள்</string>
+    <string name="library">நூலகம்</string>
+    <string name="icon_name">சின்னத்தின் பெயர்</string>
+    <string name="category_name">வகையின் பெயர்</string>
+    <string name="all_boards">அனைத்து மொழிகளும்</string>
+    <string name="add_board">பலகையினைச் சேர்</string>
+    <string name="boards_count">பலகைகள்</string>
+    <string name="custom_icon">தனிப்பயன் சின்னம்</string>
 </resources>

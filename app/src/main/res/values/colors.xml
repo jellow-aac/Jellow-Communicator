@@ -25,11 +25,17 @@
     <color name="text_color">#404040</color>
     <color name="black_eighty">#333333</color>
     <color name="menu_screen_bottom_bar">#F7E2AC</color>
+    <color name="white">#FFFFFF</color>
     <color name="seq_btn_background_unpressed">#FFBEBCB6</color>
     <color name="seq_btn_background_pressed">#93918C</color>
     <color name="colorSerialKeyboardBackground">#C9CED1</color>
     <color name="colorSeriaKeyboardKeyText">#5D5D5D</color>
     <color name="colorSerialKeyboardKeyBackground">#EDEEF2</color>
+    <color name="light_grey">#C47B7878</color>
+    <color name="light_black">#bf333333</color>
     <color name="dark_base">#EDD99F</color>
+    <color name="level_select_text_color">#767272</color>
     <color name="transparent">#00d70202</color>
+    <color name="fourty_percent_translucent">#40000000</color>
+    <color name="light_base">#f9f5d9</color>
 </resources>

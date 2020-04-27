@@ -344,4 +344,42 @@
     <string name="switch_access_info_three">Samsung-Benutzer können den Schalterzugriff  in Option in  den Zugänglichkeitseinstellungen-Kategorie der Telefoneinstellungen finden.</string>
     <string name="switch_access_info_four">Um den Schalterzugriff mit einem Schalter nutzen zu können: 1. Einstellungen öffnen, 2. in die Schalterzugriff-Einstellungen kommen 3. Schalterzugriff aktivieren, 4. Entweder \"USB\"- oder \"Bluetooth\"-Schalter wählen, 5. In die Einstellungen kommen und Zahl des Schalters als \"ein Schalter\" wählen.</string>
     <string name="switch_access_info_five">Um den Schalterzugriff mit zwei Schaltern nutzen zu können: 1. Einstellungen öffnen, 2. in die Barrierefreiheit Einstellungen kommen, 3. Schalterzugriff aktivieren, 4. Entweder "USB"- oder "Bluetooth"-Schalter wählen, 5. In die Einstellungen kommen und Zahl des Schalters als "zwei Schalter" wählen, 6. "Weiter" klicken und beide Schalter markieren und den Prozess durchführen, nachdem die Schalter getestet worden sind.</string>
+
+    <!--String resources for MMB-->
+    <string name="exit_warning">Möchten Sie die App wirklich verlassen?</string>
+    <string name="expressive_heading">Expressiv</string>
+    <string name="icon_select_exit_warning">Ihre Auswahl wird gelöscht</string>
+    <string name="current_board">Aktuelles Board</string>
+    <string name="place_holder_text">Von Ihnen gewähltes Icon wird hier aufgezeigt</string>
+    <string name="board_name">Name des Boards</string>
+    <string name="select_all">Alles auswählen</string>
+    <string name="reset">Zurücksetzen</string>
+    <string name="select_icon_title">Icons auswählen</string>
+    <string name="default_text" >Standard</string>
+    <string name="add_category">Kategorie hinzufügen</string>
+    <string name="add_icon">Icon hinzufügen</string>
+    <string name="edit_icon">Icon bearbeiten</string>
+    <string name="addicon_title">Icons hinzufügen/bearbeiten</string>
+    <string name="rep_activity_title">Icons umstellen</string>
+    <string name="i_like">Ich mag</string>
+    <string name="really_like">Ich mag wirklich</string>
+    <string name="i_want">Ich möchte</string>
+    <string name="really_want">Ich möchte wirklich</string>
+    <string name="want_more">Ich möchte noch mehr</string>
+    <string name="really_want_more">Ich möchte wirklich noch mehr</string>
+    <string name="i_dont_like">Ich mag nicht</string>
+    <string name="really_dont_like">Ich mag wirklich nicht</string>
+    <string name="dont_want">Ich möchte nicht</string>
+    <string name="really_dont_want">Ich möchte wirklich nicht</string>
+    <string name="dont_want_more">Ich möchte nicht mehr</string>
+    <string name="really_dont_want_more">Ich möchte wirklich nicht mehr</string>
+    <string name="please_enter_name">Bitte Namen eingeben</string>
+    <string name="photos">Fotos</string>
+    <string name="library">Bibliothek</string>
+    <string name="icon_name">Name des Icons</string>
+    <string name="category_name">Kategorienname</string>
+    <string name="all_boards">Alle Sprachen</string>
+    <string name="add_board">Boards hinzufügen</string>
+    <string name="boards_count">Boards</string>
+    <string name="custom_icon">Benutzerdefiniertes Icon</string>
 </resources>

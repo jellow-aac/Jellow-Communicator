@@ -153,6 +153,8 @@
         android:textAlignment="center"
         android:background="@drawable/edit_board_dialog_edit_text"
         android:layout_marginLeft="8dp"
+        android:paddingLeft="@dimen/mmb_btn_pad"
+        android:paddingRight="@dimen/mmb_btn_pad"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:textAllCaps="false"

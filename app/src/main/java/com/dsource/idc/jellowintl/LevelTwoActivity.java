@@ -1537,7 +1537,6 @@ public class LevelTwoActivity extends LevelBaseActivity{
             title += mDisplayText[mLevelTwoItemPos].substring
                     (0, mDisplayText[mLevelTwoItemPos].length()-1);
         mActionBarTitle = title;
-        getSupportActionBar().setTitle(mActionBarTitle);
 
         // increment preference count an item if people or place category is selected in level one
         if(mLevelOneItemPos == CATEGORY_ICON_PEOPLE)

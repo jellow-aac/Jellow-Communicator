@@ -55,7 +55,6 @@ import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
-
 public class MainActivity extends LevelBaseActivity{
     private final int REQ_HOME = 0;
 
@@ -1055,7 +1054,6 @@ public class MainActivity extends LevelBaseActivity{
         // set true to speak verbiage associated with category icon
         mShouldReadFullSpeech = true;
         String title = level1IconObjects[position].getDisplay_Label().replace("…","");
-        getSupportActionBar().setTitle(title);
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
             // below condition is true when user tap same category icon twice.
             // i.e. user intends to open a sub-category of selected category icon.
@@ -1068,6 +1066,7 @@ public class MainActivity extends LevelBaseActivity{
 
                 // send current position in recycler view of selected category icon and bread
                 // crumb path as extra intent data to LevelTwoActivity.
+                title = getString(R.string.home)+"/ "+title;
                 Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
                 intent.putExtra(getString(R.string.level_one_intent_pos_tag), position);
                 intent.putExtra(getString(R.string.intent_menu_path_tag), title + "/");

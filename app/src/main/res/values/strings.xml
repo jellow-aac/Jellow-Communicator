@@ -89,6 +89,7 @@
     <string name="checkConnectivity">You are not connected to the Internet. Please turn on your Internet.</string>
 
     <string name="menuProfile">Profile</string>
+    <string name="menuMyBoards">My Boards</string>
     <string name="menuAbout">About Jellow</string>
     <string name="menuTutorials">Tutorial</string>
     <string name="menuKeyboardInput">Keyboard Control</string>
@@ -222,6 +223,7 @@
     <string name="from_search" translatable="false">FROM_SEARCH</string>
     <string name="search_tag" translatable="false">SEARCH</string>
     <string name="icon_not_found">Icon not found</string>
+    <string name="not_found" translatable="false">NOT_FOUND</string>
     <string name="goto_home" translatable="false">goto_home</string>
 
 
@@ -399,4 +401,101 @@
     <string name="update_now">Update now</string>
     <string name="update_later">Later</string>
     <string name="update_message">New content is available in the app. Do you want to update now?</string>
+
+
+    <!--String resources for MMB-->
+    <string name="wait_text" translatable="false">Please wait...</string>
+    <string name="no_internet" translatable="false">No Internet</string>
+    <string name="my_boards" translatable="false">My Boards</string>
+    <string name="filter_text" translatable="false">Filter</string>
+    <string name="delete_board" translatable="false">Delete Board</string>
+    <string name="no_board_to_delete" translatable="false">There are no board to delete</string>
+    <string name="icon_list" translatable="false">IconList</string>
+    <string name="search_result" translatable="false">search_result</string>
+    <string name="icon_select_mode" translatable="false">icon_select_mode</string>
+    <string name="delete_icons" translatable="false">Delete Icons</string>
+    <string name="add_edit_icons" translatable="false">Add Edit Icons</string>
+    <string name="icon_select_text" translatable="false">Select Icons</string>
+    <string name="done" translatable="false">Done</string>
+    <string-array name="entries">
+        <item>Camera</item>
+        <item>Gallery</item>
+        <item>Library</item>
+    </string-array>
+
+    <array name="expressive_icon_pressed">
+        <item>@drawable/like_pressed</item>
+        <item>@drawable/yes_pressed</item>
+        <item>@drawable/more_pressed</item>
+        <item>@drawable/dontlike_pressed</item>
+        <item>@drawable/no_pressed</item>
+        <item>@drawable/less_pressed</item>
+    </array>
+    <array name="expressive_icon_unpressed">
+        <item>@drawable/like</item>
+        <item>@drawable/yes</item>
+        <item>@drawable/more</item>
+        <item>@drawable/dontlike</item>
+        <item>@drawable/no</item>
+        <item>@drawable/less</item>
+    </array>
+    <string-array name="add_photo_option">
+        <item>@drawable/ic_photo_camera</item>
+        <item>@drawable/ic_jellow_library</item>
+    </string-array>
+
+
+    <string name="exit_warning">Are you sure you want to exit?</string>
+    <string name="expressive_heading">Tap  </string>
+    <string name="icon_select_exit_warning">Your selection will be lost</string>
+    <string name="current_board">Current Board</string>
+    <string name="place_holder_text">Icon selected by you will appear here</string>
+    <string name="board_name">Board Name</string>
+    <string name="select_all">Select All</string>
+    <string name="reset">Reset</string>
+    <string name="select_icon_title">Select icons</string>
+    <string name="default_text">Default</string>
+    <string name="add_category">Add Category</string>
+    <string name="add_icon">Add Icon</string>
+    <string name="edit_icon">Edit Icon</string>
+    <string name="addicon_title">Add/Edit Icons</string>
+    <string name="rep_activity_title">Reposition icons</string>
+    <string name="i_like">I like</string>
+    <string name="really_like">I really like</string>
+    <string name="i_want">I want</string>
+    <string name="really_want">I really want</string>
+    <string name="want_more">I want more</string>
+    <string name="really_want_more">I really want more</string>
+    <string name="i_dont_like">I don\'t like</string>
+    <string name="really_dont_like">I really don\'t like</string>
+    <string name="dont_want">I don\'t want</string>
+    <string name="really_dont_want">I really don\'t want</string>
+    <string name="dont_want_more">I don\'t want more</string>
+    <string name="really_dont_want_more">I really don\'t want more</string>
+    <string name="please_enter_name">Please enter name</string>
+    <string name="photos">Photos</string>
+    <string name="library">Library</string>
+    <string name="icon_name">Icon Name</string>
+    <string name="category_name">Category Name</string>
+    <string name="all_boards">All Language</string>
+    <string name="add_board">Add Board</string>
+    <string name="boards_count">Existing Boards</string>
+    <string name="custom_icon">Custom Icon</string>
+
+    <!--TODO translation of following string is needed for make my board-->
+    <string name="cancel">Cancel</string>
+    <string name="icon">Icon</string>
+    <string name="category">category</string>
+    <string name="database_not_created_info">Database not created, creating database for the language</string>
+    <string name="icon_already_present">Icon already selected</string>
+    <string name="add_icon_folder">Add Icon/Folder</string>
+    <string name="camera_missing">Camera not found</string>
+    <string name="no_board_created">No board created yet</string>
+    <string name="no_icon_warning">Please add at least one icon to proceed.</string>
+    <string name="reposition_text">You can long press on any icon to reposition them</string>
+    <string name="reposition_complete_msg">New positions of the icon is saved</string>
+    <string name="please_select_icon">Please select an image first</string>
+    <string name="txtContinue">Continue</string>
+    <string name="expressive_heading2"> button to select expression</string>
+
 </resources>

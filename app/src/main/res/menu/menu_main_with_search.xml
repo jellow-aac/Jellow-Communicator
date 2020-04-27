@@ -10,6 +10,13 @@
             app:showAsAction="always"
             android:orderInCategory="1"/>
         <item
+            android:id="@+id/my_boards_icon"
+            android:title="@string/menuMyBoards"
+            android:icon="@drawable/ic_my_boards"
+            android:checked="true"
+            app:showAsAction="always"
+            android:orderInCategory="2"/>
+        <item
             android:id="@+id/number_of_icons"
             android:title="@string/number_of_icons_per_screen"
             android:icon="@drawable/ic_grid_size"
@@ -49,6 +56,13 @@
         <item
             android:id="@+id/resetPreferences"
             android:title="@string/menuResetPref"
+            app:showAsAction="never"/>
+    </group>
+    <group android:id="@+id/menuGroupMyBoards">
+        <item
+            android:id="@+id/my_boards"
+            android:visible="true"
+            android:title="@string/menuMyBoards"
             app:showAsAction="never"/>
     </group>
     <group android:id="@+id/menuFeedback">

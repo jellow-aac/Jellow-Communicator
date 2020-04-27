@@ -15,6 +15,18 @@
         android:id="@+id/frame_layout"
         android:layout_marginStart="@dimen/threeIcon_flHorizontal"
         android:layout_marginEnd="@dimen/threeIcon_flHorizontal">
+        <ImageView
+            android:id="@+id/icon1"
+            android:layout_width="@dimen/threeIcon_width"
+            android:layout_height="@dimen/threeIcon_width"
+            android:layout_gravity="center_horizontal"
+            android:background="@android:color/transparent"/>
+        <View
+            android:id="@+id/borderView"
+            android:layout_width="@dimen/threeIcon_width"
+            android:layout_height="@dimen/threeIcon_width"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/border_drawable_nocolor_3_icons"/>
         <RelativeLayout
             android:layout_width="wrap_content"
             android:visibility="gone"
@@ -39,18 +51,6 @@
                 android:layout_marginLeft="@dimen/def_margin_flt"
                 />
         </RelativeLayout>
-        <ImageView
-            android:id="@+id/icon1"
-            android:layout_width="@dimen/threeIcon_width"
-            android:layout_height="@dimen/threeIcon_width"
-            android:layout_gravity="center_horizontal"
-            android:background="@android:color/transparent"/>
-        <View
-            android:id="@+id/borderView"
-            android:layout_width="@dimen/threeIcon_width"
-            android:layout_height="@dimen/threeIcon_width"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/border_drawable_nocolor_3_icons"/>
     </FrameLayout>
     <TextView
         android:id="@+id/te1"

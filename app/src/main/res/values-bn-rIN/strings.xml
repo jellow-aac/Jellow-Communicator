@@ -347,4 +347,42 @@
     <string name="switch_access_info_three">স্যামসাং ব্যবহারকারী ফোনের সেটিংসের \' ব্যবহার‍যোগ্যতা \' শ্রেণির " ডেক্সটারিটি অ্যান্ড ইন্টেরাকশন " অপশনে বদলের অনুমতি পেতে পারে।</string>
     <string name="switch_access_info_four">ব্যবহারযোগ্যতা একবার প্রয়োগে বদলাতে — সেটিংস খুলুন — অ্যাকসেসিবিলিটি-তে যান — সুইচ অ্যাকসেস খুলুন — ইউএসবি অথবা ব্লুটুথ সুইচেস নির্বাচন করুন — সেটিংসে গিয়ে একবার স্পর্শ করে সুইচের সংখ্যা নির্বাচন করুন।</string>
     <string name="switch_access_info_five">দুটো সুইচ দিয়ে ব্যবহারযোগ্যতা বদলাতে — সেটিংস খুলুন — অ্যাকসিসিবিলিটিতে যান — সুইচ অ্যসসেস চালু করুন — হয় ইউএসবি অথবা ব্লুটুথের সুইচ নির্বাচন করুন — সেটিংসে গিয়ে দুটো সুইচের নাম্বার নির্বাচন করুন — স্ক্যানিং-এর টাইপ বেছে নিয়ে পরবর্তী ধাপে যেতে ক্লিক করুন এবং দুটো সুইচের কাজগুলি নির্বাচন করে সুইচগুলি পরীক্ষার মাধ্যমে প্রক্রিয়াটি সম্পন্ন করুন।</string>
+
+    <!--String resources for MMB-->
+    <string name="exit_warning">আপনি প্রস্থান করতে চান?</string>
+    <string name="expressive_heading">ভাবপ্রকাশক</string>
+    <string name="icon_select_exit_warning">আপনার নির্বাচনটি হারিয়ে যাবে</string>
+    <string name="current_board">বর্তমান বোর্ড</string>
+    <string name="place_holder_text">আপনার দ্বারা নির্বাচিত আইকনটি এখানে উপস্থিত হবে</string>
+    <string name="board_name">বোর্ড নাম</string>
+    <string name="select_all">সমস্ত নির্বাচন করুন</string>
+    <string name="reset">রিসেট</string>
+    <string name="select_icon_title">আইকন নির্বাচন করুন</string>
+    <string name="default_text">ডিফল্ট</string>
+    <string name="add_category">বিভাগ যুক্ত করুন</string>
+    <string name="add_icon">আইকন প্রবেশ করান</string>
+    <string name="edit_icon">সম্পাদনা আইকন</string>
+    <string name="addicon_title">প্রবেশ করান/সম্পাদনা আইকন</string>
+    <string name="rep_activity_title">প্রতিস্থাপন আইকন</string>
+    <string name="i_like">পছন্দ করি</string>
+    <string name="really_like">আমি সত্যি পচ্ছ্ন্দ করি</string>
+    <string name="i_want">আমি চাই</string>
+    <string name="really_want">আমি সত্যিই চাই</string>
+    <string name="want_more">আমি আরো চাই</string>
+    <string name="really_want_more">আমি সত্যিই আরও চাই</string>
+    <string name="i_dont_like">আমি পছন্দ করি না</string>
+    <string name="really_dont_like">আমি সত্যিই পছন্দ করি না</string>
+    <string name="dont_want">আমি চাই না</string>
+    <string name="really_dont_want">আমি সত্যিই চাই না</string>
+    <string name="dont_want_more">আমি আর চাই না</string>
+    <string name="really_dont_want_more">আমি সত্যিই আরও চাই না</string>
+    <string name="please_enter_name">নাম লিখুন</string>
+    <string name="photos">ফটো</string>
+    <string name="library">লাইব্রেরি</string>
+    <string name="icon_name">আইকন নাম</string>
+    <string name="category_name">বিভাগ নাম</string>
+    <string name="all_boards">সকল ভাষা</string>
+    <string name="add_board">বোর্ড প্রবেশ করান</string>
+    <string name="boards_count">বোর্ড</string>
+    <string name="custom_icon">কাস্টম আইকন</string>
 </resources>

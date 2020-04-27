@@ -1,12 +1,14 @@
 package com.dsource.idc.jellowintl.models;
 
 import androidx.annotation.Keep;
+import androidx.annotation.Nullable;
 
-import com.dsource.idc.jellowintl.Presentor.AbstractDataProvider;
+import com.dsource.idc.jellowintl.makemyboard.interfaces.AbstractDataProvider;
+import com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants;
 
 import java.io.Serializable;
 
-public class JellowIcon extends AbstractDataProvider.Data implements Serializable{
+public class JellowIcon extends AbstractDataProvider.Data implements Serializable, Comparable<JellowIcon> {
     @Keep
     private String verbiageId, iconDrawable, iconTitle, iconSpeech;
     @Keep
@@ -18,9 +20,9 @@ public class JellowIcon extends AbstractDataProvider.Data implements Serializabl
      * @iconType stores the type of the icon
      * Normal Icon : BoardConstants.NORMAL_TYPE
      * Category Icon : BoardConstants.CATEGORY_TYPE
-     * */
+     */
     @Keep
-    private int iconType= GlobalConstants.NORMAL_TYPE;
+    private int iconType = BoardConstants.NORMAL_TYPE;
 
     public JellowIcon(String iconTitle, String iconDrawable, int p1, int p2, int p3) {
         this.iconDrawable = iconDrawable;
@@ -31,7 +33,8 @@ public class JellowIcon extends AbstractDataProvider.Data implements Serializabl
         this.parent1 = p2;
         this.parent2 = p3;
     }
-    public JellowIcon(String iconTitle,String speechText, String iconDrawable, int p1, int p2, int p3) {
+
+    public JellowIcon(String iconTitle, String speechText, String iconDrawable, int p1, int p2, int p3) {
         this.iconDrawable = iconDrawable;
         this.iconTitle = iconTitle;
         iconSpeech = speechText;
@@ -63,9 +66,14 @@ public class JellowIcon extends AbstractDataProvider.Data implements Serializabl
         return iconTitle;
     }
 
+    public void setIconTitle(String iconTitle) {
+        this.iconTitle = iconTitle;
+    }
+
     public String getIconSpeech() {
         return iconSpeech;
     }
+
     public void setIconSpeech(String iconSpeech) {
         this.iconSpeech = iconSpeech;
     }
@@ -82,23 +90,19 @@ public class JellowIcon extends AbstractDataProvider.Data implements Serializabl
         return parent2;
     }
 
-    public boolean isEqual(JellowIcon icon){
+    public boolean isEqual(JellowIcon icon) {
         return icon.getIconDrawable().equals(iconDrawable);
     }
 
     public boolean isCustomIcon() {
-        return parent0==-1&&verbiageId.length()<12;
-    }
-
-    public void setIconTitle(String iconTitle) {
-        this.iconTitle = iconTitle;
+        return parent0 == -1 && verbiageId.length() < 12;
     }
 
     @Override
     public long getId() {
-        int numA=10;
-        int numB=50;
-        return  (numA*parent0+parent1)*numB+parent2;
+        int numA = 11;
+        int numB = 98;
+        return (numA * parent0 + parent1) * numB + parent2;
     }
 
     @Override
@@ -135,7 +139,7 @@ public class JellowIcon extends AbstractDataProvider.Data implements Serializabl
     }
 
     public void setDrawable(String iconDrawable) {
-        this.iconDrawable=iconDrawable;
+        this.iconDrawable = iconDrawable;
     }
 
     public int getLevelOne() {
@@ -145,16 +149,17 @@ public class JellowIcon extends AbstractDataProvider.Data implements Serializabl
     public int getLevelTwo() {
         return parent1;
     }
+
     public int getLevelThree() {
         return parent2;
     }
 
     public boolean isCategory() {
-        return iconType==GlobalConstants.CATEGORY_TYPE;
+        return iconType == BoardConstants.CATEGORY_TYPE;
     }
 
     public void setType(int iconType) {
-        this.iconType =iconType;
+        this.iconType = iconType;
     }
 
     public boolean isSequenceIcon() {
@@ -163,5 +168,17 @@ public class JellowIcon extends AbstractDataProvider.Data implements Serializabl
 
     public void setSequenceIcon(boolean sequenceIcon) {
         isSequenceIcon = sequenceIcon;
+    }
+
+    @Override
+    public int compareTo(JellowIcon o) {
+        return this.getVerbiageId().compareTo(o.getVerbiageId());
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if(obj instanceof JellowIcon)
+        return verbiageId.equals(((JellowIcon)obj).getVerbiageId());
+        return false;
     }
 }

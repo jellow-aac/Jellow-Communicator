@@ -81,6 +81,8 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
         setNavigationUiConditionally();
         findViewById(R.id.iv_action_bar_back).setVisibility(View.GONE);
         getSession().changePreferencesFile(this);
+        //Reset Board Language
+        getSession().setCurrentBoardLanguage("");
 
         if (!getSession().getUserId().equals("")) {
             getAnalytics(this, getSession().getUserId());

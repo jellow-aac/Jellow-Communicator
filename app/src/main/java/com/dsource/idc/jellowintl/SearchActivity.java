@@ -21,8 +21,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.dsource.idc.jellowintl.Presentor.IconDatabase;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
+import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.IconDatabase;
 import com.dsource.idc.jellowintl.models.AppDatabase;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -285,8 +285,8 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
             activityIntent.putExtra(mContext.getString(R.string.search_parent_1),icon.getLevelTwo());
             //activityIntent.putExtra(menuPath,getActionBarTitle(icon.getLevelOne()));
             activityIntent.putExtra(mContext.getString(R.string.from_search),mContext.getString(R.string.search_tag));
-            String breadCrumbPath = getLevel1IconLabels()[icon.getLevelOne()].
-                    replace("…","") + "/ ";
+            String breadCrumbPath = mContext.getString(R.string.home) + "/ " +
+                    getLevel1IconLabels()[icon.getLevelOne()].replace("…","") + "/ ";
             activityIntent.putExtra(mContext.getString(R.string.intent_menu_path_tag), breadCrumbPath);
 
         }
@@ -300,9 +300,9 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
             activityIntent.putExtra(mContext.getString(R.string.level_2_item_pos_tag),icon.getLevelTwo());
             //Level 3 Icon reference to be highlighted
             activityIntent.putExtra(mContext.getString(R.string.search_parent_2),icon.getLevelThree());
-            String breadCrumbPath = getLevel1IconLabels()[icon.getLevelOne()].
-                    replace("…","") + "/ " + getIconTitleLevel2(icon.getLevelOne())
-                    [icon.getLevelTwo()].replace("…","")+"/ ";
+            String breadCrumbPath =  mContext.getString(R.string.home) + "/ " +
+                    getLevel1IconLabels()[icon.getLevelOne()].replace("…","") + "/ "
+                    + getIconTitleLevel2(icon.getLevelOne())[icon.getLevelTwo()].replace("…","")+"/ ";
             activityIntent.putExtra(mContext.getString(R.string.intent_menu_path_tag), breadCrumbPath);
         }else{ //Level 3, Sequence
             activityIntent=new Intent(mContext, SequenceActivity.class);
@@ -311,9 +311,9 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
             activityIntent.putExtra(mContext.getString(R.string.level_2_item_pos_tag),icon.getLevelTwo());
             //Level 3 Icon reference to be highlighted
             activityIntent.putExtra(mContext.getString(R.string.search_parent_2),icon.getLevelThree());
-            String breadCrumbPath = getLevel1IconLabels()[icon.getLevelOne()].
-                    replace("…","") + "/ " + getIconTitleLevel2(icon.getLevelOne())
-                    [icon.getLevelTwo()].replace("…","")+"/ ";
+            String breadCrumbPath =  mContext.getString(R.string.home) + "/ " +
+                    getLevel1IconLabels()[icon.getLevelOne()].replace("…","") + "/ "
+                    + getIconTitleLevel2(icon.getLevelOne())[icon.getLevelTwo()].replace("…","")+"/ ";
             activityIntent.putExtra(mContext.getString(R.string.intent_menu_path_tag), breadCrumbPath);
         }
         return activityIntent;
