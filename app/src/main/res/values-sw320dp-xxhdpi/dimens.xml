@@ -38,10 +38,10 @@
 
     <!--9 icons configuration-->
     <dimen name="nineIcon_parentHorizontal">0dp</dimen>
-    <dimen name="nineIcon_width">64dp</dimen>
+    <dimen name="nineIcon_width">60dp</dimen>
     <dimen name="nineIcon_textWidth">140dp</dimen>
     <dimen name="nineIcon_textSize">10sp</dimen>
     <dimen name="nineIcon_borderThickness">5dp</dimen>
-    <dimen name="nineIcon_innerRadius">27dp</dimen>
+    <dimen name="nineIcon_innerRadius">25dp</dimen>
 
 </resources>

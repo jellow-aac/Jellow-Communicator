@@ -379,6 +379,5 @@
     <string name="category_name">Category Name</string>
     <string name="all_boards">All Language</string>
     <string name="add_board">Add Board</string>
-    <string name="boards_count">Boards</string>
     <string name="custom_icon">Custom Icon</string>
 </resources>

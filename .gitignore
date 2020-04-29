@@ -7,3 +7,4 @@ captures/
 JellowCommunicatorApp.iml
 Jellow-Communicator.iml
 local.properties
+/app/google-services.json

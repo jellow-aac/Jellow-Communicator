@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.dsource.idc.jellowintl.makemyboard.activity.BoardActivity;
+import com.dsource.idc.jellowintl.makemyboard.activity.BoardListActivity;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.GridSelectListener;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.dsource.idc.jellowintl.utility.TextToSpeechErrorUtils;
@@ -53,7 +53,7 @@ public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextT
                 break;
             case R.id.my_boards_icon:
             case R.id.my_boards:
-                startActivity(new Intent(this, BoardActivity.class));
+                startActivity(new Intent(this, BoardListActivity.class));
                 break;
             case R.id.number_of_icons:
                 showGridDialog( new GridSelectListener() {

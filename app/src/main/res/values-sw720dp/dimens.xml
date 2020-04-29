@@ -368,7 +368,6 @@
     <dimen name="add_board_icon_size">150dp</dimen>
     <dimen name="add_board_icon_padding">12dp</dimen>
     <dimen name="add_board_text_size">24sp</dimen>
-    <dimen name="very_large_text">120sp</dimen>
     <dimen name="left_mar_my_boards">340dp</dimen>
     <dimen name="add_board_dialog_width">380dp</dimen>
     <dimen name="edit_text_width_add_board">140dp</dimen>

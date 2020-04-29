@@ -380,6 +380,5 @@
     <string name="category_name">Kategorienname</string>
     <string name="all_boards">Alle Sprachen</string>
     <string name="add_board">Boards hinzufügen</string>
-    <string name="boards_count">Boards</string>
     <string name="custom_icon">Benutzerdefiniertes Icon</string>
 </resources>

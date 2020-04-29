@@ -383,6 +383,5 @@
     <string name="category_name">বিভাগ নাম</string>
     <string name="all_boards">সকল ভাষা</string>
     <string name="add_board">বোর্ড প্রবেশ করান</string>
-    <string name="boards_count">বোর্ড</string>
     <string name="custom_icon">কাস্টম আইকন</string>
 </resources>

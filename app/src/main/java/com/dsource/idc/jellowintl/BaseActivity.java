@@ -25,7 +25,6 @@ import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;
 import com.dsource.idc.jellowintl.makemyboard.Dialogs.DialogNoOfIconPerScreen;
 import com.dsource.idc.jellowintl.makemyboard.HomeActivity;
 import com.dsource.idc.jellowintl.makemyboard.activity.BaseBoardActivity;
-import com.dsource.idc.jellowintl.makemyboard.activity.BoardActivity;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.GridSelectListener;
 import com.dsource.idc.jellowintl.models.AppDatabase;
 import com.dsource.idc.jellowintl.models.GlobalConstants;
@@ -259,7 +258,6 @@ public class BaseActivity extends AppCompatActivity{
     private String getBoardClass() {
         return BoardSearchActivity.class.getSimpleName() + ","+
                 HomeActivity.class.getSimpleName() + ","+
-                BoardActivity.class.getSimpleName() + ","+
                 BaseBoardActivity.class.getSimpleName();
     }
 

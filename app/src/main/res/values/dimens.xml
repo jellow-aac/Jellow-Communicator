@@ -4,7 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="bar_height">30dp</dimen>
 
-
     <dimen name="search_list_margin">2dp</dimen>
     <dimen name="search_recycler_margin">2dp</dimen>
     <dimen name="search_list_icon_size">40dp</dimen>
@@ -66,11 +65,11 @@
 
     <!--9 icons configuration-->
     <dimen name="nineIcon_parentHorizontal">0dp</dimen>
-    <dimen name="nineIcon_width">64dp</dimen>
+    <dimen name="nineIcon_width">60dp</dimen>
     <dimen name="nineIcon_textWidth">168dp</dimen>
     <dimen name="nineIcon_textSize">10sp</dimen>
     <dimen name="nineIcon_borderThickness">5dp</dimen>
-    <dimen name="nineIcon_innerRadius">27dp</dimen>
+    <dimen name="nineIcon_innerRadius">60dp</dimen>
     
     <!--activity_user_registration.xml dimensions-->
     <dimen name="user_reg_parent_padding">10dp</dimen>
@@ -300,7 +299,6 @@
     <dimen name="add_board_icon_size">80dp</dimen>
     <dimen name="add_board_icon_padding">6dp</dimen>
     <dimen name="add_board_text_size">16sp</dimen>
-    <dimen name="very_large_text">70sp</dimen>
     <dimen name="left_mar_my_boards">200dp</dimen>
     <dimen name="add_board_dialog_width">360dp</dimen>
     <dimen name="edit_text_width_add_board">130dp</dimen>

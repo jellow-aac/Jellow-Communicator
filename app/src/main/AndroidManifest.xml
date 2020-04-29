@@ -30,7 +30,8 @@
             android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation|screenLayout"
             android:label="@string/level_1_screen"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity">
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
@@ -39,16 +40,19 @@
             android:name=".Intro"
             android:configChanges="keyboardHidden|orientation|screenLayout"
             android:label="@string/intro_to_jellow"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".SequenceActivity"
             android:configChanges="keyboardHidden|orientation|screenLayout"
             android:label="@string/sequence_screen"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".UserRegistrationActivity"
             android:configChanges="keyboardHidden|orientation|screenLayout"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -59,47 +63,56 @@
             android:name=".SettingActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/action_settings"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".KeyboardInputActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/menuKeyboardInput"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".AboutJellowActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/menuAbout"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".ProfileFormActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/menuProfile"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".FeedbackActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/menuFeedback"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".TutorialActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/menuTutorials"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".ResetPreferencesActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/menuResetPref"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".SplashActivity"
             android:label="@string/labelSplash"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".LevelTwoActivity"
             android:label="@string/level_2_screen"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity"/>
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -107,18 +120,21 @@
         <activity
             android:name=".LevelThreeActivity"
             android:label="@string/level_3_screen"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".LanguageDownloadActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/language_download_screen"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".LanguageSelectActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/Language"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".SearchActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -129,81 +145,88 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/menuFeedback"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".AccessibilitySettingsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/menuFeedback"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan" />
-	<activity android:name=".LanguagePackUpdateActivity"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+	    <activity android:name=".LanguagePackUpdateActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            tools:ignore="LockedOrientationActivity"/>
 
         <activity
             android:name=".makemyboard.BoardSearchActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/search_act_title"
             android:theme="@style/Theme.AppCompat.Translucent"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".makemyboard.HomeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/Base.Theme.AppCompat" />
+            android:theme="@style/Base.Theme.AppCompat"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".makemyboard.utility.SetupMMB"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".makemyboard.Dialogs.DialogAddVerbiage"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.Translucent" />
+            android:theme="@style/Theme.AppCompat.Translucent"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".makemyboard.Dialogs.DialogAddEditIcon"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.Translucent" />
+            android:theme="@style/Theme.AppCompat.Translucent"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".makemyboard.activity.BoardListActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/my_boards"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".makemyboard.activity.BoardActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/my_boards"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".makemyboard.Dialogs.DialogNoOfIconPerScreen"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.Translucent" />
+            android:theme="@style/Theme.AppCompat.Translucent"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".makemyboard.activity.IconSelectActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".makemyboard.activity.AddEditActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".makemyboard.Dialogs.DialogAddBoard"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.Translucent" />
+            android:theme="@style/Theme.AppCompat.Translucent"
+            tools:ignore="LockedOrientationActivity"/>
 
         <meta-data
             android:name="com.google.android.gms.version"

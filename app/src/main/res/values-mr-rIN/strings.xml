@@ -384,6 +384,5 @@
     <string name="category_name">श्रेणीचे नाव</string>
     <string name="all_boards">सर्व भाषा</string>
     <string name="add_board">बोर्ड जोडा</string>
-    <string name="boards_count">बोर्ड</string>
     <string name="custom_icon">कस्टम आयकॉन</string>
 </resources>

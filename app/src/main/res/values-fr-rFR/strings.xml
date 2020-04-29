@@ -374,6 +374,5 @@
     <string name="category_name">Nom de la catégorie</string>
     <string name="all_boards">Tous les tableaux</string>
     <string name="add_board">Ajouter les tableaux</string>
-    <string name="boards_count">Les tableaux</string>
     <string name="custom_icon">L\'icône personnalisé</string>
 </resources>

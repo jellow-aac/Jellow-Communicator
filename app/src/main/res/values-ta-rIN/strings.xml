@@ -379,6 +379,5 @@
     <string name="category_name">வகையின் பெயர்</string>
     <string name="all_boards">அனைத்து மொழிகளும்</string>
     <string name="add_board">பலகையினைச் சேர்</string>
-    <string name="boards_count">பலகைகள்</string>
     <string name="custom_icon">தனிப்பயன் சின்னம்</string>
 </resources>

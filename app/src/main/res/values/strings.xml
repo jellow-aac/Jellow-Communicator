@@ -479,7 +479,6 @@
     <string name="category_name">Category Name</string>
     <string name="all_boards">All Language</string>
     <string name="add_board">Add Board</string>
-    <string name="boards_count">Existing Boards</string>
     <string name="custom_icon">Custom Icon</string>
 
     <!--TODO translation of following string is needed for make my board-->
