@@ -1,5 +1,6 @@
 package com.dsource.idc.jellowintl.makemyboard.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -8,12 +9,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dsource.idc.jellowintl.GlideApp;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;
 import com.dsource.idc.jellowintl.makemyboard.Dialogs.DialogCustom;
@@ -29,9 +32,12 @@ import com.dsource.idc.jellowintl.makemyboard.managers.SearchManager;
 import com.dsource.idc.jellowintl.makemyboard.managers.SelectionManager;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
+import com.dsource.idc.jellowintl.utility.SessionManager;
 
+import java.io.File;
 import java.util.ArrayList;
 
+import static com.dsource.idc.jellowintl.factories.IconFactory.EXTENSION;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.BOARD_ID;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.SEARCH_CODE;
 
@@ -48,6 +54,8 @@ public class IconSelectActivity extends BaseBoardActivity<ISelectIconView, ISele
     public void initViewsAndEvents() {
 
         setupToolBar(R.string.select_icon_title);
+
+        setupHeader();
 
         searchScrollManager = new SearchManager(mRecyclerView, this);
 
@@ -126,6 +134,14 @@ public class IconSelectActivity extends BaseBoardActivity<ISelectIconView, ISele
         mPresenter.loadLevels(currentBoard);
         mPresenter.loadSubLevels();
 
+    }
+
+    private void setupHeader() {
+        ((TextView) findViewById(R.id.board_name)).setText(currentBoard.getBoardName());
+        File en_dir = mContext.getDir(SessionManager.BOARD_ICON_LOCATION, Context.MODE_PRIVATE);
+        String path = en_dir.getAbsolutePath();
+        GlideApp.with(this).load(path +"/" + currentBoard.getBoardId() + EXTENSION)
+                .into(((ImageView) findViewById(R.id.board_icon)));
     }
 
     @SuppressWarnings("StringBufferReplaceableByString")
@@ -276,7 +292,7 @@ public class IconSelectActivity extends BaseBoardActivity<ISelectIconView, ISele
         if (savedInstanceState != null) {
             ArrayList<JellowIcon> selectedIconList = (ArrayList<JellowIcon>) savedInstanceState.getSerializable(LIST_OF_ICON);
             SelectionManager.getInstance().setList(selectedIconList);
-            levelManager.updateSelection(savedInstanceState.getInt(CURRENT_POSITION));
+            levelManager.updateSelection(savedInstanceState.getInt(CURRENT_POSITION), -1);
         }
     }
 
@@ -308,7 +324,8 @@ public class IconSelectActivity extends BaseBoardActivity<ISelectIconView, ISele
                 if (icon != null && !SelectionManager.getInstance().isPresent(icon)) {
                     SelectionManager.getInstance().addIconToList(icon);
                     searchScrollManager.setFromSearch(icon);
-                    levelManager.updateSelection((icon.getParent0() + 1));
+                    levelManager.updateSelection((icon.getParent0() + 1), icon.getParent1());
+                    levelManager.highlightSelection((icon.getParent0() + 1), icon.getParent1());
 
                 } else
                     Toast.makeText(this, getResources().getString(R.string.icon_already_present), Toast.LENGTH_SHORT).show();

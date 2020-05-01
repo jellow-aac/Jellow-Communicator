@@ -7,7 +7,7 @@ import com.dsource.idc.jellowintl.models.JellowIcon;
 import java.util.ArrayList;
 
 public interface ISelectPresenter extends IBasePresenter<ISelectIconView> {
-    void loadLevels(int level,int sublevel);
+    void loadLevels(int level, int sublevel);
     void loadLevels(BoardModel model);
     void loadSubLevels();
     int getLevel();

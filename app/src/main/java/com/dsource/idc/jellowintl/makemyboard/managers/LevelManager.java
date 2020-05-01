@@ -56,11 +56,15 @@ public class LevelManager {
         });
     }
 
-    public void updateSelection(int position){
-        this.adapter.setSelectedPosition(position);
+    public void updateSelection(int parent0, int parent1){
+        this.adapter.setSelectedPosition(parent0);
         if(positionCallback!=null)
-            positionCallback.onClick(position,-1);
+            positionCallback.onClick(parent0, parent1);
     }
+    public void highlightSelection(int parent0, int parent1) {
+        adapter.expandTheListAtPosition(parent0, parent1);
+    }
+
     public int getSelectedPosition(){
         return adapter.getSelectedPosition();
     }

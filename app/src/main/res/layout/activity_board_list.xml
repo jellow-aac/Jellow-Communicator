@@ -1,44 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.dsource.idc.jellowintl.makemyboard.icon_select_module.view.activity.IconSelectActivity">
-
-    <LinearLayout
-        android:id="@+id/left_level_select_pane"
-        android:layout_width="@dimen/side_pane_width"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/app_background"
-        android:layout_alignParentLeft="true">
-        <ImageView
-            android:layout_gravity="center"
-            android:background="@drawable/board_list_back"
-            android:layout_marginTop="12dp"
-            android:layout_width="@dimen/add_board_icon_size"
-            android:layout_height="@dimen/add_board_icon_size"
-            android:id="@+id/add_board"
-            android:padding="@dimen/add_board_icon_padding"
-            android:src="@drawable/ic_plus"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/colorPrimary"
-            android:text="@string/add_board"
-            android:textSize="@dimen/add_board_text_size"
-
-            />
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/left_recycler_view"
-            />
-
-    </LinearLayout>
-
     <RelativeLayout
         android:id="@+id/right_icon_select_pane"
         android:layout_width="match_parent"

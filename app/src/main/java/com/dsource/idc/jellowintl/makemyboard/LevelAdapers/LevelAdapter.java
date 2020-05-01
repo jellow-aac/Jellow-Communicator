@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -42,22 +44,13 @@ public class LevelAdapter extends ExpandableRecyclerAdapter<LevelParent, LevelCh
                     collapseAllParents();
                     expandParent(object);
                     selectedParentPosition=object;
+                    selectedChildPosition = -1;
                     notifyDataSetChanged();
                     onClick();
                 }
             }
         };
-        GenCallback<Integer> positionCallback  = new GenCallback<Integer>() {
-            @Override
-            public void callBack(Integer object) {
-                collapseAllParents();
-                notifyDataSetChanged();
-                selectedParentPosition = object;
-                selectedChildPosition = -1;
-                onClick();
-            }
-        };
-        return new ViewHolderParent(view,positionCallback,collapseCallback,context);
+        return new ViewHolderParent(view, collapseCallback,context);
     }
 
     public LevelAdapter setContext(Context context){
@@ -68,14 +61,14 @@ public class LevelAdapter extends ExpandableRecyclerAdapter<LevelParent, LevelCh
 
     @Override
     public LevelChildViewHolder onCreateChildViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.level_select_card, parent, false);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.level_select_card, parent, false);
         return new LevelChildViewHolder(view, new GenCallback<Integer>() {
             @Override
             public void callBack(Integer object) {
                 selectedChildPosition = object;
                 onClick();
             }
-        });
+        }, context);
     }
 
     @Override
@@ -94,6 +87,16 @@ public class LevelAdapter extends ExpandableRecyclerAdapter<LevelParent, LevelCh
     @Override
     public void onBindChildViewHolder(@NonNull LevelChildViewHolder childViewHolder, int parentPosition, int childPosition, @NonNull LevelChild child) {
         final LevelChild artist = items.get(parentPosition).getChildList().get(childPosition);
+        TextView artistName = childViewHolder.itemView.findViewById(R.id.icon_title);
+        RelativeLayout rl = childViewHolder.itemView.findViewById(R.id.relative_layout);
+        if (childPosition != selectedChildPosition) {
+            rl.setBackgroundColor(context.getResources().getColor(R.color.app_background));
+            artistName.setTextColor(context.getResources().getColor(R.color.level_select_text_color));
+
+        }else{
+            rl.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+            artistName.setTextColor(context.getResources().getColor(R.color.app_background));
+        }
         childViewHolder.onBind(artist);
     }
 
@@ -120,6 +123,11 @@ public class LevelAdapter extends ExpandableRecyclerAdapter<LevelParent, LevelCh
 
     public void setOnClickListener(onLevelClickListener callback){
         this.callback = callback;
+    }
+
+    public void expandTheListAtPosition(int parent0, int parent1){
+        expandParent(parent0);
+        selectedChildPosition = parent1;
     }
 
 }

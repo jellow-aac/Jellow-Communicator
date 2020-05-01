@@ -9,6 +9,8 @@ import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
 
 import java.util.ArrayList;
 
+import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
+
 public class BoardAdapter extends BaseRecyclerAdapter<BoardModel> {
 
     public static final int OPEN_ADD_BOARD = 121;
@@ -31,7 +33,8 @@ public class BoardAdapter extends BaseRecyclerAdapter<BoardModel> {
       /*  titleText.append(" (");
         titleText.append(board.getLanguage());
         titleText.append(")");*/
-        viewHolder.setText(R.id.board_title,titleText.toString());
+        viewHolder.setText(R.id.board_title,titleText.toString() +
+                "\n"+ LangValueMap.get(board.getLanguage()));
         viewHolder.setImageFromBoard(R.id.board_icon,board.getBoardId());
         viewHolder.setOnClickListener(R.id.remove_board, new View.OnClickListener() {
             @Override

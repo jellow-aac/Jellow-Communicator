@@ -58,11 +58,30 @@ public class AddEditActivity extends BaseBoardActivity<IAddEditView, IAddEditPre
 
             @Override
             public void onIconRemove(int adapterPosition) {
+                askBeforeDeleteIcon(adapterPosition, adapter);
+            }
+        });
+        return adapter;
+    }
+
+    private void askBeforeDeleteIcon(final int adapterPosition, final AddEditAdapter adapter) {
+        final DialogCustom dialog = new DialogCustom(this);
+        dialog.setText(getString(R.string.icon_delete_warning).replace("-",
+                adapter.getItem(adapterPosition).getIconTitle()));
+        dialog.setOnPositiveClickListener(new DialogCustom.OnPositiveClickListener() {
+            @Override
+            public void onPositiveClickListener() {
                 adapter.remove(adapterPosition);
                 mPresenter.removeIcon(adapterPosition - 1);
             }
         });
-        return adapter;
+        dialog.setOnNegativeClickListener(new DialogCustom.OnNegativeClickListener() {
+            @Override
+            public void onNegativeClickListener() {
+                dialog.cancel();
+            }
+        });
+        dialog.show();
     }
 
     @Override

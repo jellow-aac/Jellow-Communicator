@@ -113,8 +113,6 @@ public class BoardListModel extends BaseModel<IBoardListView> implements IBoardL
                 }
             });
         }
-
-        mView.languageVsBoardCountLoaded(list);
     }
 
 }

@@ -83,6 +83,7 @@ public class HomeActivity extends SpeechEngineBaseActivity {
         }
 
         currentBoard = database.getBoardById(boardId);
+        setupToolbar();
         verbiageDatabase = new TextDatabase(this, currentBoard.getLanguage(), getAppDatabase());
         modelManager = new ModelManager(currentBoard.getIconModel());
         displayList = modelManager.getLevelOneFromModel();
@@ -101,14 +102,18 @@ public class HomeActivity extends SpeechEngineBaseActivity {
         //ActivateView(ivHome,false);
         ActivateView(ivBack, false);
 
-
-        if (getSupportActionBar() != null) {
-            enableNavigationBack();
-            getSupportActionBar().setTitle(currentBoard.getBoardName());
-            getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
-        }
         searchScrollManager = new SearchScrollManager(this, rvRecycler);
         manageKeyboard();
+    }
+
+    private void setupToolbar() {
+        if (getSupportActionBar() != null) {
+            enableNavigationBack();
+            setActivityTitle(getString(R.string.home) + "/ " +
+                    getString(R.string.my_boards) + "/ " +
+                    currentBoard.getBoardName());
+            getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
+        }
     }
 
     private void prepareRecyclerView() {
@@ -406,6 +411,10 @@ public class HomeActivity extends SpeechEngineBaseActivity {
                     disableLayout(false);
                 }
                 invalidateOptionsMenu();
+                break;
+            case R.id.action_home_app:
+                startActivity(new Intent(getApplicationContext(), BoardListActivity.class));
+                finish();
                 break;
             default:
                 return super.onOptionsItemSelected(item);

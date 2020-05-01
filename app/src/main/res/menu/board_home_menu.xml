@@ -13,6 +13,12 @@
             android:orderInCategory="1"
             />
         <item
+            android:id="@+id/action_home_app"
+            android:title="@string/home"
+            app:showAsAction="always"
+            android:orderInCategory="1"
+            android:icon="@drawable/ic_my_boards"/>
+        <item
             android:id="@+id/grid_size"
             android:title="Grid size"
             android:icon="@drawable/ic_grid_size"

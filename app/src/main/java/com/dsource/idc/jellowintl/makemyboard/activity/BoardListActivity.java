@@ -5,32 +5,25 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.dsource.idc.jellowintl.MainActivity;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.Dialogs.DialogAddBoard;
 import com.dsource.idc.jellowintl.makemyboard.Dialogs.DialogCustom;
 import com.dsource.idc.jellowintl.makemyboard.adapters.BoardAdapter;
-import com.dsource.idc.jellowintl.makemyboard.adapters.LangSelectAdapter;
 import com.dsource.idc.jellowintl.makemyboard.iModels.BoardListModel;
 import com.dsource.idc.jellowintl.makemyboard.iPresenter.IBoardListPresenter;
 import com.dsource.idc.jellowintl.makemyboard.iView.IBoardListView;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.BoardClickListener;
-import com.dsource.idc.jellowintl.makemyboard.interfaces.OnItemClickListener;
 import com.dsource.idc.jellowintl.makemyboard.managers.SelectionManager;
 import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
-import com.dsource.idc.jellowintl.makemyboard.utility.MyPair;
 
 import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.BOARD_ID;
 
 public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardListPresenter, BoardAdapter> implements IBoardListView, BoardClickListener {
-
-    private LangSelectAdapter leftPaneAdapter;
 
     @Override
     public int getLayoutId() {
@@ -44,18 +37,18 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
 
     @Override
     public void initViewsAndEvents() {
-        setUpItems();
         mPresenter.loadBoards("All");
         mAdapter.setOnItemClickListener(this);
         enableNavigationBack();
-        setActivityTitle(getString(R.string.menuMyBoards));
+        setActivityTitle(getString(R.string.home) + "/ "+ getString(R.string.menuMyBoards));
+        setNavigationUiConditionally();
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         findViewById(R.id.iv_action_bar_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-        setupLeftRecycler();
     }
 
     @Override
@@ -68,55 +61,14 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
         recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
     }
 
-    //Instantiates all the views
-    private void setUpItems() {
-        findViewById(R.id.add_board).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent in = new Intent(getApplicationContext(), DialogAddBoard.class);
-                startActivity(in);
-            }
-        });
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-
         return false;
     }
-
 
     @Override
     public void boardLoaded(ArrayList<BoardModel> boardList) {
         mAdapter.update(boardList);
-    }
-
-    @Override
-    public void languageVsBoardCountLoaded(ArrayList<MyPair<String, Integer>> list) {
-        leftPaneAdapter.update(list);
-    }
-
-
-    private void setupLeftRecycler() {
-        final RecyclerView leftRV = findViewById(R.id.left_recycler_view);
-        leftPaneAdapter = new LangSelectAdapter(mContext, R.layout.lang_list_item, new ArrayList<MyPair<String, Integer>>());
-        leftRV.setLayoutManager(new LinearLayoutManager(mContext));
-        if(leftRV.getItemAnimator()!=null)
-            ((SimpleItemAnimator) leftRV.getItemAnimator()).setSupportsChangeAnimations(false);
-        leftRV.setAdapter(leftPaneAdapter);
-        mPresenter.loadLanguageVsBoardCount(mContext);
-        leftPaneAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                leftPaneAdapter.updateDataOnTouch(position);
-                if (position == 0)
-                    mPresenter.loadBoards("All");
-                else mPresenter.loadBoards(leftPaneAdapter.getItem(position).getFirst());
-            }
-        });
-
-
     }
 
     @Override
@@ -140,10 +92,6 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
             @Override
             public void onPositiveClickListener() {
                 mPresenter.deleteBoard(mContext,mAdapter.getItem(position));
-                leftPaneAdapter.decreaseBoardCount();
-                if(leftPaneAdapter.getSelectedPosition()==0){
-                    leftPaneAdapter.decreaseBoardCount(mAdapter.getItem(position).getLanguage());
-                }
                 mAdapter.remove(position);
                 dialog.dismiss();
             }

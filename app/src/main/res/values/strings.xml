@@ -448,12 +448,12 @@
     <string name="exit_warning">Are you sure you want to exit?</string>
     <string name="expressive_heading">Tap  </string>
     <string name="icon_select_exit_warning">Your selection will be lost</string>
-    <string name="current_board">Current Board</string>
+    <string name="current_board">Added icons</string>
     <string name="place_holder_text">Icon selected by you will appear here</string>
-    <string name="board_name">Board Name</string>
+    <string name="board_name">Add board name here</string>
     <string name="select_all">Select All</string>
     <string name="reset">Reset</string>
-    <string name="select_icon_title">Select icons</string>
+    <string name="select_icon_title">Add icons</string>
     <string name="default_text">Default</string>
     <string name="add_category">Add Category</string>
     <string name="add_icon">Add Icon</string>
@@ -496,7 +496,7 @@
     <string name="please_select_icon">Please select an image first</string>
     <string name="txtContinue">Continue</string>
     <string name="expressive_heading2"> button to select expression</string>
-
+    <string name="icon_delete_warning">\"-\" icon will be deleted?</string>
 
 
 </resources>

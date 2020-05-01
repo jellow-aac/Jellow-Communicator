@@ -108,12 +108,12 @@ public abstract class BaseBoardActivity<V extends IBaseView, P extends IBasePres
     }
 
     public void setupToolBar(int stringResId){
-
         if(getSupportActionBar()!=null) {
-            //enableNavigationBack();
-            getSupportActionBar().setTitle(stringResId);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
+            enableNavigationBack();
+            setActivityTitle(getString(R.string.home) + "/ " +
+                    getString(R.string.my_boards) + "/ " +
+                    currentBoard.getBoardName() + "/ " +
+                    getString(stringResId));
             getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
         }
     }

@@ -23,20 +23,16 @@ public class LangSelectAdapter extends BaseRecyclerAdapter<MyPair<String, Intege
         else
             viewHolder.setText(R.id.icon_title, item.getFirst());
 
-        viewHolder.setText(R.id.board_count, item.getSecond().toString());
-
         if (position == selectedPosition) {
             viewHolder.setTextColorRes(R.id.icon_title, R.color.app_background);
-            viewHolder.setTextColorRes(R.id.board_count, R.color.app_background);
             viewHolder.setItemViewBackgroundColor(R.color.colorPrimary);
         } else {
-            viewHolder.setTextColorRes(R.id.board_count, R.color.level_select_text_color);
             viewHolder.setTextColorRes(R.id.icon_title, R.color.level_select_text_color);
             viewHolder.setItemViewBackgroundColor(R.color.app_background);
         }
     }
 
-    public void updateDataOnTouch(int position) {
+    /*public void updateDataOnTouch(int position) {
         notifyItemChanged(selectedPosition);
         selectedPosition = position;
         notifyItemChanged(selectedPosition);
@@ -66,7 +62,7 @@ public class LangSelectAdapter extends BaseRecyclerAdapter<MyPair<String, Intege
                 mData.get(i).setSecond(mData.get(i).getSecond() - 1);
                 notifyItemChanged(i);
             }
-    }
+    }*/
 
     @Override
     public int getSelectedPosition() {

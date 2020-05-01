@@ -1,6 +1,7 @@
 package com.dsource.idc.jellowintl.makemyboard.LevelAdapers;
 
 
+import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
@@ -12,10 +13,12 @@ import com.dsource.idc.jellowintl.makemyboard.interfaces.GenCallback;
 public class LevelChildViewHolder extends ChildViewHolder {
 
     private TextView artistName;
+    private Context context;
 
-    public LevelChildViewHolder(View itemView, final GenCallback<Integer> callback) {
+    public LevelChildViewHolder(View itemView, final GenCallback<Integer> callback, Context context) {
         super(itemView);
         artistName = itemView.findViewById(R.id.icon_title);
+        this.context = context;
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
