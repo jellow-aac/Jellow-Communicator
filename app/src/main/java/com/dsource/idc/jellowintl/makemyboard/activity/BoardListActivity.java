@@ -73,6 +73,10 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
 
     @Override
     public void onItemClick(int position) {
+        if (position == 0){
+            startActivity(new Intent(getApplicationContext(), DialogAddBoard.class));
+            return;
+        }
         BoardModel board = mAdapter.getItem(position);
         mPresenter.openBoard(mContext, board);
         getSession().setCurrentBoardLanguage(board.getLanguage());

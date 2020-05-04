@@ -334,7 +334,7 @@
 
 
     <!--Edit board dialog dimensions-->
-    <dimen name="board_edit_icon_size">132dp</dimen>
+    <dimen name="board_edit_icon_size">122dp</dimen>
     <dimen name="board_edit_dialog_width">240dp</dimen>
     <dimen name="edit_board_dialog_side_margin">16dp</dimen>
     <dimen name="edit_board_button_margin_top">4dp</dimen>
@@ -355,7 +355,7 @@
     <!--Dimensions related to the My Board Card-->
     <dimen name="my_board_four_grid_icon_size">140dp</dimen>
     <dimen name="my_board_text_size">16sp</dimen>
-    <dimen name="my_board_edit_icon_size">40dp</dimen>
+    <dimen name="my_board_edit_icon_size">38dp</dimen>
     <dimen name="board_edit_edittext_size">170dp</dimen>
     <dimen name="list_item_padding">5dp</dimen>
     <dimen name="dialog_width">400dp</dimen>

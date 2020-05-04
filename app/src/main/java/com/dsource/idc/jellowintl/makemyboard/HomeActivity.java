@@ -109,6 +109,7 @@ public class HomeActivity extends SpeechEngineBaseActivity {
     private void setupToolbar() {
         if (getSupportActionBar() != null) {
             enableNavigationBack();
+            setNavigationUiConditionally();
             setActivityTitle(getString(R.string.home) + "/ " +
                     getString(R.string.my_boards) + "/ " +
                     currentBoard.getBoardName());

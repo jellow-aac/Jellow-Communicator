@@ -100,7 +100,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/edit_board_dialog_side_margin"
                     android:id="@+id/langSelectSpinner"
-                    android:background="@drawable/custom_spinner_view"/>
+                    android:background="@drawable/custom_spinner_view"
+                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

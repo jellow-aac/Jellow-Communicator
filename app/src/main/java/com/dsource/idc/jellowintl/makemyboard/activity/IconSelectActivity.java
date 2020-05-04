@@ -56,7 +56,7 @@ public class IconSelectActivity extends BaseBoardActivity<ISelectIconView, ISele
         setupToolBar(R.string.select_icon_title);
 
         setupHeader();
-
+        setNavigationUiConditionally();
         searchScrollManager = new SearchManager(mRecyclerView, this);
 
         RecyclerView levelSelectRecycler = findViewById(R.id.rv_level_select);

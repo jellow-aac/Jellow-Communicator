@@ -100,7 +100,7 @@ public class AddEditActivity extends BaseBoardActivity<IAddEditView, IAddEditPre
         manager = new SearchScrollManager(this, mRecyclerView);
 
         setupToolBar(R.string.addicon_title);
-
+        setNavigationUiConditionally();
         if (getSupportActionBar() != null)
             getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
 

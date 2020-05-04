@@ -70,6 +70,10 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         itemView.setBackgroundColor(context.getResources().getColor(colorResId));
     }
 
+    public void setVisibility(View view, int visibility){
+        view.setVisibility(visibility);
+    }
+
 
     @SuppressWarnings("unchecked")
     public <T extends View> T getView(int viewId) {

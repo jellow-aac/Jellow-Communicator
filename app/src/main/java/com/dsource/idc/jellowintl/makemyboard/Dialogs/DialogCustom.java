@@ -28,11 +28,11 @@ public class DialogCustom extends Dialog {
     {
         final LayoutInflater dialogLayout = LayoutInflater.from(context);
         @SuppressLint("InflateParams") View dialogContainerView = dialogLayout.inflate(R.layout.dialog_custom_alert, null);
-        Button postiveButton = dialogContainerView.findViewById(R.id.positive);
+        Button positiveButton = dialogContainerView.findViewById(R.id.positive);
         Button negativeButton = dialogContainerView.findViewById(R.id.negative);
-        postiveButton.setText(R.string.yes);
+        positiveButton.setText(R.string.yes);
         negativeButton.setText(R.string.no);
-        postiveButton.setOnClickListener(new View.OnClickListener() {
+        positiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mPositiveClickListener!=null)

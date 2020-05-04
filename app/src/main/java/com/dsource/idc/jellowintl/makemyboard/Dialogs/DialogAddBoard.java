@@ -116,7 +116,7 @@ public class DialogAddBoard extends BaseActivity implements IAddBoardDialogView,
             languageList.remove(SessionManager.LangValueMap.get(lang));
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, languageList);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapter.setDropDownViewResource(R.layout.lang_list_item);
         languageSelect.setAdapter(arrayAdapter);
 
         if (board != null) {

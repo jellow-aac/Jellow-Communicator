@@ -36,6 +36,8 @@ public class BoardListModel extends BaseModel<IBoardListView> implements IBoardL
             database.getAllBoards(new IDataCallback<ArrayList<BoardModel>>() {
                 @Override
                 public void onSuccess(ArrayList<BoardModel> list) {
+                    /*Add empty board to add*/
+                    list.add(0, new BoardModel());
                     mView.boardLoaded(list);
                 }
 
