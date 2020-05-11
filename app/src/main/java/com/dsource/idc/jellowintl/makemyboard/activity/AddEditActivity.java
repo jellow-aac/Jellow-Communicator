@@ -100,7 +100,6 @@ public class AddEditActivity extends BaseBoardActivity<IAddEditView, IAddEditPre
         manager = new SearchScrollManager(this, mRecyclerView);
 
         setupToolBar(R.string.addicon_title);
-        setNavigationUiConditionally();
         if (getSupportActionBar() != null)
             getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
 
@@ -283,6 +282,7 @@ public class AddEditActivity extends BaseBoardActivity<IAddEditView, IAddEditPre
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.board_home_menu, menu);
         menu.findItem(R.id.reposition_lock).setVisible(false);
+        menu.findItem(R.id.action_home_app).setVisible(false);
         return true;
     }
 
@@ -354,6 +354,7 @@ public class AddEditActivity extends BaseBoardActivity<IAddEditView, IAddEditPre
             mAdapter.notifyItemChanged(iconPos.getFirst() + 1);
         }
     }
+
     private Integer getFirstVisibleItem() {
         if(mRecyclerView.getLayoutManager()!=null)
             return ((GridLayoutManager)mRecyclerView.getLayoutManager()).findFirstVisibleItemPosition();

@@ -300,7 +300,7 @@
     <dimen name="add_board_icon_padding">6dp</dimen>
     <dimen name="add_board_text_size">16sp</dimen>
     <dimen name="left_mar_my_boards">200dp</dimen>
-    <dimen name="add_board_dialog_width">360dp</dimen>
+    <dimen name="add_board_dialog_width">400dp</dimen>
     <dimen name="edit_text_width_add_board">130dp</dimen>
     <dimen name="board_dialog_edit_text">14sp</dimen>
 
@@ -334,6 +334,7 @@
 
 
     <!--Edit board dialog dimensions-->
+    <dimen name="board_add_edit_icon_size">196dp</dimen>
     <dimen name="board_edit_icon_size">122dp</dimen>
     <dimen name="board_edit_dialog_width">240dp</dimen>
     <dimen name="edit_board_dialog_side_margin">16dp</dimen>

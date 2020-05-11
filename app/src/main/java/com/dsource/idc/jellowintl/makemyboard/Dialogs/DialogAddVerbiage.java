@@ -274,7 +274,7 @@ public class DialogAddVerbiage extends BaseActivity implements View.OnClickListe
         newIcon.setN(verbiageList.get(8));
         newIcon.setNN(verbiageList.get(9));
         newIcon.setS(verbiageList.get(10));
-        newIcon.setSS(verbiageList.get(1));
+        newIcon.setSS(verbiageList.get(11));
 
         return newIcon;
     }

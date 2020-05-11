@@ -31,6 +31,7 @@ public class SetupMMB extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language_download);
+        setNavigationUiConditionally();
         if(getSupportActionBar()!=null) getSupportActionBar().hide();
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.colorPrimary));

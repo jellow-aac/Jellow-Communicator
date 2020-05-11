@@ -318,6 +318,7 @@
     <dimen name="icon_title_text_size">16sp</dimen>
     <dimen name="dialog_box_text_size">20sp</dimen>
 
+    <dimen name="board_add_edit_icon_size">210dp</dimen>
     <dimen name="board_edit_icon_size">210dp</dimen>
     <dimen name="board_edit_dialog_width">280dp</dimen>
     <dimen name="edit_baord_dialog_margin_bottom">28dp</dimen>

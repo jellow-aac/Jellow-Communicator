@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout
+    android:id="@+id/touch_outside"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/translucent"
-    android:id="@+id/touch_outside"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <RelativeLayout
         android:layout_centerInParent="true"
@@ -79,7 +79,7 @@
                 android:padding="4dp"
                 android:orientation="vertical">
                 <EditText
-                    android:layout_width="@dimen/board_edit_icon_size"
+                    android:layout_width="@dimen/board_add_edit_icon_size"
                     android:id="@+id/board_name"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
@@ -95,7 +95,7 @@
                     android:textColorHint="@color/light_grey"
                     android:background="@drawable/edit_board_dialog_edit_text"/>
                 <Spinner
-                    android:layout_width="@dimen/board_edit_icon_size"
+                    android:layout_width="@dimen/board_add_edit_icon_size"
                     style="@style/spinnerDropDownItemStyle"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/edit_board_dialog_side_margin"
@@ -125,9 +125,7 @@
                 android:id="@+id/save_button"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/profile_save_btn_height"
-                android:paddingLeft="@dimen/mmb_btn_pad"
-                android:paddingRight="@dimen/mmb_btn_pad"
-                android:layout_gravity="center_horizontal"
+                android:paddingHorizontal="@dimen/mmb_btn_pad"
                 android:background="@drawable/button_background"
                 android:text="@string/txtContinue"
                 android:textAllCaps="false"
@@ -135,16 +133,15 @@
                 android:textStyle="normal" />
             <Button
                 android:id="@+id/cancel_button"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/profile_save_btn_height"
+                android:paddingHorizontal="@dimen/mmb_btn_pad"
                 android:background="@drawable/button_background"
                 android:text="@string/cancel"
-                android:paddingLeft="@dimen/mmb_btn_pad"
-                android:paddingRight="@dimen/mmb_btn_pad"
-                android:layout_width="wrap_content"
                 android:textAllCaps="false"
+                android:textSize="@dimen/profile_save_btn_txt_size"
                 android:textStyle="normal"
-                android:layout_height="@dimen/profile_save_btn_height"
-                android:layout_marginTop="@dimen/edit_board_dialog_side_margin"
-                android:textSize="@dimen/profile_save_btn_txt_size"/>
+                android:layout_marginTop="@dimen/edit_board_dialog_side_margin"/>
         </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

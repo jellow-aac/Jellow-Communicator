@@ -38,6 +38,8 @@ public class BoardSearchAdapter extends BaseRecyclerAdapter<JellowIcon> {
         //If the "No icon found" condition comes the remove speakButton
         if (icon.getIconDrawable().equals("NULL") || icon.getIconTitle().equals(getContext().getResources().getString(R.string.not_found))) {
             viewHolder.setText(R.id.search_icon_title, getContext().getResources().getString(R.string.icon_not_found));
+            if (icon.getIconTitle().equals(getContext().getResources().getString(R.string.board_not_found)))
+                viewHolder.setText(R.id.search_icon_title, getContext().getResources().getString(R.string.board_not_found));
             viewHolder.setVisible(R.id.parent_directory, false);
             viewHolder.setImageDrawable(R.id.search_icon_drawable, getContext().getResources().getDrawable(R.drawable.ic_icon_not_found));
             return;

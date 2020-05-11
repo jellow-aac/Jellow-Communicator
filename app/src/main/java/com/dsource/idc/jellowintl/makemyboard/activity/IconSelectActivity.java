@@ -16,6 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.dsource.idc.jellowintl.GlideApp;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;
@@ -140,7 +142,14 @@ public class IconSelectActivity extends BaseBoardActivity<ISelectIconView, ISele
         ((TextView) findViewById(R.id.board_name)).setText(currentBoard.getBoardName());
         File en_dir = mContext.getDir(SessionManager.BOARD_ICON_LOCATION, Context.MODE_PRIVATE);
         String path = en_dir.getAbsolutePath();
-        GlideApp.with(this).load(path +"/" + currentBoard.getBoardId() + EXTENSION)
+        GlideApp.with(mContext)
+                .load(path +"/" + currentBoard.getBoardId() + EXTENSION)
+                .placeholder(R.drawable.ic_board_person)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .centerCrop()
+                .transform(new CircleCrop())
+                .dontAnimate()
                 .into(((ImageView) findViewById(R.id.board_icon)));
     }
 

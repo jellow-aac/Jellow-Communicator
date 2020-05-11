@@ -16,16 +16,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.SpeechEngineBaseActivity;
+import com.dsource.idc.jellowintl.makemyboard.activity.BoardListActivity;
 import com.dsource.idc.jellowintl.makemyboard.adapters.BoardSearchAdapter;
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.IconDatabase;
+import com.dsource.idc.jellowintl.makemyboard.iModels.BoardListModel;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.OnItemClickListener;
 import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
 import com.dsource.idc.jellowintl.makemyboard.models.IconModel;
 import com.dsource.idc.jellowintl.makemyboard.utility.ModelManager;
 import com.dsource.idc.jellowintl.models.JellowIcon;
+import com.google.android.gms.common.util.CollectionUtils;
+import com.google.android.gms.common.util.Predicate;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.BOARD_ID;
 
@@ -38,6 +48,7 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
     public static final String NORMAL_SEARCH = "normal_search";
     public static final String ICON_SEARCH = "icon_search";
     public static final String SEARCH_IN_BOARD = "board_search";
+    public static final String SEARCH_FOR_BOARD = "search_the_board";
     private BoardModel currentBoard;
     private String Mode;
     private EditText searchBox;
@@ -76,6 +87,10 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
                     break;
                 case BASE_ICON_SEARCH:
                     searchInBaseDatabase();
+                    break;
+                case SEARCH_FOR_BOARD:
+                    searchForBoard();
+                    break;
             }
         }
 
@@ -164,6 +179,52 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
         setVisibleAct(BoardSearchActivity.class.getSimpleName());
     }
 
+    private void searchForBoard() {
+        final BoardListModel blm = new BoardListModel(getAppDatabase());
+        EditText searchEditText = findViewById(R.id.search_auto_complete);
+
+        //Adding text watcher so that we can address dynamic text changes
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //Getting the string to search in the database
+                final String query=s.toString().trim();
+                iconList.clear();
+                ArrayList<BoardModel> boardModels = blm.getAllBoardsStartWithName(query+"%");
+                //Prepare the list
+                if(boardModels!=null&&boardModels.size()>0){
+                    for (BoardModel bm : boardModels){
+                        JellowIcon icon= new JellowIcon(bm.getBoardName(), bm.getBoardId(),-1,-1,-1);
+                        iconList.add(icon);
+                    }
+                }else{
+                        JellowIcon noIconFound=new JellowIcon(getResources().getString(R.string.board_not_found),"NULL",-1,-1,-1);
+                        iconList.add(noIconFound);
+                    }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                JellowIcon icon=iconList.get(position);
+                if(!icon.getIconDrawable().isEmpty()) {
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra(getString(R.string.search_result),icon.getIconTitle());
+                    setResult(Activity.RESULT_OK, returnIntent);
+                    finish();
+                }
+                else setResult(Activity.RESULT_CANCELED);
+            }
+        });
+    }
+
     private void searchForIcon() {
         final IconDatabase iconDatabase=new IconDatabase(currentBoard.getLanguage(), getAppDatabase());
 
@@ -241,9 +302,7 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
             final ModelManager modelManager  = new ModelManager(model);
             searchBox.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -287,17 +346,9 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
                 }
 
                 @Override
-                public void afterTextChanged(Editable s) {
-
-                }
+                public void afterTextChanged(Editable s) {}
             });
-
-
-
-
-
         }
-
     }
 
     private void normalSearch() {

@@ -1,6 +1,7 @@
 package com.dsource.idc.jellowintl.makemyboard.activity;
 
 import android.content.Intent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dsource.idc.jellowintl.MainActivity;
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;
 import com.dsource.idc.jellowintl.makemyboard.Dialogs.DialogAddBoard;
 import com.dsource.idc.jellowintl.makemyboard.Dialogs.DialogCustom;
 import com.dsource.idc.jellowintl.makemyboard.adapters.BoardAdapter;
@@ -18,12 +20,14 @@ import com.dsource.idc.jellowintl.makemyboard.iView.IBoardListView;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.BoardClickListener;
 import com.dsource.idc.jellowintl.makemyboard.managers.SelectionManager;
 import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
+import com.dsource.idc.jellowintl.models.JellowIcon;
 
 import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.BOARD_ID;
 
 public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardListPresenter, BoardAdapter> implements IBoardListView, BoardClickListener {
+    private final int SEARCH_BOARD = 0;
 
     @Override
     public int getLayoutId() {
@@ -63,7 +67,45 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.action_search:
+                Intent searchIntent = new Intent(this, BoardSearchActivity.class);
+                searchIntent.putExtra(BoardSearchActivity.SEARCH_MODE, BoardSearchActivity.SEARCH_FOR_BOARD);
+                startActivityForResult(searchIntent, SEARCH_BOARD);
+                break;
+            /*case R.id.grid_size:
+                showGridDialog(new GridSelectListener() {
+                    @Override
+                    public void onGridSelectListener(int size) {
+                        switch (size) {
+                            case ONE_ICON_PER_SCREEN:
+                                mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 1));
+                                break;
+                            case TWO_ICONS_PER_SCREEN:
+                            case FOUR_ICONS_PER_SCREEN:
+                                mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
+                                break;
+                            case THREE_ICONS_PER_SCREEN:
+                            case NINE_ICONS_PER_SCREEN:
+                            default:
+                                mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
+                                break;
+                        }
+                    }
+                });
+                break;*/
+        }
         return false;
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.board_home_menu, menu);
+        menu.getItem(1).setVisible(false);
+        menu.getItem(2).setVisible(false);
+        menu.getItem(3).setVisible(false);
+        return true;
     }
 
     @Override
@@ -123,5 +165,19 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
         if(getSession()!=null) getSession().setCurrentBoardLanguage("");
         startActivity(new Intent(mContext, MainActivity.class));
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SEARCH_BOARD && resultCode == RESULT_OK) {
+            String boardName = data.getStringExtra(getString(R.string.search_result));
+            for (int i = 0; i < mAdapter.getList().size(); i++) {
+                if (mAdapter.getList().get(i).getBoardName().equals(boardName)){
+                    mRecyclerView.smoothScrollToPosition(i);
+                    return;
+                }
+            }
+        }
     }
 }

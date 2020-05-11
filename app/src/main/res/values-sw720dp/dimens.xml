@@ -312,6 +312,8 @@
     <dimen name="icon_title_text_size">17sp</dimen>
     <dimen name="edit_option_width">240dp</dimen>
     <dimen name="edit_option_text_size">24sp</dimen>
+
+    <dimen name="board_add_edit_icon_size">210dp</dimen>
     <dimen name="board_edit_icon_size">210dp</dimen>
     <dimen name="board_edit_dialog_width">280dp</dimen>
     <dimen name="edit_board_button_margin_top">8dp</dimen>

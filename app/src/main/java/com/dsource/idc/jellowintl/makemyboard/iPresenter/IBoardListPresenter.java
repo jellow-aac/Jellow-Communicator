@@ -5,6 +5,8 @@ import android.content.Context;
 import com.dsource.idc.jellowintl.makemyboard.iView.IBoardListView;
 import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
 
+import java.util.ArrayList;
+
 public interface IBoardListPresenter extends IBasePresenter<IBoardListView> {
 
     void loadBoards(String language);
@@ -13,5 +15,5 @@ public interface IBoardListPresenter extends IBasePresenter<IBoardListView> {
 
     void openBoard(Context context, BoardModel boardId);
 
-    void loadLanguageVsBoardCount(Context context);
+    ArrayList<BoardModel> getAllBoardsStartWithName(String query);
 }

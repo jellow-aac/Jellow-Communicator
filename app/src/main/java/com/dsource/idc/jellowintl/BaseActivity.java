@@ -225,7 +225,7 @@ public class BaseActivity extends AppCompatActivity{
             View view = findViewById(R.id.parent);
             view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
             FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) view.getLayoutParams();
-            lp.topMargin = 24;
+            lp.topMargin = 68;
             getWindow().setNavigationBarColor(getColor(R.color.transparent));
         }
     }

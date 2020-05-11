@@ -114,6 +114,7 @@ public abstract class BaseBoardActivity<V extends IBaseView, P extends IBasePres
                     getString(R.string.my_boards) + "/ " +
                     currentBoard.getBoardName() + "/ " +
                     getString(stringResId));
+            setNavigationUiConditionally();
             getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
         }
     }

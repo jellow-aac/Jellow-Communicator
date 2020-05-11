@@ -32,6 +32,11 @@ public class BoardDatabase{
     public void getAllBoards(final String langCode, final IDataCallback<ArrayList<BoardModel>> presenter) {
         presenter.onSuccess(new ArrayList<>(database.boardDao().getAllBoards(langCode)));
     }
+
+    public ArrayList<BoardModel> getAllBoardsStartWithName(String query) {
+        return new ArrayList<>(database.boardDao().getAllBoardsStartWithName(query));
+    }
+
     public void updateBoardIntoDatabase(BoardModel board) {
         database.boardDao().updateBoard(board);
     }

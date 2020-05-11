@@ -497,6 +497,7 @@
     <string name="txtContinue">Continue</string>
     <string name="expressive_heading2"> button to select expression</string>
     <string name="icon_delete_warning">\"-\" icon will be deleted?</string>
+    <string name="board_not_found">Board not found</string>
 
 
 </resources>

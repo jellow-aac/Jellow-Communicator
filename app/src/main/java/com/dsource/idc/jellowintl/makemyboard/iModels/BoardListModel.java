@@ -37,7 +37,9 @@ public class BoardListModel extends BaseModel<IBoardListView> implements IBoardL
                 @Override
                 public void onSuccess(ArrayList<BoardModel> list) {
                     /*Add empty board to add*/
-                    list.add(0, new BoardModel());
+                    BoardModel bm= new BoardModel();
+                    bm.setBoardName("");
+                    list.add(0, bm);
                     mView.boardLoaded(list);
                 }
 
@@ -72,49 +74,7 @@ public class BoardListModel extends BaseModel<IBoardListView> implements IBoardL
     }
 
     @Override
-    public void loadLanguageVsBoardCount(Context context) {
-
-        final ArrayList<MyPair<String,Integer>> list = new ArrayList<>();
-
-
-        list.add(new MyPair<>(context.getResources().getString(R.string.all_boards),0));
-
-
-        ArrayList<String> mLanguageList = new ArrayList<>(Arrays.asList(LanguageFactory.getAvailableLanguages()));
-
-        for(String lang: SessionManager.NoTTSLang)
-            mLanguageList.remove(SessionManager.LangValueMap.get(lang));
-
-
-        for(String lang: mLanguageList)
-            list.add(new MyPair<>(SessionManager.LangMap.get(lang),0));
-
-        database.getAllBoards(new IDataCallback<ArrayList<BoardModel>>() {
-            @Override
-            public void onSuccess(ArrayList<BoardModel> object) {
-                list.get(0).setSecond(object.size());
-            }
-
-            @Override
-            public void onFailure(String msg) {
-
-            }
-        });
-
-        for(int i=1;i<list.size();i++){
-            final int finalI = i;
-            database.getAllBoards(list.get(i).getFirst(), new IDataCallback<ArrayList<BoardModel>>() {
-                @Override
-                public void onSuccess(ArrayList<BoardModel> object) {
-                   list.get(finalI).setSecond(object.size());
-                }
-
-                @Override
-                public void onFailure(String msg) {
-
-                }
-            });
-        }
+    public ArrayList<BoardModel> getAllBoardsStartWithName(String query) {
+        return database.getAllBoardsStartWithName(query);
     }
-
 }
