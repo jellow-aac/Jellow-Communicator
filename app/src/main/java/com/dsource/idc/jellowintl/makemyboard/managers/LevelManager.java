@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dsource.idc.jellowintl.makemyboard.LevelAdapers.LevelAdapter;
-import com.dsource.idc.jellowintl.makemyboard.LevelAdapers.beans.LevelParent;
+import com.dsource.idc.jellowintl.makemyboard.expandable_recycler_view.LevelAdapter;
+import com.dsource.idc.jellowintl.makemyboard.expandable_recycler_view.datamodels.LevelParent;
 
 import java.util.ArrayList;
 import java.util.List;

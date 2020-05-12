@@ -6,7 +6,7 @@ import android.widget.ImageView;
 
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.BoardClickListener;
-import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
+import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
 
 import java.util.ArrayList;
 

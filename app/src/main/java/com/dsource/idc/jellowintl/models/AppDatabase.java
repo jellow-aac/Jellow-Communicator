@@ -5,14 +5,14 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.dsource.idc.jellowintl.Presentor.CategoryPreferencesDao;
-import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.Converters;
-import com.dsource.idc.jellowintl.makemyboard.interfaces.BoardDao;
-import com.dsource.idc.jellowintl.makemyboard.interfaces.VerbiageDao;
-import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
-import com.dsource.idc.jellowintl.makemyboard.models.VerbiageModel;
+import com.dsource.idc.jellowintl.makemyboard.dataproviders.helper_classes.CustomTypeConverter;
+import com.dsource.idc.jellowintl.makemyboard.dataproviders.daos.BoardDao;
+import com.dsource.idc.jellowintl.makemyboard.dataproviders.daos.VerbiageDao;
+import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
+import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.VerbiageModel;
 
 @Database(entities = {CategoryPreference.class, BoardModel.class, VerbiageModel.class}, version = 1, exportSchema = false)
-@TypeConverters(Converters.class)
+@TypeConverters(CustomTypeConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract CategoryPreferencesDao categoryPreferenceDao();
     public abstract BoardDao boardDao();

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Environment;
 
-import com.dsource.idc.jellowintl.makemyboard.models.IconModel;
+import com.dsource.idc.jellowintl.makemyboard.datamodels.BoardIconModel;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.File;
@@ -12,7 +12,7 @@ import java.io.FileOutputStream;
 
 public class ImageStorageHelper {
 
-    public static void deleteAllCustomImage(Context context, IconModel iconModel){
+    public static void deleteAllCustomImage(Context context, BoardIconModel iconModel){
         if(iconModel==null) return;
         //if parent node itself is a custom icon
         if(iconModel.getIcon()!=null)
@@ -20,13 +20,13 @@ public class ImageStorageHelper {
             deleteImageFromStorage(iconModel.getIcon().getIconDrawable(),context);
 
         //Deleting all the custom icons of level two
-        for(IconModel mod:iconModel.getChildren())
+        for(BoardIconModel mod:iconModel.getChildren())
             if(mod.getIcon().isCustomIcon())
                 deleteImageFromStorage(mod.getIcon().getIconDrawable(),context);
 
          //Deleting all the custom icons of level three
-        for(IconModel mod:iconModel.getChildren())
-            for(IconModel model:mod.getChildren())
+        for(BoardIconModel mod:iconModel.getChildren())
+            for(BoardIconModel model:mod.getChildren())
                 if(model.getIcon().isCustomIcon())
                      deleteImageFromStorage(model.getIcon().getIconDrawable(),context);
 

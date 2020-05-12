@@ -11,23 +11,22 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dsource.idc.jellowintl.R;
-import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;
-import com.dsource.idc.jellowintl.makemyboard.Dialogs.DialogAddEditIcon;
-import com.dsource.idc.jellowintl.makemyboard.Dialogs.DialogCustom;
+import com.dsource.idc.jellowintl.makemyboard.custom_dialogs.DialogAddEditIcon;
+import com.dsource.idc.jellowintl.makemyboard.custom_dialogs.DialogCustom;
 import com.dsource.idc.jellowintl.makemyboard.adapters.AddEditAdapter;
-import com.dsource.idc.jellowintl.makemyboard.iModels.AddEditModel;
-import com.dsource.idc.jellowintl.makemyboard.iPresenter.IAddEditPresenter;
-import com.dsource.idc.jellowintl.makemyboard.iView.IAddEditView;
+import com.dsource.idc.jellowintl.makemyboard.models.AddEditModel;
+import com.dsource.idc.jellowintl.makemyboard.presenter_interfaces.IAddEditPresenter;
+import com.dsource.idc.jellowintl.makemyboard.view_interfaces.IAddEditView;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.AddIconCallback;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.EditAdapterCallback;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.GridSelectListener;
-import com.dsource.idc.jellowintl.makemyboard.utility.MyPair;
-import com.dsource.idc.jellowintl.makemyboard.utility.SearchScrollManager;
+import com.dsource.idc.jellowintl.makemyboard.utility.CustomPair;
+import com.dsource.idc.jellowintl.makemyboard.managers.SearchScrollManager;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 
 import java.util.ArrayList;
 
-import static com.dsource.idc.jellowintl.makemyboard.Dialogs.DialogAddVerbiage.JELLOW_ID;
+import static com.dsource.idc.jellowintl.makemyboard.custom_dialogs.DialogAddVerbiage.JELLOW_ID;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.BOARD_ID;
 
 public class AddEditActivity extends BaseBoardActivity<IAddEditView, IAddEditPresenter, AddEditAdapter> implements IAddEditView {
@@ -314,7 +313,7 @@ public class AddEditActivity extends BaseBoardActivity<IAddEditView, IAddEditPre
         if (requestCode == SEARCH) {
             if (resultCode == RESULT_OK) {
                 JellowIcon icon = (JellowIcon) data.getSerializableExtra(getString(R.string.search_result));
-                MyPair<Integer, Integer> iconPos = currentBoard.getIconModel().getIconPosition(icon);
+                CustomPair<Integer, Integer> iconPos = currentBoard.getIconModel().getIconPosition(icon);
                 if (iconPos.getFirst() != -1) {
                     scroll(iconPos);
                 }
@@ -324,7 +323,7 @@ public class AddEditActivity extends BaseBoardActivity<IAddEditView, IAddEditPre
 
     }
 
-    private void scroll(MyPair<Integer, Integer> iconPos) {
+    private void scroll(CustomPair<Integer, Integer> iconPos) {
 
         //if the searched icon is on level 2
         if (iconPos.getSecond() != -1) {

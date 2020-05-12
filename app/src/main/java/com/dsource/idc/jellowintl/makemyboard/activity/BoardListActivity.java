@@ -10,17 +10,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dsource.idc.jellowintl.MainActivity;
 import com.dsource.idc.jellowintl.R;
-import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;
-import com.dsource.idc.jellowintl.makemyboard.Dialogs.DialogAddBoard;
-import com.dsource.idc.jellowintl.makemyboard.Dialogs.DialogCustom;
+import com.dsource.idc.jellowintl.makemyboard.custom_dialogs.DialogAddBoard;
+import com.dsource.idc.jellowintl.makemyboard.custom_dialogs.DialogCustom;
 import com.dsource.idc.jellowintl.makemyboard.adapters.BoardAdapter;
-import com.dsource.idc.jellowintl.makemyboard.iModels.BoardListModel;
-import com.dsource.idc.jellowintl.makemyboard.iPresenter.IBoardListPresenter;
-import com.dsource.idc.jellowintl.makemyboard.iView.IBoardListView;
+import com.dsource.idc.jellowintl.makemyboard.models.BoardListModel;
+import com.dsource.idc.jellowintl.makemyboard.presenter_interfaces.IBoardListPresenter;
+import com.dsource.idc.jellowintl.makemyboard.view_interfaces.IBoardListView;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.BoardClickListener;
 import com.dsource.idc.jellowintl.makemyboard.managers.SelectionManager;
-import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
-import com.dsource.idc.jellowintl.models.JellowIcon;
+import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
 
 import java.util.ArrayList;
 

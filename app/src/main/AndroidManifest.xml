@@ -161,14 +161,14 @@
             tools:ignore="LockedOrientationActivity"/>
 
         <activity
-            android:name=".makemyboard.BoardSearchActivity"
+            android:name=".makemyboard.activity.BoardSearchActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/search_act_title"
             android:theme="@style/Theme.AppCompat.Translucent"
             android:windowSoftInputMode="adjustNothing"
             tools:ignore="LockedOrientationActivity"/>
         <activity
-            android:name=".makemyboard.HomeActivity"
+            android:name=".makemyboard.activity.HomeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan"
@@ -180,18 +180,18 @@
             android:theme="@style/Base.Theme.AppCompat"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".makemyboard.utility.SetupMMB"
+            android:name=".makemyboard.activity.SetupMMB"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
             tools:ignore="LockedOrientationActivity"/>
         <activity
-            android:name=".makemyboard.Dialogs.DialogAddVerbiage"
+            android:name=".makemyboard.custom_dialogs.DialogAddVerbiage"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Translucent"
             tools:ignore="LockedOrientationActivity"/>
         <activity
-            android:name=".makemyboard.Dialogs.DialogAddEditIcon"
+            android:name=".makemyboard.custom_dialogs.DialogAddEditIcon"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Translucent"
@@ -204,7 +204,7 @@
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity"/>
         <activity
-            android:name=".makemyboard.Dialogs.DialogNoOfIconPerScreen"
+            android:name=".makemyboard.custom_dialogs.DialogNoOfIconPerScreen"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Translucent"
@@ -222,7 +222,7 @@
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity"/>
         <activity
-            android:name=".makemyboard.Dialogs.DialogAddBoard"
+            android:name=".makemyboard.custom_dialogs.DialogAddBoard"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Translucent"

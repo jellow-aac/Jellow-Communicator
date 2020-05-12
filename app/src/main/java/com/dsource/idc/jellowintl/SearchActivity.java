@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
-import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.IconDatabase;
+import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.IconDatabaseFacade;
 import com.dsource.idc.jellowintl.models.AppDatabase;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -61,14 +61,14 @@ public class SearchActivity extends SpeechEngineBaseActivity {
 
     private int beforeTextChanged;
     private int afterTextChanged;
-    private IconDatabase database;
+    private IconDatabaseFacade database;
     private boolean firedEvent=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        database = new IconDatabase(getSession().getLanguage(), getAppDatabase());
+        database = new IconDatabaseFacade(getSession().getLanguage(), getAppDatabase());
         EditText searchEditText = findViewById(R.id.search_auto_complete);
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             searchEditText.setContentDescription("Enter to search");
@@ -319,11 +319,11 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
         return activityIntent;
     }
 
-    public IconDatabase database;
+    public IconDatabaseFacade database;
     public SearchViewIconAdapter(Context context, ArrayList<JellowIcon> items, AppDatabase appDatabase) {
         mContext = context;
         mDataSource = items;
-        database=new IconDatabase(new SessionManager(mContext).getLanguage(), appDatabase);
+        database=new IconDatabaseFacade(new SessionManager(mContext).getLanguage(), appDatabase);
     }
 
     @Override

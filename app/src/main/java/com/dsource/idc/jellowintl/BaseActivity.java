@@ -21,9 +21,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuCompat;
 import androidx.room.Room;
 
-import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;
-import com.dsource.idc.jellowintl.makemyboard.Dialogs.DialogNoOfIconPerScreen;
-import com.dsource.idc.jellowintl.makemyboard.HomeActivity;
+import com.dsource.idc.jellowintl.makemyboard.activity.BoardSearchActivity;
+import com.dsource.idc.jellowintl.makemyboard.custom_dialogs.DialogNoOfIconPerScreen;
+import com.dsource.idc.jellowintl.makemyboard.activity.HomeActivity;
 import com.dsource.idc.jellowintl.makemyboard.activity.BaseBoardActivity;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.GridSelectListener;
 import com.dsource.idc.jellowintl.models.AppDatabase;

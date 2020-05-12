@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dsource.idc.jellowintl.BaseActivity;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.BoardDatabase;
-import com.dsource.idc.jellowintl.makemyboard.iPresenter.IBasePresenter;
-import com.dsource.idc.jellowintl.makemyboard.iView.IBaseView;
-import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
+import com.dsource.idc.jellowintl.makemyboard.presenter_interfaces.IBasePresenter;
+import com.dsource.idc.jellowintl.makemyboard.view_interfaces.IBaseView;
+import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
 
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.BOARD_ID;
 

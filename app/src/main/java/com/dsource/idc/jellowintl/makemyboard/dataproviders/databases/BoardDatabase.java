@@ -1,7 +1,7 @@
 package com.dsource.idc.jellowintl.makemyboard.dataproviders.databases;
 
 import com.dsource.idc.jellowintl.makemyboard.interfaces.IDataCallback;
-import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
+import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
 import com.dsource.idc.jellowintl.models.AppDatabase;
 
 import java.util.ArrayList;

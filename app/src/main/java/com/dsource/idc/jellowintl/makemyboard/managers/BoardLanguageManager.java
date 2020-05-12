@@ -5,12 +5,12 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.R;
-import com.dsource.idc.jellowintl.makemyboard.HomeActivity;
+import com.dsource.idc.jellowintl.makemyboard.activity.HomeActivity;
 import com.dsource.idc.jellowintl.makemyboard.activity.AddEditActivity;
 import com.dsource.idc.jellowintl.makemyboard.activity.IconSelectActivity;
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.TextDatabase;
-import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
-import com.dsource.idc.jellowintl.makemyboard.utility.SetupMMB;
+import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
+import com.dsource.idc.jellowintl.makemyboard.activity.SetupMMB;
 import com.dsource.idc.jellowintl.models.AppDatabase;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 

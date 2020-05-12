@@ -5,7 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import com.dsource.idc.jellowintl.R;
-import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.IconDatabase;
+import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.IconDatabaseFacade;
 import com.dsource.idc.jellowintl.models.AppDatabase;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class BoardSearchAdapter extends BaseRecyclerAdapter<JellowIcon> {
 
-    private IconDatabase iconDatabase;
+    private IconDatabaseFacade iconDatabase;
 
     /**
      * public constructor
@@ -25,7 +25,7 @@ public class BoardSearchAdapter extends BaseRecyclerAdapter<JellowIcon> {
     public BoardSearchAdapter(Context mContext, ArrayList<JellowIcon> items, String langCode, AppDatabase appDatabase) {
         super(mContext, R.layout.icon_search_list_item, items);
         if (!langCode.equals(""))
-            iconDatabase = new IconDatabase(langCode, appDatabase);
+            iconDatabase = new IconDatabaseFacade(langCode, appDatabase);
     }
 
 
