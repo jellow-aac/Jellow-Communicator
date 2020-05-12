@@ -56,13 +56,13 @@ class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.MyViewHolder> {
     @Override
     public PeopleAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rowView;
-        if(!mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.ONE_ICON_PER_SCREEN){
+        if(mSession.getGridSize() == GlobalConstants.ONE_ICON_PER_SCREEN){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_1_icon, parent, false);
-        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.TWO_ICONS_PER_SCREEN){
+        }else if(mSession.getGridSize() == GlobalConstants.TWO_ICONS_PER_SCREEN){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_2_icons, parent, false);
-        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.THREE_ICONS_PER_SCREEN){
+        }else if(mSession.getGridSize() == GlobalConstants.THREE_ICONS_PER_SCREEN){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_3_icons, parent, false);
-        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.FOUR_ICONS_PER_SCREEN){
+        }else if(mSession.getGridSize() == GlobalConstants.FOUR_ICONS_PER_SCREEN){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_4_icons, parent, false);
         }else{
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_9_icons, parent, false);

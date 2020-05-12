@@ -49,7 +49,7 @@
     <dimen name="threeIcon_textWidth">112dp</dimen>
     <dimen name="threeIcon_textSize">12sp</dimen>
     <dimen name="threeIcon_borderThickness">5dp</dimen>
-    <dimen name="threeIcon_innerRadius">42dp</dimen>
+    <dimen name="threeIcon_innerRadius">43dp</dimen>
 
     <!--4 icons configuration-->
     <!--Below custom_wrap_content property will be used only for 720dp resources-->
@@ -331,7 +331,8 @@
     <dimen name="nav_bar_icons_width">90dp</dimen>
     <dimen name="nav_bar_icon_height">80dp</dimen>
     <dimen name="nav_mar_right">12dp</dimen>
-
+    <dimen name="header_icon_size">56dp</dimen>
+    <dimen name="header_title_size">14sp</dimen>
 
     <!--Edit board dialog dimensions-->
     <dimen name="board_add_edit_icon_size">196dp</dimen>
@@ -382,14 +383,14 @@
     <dimen name="add_edit_screen_edit_icon_size">28dp</dimen>
     <dimen name="two_by_two_rec_width">600</dimen>
     <dimen name="list_item_text_size">14sp</dimen>
-    <dimen name="camera_drop_down_width">100dp</dimen>
+    <dimen name="camera_drop_down_width">132dp</dimen>
     <dimen name="dialog_width_verbiage">220dp</dimen>
     <dimen name="dialog_edit_text">12sp</dimen>
     <dimen name="reg_button_height">38dp</dimen>
     <dimen name="def_margin_flt">-3dp</dimen>
 
     <!--Dimensions related to the verbiage item-->
-    <dimen name="verbiage_list_item_width">165dp</dimen>
+    <dimen name="verbiage_list_item_width">202dp</dimen>
     <dimen name="verbiage_list_item_height">42dp</dimen>
     <dimen name="verbiage_list_et_text">14sp</dimen>
     <dimen name="verbiage_item_add_remove">38dp</dimen>
@@ -406,7 +407,7 @@
     <dimen name="nineIcon_remove_btn">18dp</dimen>
     <dimen name="camera_mar_left">2dp</dimen>
     <dimen name="camera_mar_right">2dp</dimen>
-    <dimen name="verbiage_dialog_width">450dp</dimen>
+    <dimen name="verbiage_dialog_width">550dp</dimen>
     <dimen name="dialog_heading">16sp</dimen>
     <dimen name="delete_icon_margin">-34dp</dimen>
     <dimen name="dialog_btn_txt_size">14sp</dimen>

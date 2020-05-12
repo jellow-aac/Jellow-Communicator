@@ -7,13 +7,13 @@ import com.dsource.idc.jellowintl.models.Icon;
 
 public class VerbiageHolder {
     private String IconID,IconName;
-    private Icon IconVerbaige;
+    private Icon IconVerbiage;
 
     @Keep
-    public VerbiageHolder(String iconID, String iconName, Icon iconVerbaige) {
+    public VerbiageHolder(String iconID, String iconName, Icon iconVerbiage) {
         IconID = iconID;
         IconName = iconName;
-        IconVerbaige = iconVerbaige;
+        IconVerbiage = iconVerbiage;
     }
 
     public String getIconID() {
@@ -32,11 +32,11 @@ public class VerbiageHolder {
         IconName = iconName;
     }
 
-    public Icon getIconVerbaige() {
-        return IconVerbaige;
+    public Icon getIconVerbiage() {
+        return IconVerbiage;
     }
 
-    public void setIconVerbaige(Icon iconVerbaige) {
-        IconVerbaige = iconVerbaige;
+    public void setIconVerbiage(Icon iconVerbiage) {
+        IconVerbiage = iconVerbiage;
     }
 }

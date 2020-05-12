@@ -323,9 +323,11 @@
     <dimen name="edit_board_dialog_button_text_size">22sp</dimen>
     <dimen name="edit_board_dialog_internal_margin_top">16dp</dimen>
     <dimen name="icon_dialog_button_width">86dp</dimen>
+    <dimen name="header_icon_size">64dp</dimen>
+    <dimen name="header_title_size">24sp</dimen>
 
     <!--Dimensions related to the verbiage item-->
-    <dimen name="verbiage_list_item_width">230dp</dimen>
+    <dimen name="verbiage_list_item_width">320dp</dimen>
     <dimen name="verbiage_list_item_height">64dp</dimen>
     <dimen name="verbiage_list_et_text">22sp</dimen>
     <dimen name="verbiage_item_add_remove">48dp</dimen>
@@ -333,7 +335,7 @@
     <dimen name="vl_exp_icon_height">56dp</dimen>
     <dimen name="vl_padding">22dp</dimen>
     <dimen name="drop_icon_size">32dp</dimen>
-    <dimen name="verbiage_dialog_width">640dp</dimen>
+    <dimen name="verbiage_dialog_width">820dp</dimen>
     <dimen name="dialog_heading">22sp</dimen>
     <dimen name="list_item_text_size">20sp</dimen>
 
@@ -371,7 +373,7 @@
     <dimen name="add_board_icon_padding">12dp</dimen>
     <dimen name="add_board_text_size">24sp</dimen>
     <dimen name="left_mar_my_boards">340dp</dimen>
-    <dimen name="add_board_dialog_width">380dp</dimen>
+    <dimen name="add_board_dialog_width">440dp</dimen>
     <dimen name="edit_text_width_add_board">140dp</dimen>
     <dimen name="board_dialog_edit_text">18sp</dimen>
 

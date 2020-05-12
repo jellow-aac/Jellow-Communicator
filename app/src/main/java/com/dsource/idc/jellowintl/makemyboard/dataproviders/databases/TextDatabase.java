@@ -55,6 +55,10 @@ public class TextDatabase {
         VerbiageHolder holder;
         for (int i = 0; i < iconList.size(); i++) {
             Icon model = iconList.get(i);
+            String displayLabel = model.getDisplay_Label();
+            if(displayLabel != null)
+                displayLabel = displayLabel.replace("…","");
+            model.setDisplay_Label(displayLabel);
             holder = new VerbiageHolder(keyList.get(i), model.getDisplay_Label(), model);
             addIconToDatabase(holder);
         }
@@ -63,10 +67,10 @@ public class TextDatabase {
     private void addIconToDatabase(VerbiageHolder holder) {
         VerbiageModel model = new VerbiageModel();
         model.setIconId(holder.getIconID());
-        model.setIcon(new Gson().toJson(holder.getIconVerbaige()));
+        model.setIcon(new Gson().toJson(holder.getIconVerbiage()));
         model.setLanguageCode(langCode);
         model.setTitle(holder.getIconName());
-        model.setEventTag(holder.getIconVerbaige().getEvent_Tag());
+        model.setEventTag(holder.getIconVerbiage().getEvent_Tag());
         database.verbiageDao().insertVerbiage(model);
     }
 
@@ -106,10 +110,6 @@ public class TextDatabase {
         verbiageModel.setTitle(jellowVerbiageModel.getDisplay_Label());
         verbiageModel.setIcon(new Gson().toJson(jellowVerbiageModel));
         database.verbiageDao().updateVerbiage(verbiageModel);
-    }
-
-    public int countEntries() {
-        return database.verbiageDao().getAllVerbiage(langCode).size();
     }
 
     public Icon getVerbiageById(String verbiageID) {

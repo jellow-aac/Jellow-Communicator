@@ -41,7 +41,7 @@ public class SpeechEngineBaseActivity extends BaseActivity{
 
     private final String UTTERANCE_ID = "com.dsource.idc.jellowintl.utterence.id";
     private HashMap<String, String> map;
-    private TextToSpeechCallBacks mErrorHandler;
+    private static TextToSpeechCallBacks mErrorHandler;
 
     private MediaPlayer mMediaPlayer;
 

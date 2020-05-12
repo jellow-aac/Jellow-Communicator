@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/translucent"
@@ -39,7 +40,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:padding="2dp"
-                android:src="@android:drawable/ic_menu_close_clear_cancel" />
+                android:layout_marginRight="8dp"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                tools:ignore="RtlHardcoded" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -107,9 +110,9 @@
         </LinearLayout>
         </ScrollView>
     </RelativeLayout>
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/button_layout"
-        android:layout_width="@dimen/dialog_width_verbiage"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
@@ -117,31 +120,22 @@
         android:layout_marginLeft="@dimen/edit_board_dialog_side_margin"
         android:layout_marginRight="@dimen/edit_board_dialog_side_margin"
         android:layout_marginTop="@dimen/edit_board_dialog_internal_margin_top"
-        >
-
-
+        android:gravity="center_horizontal">
         <Button
             android:id="@+id/save_button"
-            android:layout_alignParentLeft="true"
             android:layout_width="wrap_content"
             android:paddingLeft="@dimen/mmb_btn_pad"
             android:paddingRight="@dimen/mmb_btn_pad"
-            android:layout_centerVertical="true"
             android:background="@drawable/button_background"
-            android:layout_marginLeft="8dp"
             android:text="@string/txtSave"
             android:textAllCaps="false"
-            android:layout_gravity="center_vertical"
             android:layout_height="@dimen/profile_save_btn_height"
-            android:textSize="@dimen/profile_save_btn_txt_size"
-            />
+            android:textSize="@dimen/profile_save_btn_txt_size"/>
         <Button
             android:id="@+id/cancel_button"
-            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:paddingLeft="@dimen/mmb_btn_pad"
             android:paddingRight="@dimen/mmb_btn_pad"
-            android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
             android:text="@string/reset"
             android:background="@drawable/button_background"
@@ -149,7 +143,7 @@
             android:layout_gravity="center_vertical"
             android:layout_height="@dimen/profile_save_btn_height"
             android:textSize="@dimen/profile_save_btn_txt_size"
-            />
-    </RelativeLayout>
+            tools:ignore="RtlHardcoded" />
+    </LinearLayout>
 </RelativeLayout>
 </RelativeLayout>

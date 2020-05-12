@@ -16,19 +16,20 @@ import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.SpeechEngineBaseActivity;
+import com.dsource.idc.jellowintl.TextToSpeechCallBacks;
 import com.dsource.idc.jellowintl.makemyboard.adapters.HomeActivityAdapter;
+import com.dsource.idc.jellowintl.makemyboard.datamodels.DragNDropDataProvider;
+import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.TextDatabase;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.GridSelectListener;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.OnItemClickListener;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.OnItemMoveListener;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.OnSelectionClearListener;
-import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
-import com.dsource.idc.jellowintl.makemyboard.datamodels.DragNDropDataProvider;
 import com.dsource.idc.jellowintl.makemyboard.managers.ExpressiveIconManager;
 import com.dsource.idc.jellowintl.makemyboard.managers.ModelManager;
-import com.dsource.idc.jellowintl.makemyboard.utility.Nomenclature;
 import com.dsource.idc.jellowintl.makemyboard.managers.SearchScrollManager;
+import com.dsource.idc.jellowintl.makemyboard.utility.Nomenclature;
 import com.dsource.idc.jellowintl.models.ExpressiveIcon;
 import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.models.JellowIcon;
@@ -41,7 +42,7 @@ import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.BOARD_ID;
 
-public class HomeActivity extends SpeechEngineBaseActivity {
+public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpeechCallBacks {
 
     private static final int SEARCH = 1221;
     private RecyclerView rvRecycler;
@@ -80,7 +81,7 @@ public class HomeActivity extends SpeechEngineBaseActivity {
         } catch (NullPointerException e) {
             Log.d("No board id found", boardId);
         }
-
+        registerSpeechEngineErrorHandle(this);
         currentBoard = database.getBoardById(boardId);
         setupToolbar();
         verbiageDatabase = new TextDatabase(this, currentBoard.getLanguage(), getAppDatabase());
@@ -280,7 +281,15 @@ public class HomeActivity extends SpeechEngineBaseActivity {
             public void onClick(View v) {
                 if (etSpeechTextInput.getText().toString().equals("")) {
                     etSpeechTextInput.requestFocus();
-                } else speak(etSpeechTextInput.getText().toString());
+                } else{
+                    if(isEngineSpeaking()){
+                        stopSpeaking();
+                        ivSpeakerButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_search_list_speaker));
+                        return;
+                    }
+                    ivSpeakerButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_stop));
+                    speak(etSpeechTextInput.getText().toString());
+                }
             }
         });
         ivHome = findViewById(R.id.ivhome);
@@ -342,6 +351,10 @@ public class HomeActivity extends SpeechEngineBaseActivity {
         adapter.setSelectedPosition(-1);
         adapter.setExpIconPos(-1);
         selectedIconVerbiage = null;
+        if (isKeyboardVisible) {
+            isKeyboardVisible = false;
+            enableKeyboardView();
+        }
         if (Level == 2) {
             if (LevelOneParent != -1) {
                 displayList = modelManager.getLevelTwoFromModel(LevelOneParent);
@@ -543,5 +556,24 @@ public class HomeActivity extends SpeechEngineBaseActivity {
         return 9;
     }
 
+    public void revertTheSpeakerIcon(){
+        HomeActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ivSpeakerButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_search_list_speaker));
+                ivSpeakerButton.refreshDrawableState();
+            }
+        });
+    }
 
+    @Override
+    public void sendSpeechEngineLanguageNotSetCorrectlyError() {}
+
+    @Override
+    public void speechEngineNotFoundError() {}
+
+    @Override
+    public void speechSynthesisCompleted() {
+        revertTheSpeakerIcon();
+    }
 }

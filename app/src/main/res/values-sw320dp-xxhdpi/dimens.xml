@@ -22,11 +22,11 @@
     <dimen name="threeIcon_parentVertical">24dp</dimen>
     <dimen name="threeIcon_parentPaddingVertical">34dp</dimen>
     <dimen name="threeIcon_flHorizontal">12dp</dimen>
-    <dimen name="threeIcon_width">112dp</dimen>
+    <dimen name="threeIcon_width">96dp</dimen>
     <dimen name="threeIcon_textWidth">132dp</dimen>
     <dimen name="threeIcon_textSize">12sp</dimen>
     <dimen name="threeIcon_borderThickness">5dp</dimen>
-    <dimen name="threeIcon_innerRadius">51dp</dimen>
+    <dimen name="threeIcon_innerRadius">43dp</dimen>
 
     <!--4 icons configuration-->
     <dimen name="fourIcon_parentVertical">4dp</dimen>

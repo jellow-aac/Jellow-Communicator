@@ -17,6 +17,7 @@
         android:text="@string/number_of_icons_per_screen"
         android:fontFamily="@font/mukta_semibold"
         android:textSize="@dimen/grid_dialog_title_textsize"
+        android:paddingHorizontal="16dp"
         android:textColor="@color/text_color"
         android:layout_marginBottom="@dimen/grid_dialog_title_bottom_margin"
         android:id="@+id/grid_dialog_title"

@@ -37,16 +37,16 @@ import com.dsource.idc.jellowintl.GlideApp;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.factories.LanguageFactory;
 import com.dsource.idc.jellowintl.makemyboard.activity.BoardSearchActivity;
-import com.dsource.idc.jellowintl.makemyboard.expandable_recycler_view.SimpleListAdapter;
 import com.dsource.idc.jellowintl.makemyboard.activity.IconSelectActivity;
+import com.dsource.idc.jellowintl.makemyboard.datamodels.BoardIconModel;
+import com.dsource.idc.jellowintl.makemyboard.datamodels.ListItem;
+import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
+import com.dsource.idc.jellowintl.makemyboard.expandable_recycler_view.SimpleListAdapter;
+import com.dsource.idc.jellowintl.makemyboard.interfaces.OnPhotoResultCallBack;
+import com.dsource.idc.jellowintl.makemyboard.managers.BoardLanguageManager;
 import com.dsource.idc.jellowintl.makemyboard.models.AddBoardDialogModel;
 import com.dsource.idc.jellowintl.makemyboard.presenter_interfaces.IAddBoardDialogPresenter;
 import com.dsource.idc.jellowintl.makemyboard.view_interfaces.IAddBoardDialogView;
-import com.dsource.idc.jellowintl.makemyboard.interfaces.OnPhotoResultCallBack;
-import com.dsource.idc.jellowintl.makemyboard.managers.BoardLanguageManager;
-import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
-import com.dsource.idc.jellowintl.makemyboard.datamodels.BoardIconModel;
-import com.dsource.idc.jellowintl.makemyboard.datamodels.ListItem;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -116,7 +116,7 @@ public class DialogAddBoard extends BaseActivity implements IAddBoardDialogView,
             languageList.remove(SessionManager.LangValueMap.get(lang));
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, languageList);
-        arrayAdapter.setDropDownViewResource(R.layout.lang_list_item);
+        arrayAdapter.setDropDownViewResource(R.layout.popup_menu_item);
         languageSelect.setAdapter(arrayAdapter);
 
         if (board != null) {
