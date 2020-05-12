@@ -11,10 +11,9 @@ import androidx.core.content.ContextCompat;
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.dsource.idc.jellowintl.BaseActivity;
 import com.dsource.idc.jellowintl.R;
-import com.dsource.idc.jellowintl.makemyboard.dataproviders.helper_classes.GeneralDatabaseCreator;
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.TextDatabase;
+import com.dsource.idc.jellowintl.makemyboard.dataproviders.helper_classes.GeneralDatabaseCreator;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.SuccessCallBack;
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
@@ -34,28 +33,23 @@ public class SetupMMB extends BaseActivity {
         if(getSupportActionBar()!=null) getSupportActionBar().hide();
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.colorPrimary));
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         mSession = new SessionManager(this);
         progressBar = findViewById(R.id.pg);
-        progressBar.setMax(1);
         progressText = findViewById(R.id.progress_text);
         if(getIntent().getStringExtra(LCODE)!=null){
             langCode = getIntent().getStringExtra(LCODE);
             boardId = getIntent().getStringExtra(BOARD_ID);
-        }
-        else{
-            Toast.makeText(this,"Some error occured please try again",Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(this,"Some error appeared please try again",Toast.LENGTH_LONG).show();
             finish();
             return;
         }
 
         if(!new TextDatabase(this,langCode, getAppDatabase()).checkForTableExists())
         {
-            progressBar.setProgress(.3f);
             progressText.setText("Setting things up, Please wait...");
-            createDatabase();
-        }
-        else
+            createDatabase(this);
+        }else
         {
             Intent intent = new Intent(this, IconSelectActivity.class);
             intent.putExtra(LCODE,langCode);
@@ -66,21 +60,39 @@ public class SetupMMB extends BaseActivity {
 
     }
 
-    private void createDatabase() {
+    private void createDatabase(final SetupMMB setupMMB) {
         TextDatabase databaseHelper = new TextDatabase(this,langCode, getAppDatabase());
-        GeneralDatabaseCreator<TextDatabase> creater =  new GeneralDatabaseCreator<>(databaseHelper, new SuccessCallBack() {
-           @Override
+        GeneralDatabaseCreator<TextDatabase> creator =  new GeneralDatabaseCreator<>(databaseHelper, new SuccessCallBack() {
+            @Override
+            public void setProgressSize(final int progressSize) {
+                setupMMB.runOnUiThread(new Runnable() {
+                       @Override
+                       public void run() {
+                           progressBar.setMax(progressSize);
+                       }
+                   });
+            }
+
+            @Override
+            public void updateProgress(final int progress) {
+                setupMMB.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressBar.setProgress(progress);
+                    }
+                });
+            }
+
+            @Override
            public void onSuccess(Object object) {
-               progressBar.setProgress(.7f);
                progressText.setText("Finalizing setup, please wait...");
                createIconDatabase();
            }
        });
-       creater.execute();
+       creator.execute();
     }
 
     private void createIconDatabase() {
-        progressBar.setProgress(1f);
         progressText.setText("Completed");
         Intent intent = new Intent(SetupMMB.this, IconSelectActivity.class);
         intent.putExtra(LCODE,langCode);
@@ -90,7 +102,6 @@ public class SetupMMB extends BaseActivity {
         mSession.setBoardDatabaseStatus(true,langCode);
         finish();
     }
-
 }
 
 

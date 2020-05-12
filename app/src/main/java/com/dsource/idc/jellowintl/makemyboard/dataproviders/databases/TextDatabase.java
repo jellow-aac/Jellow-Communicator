@@ -21,6 +21,7 @@ public class TextDatabase {
     private String langCode;
     private Context context;
     private AppDatabase database;
+    private ProgressUpdates handler;
 
     public TextDatabase(Context context, String langCode, AppDatabase appDatabase) {
         this.context = context;
@@ -28,8 +29,8 @@ public class TextDatabase {
         database = appDatabase;
     }
 
-    public void fillDatabase() {
-
+    public void fillDatabase(ProgressUpdates handler) {
+        this.handler = handler;
         CacheManager.clearCache();
 
         String[] iconCodes = IconFactory.getAllIconsCodes(PathFactory.getJSONFile(context, langCode));
@@ -53,6 +54,7 @@ public class TextDatabase {
 
     private void pushNormalIconsDataToDatabase(ArrayList<Icon> iconList, ArrayList<String> keyList) {
         VerbiageHolder holder;
+        if (handler != null) handler.setMaxProgress(iconList.size());
         for (int i = 0; i < iconList.size(); i++) {
             Icon model = iconList.get(i);
             String displayLabel = model.getDisplay_Label();
@@ -61,6 +63,7 @@ public class TextDatabase {
             model.setDisplay_Label(displayLabel);
             holder = new VerbiageHolder(keyList.get(i), model.getDisplay_Label(), model);
             addIconToDatabase(holder);
+            if (handler != null) handler.setCurrentProgress(i+1);
         }
     }
 
@@ -117,5 +120,10 @@ public class TextDatabase {
         if (model != null)
             return new Gson().fromJson(model.getIcon(), Icon.class);
         else return null;
+    }
+
+    public interface ProgressUpdates{
+        void setMaxProgress(int progressSize);
+        void setCurrentProgress(int progress);
     }
 }

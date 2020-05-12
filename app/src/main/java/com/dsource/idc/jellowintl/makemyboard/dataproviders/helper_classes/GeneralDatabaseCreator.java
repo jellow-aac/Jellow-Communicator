@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.TextDatabase;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.SuccessCallBack;
 
-public class GeneralDatabaseCreator<T> extends AsyncTask<Void,Integer,Void> {
+public class GeneralDatabaseCreator<T> extends AsyncTask<Void,Integer,Void> implements TextDatabase.ProgressUpdates {
 
     private T database;
     private SuccessCallBack callBack;
@@ -28,8 +28,18 @@ public class GeneralDatabaseCreator<T> extends AsyncTask<Void,Integer,Void> {
     protected Void doInBackground(Void... voids) {
         if(database instanceof TextDatabase)
         {
-            ((TextDatabase)database).fillDatabase();
+            ((TextDatabase)database).fillDatabase(this);
         }
         return null;
+    }
+
+    @Override
+    public void setMaxProgress(int progressSize) {
+        callBack.setProgressSize(progressSize);
+    }
+
+    @Override
+    public void setCurrentProgress(int progress) {
+        callBack.updateProgress(progress);
     }
 }

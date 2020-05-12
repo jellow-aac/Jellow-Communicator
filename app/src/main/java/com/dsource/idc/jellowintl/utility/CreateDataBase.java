@@ -29,7 +29,7 @@ public class CreateDataBase extends AsyncTask {
     protected Object doInBackground(Object[] objects) {
         TextDatabase database = new TextDatabase(mContext,new SessionManager(mContext).getLanguage(), mAppDatabase);
         if(!database.checkForTableExists()){
-            database.fillDatabase();
+            database.fillDatabase(null);
         }
         return null;
     }
