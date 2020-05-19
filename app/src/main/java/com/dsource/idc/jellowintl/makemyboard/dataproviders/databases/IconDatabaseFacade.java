@@ -39,10 +39,11 @@ public class IconDatabaseFacade {
         String L2;
         if(level_1!=-1)
             L2 = String.format(new Locale(SessionManager.ENG_US),"%02d", (level_1+1));
-        else L2 = "";
+        else
+            L2 = "";
         String lang  = LanguageFactory.getLanguageCode(languageCode);
         String iconID = lang+L1+L2+"%";
-        if(level_1==-1)
+        if(level_1==-1 || level_0 == 8 || level_0 == 5)
             list.addAll(getL2Icons(level_0));
         Gson gson = new Gson();
         Icon icon;

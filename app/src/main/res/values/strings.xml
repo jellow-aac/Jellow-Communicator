@@ -386,18 +386,17 @@
     <string name="share_string" translatable="false"> Hi! To get Jellow app follow the link: <a href="www.jellow.org/share">http://jellow.org/share</a></string>
 
   <!--Language package update strings are here-->
-    <string name="lpu">Language Pack Update</string>
-    <string name="lpu_start_update">Starting Update &#8230;</string>
-    <string name="lpu_parse_update">Parsing Download data &#8230;</string>
-    <string name="lpu_download_icons">Downloading Icons &#8230;</string>
-    <string name="lpu_download_verbiage">Downloading Verbiage &#8230;</string>
-    <string name="lpu_update_success">Language pack successfully updated!!</string>
-    <string name="lpu_toast_update_success">Update Success!!</string>
-    <string name="lpu_toast_check_success">Update Check Success!!</string>
-    <string name="lpu_no_updates_found">No updates found!!</string>
-    <string name="lpu_update_error">Error completing update!! Please try again.</string>
-    <string name="lpu_toast_check_error">Update Failed!!</string>
-    <string name="lpu_connectivity_error">Please Check Your Internet Connection!!</string>
+    <string name="lpu">Language Package Update</string>
+    <string name="lpu_start_update">Started language package update</string>
+    <string name="lpu_parse_update">Processing the downloaded data</string>
+    <string name="lpu_download_icons">Downloading icon files</string>
+    <string name="lpu_download_verbiage">Downloading speech files</string>
+    <string name="lpu_update_success">Language pack successfully updated!</string>
+    <string name="lpu_toast_update_success">Update successful!</string>
+    <string name="lpu_toast_check_success">Checking update success!</string>
+    <string name="lpu_no_updates_found">No updates found!</string>
+    <string name="lpu_update_error">Error completing update, please try again.</string>
+    <string name="lpu_toast_check_error">Language package update failed!!</string>
     <string name="update_now">Update now</string>
     <string name="update_later">Later</string>
     <string name="update_message">New content is available in the app. Do you want to update now?</string>
@@ -480,24 +479,24 @@
     <string name="all_boards">All Language</string>
     <string name="add_board">Add Board</string>
     <string name="custom_icon">Custom Icon</string>
-
-    <!--TODO translation of following string is needed for make my board-->
     <string name="cancel">Cancel</string>
     <string name="icon">Icon</string>
     <string name="category">category</string>
-    <string name="database_not_created_info">Database not created, creating database for the language</string>
+    <string name="database_not_created_info">Creating database for the language.</string>
     <string name="icon_already_present">Icon already selected</string>
-    <string name="add_icon_folder">Add Icon/Folder</string>
+    <string name="add_icon_folder">Add Icon</string>
     <string name="camera_missing">Camera not found</string>
     <string name="no_board_created">No board created yet</string>
     <string name="no_icon_warning">Please add at least one icon to proceed.</string>
-    <string name="reposition_text">You can long press on any icon to reposition them</string>
+    <string name="reposition_text">Long press on any icon to reposition</string>
     <string name="reposition_complete_msg">New positions of the icon is saved</string>
     <string name="please_select_icon">Please select an image first</string>
     <string name="txtContinue">Continue</string>
-    <string name="expressive_heading2"> button to select expression</string>
+    <string name="expressive_heading1">Tap</string>
+    <string name="expressive_heading2">button to select expression</string>
     <string name="icon_delete_warning">\"-\" icon will be deleted?</string>
     <string name="board_not_found">Board not found</string>
-
-
+    <string name="setting_up_the_language">Setting up the language, please wait…</string>
+    <string name="completed_process">Language setup completed.</string>
+    <string name="unable_to_create_board">Unable to create board, please try again</string>
 </resources>

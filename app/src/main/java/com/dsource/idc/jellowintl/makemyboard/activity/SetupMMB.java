@@ -40,14 +40,14 @@ public class SetupMMB extends BaseActivity {
             langCode = getIntent().getStringExtra(LCODE);
             boardId = getIntent().getStringExtra(BOARD_ID);
         }else{
-            Toast.makeText(this,"Some error appeared please try again",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.unable_to_create_board,Toast.LENGTH_LONG).show();
             finish();
             return;
         }
 
         if(!new TextDatabase(this,langCode, getAppDatabase()).checkForTableExists())
         {
-            progressText.setText("Setting things up, Please wait...");
+            progressText.setText(R.string.setting_up_the_language);
             createDatabase(this);
         }else
         {
@@ -85,7 +85,6 @@ public class SetupMMB extends BaseActivity {
 
             @Override
            public void onSuccess(Object object) {
-               progressText.setText("Finalizing setup, please wait...");
                createIconDatabase();
            }
        });
@@ -93,7 +92,7 @@ public class SetupMMB extends BaseActivity {
     }
 
     private void createIconDatabase() {
-        progressText.setText("Completed");
+        progressText.setText(R.string.completed_process);
         Intent intent = new Intent(SetupMMB.this, IconSelectActivity.class);
         intent.putExtra(LCODE,langCode);
         intent.putExtra(BOARD_ID,boardId);

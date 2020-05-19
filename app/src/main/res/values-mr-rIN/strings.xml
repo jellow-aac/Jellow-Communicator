@@ -349,6 +349,22 @@
     <string name="switch_access_info_four">एक स्विचसह स्विच ऍक्सेसिबिलिटी वापरण्यासाठी - सेटिंग्स  उघडा -> ऍक्सेसिबिलिटी वर जा -> स्विच एक्सेस चालू करा -> यूएसबी किंवा ब्लूटूथ स्विच निवडा -> सेटिंग्स मध्ये जा आणि स्विचची संख्या एक निवडा.</string>
     <string name="switch_access_info_five">दोन स्विचसह स्विच ऍक्सेसिबिलिटी वापरण्यासाठी - सेटिंग्स  उघडा -> ऍक्सेसिबिलिटी वर जा -> स्विच एक्सेस चालू करा -> यूएसबी किंवा ब्लूटूथ स्विच निवडा -> सेटिंग्स मध्ये जा आणि स्विचची संख्या दोन निवडा. नंतर स्कॅनिंगचा प्रकार निवडा आणि पुढे क्लिक करून दोन्ही स्विचसाठी क्रिया निवडा. त्यानंतर स्विचची चाचणी करून प्रक्रिया पूर्ण करा.</string>
 
+    <!--Language package update strings are here-->
+    <string name="lpu">लैंग्वेज पॅकेज अपडेट</string>
+    <string name="lpu_start_update">लैंग्वेज पैकेज अपडेट सुरु झाले आहे</string>
+    <string name="lpu_parse_update">डाउनलोड केलेल्या डेटावर प्रोसेसिंग होत आहे</string>
+    <string name="lpu_download_icons">आइकॉन फाइल डाउनलोड होत आहेत</string>
+    <string name="lpu_download_verbiage">भाषण फाइल डाउनलोड होत आहेत</string>
+    <string name="lpu_update_success">लैंग्वेज पॅक यशस्वीरित्या अपडेट झाला आहे!</string>
+    <string name="lpu_toast_update_success">अपडेट पूर्ण झाले</string>
+    <string name="lpu_toast_check_success">अपडेट ची पूर्णता चेक होत आहे</string>
+    <string name="lpu_no_updates_found">कोणतेही अपडेट मिळाले नाही!</string>
+    <string name="lpu_update_error">अपडेट यशस्वी झाले नाही! कृपया पुन्हा प्रयत्न करा.</string>
+    <string name="lpu_toast_check_error">लैंग्वेज पॅकेज अपडेट पूर्ण नाही झाले!</string>
+    <string name="update_now">आता अपडेट करा</string>
+    <string name="update_later">नंतर करा</string>
+    <string name="update_message">अ‍ॅप्लिकेशन मध्ये नवीन सामग्री उपलब्ध आहे. आपण आता अपडेट करू इच्छिता का?</string>
+
     <!--String resources for MMB-->
     <string name="exit_warning">तुम्हाला मागे जायचे आहे का?</string>
     <string name="expressive_heading">भाववाहक</string>
@@ -385,4 +401,24 @@
     <string name="all_boards">सर्व भाषा</string>
     <string name="add_board">बोर्ड जोडा</string>
     <string name="custom_icon">कस्टम आयकॉन</string>
+    <string name="cancel">रद्द करा</string>
+    <string name="icon">आइकॉन</string>
+    <string name="category">श्रेणी</string>
+    <string name="database_not_created_info">भाषेसाठी डेटाबेस तयार केला जात आहे.</string>
+    <string name="icon_already_present">आइकॉन आधीच निवडलेला आहे</string>
+    <string name="add_icon_folder">आइकॉन जोडा</string>
+    <string name="camera_missing">कॅमेरा आढळला नाही</string>
+    <string name="no_board_created">आतापर्यंत कोणताही बोर्ड बनला नाही</string>
+    <string name="no_icon_warning">कृपया पुढे जाण्यासाठी किमान एक आइकॉन जोडा</string>
+    <string name="reposition_text">कोणत्याही आइकॉनला पुन:स्थित करण्यासाठी दीर्घकाळ प्रेस करा</string>
+    <string name="reposition_complete_msg">आइकॉनची नवीन स्थिती सेव झाली आहे</string>
+    <string name="please_select_icon">कृपया प्रथम चित्र निवडा</string>
+    <string name="txtContinue">चालू ठेवा</string>
+    <string name="expressive_heading1">भाववाहक बटणे निवडण्यासाठी</string>
+    <string name="expressive_heading2">बटणावर टॅप करा</string>
+    <string name="icon_delete_warning">\"-\" आइकॉन काढले जाईल?</string>
+    <string name="board_not_found">बोर्ड मिळाला नाही</string>
+    <string name="setting_up_the_language">भाषा सेट होत आहे, कृपया प्रतीक्षा करा…</string>
+    <string name="completed_process">भाषा सेट झाली आहे.</string>
+    <string name="unable_to_create_board">बोर्ड तयार करण्यात अक्षम, कृपया पुन्हा प्रयत्न करा</string>
 </resources>
