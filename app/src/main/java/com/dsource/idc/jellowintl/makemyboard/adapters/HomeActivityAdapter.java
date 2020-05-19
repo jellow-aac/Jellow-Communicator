@@ -20,7 +20,6 @@ import com.dsource.idc.jellowintl.makemyboard.interfaces.AbstractDataProvider;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.OnItemClickListener;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.OnItemMoveListener;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.OnSelectionClearListener;
-import com.dsource.idc.jellowintl.makemyboard.utility.DrawableUtils;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemAdapter;
@@ -37,6 +36,7 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
 
     public static final int REPOSITION_MODE = 221;
     public final static int NORMAL_MODE = 113;
+    private static final int[] EMPTY_STATE = new int[] {};
     private Context mContext;
     private int layoutResId;
     private OnItemClickListener onItemClickListener;
@@ -76,7 +76,9 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
             if ((dragState & Draggable.STATE_FLAG_IS_ACTIVE) != 0) {
                 bgResId = R.drawable.flag_transparent;
                 // need to clear drawable state here to get correct appearance of the dragging item.
-                DrawableUtils.clearState(holder.mContainer.getForeground());
+                if (holder.mContainer.getForeground() != null) {
+                    holder.mContainer.getForeground().setState(EMPTY_STATE);
+                }
             } else if ((dragState & Draggable.STATE_FLAG_DRAGGING) != 0) {
                 bgResId = R.drawable.flag_transparent;
             } else {

@@ -169,4 +169,16 @@ public class SelectionManagerTest {
         assert SUT.containsAny(list);
 
     }
+
+    @Test
+    public void clearList(){
+        SUT.clearList();
+        ArrayList<JellowIcon> list = new ArrayList<>();
+        for(int i=0;i<10;i++){
+            list.add(mock(JellowIcon.class));
+        }
+        SUT.setList(list);
+        SUT.clearList();
+        assert SUT.getList().size() == 0;
+    }
 }
