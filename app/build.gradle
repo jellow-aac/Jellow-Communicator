@@ -81,6 +81,24 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.2.2'
     annotationProcessor 'android.arch.persistence.room:compiler:2.1.0-beta01'
 
+    // Optional -- JUnit test framework
+    androidTestImplementation 'junit:junit:4.13-beta-3'
+    // Optional -- Robolectric environment
+    androidTestImplementation 'androidx.test:core:1.2.0'
+    /* Required for Espresso library*/
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
+
+    testImplementation 'androidx.test.espresso:espresso-intents:3.2.0'
+    // Optional -- Mockito framework
+    testImplementation 'org.mockito:mockito-core:2.25.0'
+    testImplementation 'org.testng:testng:6.9.6'
+    testImplementation "org.robolectric:shadows-multidex:4.0.1"
+    androidTestImplementation 'org.mockito:mockito-android:2.7.22'
+
 
 
     testImplementation 'junit:junit:4.13-beta-3'

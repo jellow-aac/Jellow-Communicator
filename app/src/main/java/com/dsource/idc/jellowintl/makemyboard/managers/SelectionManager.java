@@ -94,9 +94,19 @@ public class SelectionManager {
         return true;
     }
 
+    /**
+     * Returns true if any of the element of argument list is present in the main list
+     * @param list argument list
+     * @return true if present otherwise false
+     */
     public boolean containsAny(ArrayList<JellowIcon> list) {
         for (JellowIcon icon : list)
             if (hashSet.contains(icon.getVerbiageId())) return true;
         return false;
+    }
+
+    public void clearList() {
+        hashSet.clear();
+        selectedIconList.clear();
     }
 }
