@@ -5,8 +5,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.dsource.idc.jellowintl.R;
-import com.dsource.idc.jellowintl.makemyboard.interfaces.BoardClickListener;
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
+import com.dsource.idc.jellowintl.makemyboard.interfaces.BoardClickListener;
 
 import java.util.ArrayList;
 
@@ -17,6 +17,7 @@ public class BoardAdapter extends BaseRecyclerAdapter<BoardModel> {
     public static final int OPEN_ADD_BOARD = 121;
     public static final int EDIT_BOARD = 212;
     private BoardClickListener listener;
+    private int selectedPosition = -1;
 
     /**
      * public constructor
@@ -71,6 +72,16 @@ public class BoardAdapter extends BaseRecyclerAdapter<BoardModel> {
             }
         });
 
+        viewHolder.setMenuImageBorder(R.id.borderView, false, -1);
+        if(selectedPosition == position) {
+            viewHolder.setMenuImageBorder(R.id.borderView, true, 100);
+            selectedPosition = -1;
+        }
+    }
+
+    public void highlightSearchedBoard(int position){
+        selectedPosition = position;
+        notifyItemChanged(position);
     }
 
     public void setOnItemClickListener(final BoardClickListener mItemClickListener) {

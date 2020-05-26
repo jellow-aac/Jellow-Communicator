@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <group android:id="@+id/menuClose">
+    <group android:id="@+id/menuGroupInfo">
+        <item
+            android:id="@+id/search"
+            android:title="@string/search_title"
+            android:icon="@drawable/ic_search_large"
+            android:checked="true"
+            app:showAsAction="always"
+            android:orderInCategory="1"/>
+        <item
+            android:id="@+id/my_boards_icon"
+            android:title="@string/menuMyBoards"
+            android:icon="@drawable/ic_my_boards"
+            android:checked="true"
+            app:showAsAction="always"
+            android:orderInCategory="2"/>
+        <item
+            android:id="@+id/number_of_icons"
+            android:title="@string/number_of_icons_per_screen"
+            android:icon="@drawable/ic_grid_size"
+            android:checked="true"
+            app:showAsAction="always"
+            android:orderInCategory="3"/>
         <item
             android:id="@+id/closePopup"
             android:title="@string/menuClosePopup"
+            android:visible="false"
             app:showAsAction="never"/>
-    </group>
-    <group android:id="@+id/menuGroupInfo">
         <item
             android:id="@+id/profile"
             android:title="@string/menuProfile"
@@ -41,6 +61,13 @@
         <item
             android:id="@+id/resetPreferences"
             android:title="@string/menuResetPref"
+            app:showAsAction="never"/>
+    </group>
+    <group android:id="@+id/menuGroupMyBoards">
+        <item
+            android:id="@+id/my_boards"
+            android:visible="true"
+            android:title="@string/menuMyBoards"
             app:showAsAction="never"/>
     </group>
     <group android:id="@+id/menuFeedback">

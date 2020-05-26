@@ -3,6 +3,7 @@ package com.dsource.idc.jellowintl;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -24,7 +25,7 @@ public class TutorialActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
         enableNavigationBack();
-        setActivityTitle(getString(R.string.menuTutorials));
+        setupActionBarTitle(View.VISIBLE, getString(R.string.home)+"/ "+getString(R.string.menuTutorials));
         setNavigationUiConditionally();
         setImagesToImageViewUsingGlide();
     }

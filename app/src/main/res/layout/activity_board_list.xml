@@ -12,10 +12,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_vertical_margin"
-            android:layout_centerHorizontal="true"
             android:fadeScrollbars="false"
-            android:scrollbarSize="2dp"
-            android:scrollbarThumbVertical="@android:color/darker_gray"
+            android:scrollbarSize="4dp"
             android:scrollbars="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 </RelativeLayout>

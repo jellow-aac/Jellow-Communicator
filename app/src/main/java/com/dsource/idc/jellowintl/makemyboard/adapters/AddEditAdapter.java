@@ -22,7 +22,10 @@ public class AddEditAdapter extends BaseRecyclerAdapter<JellowIcon> {
     @Override
     public void bindData(final BaseViewHolder viewHolder, JellowIcon item, int position) {
 
-        viewHolder.setText(R.id.te1, item.getIconTitle());
+        String iconTitle = item.getIconTitle().length() <= 24 ?
+                item.getIconTitle() :
+                item.getIconTitle().substring(0,23)+ getContext().getString(R.string.limiter);
+        viewHolder.setText(R.id.te1, iconTitle);
         /**
          * Below line is very important line and it should be always visible for add/edit icon screen
          * */

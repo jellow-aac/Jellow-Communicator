@@ -20,17 +20,18 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.dsource.idc.jellowintl.GlideApp;
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.makemyboard.adapters.SelectIconAdapter;
+import com.dsource.idc.jellowintl.makemyboard.custom_dialogs.DialogAddBoard;
 import com.dsource.idc.jellowintl.makemyboard.custom_dialogs.DialogCustom;
 import com.dsource.idc.jellowintl.makemyboard.expandable_recycler_view.LevelAdapter;
 import com.dsource.idc.jellowintl.makemyboard.expandable_recycler_view.datamodels.LevelParent;
-import com.dsource.idc.jellowintl.makemyboard.adapters.SelectIconAdapter;
-import com.dsource.idc.jellowintl.makemyboard.models.SelectIconModel;
-import com.dsource.idc.jellowintl.makemyboard.presenter_interfaces.ISelectPresenter;
-import com.dsource.idc.jellowintl.makemyboard.view_interfaces.ISelectIconView;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.OnItemClickListener;
 import com.dsource.idc.jellowintl.makemyboard.managers.LevelManager;
 import com.dsource.idc.jellowintl.makemyboard.managers.SearchManager;
 import com.dsource.idc.jellowintl.makemyboard.managers.SelectionManager;
+import com.dsource.idc.jellowintl.makemyboard.models.SelectIconModel;
+import com.dsource.idc.jellowintl.makemyboard.presenter_interfaces.ISelectPresenter;
+import com.dsource.idc.jellowintl.makemyboard.view_interfaces.ISelectIconView;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -53,11 +54,6 @@ public class IconSelectActivity extends BaseBoardActivity<ISelectIconView, ISele
 
     @Override
     public void initViewsAndEvents() {
-
-        setupToolBar(R.string.select_icon_title);
-
-        setupHeader();
-        setNavigationUiConditionally();
         searchScrollManager = new SearchManager(mRecyclerView, this);
 
         RecyclerView levelSelectRecycler = findViewById(R.id.rv_level_select);
@@ -70,6 +66,8 @@ public class IconSelectActivity extends BaseBoardActivity<ISelectIconView, ISele
                     mAdapter.setCheckBoxMode(false);
                     //Call the presenter to load the data from current board
                     mPresenter.loadLevels(currentBoard);
+                    Toast.makeText(mContext, getString(R.string.press_next_to_select_icons),
+                            Toast.LENGTH_SHORT).show();
                 } else {
                     //Enable the checkbox mode
                     mAdapter.setCheckBoxMode(true);
@@ -132,13 +130,25 @@ public class IconSelectActivity extends BaseBoardActivity<ISelectIconView, ISele
             }
         });
 
+        getView(R.id.ll_header).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(getApplicationContext(), DialogAddBoard.class);
+                in.putExtra(BOARD_ID, currentBoard.getBoardId());
+                startActivity(in);
+            }
+        });
+
         mPresenter.loadLevels(currentBoard);
         mPresenter.loadSubLevels();
 
     }
 
     private void setupHeader() {
-        ((TextView) findViewById(R.id.board_name)).setText(currentBoard.getBoardName());
+        String boardName= currentBoard.getBoardName().length() <= 24 ?
+                currentBoard.getBoardName()+" " + getString(R.string.board) :
+                currentBoard.getBoardName().substring(0,24) +"..>\n"+getString(R.string.board);
+        ((TextView) findViewById(R.id.board_name)).setText(boardName);
         File en_dir = mContext.getDir(SessionManager.BOARD_ICON_LOCATION, Context.MODE_PRIVATE);
         String path = en_dir.getAbsolutePath();
         GlideApp.with(mContext)
@@ -305,16 +315,22 @@ public class IconSelectActivity extends BaseBoardActivity<ISelectIconView, ISele
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        refreshBoard();
+        setupHeader();
+        setupToolBar(R.string.select_icon_title);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.my_board_menu, menu);
+        getMenuInflater().inflate(R.menu.my_board_select_icon_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home)
-            onBackPressed();
-        else if (item.getItemId() == R.id.action_search) {
+        if (item.getItemId() == R.id.action_search) {
             Intent searchIntent = new Intent(this, BoardSearchActivity.class);
             searchIntent.putExtra(BOARD_ID, currentBoard.getBoardId());
             searchIntent.putExtra(BoardSearchActivity.SEARCH_MODE, BoardSearchActivity.NORMAL_SEARCH);

@@ -30,6 +30,7 @@
             android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation|screenLayout"
             android:label="@string/level_1_screen"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="landscape"
             tools:ignore="LockedOrientationActivity">
             <meta-data
@@ -45,6 +46,7 @@
         <activity
             android:name=".SequenceActivity"
             android:configChanges="keyboardHidden|orientation|screenLayout"
+            android:windowSoftInputMode="adjustPan"
             android:label="@string/sequence_screen"
             android:screenOrientation="landscape"
             tools:ignore="LockedOrientationActivity" />
@@ -112,6 +114,7 @@
             android:name=".LevelTwoActivity"
             android:label="@string/level_2_screen"
             android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity"/>
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
@@ -150,7 +153,7 @@
         <activity
             android:name=".AccessibilitySettingsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/menuFeedback"
+            android:label="@string/menuAccessibility"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity" />
@@ -199,7 +202,7 @@
         <activity
             android:name=".makemyboard.activity.BoardListActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/my_boards"
+            android:label="@string/menuMyBoards"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity"/>
@@ -212,6 +215,7 @@
         <activity
             android:name=".makemyboard.activity.IconSelectActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/menuIconSelect"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity"/>
@@ -250,5 +254,4 @@
             </intent-filter>
         </service>
     </application>
-
 </manifest>

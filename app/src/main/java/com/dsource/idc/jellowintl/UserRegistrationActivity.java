@@ -77,7 +77,7 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_registration);
         FirebaseMessaging.getInstance().subscribeToTopic("jellow_aac");
-        setActivityTitle(getString(R.string.menuUserRegistration));
+        setupActionBarTitle(View.GONE, getString(R.string.menuUserRegistration));
         setNavigationUiConditionally();
         findViewById(R.id.iv_action_bar_back).setVisibility(View.GONE);
         getSession().changePreferencesFile(this);

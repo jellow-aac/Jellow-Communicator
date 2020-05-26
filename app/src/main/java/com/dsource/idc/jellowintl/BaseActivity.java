@@ -21,10 +21,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuCompat;
 import androidx.room.Room;
 
+import com.dsource.idc.jellowintl.makemyboard.activity.BoardListActivity;
 import com.dsource.idc.jellowintl.makemyboard.activity.BoardSearchActivity;
-import com.dsource.idc.jellowintl.makemyboard.custom_dialogs.DialogNoOfIconPerScreen;
 import com.dsource.idc.jellowintl.makemyboard.activity.HomeActivity;
-import com.dsource.idc.jellowintl.makemyboard.activity.BaseBoardActivity;
+import com.dsource.idc.jellowintl.makemyboard.custom_dialogs.DialogNoOfIconPerScreen;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.GridSelectListener;
 import com.dsource.idc.jellowintl.models.AppDatabase;
 import com.dsource.idc.jellowintl.models.GlobalConstants;
@@ -40,7 +40,6 @@ public class BaseActivity extends AppCompatActivity{
     private static SessionManager sSession;
     private static String sVisibleAct ="";
     private static AppDatabase sAppDatabase;
-    private Menu menu;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -71,69 +70,108 @@ public class BaseActivity extends AppCompatActivity{
             return false;
         super.onCreateOptionsMenu(menu);
         MenuCompat.setGroupDividerEnabled(menu, true);
-        if(getLevelClass().contains(getVisibleAct()))
-            getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
-        else
             getMenuInflater().inflate(R.menu.menu_main, menu);
-        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-            menu.findItem(R.id.closePopup).setVisible(false);
+        if (!getLevelClass().contains(getVisibleAct())
+                && !getVisibleAct().contains(getBoardListClass())){
+            menu.findItem(R.id.search).setVisible(false);
+            menu.findItem(R.id.my_boards_icon).setVisible(false);
+            menu.findItem(R.id.number_of_icons).setVisible(false);
+        }else if(getVisibleAct().contains(getBoardListClass())){
+            menu.findItem(R.id.my_boards_icon).setVisible(false);
+            menu.findItem(R.id.number_of_icons).setVisible(false);
         }
-        this.menu = menu;
+        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            menu.findItem(R.id.closePopup).setVisible(true);
+        }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(getLevelClass().contains(getVisibleAct()))
-            return false;
         switch(item.getItemId()) {
+            case R.id.search:
+                if (getLevelClass().contains(getVisibleAct()))
+                    startActivity(new Intent(this, SearchActivity.class));
+                else{
+                    Intent searchIntent = new Intent(this, BoardSearchActivity.class);
+                    searchIntent.putExtra(BoardSearchActivity.SEARCH_MODE, BoardSearchActivity.SEARCH_FOR_BOARD);
+                    startActivityForResult(searchIntent, Integer.parseInt(getString(R.string.search_board)));
+                }
+                break;
+            case R.id.my_boards_icon:
+            case R.id.my_boards:
+                if(getVisibleAct().equals(BoardListActivity.class.getSimpleName()))
+                    break;
+                startActivity(new Intent(this, BoardListActivity.class));
+                if (!getLevelClass().contains(getVisibleAct()))
+                    finish();
+                break;
+            case R.id.number_of_icons:
+                showGridDialog( new GridSelectListener() {
+                    @Override
+                    public void onGridSelectListener(int size) {
+                        getSession().setGridSize(size);
+                        setGridSize();
+                        startActivity(new Intent(getApplicationContext(), SplashActivity.class));
+                        finish();
+                    }
+                });
+                break;
             case R.id.profile:
                 if(getVisibleAct().equals(ProfileFormActivity.class.getSimpleName()))
                     break;
                 startActivity(new Intent(this, ProfileFormActivity.class));
-                finish();
+                if (!getLevelClass().contains(getVisibleAct()))
+                    finish();
                 break;
             case R.id.aboutJellow:
                 if(getVisibleAct().equals(AboutJellowActivity.class.getSimpleName()))
                     break;
                 startActivity(new Intent(this, AboutJellowActivity.class));
-                finish();
+                if (!getLevelClass().contains(getVisibleAct()))
+                    finish();
                 break;
             case R.id.tutorial:
                 if(getVisibleAct().equals(TutorialActivity.class.getSimpleName()))
                     break;
                 startActivity(new Intent(this, TutorialActivity.class));
-                finish();
+                if (!getLevelClass().contains(getVisibleAct()))
+                    finish();
                 break;
             case R.id.keyboardInput:
                 if(getVisibleAct().equals(KeyboardInputActivity.class.getSimpleName()))
                     break;
                 startActivity(new Intent(this, KeyboardInputActivity.class));
-                finish();
+                if (!getLevelClass().contains(getVisibleAct()))
+                    finish();
                 break;
             case R.id.languageSelect:
                 if(getVisibleAct().equals(LanguageSelectActivity.class.getSimpleName()) )
                     break;
                 startActivity(new Intent(this, LanguageSelectActivity.class));
-                finish();
+                if (!getLevelClass().contains(getVisibleAct()))
+                    finish();
                 break;
             case R.id.settings:
                 if(getVisibleAct().equals(SettingActivity.class.getSimpleName()))
                     break;
                 startActivity(new Intent(this, SettingActivity.class));
-                finish();
+                if (!getLevelClass().contains(getVisibleAct()))
+                    finish();
                 break;
             case R.id.accessibilitySetting:
                 if(getVisibleAct().equals(AccessibilitySettingsActivity.class.getSimpleName()))
                     break;
                 startActivity(new Intent(this, AccessibilitySettingsActivity.class));
-                finish();
+                if (!getLevelClass().contains(getVisibleAct()))
+                    finish();
                 break;
             case R.id.resetPreferences:
                 if(getVisibleAct().equals(ResetPreferencesActivity.class.getSimpleName()))
                     break;
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
-                finish();
+                if (!getLevelClass().contains(getVisibleAct()))
+                    finish();
                 break;
             case R.id.feedback:
                 if(getVisibleAct().equals(FeedbackActivity.class.getSimpleName()) ||
@@ -144,7 +182,8 @@ public class BaseActivity extends AppCompatActivity{
                 } else {
                     startActivity(new Intent(this, FeedbackActivity.class));
                 }
-                finish();
+                if (!getLevelClass().contains(getVisibleAct()))
+                    finish();
                 break;
             case android.R.id.home:
                 finish();
@@ -197,9 +236,16 @@ public class BaseActivity extends AppCompatActivity{
         return (aspectRatio >= 2.0 && aspectRatio <= 2.15);
     }
 
-    public void setActivityTitle(String title){
+
+    public void setupActionBarTitle(String title) {
+        ((TextView) findViewById(R.id.tvActionbarTitle)).setText(title);
+    }
+
+    public void setupActionBarTitle(int isBackVisible, String title){
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
+        findViewById(R.id.iv_action_bar_back).setVisibility(isBackVisible);
         if (title.contains("("))
             ((TextView)findViewById(R.id.tvActionbarTitle)).setText(title.substring(0,title.indexOf("(")));
         else
@@ -211,15 +257,6 @@ public class BaseActivity extends AppCompatActivity{
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
     }
 
-    public void finishCurrentActivity(View view) {
-        finish();
-    }
-
-    public void openPrivacyPolicyPage(View view){
-        startActivity(new Intent("android.intent.action.VIEW",
-                Uri.parse(getString(R.string.privacy_link))));
-    }
-
     public void setNavigationUiConditionally() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && isNotchDevice()) {
             View view = findViewById(R.id.parent);
@@ -228,6 +265,16 @@ public class BaseActivity extends AppCompatActivity{
             lp.topMargin = 68;
             getWindow().setNavigationBarColor(getColor(R.color.transparent));
         }
+    }
+
+
+    public void finishCurrentActivity(View view) {
+        finish();
+    }
+
+    public void openPrivacyPolicyPage(View view){
+        startActivity(new Intent("android.intent.action.VIEW",
+                Uri.parse(getString(R.string.privacy_link))));
     }
 
     /**
@@ -257,18 +304,16 @@ public class BaseActivity extends AppCompatActivity{
 
     private String getBoardClass() {
         return BoardSearchActivity.class.getSimpleName() + ","+
-                HomeActivity.class.getSimpleName() + ","+
-                BaseBoardActivity.class.getSimpleName();
+                HomeActivity.class.getSimpleName();
+    }
+
+    private String getBoardListClass(){
+        return BoardListActivity.class.getSimpleName();
     }
 
     private String getNonMenuClass() {
         return UserRegistrationActivity.class.getSimpleName();
     }
-
-    private String getLanguageSettingsActivity(){
-        return LanguageSelectActivity.class.getSimpleName();
-    }
-
 
     public String getVisibleAct() {
         return sVisibleAct;
@@ -299,10 +344,6 @@ public class BaseActivity extends AppCompatActivity{
 
     public boolean isValidEmail(CharSequence target) {
         return target != null && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
-    }
-
-    public Menu getScreenMenu(){
-        return menu;
     }
 
     public void showGridDialog(GridSelectListener mGridSizeSelectListener) {

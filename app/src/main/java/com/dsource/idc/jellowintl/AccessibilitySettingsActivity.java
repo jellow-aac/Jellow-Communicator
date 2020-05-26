@@ -19,7 +19,7 @@ public class AccessibilitySettingsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accessibility_settings);
         enableNavigationBack();
-        setActivityTitle(getString(R.string.menuAccessibility));
+        setupActionBarTitle(View.VISIBLE, getString(R.string.home)+"/ "+getString(R.string.menuAccessibility));
         setNavigationUiConditionally();
     }
 

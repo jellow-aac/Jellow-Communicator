@@ -1,63 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/my_boards_card_margin"
-    android:layout_marginLeft="@dimen/my_boards_card_margin"
-    android:layout_marginRight="@dimen/my_boards_card_margin"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <ImageView
-        android:layout_width="@dimen/my_board_four_grid_icon_size"
-        android:padding="@dimen/my_boards_card_margin"
-        android:layout_height="@dimen/my_board_four_grid_icon_size"
+    android:layout_marginHorizontal="@dimen/my_boards_card_margin_horizontal"
+    android:layout_marginVertical="@dimen/my_boards_card_margin_vertical">
+    <RelativeLayout
+        android:id="@+id/icon_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_board_person"
-        android:id="@+id/board_icon"
-        android:background="@drawable/board_list_back"
-        />
-
+        android:importantForAccessibility="yes">
+        <ImageView
+            android:id="@+id/board_icon"
+            android:layout_width="@dimen/my_board_grid_icon_size"
+            android:layout_height="@dimen/my_board_grid_icon_size"
+            android:importantForAccessibility="no"/>
+        <View
+            android:id="@+id/borderView"
+            android:layout_width="@dimen/my_board_grid_icon_size"
+            android:layout_height="@dimen/my_board_grid_icon_size"
+            android:importantForAccessibility="no"
+            android:background="@drawable/border_drawable_nocolor_board_icon"/>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="-4dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="@dimen/my_board_edit_icon_size"
+                android:layout_height="@dimen/my_board_edit_icon_size"
+                android:src="@drawable/ic_edit_icon_red_back"
+                android:id="@+id/edit_board"
+                android:importantForAccessibility="yes"
+                android:contentDescription="@string/edit_board"/>
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/board_icon"
+            android:layout_toRightOf="@id/board_icon"
+            android:layout_marginLeft="@dimen/delete_icon_margin"
+            android:layout_marginTop="@dimen/delete_icon_margin"
+            android:layout_marginStart="@dimen/delete_icon_margin"
+            android:layout_toEndOf="@id/board_icon">
+            <ImageView
+                android:layout_width="@dimen/my_board_edit_icon_size"
+                android:layout_height="@dimen/my_board_edit_icon_size"
+                android:src="@drawable/ic_delete_icon_red_back"
+                android:id="@+id/remove_board"
+                android:importantForAccessibility="yes"
+                android:contentDescription="@string/delete_the_board"/>
+        </FrameLayout>
+    </RelativeLayout>
     <TextView
         android:id="@+id/board_title"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/my_board_grid_text_width"
         android:layout_height="wrap_content"
-        android:maxWidth="@dimen/my_board_four_grid_icon_size"
+        android:maxWidth="@dimen/my_board_grid_icon_size"
         android:layout_marginTop="@dimen/my_board_title_top_margin"
-        android:layout_below="@+id/board_icon"
+        android:layout_below="@+id/icon_parent"
+        android:gravity="center"
         android:layout_centerHorizontal="true"
-        android:textAlignment="center"
-        android:maxLines="3"
         android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/my_board_text_size"
-        />
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="-4dp"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="@dimen/my_board_edit_icon_size"
-            android:layout_height="@dimen/my_board_edit_icon_size"
-            android:src="@drawable/ic_edit_icon_red_back"
-            android:id="@+id/edit_board"/>
-    </FrameLayout>
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/board_icon"
-        android:layout_toRightOf="@id/board_icon"
-        android:layout_marginLeft="@dimen/delete_icon_margin"
-        android:layout_marginTop="@dimen/delete_icon_margin"
-        android:layout_marginStart="@dimen/delete_icon_margin"
-        android:layout_toEndOf="@id/board_icon">
-    <ImageView
-        android:layout_width="@dimen/my_board_edit_icon_size"
-        android:layout_height="@dimen/my_board_edit_icon_size"
-        android:src="@drawable/ic_delete_icon_red_back"
-        android:id="@+id/remove_board"
-         />
-    </FrameLayout>
+        android:textSize="@dimen/my_board_text_size"/>
 
 </RelativeLayout>

@@ -12,37 +12,48 @@
         android:layout_height="match_parent"
         android:background="@color/app_background"
         android:layout_alignParentLeft="true">
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/ll_header"
             android:layout_width="@dimen/level_select_pane_min_width"
-            android:layout_height="102dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/activity_vertical_margin">
             <ImageView
                 android:id="@+id/board_icon"
                 android:layout_width="@dimen/header_icon_size"
                 android:layout_height="@dimen/header_icon_size"
-                android:layout_marginHorizontal="8dp"/>
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginHorizontal="8dp" />
             <TextView
                 android:id="@+id/board_name"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/header_title_width"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/board_icon"
                 style="@style/defaultTextViewStyle"
                 android:textSize="@dimen/header_title_size"/>
-
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/edit_board_name_icon"
+                android:layout_width="@dimen/header_edit_icon_size"
+                android:layout_height="@dimen/header_edit_icon_size"
+                android:layout_toRightOf="@+id/board_name"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_edit_icon_red_back"
+                android:importantForAccessibility="yes"
+                android:contentDescription="@string/edit_board_image"/>
+        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/rv_level_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ll_header"
             android:clipToPadding="false"
             android:minWidth="@dimen/level_select_pane_min_width"
-            android:scrollbars="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:scrollbars="vertical"/>
 
 
     </RelativeLayout>
@@ -77,8 +88,6 @@
             android:textColor="@color/light_grey"
             />
         <androidx.recyclerview.widget.RecyclerView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,8 +99,7 @@
             android:fadeScrollbars="false"
             android:scrollbarSize="2dp"
             android:scrollbarThumbVertical="@android:color/darker_gray"
-            android:scrollbars="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:scrollbars="vertical"/>
 
         <RelativeLayout
             android:id="@+id/bottom_navigation_pane"

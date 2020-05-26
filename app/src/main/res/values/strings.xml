@@ -416,6 +416,7 @@
     <string name="add_edit_icons" translatable="false">Add Edit Icons</string>
     <string name="icon_select_text" translatable="false">Select Icons</string>
     <string name="done" translatable="false">Done</string>
+    <string name="search_board" translatable="false">0</string>
     <string-array name="entries">
         <item>Camera</item>
         <item>Gallery</item>
@@ -457,7 +458,7 @@
     <string name="add_category">Add Category</string>
     <string name="add_icon">Add Icon</string>
     <string name="edit_icon">Edit Icon</string>
-    <string name="addicon_title">Add/Edit Icons</string>
+    <string name="addicon_title">Add-Edit Icons</string>
     <string name="rep_activity_title">Reposition icons</string>
     <string name="i_like">I like</string>
     <string name="really_like">I really like</string>
@@ -499,4 +500,11 @@
     <string name="setting_up_the_language">Setting up the language, please wait…</string>
     <string name="completed_process">Language setup completed.</string>
     <string name="unable_to_create_board">Unable to create board, please try again</string>
+    <string name="board">board</string>
+    <string name="press_next_to_select_icons">Press \"Next\" to add selected icons.</string>
+    <string name="limiter" translatable="false"> . . ></string>
+    <string name="edit_board">Edit the current board</string>
+    <string name="delete_the_board">Delete the current board</string>
+    <string name="menuIconSelect">Select icons</string>
+    <string name="edit_board_image">Edit the board icon and name</string>
 </resources>

@@ -5,17 +5,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.WindowManager;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.dsource.idc.jellowintl.makemyboard.activity.BoardListActivity;
-import com.dsource.idc.jellowintl.makemyboard.interfaces.GridSelectListener;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.dsource.idc.jellowintl.utility.TextToSpeechErrorUtils;
 
@@ -45,79 +40,12 @@ public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextT
         initiateSpeechEngineWithLanguage(getSession().getLanguage());
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.search:
-                startActivity(new Intent(this, SearchActivity.class));
-                break;
-            case R.id.my_boards_icon:
-            case R.id.my_boards:
-                startActivity(new Intent(this, BoardListActivity.class));
-                break;
-            case R.id.number_of_icons:
-                showGridDialog( new GridSelectListener() {
-		        @Override
-		        public void onGridSelectListener(int size) {
-		            getSession().setGridSize(size);
-		            setGridSize();
-		            startActivity(new Intent(getApplicationContext(), SplashActivity.class));
-		            finish();
-		        }
-                });
-                break;
-            case R.id.profile:
-                startActivity(new Intent(this, ProfileFormActivity.class));
-                break;
-            case R.id.aboutJellow:
-                startActivity(new Intent(this, AboutJellowActivity.class));
-                break;
-            case R.id.tutorial:
-                startActivity(new Intent(this, TutorialActivity.class));
-                break;
-            case R.id.keyboardInput:
-                startActivity(new Intent(this, KeyboardInputActivity.class));
-                break;
-            case R.id.languageSelect:
-                startActivity(new Intent(this, LanguageSelectActivity.class));
-                break;
-            case R.id.settings:
-                startActivity(new Intent(this, SettingActivity.class));
-                break;
-            case R.id.accessibilitySetting:
-                startActivity(new Intent(this, AccessibilitySettingsActivity.class));
-                break;
-            case R.id.resetPreferences:
-                startActivity(new Intent(this, ResetPreferencesActivity.class));
-                break;
-            case R.id.feedback:
-                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
-                }
-                else {
-                    startActivity(new Intent(this, FeedbackActivity.class));
-                }
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
-    }
-
     public void adjustTopMarginForNavigationUi() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && isNotchDevice()) {
             RelativeLayout rl = findViewById(R.id.parent);
             FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) rl.getLayoutParams();
             lp.topMargin = 72;
         }
-    }
-
-
-    public void setLevelActionBar(String title){
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
-        getSupportActionBar().setTitle(title);
     }
 
     public void setCustomKeyboardView(Context context){

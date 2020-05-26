@@ -37,10 +37,8 @@
     </style>
 
     <style name="ActionBar.Solid.MyAppTheme" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
-        <item name="android:background">@drawable/red_bg</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="elevation">0dp</item>
-        <item name="titleTextStyle">@style/MyTitleTextStyle</item>
     </style>
 
     <style name="MyTitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">

@@ -26,7 +26,7 @@ public class KeyboardInputActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keyboard_input);
         enableNavigationBack();
-        setActivityTitle(getString(R.string.getKeyboardControl));
+        setupActionBarTitle(View.VISIBLE, getString(R.string.home)+"/ "+getString(R.string.getKeyboardControl));
         setNavigationUiConditionally();
 
         findViewById(R.id.abc).setOnClickListener(new View.OnClickListener() {

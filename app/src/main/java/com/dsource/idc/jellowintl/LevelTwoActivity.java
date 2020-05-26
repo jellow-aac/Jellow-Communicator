@@ -103,7 +103,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
       selected.*/
     private Integer[] mArrPeopleTapCount, mArrSort;
 
-    private String actionBarTitleTxt, mSpeak, mEnterCat;
+    private String txtActionBarTitle, txtKeyboard, mSpeak, mEnterCat;
 
     /*Firebase event Collector class instance.*/
     private UserEventCollector mUec;
@@ -119,7 +119,9 @@ public class LevelTwoActivity extends LevelBaseActivity{
         // Get index of category icons (position in recycler view) selected in level one.
         mLevelOneItemPos = getIntent().getExtras().getInt(getString(R.string.level_one_intent_pos_tag));
         // Get and set title of category icons selected in level one.
-        setLevelActionBar(getIntent().getExtras().getString(getString(R.string.intent_menu_path_tag)));
+        txtActionBarTitle = getIntent().getExtras().getString(getString(R.string.intent_menu_path_tag));
+        txtKeyboard = getString(R.string.keyboard);
+        setupActionBarTitle(View.GONE, txtActionBarTitle);
         setNavigationUiConditionally();
         adjustTopMarginForNavigationUi();
         // when layout is loaded on activity, using the tag attribute of a parent view in layout
@@ -491,6 +493,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                     mRecyclerView.setVisibility(View.VISIBLE);
                     mIvTts.setVisibility(View.INVISIBLE);
                     mKeyState = GlobalConstants.KEY_CLOSE;
+                    setupActionBarTitle(txtActionBarTitle);
                     if(mLevelTwoItemPos == GlobalConstants.NOT_SELECTED)
                         LevelUiUtils.enableAllExpressiveIcon(expressiveBtn);
                     else
@@ -513,7 +516,6 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         finish();
                     }
                 }
-                showActionBarTitle(true);
             }
         });
     }
@@ -575,7 +577,6 @@ public class LevelTwoActivity extends LevelBaseActivity{
      * input text layout.
      * */
     private void initKeyboardBtnListener() {
-        final String strKeyboard = getString(R.string.keyboard);
         mIvKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -605,7 +606,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         else
                             LevelUiUtils.setExpressiveIconConditionally(expressiveBtn, level2IconObjects[mLevelTwoItemPos]);
                         mKeyState = GlobalConstants.KEY_CLOSE;
-                        showActionBarTitle(true);
+                        setupActionBarTitle(txtActionBarTitle);
                         //when mKeyState is false, it means user intend to use custom
                         //keyboard input text so below steps will follow:
                     } else {
@@ -631,8 +632,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         // for user to see input text. The function setSoftInputMode() does this task.
                         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
                         mKeyState = GlobalConstants.KEY_OPEN;
-                        showActionBarTitle(false);
-                        getSupportActionBar().setTitle(strKeyboard);
+                        setupActionBarTitle(txtKeyboard);
                     }
                     mIvBack.setImageResource(R.drawable.back);
                 }
@@ -1570,19 +1570,6 @@ public class LevelTwoActivity extends LevelBaseActivity{
         // populated on the screen.
         mRecyclerItemsViewList = new ArrayList<>(size);
         while(mRecyclerItemsViewList.size() <= size) mRecyclerItemsViewList.add(null);
-    }
-
-    /**
-     * <p>This function will display/ hide action bar title.
-     * If {@param showTitle} is set then title is displayed otherwise not.</p>
-     * */
-    private void showActionBarTitle(boolean showTitle){
-        if (showTitle)
-            getSupportActionBar().setTitle(actionBarTitleTxt);
-        else{
-            actionBarTitleTxt = getSupportActionBar().getTitle().toString();
-            getSupportActionBar().setTitle("");
-        }
     }
 
     /**

@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -37,7 +38,6 @@ import com.dsource.idc.jellowintl.GlideApp;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.factories.LanguageFactory;
 import com.dsource.idc.jellowintl.makemyboard.activity.BoardSearchActivity;
-import com.dsource.idc.jellowintl.makemyboard.activity.IconSelectActivity;
 import com.dsource.idc.jellowintl.makemyboard.datamodels.BoardIconModel;
 import com.dsource.idc.jellowintl.makemyboard.datamodels.ListItem;
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
@@ -92,7 +92,6 @@ public class DialogAddBoard extends BaseActivity implements IAddBoardDialogView,
             setUpAddBoardDialog(null);
     }
 
-
     @SuppressLint("ResourceType")
     private void setUpAddBoardDialog(final BoardModel board) {
         final ImageView boardIcon = findViewById(R.id.board_icon);
@@ -107,15 +106,15 @@ public class DialogAddBoard extends BaseActivity implements IAddBoardDialogView,
         boardName.setOnFocusChangeListener(this);
         boardIcon.setOnClickListener(this);
 
-
-
+        boardName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(60)});
         listView = findViewById(R.id.camera_list);
         ArrayList<String> languageList = new ArrayList<>(Arrays.asList(LanguageFactory.getAvailableLanguages()));
 
         for (String lang : SessionManager.NoTTSLang)
             languageList.remove(SessionManager.LangValueMap.get(lang));
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, languageList);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, languageList);
         arrayAdapter.setDropDownViewResource(R.layout.popup_menu_item);
         languageSelect.setAdapter(arrayAdapter);
 
@@ -145,7 +144,7 @@ public class DialogAddBoard extends BaseActivity implements IAddBoardDialogView,
             TextView tvLanguage = findViewById(R.id.tv_language);
             tvLanguage.setVisibility(View.VISIBLE);
             tvLanguage.setText(SessionManager.LangValueMap.get(board.getLanguage()));
-
+            saveButton.setText(getString(R.string.txtSave));
         }
 
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -379,13 +378,7 @@ public class DialogAddBoard extends BaseActivity implements IAddBoardDialogView,
     }
 
     @Override
-    public void updatedSuccessfully(BoardModel board) {
-        getSession().setCurrentBoardLanguage(board.getLanguage());
-        Intent intent = new Intent(this, IconSelectActivity.class);
-        intent.putExtra(BOARD_ID,board.getBoardId());
-        startActivity(intent);
-        finish();
-    }
+    public void updatedSuccessfully(BoardModel board) {}
 
     @Override
     public void error(String msg) {

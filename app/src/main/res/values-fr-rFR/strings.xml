@@ -353,7 +353,7 @@
     <string name="add_category">Ajouter une catégorie</string>
     <string name="add_icon">Ajouter un icône</string>
     <string name="edit_icon">Modifier l\'icône</string>
-    <string name="addicon_title">Ajouter / Modifier les icônes</string>
+    <string name="addicon_title">Ajouter - Modifier les icônes</string>
     <string name="rep_activity_title">Repositionner les icônes</string>
     <string name="i_like">J\'aime</string>
     <string name="really_like">J\'aime bien</string>

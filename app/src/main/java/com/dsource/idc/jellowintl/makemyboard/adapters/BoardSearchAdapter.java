@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.makemyboard.activity.BoardSearchActivity;
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.IconDatabaseFacade;
 import com.dsource.idc.jellowintl.models.AppDatabase;
 import com.dsource.idc.jellowintl.models.JellowIcon;
@@ -45,8 +46,10 @@ public class BoardSearchAdapter extends BaseRecyclerAdapter<JellowIcon> {
             return;
         }
 
+        if(!(getContext() instanceof BoardSearchActivity)){
+            viewHolder.setVisible(R.id.parent_directory, true);
+        }
 
-        viewHolder.setVisible(R.id.parent_directory, true);
 
         viewHolder.setText(R.id.search_icon_title, icon.getIconTitle());
 
@@ -55,7 +58,6 @@ public class BoardSearchAdapter extends BaseRecyclerAdapter<JellowIcon> {
             viewHolder.setBackgroundDrawable(R.id.search_icon_drawable, getContext().getResources().getDrawable(R.drawable.icon_back_grey));
         } else
             viewHolder.setImageFromLibrary(R.id.search_icon_drawable, icon.getIconDrawable());
-
 
         /*
          * Adding the directory hint in the search list item

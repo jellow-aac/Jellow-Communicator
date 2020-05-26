@@ -93,7 +93,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
     /*Below array stores the speech text, below text, expressive button speech text,
      navigation button speech text respectively.*/
     private String[] mSpeechText,mDisplayText, mExprBtnTxt, mNavigationBtnTxt, mIconCode;
-    private String actionBarTitleTxt, mSpeak;
+    private String txtActionBarTitle, txtKeyboard, mSpeak;
 
     /*Firebase event Collector class instance.*/
     private UserEventCollector mUec;
@@ -106,7 +106,9 @@ public class LevelThreeActivity extends LevelBaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_levelx_layout);
-        setLevelActionBar(getIntent().getExtras().getString(getString(R.string.intent_menu_path_tag)));
+        txtActionBarTitle = getIntent().getExtras().getString(getString(R.string.intent_menu_path_tag));
+        txtKeyboard = getString(R.string.keyboard);
+        setupActionBarTitle(View.GONE, txtActionBarTitle);
         setNavigationUiConditionally();
         adjustTopMarginForNavigationUi();
 
@@ -561,6 +563,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                     else
                         LevelUiUtils.setExpressiveIconConditionally(expressiveBtn,
                                 level3IconObjects[mLevelThreeItemPos]);
+                    setupActionBarTitle(txtActionBarTitle);
                 //when back button is pressed and if mKeyState is false, then custom keyboard
                 // input text is not open and user intends to close current screen. Then simply
                 // close activity and after setting result code. The result code is useful
@@ -587,7 +590,6 @@ public class LevelThreeActivity extends LevelBaseActivity{
                 }
                 //Firebase event
                 singleEvent("Navigation","Back");
-                showActionBarTitle(true);
             }
         });
     }
@@ -642,7 +644,6 @@ public class LevelThreeActivity extends LevelBaseActivity{
         //The variables below are defined because android os fall back to default locale
         // after activity restart. These variable will hold the value for variables initialized using
         // user preferred locale.
-        final String strKeyboard = getString(R.string.keyboard);
         mIvKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -672,7 +673,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         else
                             LevelUiUtils.setExpressiveIconConditionally(expressiveBtn,
                                     level3IconObjects[mLevelThreeItemPos]);
-                        showActionBarTitle(true);
+                        setupActionBarTitle(txtActionBarTitle);
                         //when mFlgKeyboardOpened is set to 0, it means user intent to use custom
                         //keyboard input text so below steps will follow:
                     } else {
@@ -695,8 +696,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
                         mKeyState = GlobalConstants.KEY_OPEN;
-                        showActionBarTitle(false);
-                        getSupportActionBar().setTitle(strKeyboard);
+                        setupActionBarTitle(txtKeyboard);
                     }
                     mIvBack.setImageResource(R.drawable.back);
                 }
@@ -1290,19 +1290,6 @@ public class LevelThreeActivity extends LevelBaseActivity{
         // retain state of expressive button when particular type category icon pressed
         LevelUiUtils.setExpressiveIconConditionally(expressiveBtn, level3IconObjects[mArrSort[mLevelThreeItemPos]]);
         mIvBack.setImageResource(R.drawable.back);
-    }
-
-    /**
-     * <p>This function will display/ hide action bar title.
-     * If {@param showTitle} is set then title is displayed otherwise not.</p>
-     * */
-    private void showActionBarTitle(boolean showTitle){
-        if (showTitle)
-            getSupportActionBar().setTitle(actionBarTitleTxt);
-        else{
-            actionBarTitleTxt = getSupportActionBar().getTitle().toString();
-            getSupportActionBar().setTitle("");
-        }
     }
 
     /**

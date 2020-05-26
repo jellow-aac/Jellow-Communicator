@@ -21,7 +21,7 @@ public class ResetPreferencesActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_preferences);
         enableNavigationBack();
-        setActivityTitle(getString(R.string.menuResetPref));
+        setupActionBarTitle(View.VISIBLE, getString(R.string.home)+"/ "+getString(R.string.menuResetPref));
         setNavigationUiConditionally();
 
         findViewById(R.id.no).setOnClickListener(new View.OnClickListener() {

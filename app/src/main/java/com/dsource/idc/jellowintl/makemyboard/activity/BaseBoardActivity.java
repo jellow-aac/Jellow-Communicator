@@ -9,16 +9,16 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dsource.idc.jellowintl.BaseActivity;
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.SpeechEngineBaseActivity;
+import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.presenter_interfaces.IBasePresenter;
 import com.dsource.idc.jellowintl.makemyboard.view_interfaces.IBaseView;
-import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
 
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.BOARD_ID;
 
-public abstract class BaseBoardActivity<V extends IBaseView, P extends IBasePresenter<V>, A extends RecyclerView.Adapter> extends BaseActivity {
+public abstract class BaseBoardActivity<V extends IBaseView, P extends IBasePresenter<V>, A extends RecyclerView.Adapter> extends SpeechEngineBaseActivity {
 
     public P mPresenter;
     public A mAdapter;
@@ -78,10 +78,15 @@ public abstract class BaseBoardActivity<V extends IBaseView, P extends IBasePres
 
     }
 
+    public void refreshBoard(){
+        BoardDatabase database = new BoardDatabase(getAppDatabase());
+        String boardId = getIntent().getExtras().getString(BOARD_ID);
+        currentBoard.setBoardName(database.getBoardName(boardId));
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
-        setVisibleAct(BaseBoardActivity.class.getSimpleName());
     }
 
     public View getView(int resId) {
@@ -110,13 +115,18 @@ public abstract class BaseBoardActivity<V extends IBaseView, P extends IBasePres
     public void setupToolBar(int stringResId){
         if(getSupportActionBar()!=null) {
             enableNavigationBack();
-            setActivityTitle(getString(R.string.home) + "/ " +
+            setupActionBarTitle(View.VISIBLE, getString(R.string.home) + "/ " +
                     getString(R.string.my_boards) + "/ " +
                     currentBoard.getBoardName() + "/ " +
                     getString(stringResId));
             setNavigationUiConditionally();
-            getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
         }
+        findViewById(R.id.iv_action_bar_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
     public int getNumberOfIconPerScreen() {
         switch (currentBoard.getGridSize()) {

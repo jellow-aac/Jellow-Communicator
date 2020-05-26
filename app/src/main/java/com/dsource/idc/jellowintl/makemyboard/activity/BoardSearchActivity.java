@@ -17,13 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.SpeechEngineBaseActivity;
 import com.dsource.idc.jellowintl.makemyboard.adapters.BoardSearchAdapter;
+import com.dsource.idc.jellowintl.makemyboard.datamodels.BoardIconModel;
+import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.IconDatabaseFacade;
-import com.dsource.idc.jellowintl.makemyboard.models.BoardListModel;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.OnItemClickListener;
-import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
-import com.dsource.idc.jellowintl.makemyboard.datamodels.BoardIconModel;
 import com.dsource.idc.jellowintl.makemyboard.managers.ModelManager;
+import com.dsource.idc.jellowintl.makemyboard.models.BoardListModel;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 
 import java.util.ArrayList;
@@ -34,8 +34,8 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
     public static final String BASE_ICON_SEARCH = "base_icon_search";
     private RecyclerView mRecyclerView;
     private BoardSearchAdapter adapter;
-    private ArrayList<JellowIcon> iconList;
     public static final String SEARCH_MODE = "search_mode";
+    private ArrayList<JellowIcon> iconList;
     public static final String NORMAL_SEARCH = "normal_search";
     public static final String ICON_SEARCH = "icon_search";
     public static final String SEARCH_IN_BOARD = "board_search";

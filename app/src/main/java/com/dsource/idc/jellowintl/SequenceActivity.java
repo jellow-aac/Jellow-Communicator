@@ -86,7 +86,7 @@ public class SequenceActivity extends LevelBaseActivity{
     private RelativeLayout mRelativeLayCategory;
     /*navigation next, back button in category*/
     private Button mBtnNext, mBtnBack;
-    private String mActionBarTitleTxt;
+    private String txtActionBarTitle, txtKeyboard;
     /*Below array stores the expressive button speech text, heading,
      navigation button speech text, category navigation text respectively.*/
     private String[] mHeading, mExprBtnTxt, mNavigationBtnTxt, mIconCode;
@@ -106,7 +106,9 @@ public class SequenceActivity extends LevelBaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sequence);
-        setLevelActionBar(getIntent().getExtras().getString(getString(R.string.intent_menu_path_tag)));
+        txtActionBarTitle = getIntent().getExtras().getString(getString(R.string.intent_menu_path_tag));
+        txtKeyboard = getString(R.string.keyboard);
+        setupActionBarTitle(View.GONE, txtActionBarTitle);
         setNavigationUiConditionally();
         adjustTopMarginForNavigationUi();
 
@@ -679,6 +681,7 @@ public class SequenceActivity extends LevelBaseActivity{
                     LevelUiUtils.enableAllExpressiveIcon(expressiveBtn);
                     mBtnNext.setVisibility(View.VISIBLE);
                     mBtnBack.setVisibility(View.VISIBLE);
+                    setupActionBarTitle(txtActionBarTitle);
                 } else {
                     // When keyboard is not open simply set result and close the activity.
                     mUec.createSendFbEventFromTappedView(27, "", "");
@@ -700,7 +703,6 @@ public class SequenceActivity extends LevelBaseActivity{
                         finish();
                     }
                 }
-                showActionBarTitle(true);
             }
         });
     }
@@ -754,7 +756,6 @@ public class SequenceActivity extends LevelBaseActivity{
         //The variables below are defined because android os fall back to default locale
         // after activity restart. These variable will hold the value for variables initialized using
         // user preferred locale.
-        final String strKeyboard = getString(R.string.keyboard);
         mIvKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -783,7 +784,7 @@ public class SequenceActivity extends LevelBaseActivity{
                         LevelUiUtils.enableAllExpressiveIcon(expressiveBtn);
                         mBtnBack.setVisibility(View.VISIBLE);
                         mBtnNext.setVisibility(View.VISIBLE);
-                        showActionBarTitle(true);
+                        setupActionBarTitle(txtActionBarTitle);
                         //when mKeyState is false, it means user intent to use custom
                         //keyboard input text so below steps will follow:
                     } else {
@@ -808,8 +809,7 @@ public class SequenceActivity extends LevelBaseActivity{
                         mBtnBack.setVisibility(View.INVISIBLE);
                         mBtnNext.setVisibility(View.INVISIBLE);
                         mKeyState = GlobalConstants.KEY_OPEN;
-                        showActionBarTitle(false);
-                        getSupportActionBar().setTitle(strKeyboard);
+                        setupActionBarTitle(txtKeyboard);
                     }
                     mIvBack.setImageResource(R.drawable.back);
                 }
@@ -1208,20 +1208,6 @@ public class SequenceActivity extends LevelBaseActivity{
                 }
             }
         });
-
-    }
-
-    /**
-     * <p>This function will showDialog/hide action bar title.
-     * If {@param showTitle} is set then title is displayed otherwise not.</p>
-     * */
-    private void showActionBarTitle(boolean showTitle){
-        if (showTitle)
-            getSupportActionBar().setTitle(mActionBarTitleTxt);
-        else{
-            mActionBarTitleTxt = getSupportActionBar().getTitle().toString();
-            getSupportActionBar().setTitle("");
-        }
     }
 
     private void showAccessibleDialog(final int position, final View disabledView) {
