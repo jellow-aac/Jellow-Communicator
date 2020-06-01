@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
+import com.dsource.idc.jellowintl.MainActivity;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.SpeechEngineBaseActivity;
 import com.dsource.idc.jellowintl.TextToSpeechCallBacks;
@@ -135,7 +136,7 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
         mRecyclerViewDragDropManager.setDraggingItemAlpha(0.8f);
         mRecyclerViewDragDropManager.setDraggingItemScale(1.3f);
         mWrappedAdapter = mRecyclerViewDragDropManager.createWrappedAdapter(adapter);
-        GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();//DraggableItemAnimator();
+        GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();
         rvRecycler.setLayoutManager(mLayoutManager);
         rvRecycler.setAdapter(mWrappedAdapter);
         rvRecycler.setItemAnimator(animator);
@@ -433,7 +434,10 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
 
     private void exitToBoardListScreen() {
         if (getSession() != null) getSession().setCurrentBoardLanguage("");
-        startActivity(new Intent(getApplicationContext(), BoardListActivity.class));
+        startActivities(new Intent[]{
+                new Intent(getApplicationContext(), MainActivity.class),
+                new Intent(getApplicationContext(), BoardListActivity.class)
+        });
         stopSpeaking();
         finishAffinity();
     }

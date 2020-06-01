@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.dsource.idc.jellowintl.GlideApp;
+import com.dsource.idc.jellowintl.MainActivity;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.adapters.SelectIconAdapter;
 import com.dsource.idc.jellowintl.makemyboard.custom_dialogs.DialogAddBoard;
@@ -368,7 +369,10 @@ public class IconSelectActivity extends BaseBoardActivity<ISelectIconView, ISele
             public void onPositiveClickListener() {
                 SelectionManager.getInstance().delete();
                 if(getSession()!=null) getSession().setCurrentBoardLanguage("");
-                startActivity(new Intent(mContext, BoardListActivity.class));
+                startActivities(new Intent[]{
+                        new Intent(getApplicationContext(), MainActivity.class),
+                        new Intent(getApplicationContext(), BoardListActivity.class)
+                });
                 finishAffinity();
             }
         });

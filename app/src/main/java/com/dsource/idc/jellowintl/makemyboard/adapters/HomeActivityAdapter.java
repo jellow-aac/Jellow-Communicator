@@ -63,7 +63,7 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
 
         String iconTitle = thisIcon.getIconTitle().length() <= 24 ?
                 thisIcon.getIconTitle() :
-                thisIcon.getIconTitle().substring(0,23)+ mContext.getString(R.string.limiter);
+                thisIcon.getIconTitle().substring(0,24)+ mContext.getString(R.string.limiter);
         holder.iconTitle.setText(iconTitle);
 
         if (thisIcon.isCustomIcon())

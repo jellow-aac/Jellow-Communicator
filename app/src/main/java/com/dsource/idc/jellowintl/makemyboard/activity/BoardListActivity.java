@@ -6,7 +6,6 @@ import android.view.View;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dsource.idc.jellowintl.MainActivity;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.adapters.BoardAdapter;
 import com.dsource.idc.jellowintl.makemyboard.custom_dialogs.DialogAddBoard;
@@ -120,8 +119,7 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
     public void onBackPressed() {
         if(getSession()!=null)
             getSession().setCurrentBoardLanguage("");
-        startActivity(new Intent(this, MainActivity.class));
-        finishAffinity();
+        finish();
     }
 
     @Override
