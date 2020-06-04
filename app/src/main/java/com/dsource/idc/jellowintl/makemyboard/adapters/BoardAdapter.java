@@ -1,8 +1,13 @@
 package com.dsource.idc.jellowintl.makemyboard.adapters;
 
 import android.content.Context;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.core.content.ContextCompat;
 
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
@@ -14,8 +19,6 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 
 public class BoardAdapter extends BaseRecyclerAdapter<BoardModel> {
 
-    public static final int OPEN_ADD_BOARD = 121;
-    public static final int EDIT_BOARD = 212;
     private BoardClickListener listener;
     private int selectedPosition = -1;
 
@@ -31,10 +34,14 @@ public class BoardAdapter extends BaseRecyclerAdapter<BoardModel> {
 
     @Override
     public void bindData(final BaseViewHolder viewHolder, BoardModel board, int position) {
+        SpannableString spannedStr;
         if (position == 0){
             viewHolder.setVisible(R.id.edit_board, false);
             viewHolder.setVisible(R.id.remove_board, false);
-            viewHolder.setText(R.id.board_title, getContext().getString(R.string.add_board));
+            spannedStr = new SpannableString(getContext().getString(R.string.add_board));
+            spannedStr.setSpan(new ForegroundColorSpan (ContextCompat.getColor(getContext(),
+                    R.color.colorPrimary)), 0, spannedStr.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            viewHolder.setText(R.id.board_title, spannedStr);
             ((ImageView) viewHolder.getView(R.id.board_icon)).setImageResource(R.drawable.ic_plus);
             viewHolder.setOnClickListener(R.id.board_icon, new View.OnClickListener() {
                 @Override
@@ -45,8 +52,13 @@ public class BoardAdapter extends BaseRecyclerAdapter<BoardModel> {
             });
             return;
         }
-        viewHolder.setText(R.id.board_title, board.getBoardName() +
-                "\n"+ LangValueMap.get(board.getLanguage()));
+
+        spannedStr = new SpannableString(board.getBoardName()+"\n"+ LangValueMap.get(board.getLanguage()));
+        spannedStr.setSpan(new ForegroundColorSpan (ContextCompat.getColor(getContext(),
+                R.color.colorPrimary)), 0, board.getBoardName().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        viewHolder.setText(R.id.board_title, spannedStr);
+        /*viewHolder.setText(R.id.board_title, board.getBoardName() +
+                "\n"+ LangValueMap.get(board.getLanguage()));*/
         viewHolder.setImageFromBoard(R.id.board_icon,board.getBoardId());
         viewHolder.setOnClickListener(R.id.remove_board, new View.OnClickListener() {
             @Override

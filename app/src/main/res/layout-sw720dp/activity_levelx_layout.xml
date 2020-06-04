@@ -9,11 +9,11 @@
     android:tag="large">
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
+            android:layout_height="wrap_content">
             <LinearLayout
                 android:id="@+id/expressiveOne"
                 android:layout_width="wrap_content"
@@ -76,17 +76,16 @@
             android:layout_width="800dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
             android:scrollbars="vertical"
             android:scrollbarFadeDuration="0"
-            android:layout_marginBottom="158dp"/>
+            android:layout_marginBottom="138dp"/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/relativeLayoutNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="-16dp">
+        android:layout_marginBottom="-32dp">
         <ImageView
             android:id="@+id/ivhome"
             android:layout_width="160dp"

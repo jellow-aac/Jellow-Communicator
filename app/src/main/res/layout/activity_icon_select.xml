@@ -32,7 +32,8 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/board_icon"
                 style="@style/defaultTextViewStyle"
-                android:textSize="@dimen/header_title_size"/>
+                android:textSize="@dimen/header_title_size"
+                android:textColor="@color/colorPrimary"/>
             <ImageView
                 android:id="@+id/edit_board_name_icon"
                 android:layout_width="@dimen/header_edit_icon_size"

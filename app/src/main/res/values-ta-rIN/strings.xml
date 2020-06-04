@@ -306,15 +306,15 @@
     <string name="close">உரையாடலை மூடவும்</string>
     <string name="access_dialog_title">விருப்பங்களோடு கூடிய உரையாடல்</string>
 
-    <string name="acc_lang_marathi">மராத்தி (இந்தியா)</string>
-    <string name="acc_lang_hindi">இந்தி (இந்தியா)</string>
-    <string name="acc_lang_bengali">வங்காளம் (இந்தியா)</string>
+    <string name="acc_lang_marathi">மராத்தி</string>
+    <string name="acc_lang_hindi">இந்தி</string>
+    <string name="acc_lang_bengali">வங்காளம்</string>
     <string name="acc_lang_eng_in">ஆங்கிலம் (இந்தியா)</string>
     <string name="acc_lang_eng_gb">ஆங்கிலம் (யுனைட்டட் கிங்டம்)</string>
     <string name="acc_lang_eng_us">அமெரிக்க ஆங்கிலம்</string>
     <string name="acc_lang_eng_au">ஆங்கிலம் (ஆஸ்திரேலியா)</string>
     <string name="acc_lang_span_span">ஸ்பானிஷ்(ஸ்பெயின்)</string>
-    <string name="acc_lang_tamil_in">தமிழ்(இந்தியா)</string>
+    <string name="acc_lang_tamil_in">தமிழ்</string>
     <string name="acc_lang_german_ger">ஜேர்மன்(ஜெர்மனி)</string>
 
     <string name="_1_icon">1 சின்னம்</string>

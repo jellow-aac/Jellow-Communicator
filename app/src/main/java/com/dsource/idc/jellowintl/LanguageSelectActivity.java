@@ -87,15 +87,9 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         setImageUsingGlide(R.drawable.arrow, ((ImageView) findViewById(R.id.ivArrow2)));
 
         save = findViewById(R.id.saveBut);
-        /* **
-         * The variables below are defined because android os fall back to default locale
-         * after activity restart. These variable will hold the value for variables initialized using
-         * user preferred locale.
-         ***/
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isVoiceAvailableForLanguage(LangMap.get(selectedLanguage));
                 Crashlytics.log("LanguageSelect Apply");
                 if(selectedLanguage.equals(LangValueMap.get(MR_IN)) && !LanguageFactory.isMarathiPackageAvailable
                         (LanguageSelectActivity.this)){

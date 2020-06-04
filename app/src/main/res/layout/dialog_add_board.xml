@@ -95,13 +95,14 @@
                     android:textColorHint="@color/light_grey"
                     android:background="@drawable/edit_board_dialog_edit_text"/>
                 <Spinner
+                    android:id="@+id/langSelectSpinner"
+                    style="@style/mmb_spinner_text_size"
                     android:layout_width="@dimen/board_add_edit_icon_size"
-                    style="@style/spinnerDropDownItemStyle"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/edit_board_dialog_side_margin"
-                    android:id="@+id/langSelectSpinner"
                     android:background="@drawable/custom_spinner_view"
-                    />
+                    android:paddingVertical="@dimen/spinner_vertical_padding"
+                    android:paddingHorizontal="@dimen/spinner_horizontal_padding"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
