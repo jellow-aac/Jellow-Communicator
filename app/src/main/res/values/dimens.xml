@@ -361,16 +361,16 @@
 
     <!--Dimensions related to the My Board Card-->
     <dimen name="my_board_grid_icon_size">72dp</dimen>
-    <dimen name="my_board_grid_text_width">162dp</dimen>
+    <dimen name="my_board_grid_text_width">204dp</dimen>
     <dimen name="my_board_text_size">13sp</dimen>
     <dimen name="my_board_edit_icon_size">24dp</dimen>
     <dimen name="board_edit_edittext_size">170dp</dimen>
     <dimen name="list_item_padding">5dp</dimen>
     <dimen name="dialog_width">400dp</dimen>
     <dimen name="dialog_height">500dp</dimen>
-    <dimen name="my_boards_card_margin_horizontal">32dp</dimen>
+    <dimen name="my_boards_card_margin_horizontal">16dp</dimen>
     <dimen name="my_boards_card_margin_vertical">4dp</dimen>
-    <dimen name="my_board_title_top_margin">8dp</dimen>
+    <dimen name="my_board_title_top_margin">4dp</dimen>
     <!--Board Icon Config-->
     <dimen name="board_icon_thickness">5dp</dimen>
     <dimen name="board_icon_radius">31dp</dimen>
