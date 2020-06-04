@@ -151,15 +151,16 @@ public class DialogAddBoard extends BaseActivity implements IAddBoardDialogView,
             @Override
             public void onClick(View v) {
 
+                if (boardName.getText().toString().equals("")) {
+                    Toast.makeText(mContext, getResources().getString(R.string.please_enter_name), Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 if(!iconImageSelected){
                     Toast.makeText(mContext, getResources().getString(R.string.please_select_icon), Toast.LENGTH_LONG).show();
                     return;
                 }
 
-                if (boardName.getText().toString().equals("")) {
-                    Toast.makeText(mContext, getResources().getString(R.string.please_enter_name), Toast.LENGTH_LONG).show();
-                    return;
-                }
                 //Returns code for each language in board
                 String langCode = languageSelect.getSelectedItem().toString();
                 if (board == null)
