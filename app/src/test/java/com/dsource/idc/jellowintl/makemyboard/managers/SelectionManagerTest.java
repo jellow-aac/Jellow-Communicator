@@ -1,10 +1,12 @@
 package com.dsource.idc.jellowintl.makemyboard.managers;
 
+import androidx.test.runner.AndroidJUnit4;
+
 import com.dsource.idc.jellowintl.models.JellowIcon;
 
-import org.hamcrest.MatcherAssert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 
@@ -12,6 +14,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.mockito.Mockito.mock;
 
+@RunWith(AndroidJUnit4.class)
 public class SelectionManagerTest {
 
     private SelectionManager SUT;
@@ -23,7 +26,7 @@ public class SelectionManagerTest {
 
     @Test
     public void getInstance_checksIfProperInstanceIsReturned() {
-        assertThat(SUT.getInstance(), instanceOf(SelectionManager.class));
+        assertThat(SelectionManager.getInstance(), instanceOf(SelectionManager.class));
     }
 
     @Test
