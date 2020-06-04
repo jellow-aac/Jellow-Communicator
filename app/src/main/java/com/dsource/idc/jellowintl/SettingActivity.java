@@ -49,7 +49,7 @@ public class SettingActivity extends SpeechEngineBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         enableNavigationBack();
-        setActivityTitle(getString(R.string.action_settings));
+        setupActionBarTitle(View.VISIBLE, getString(R.string.home)+"/ "+getString(R.string.action_settings));
         setNavigationUiConditionally();
 
         mOpenSetting = false;

@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,10 +32,10 @@ import com.dsource.idc.jellowintl.BaseActivity;
 import com.dsource.idc.jellowintl.GlideApp;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.activity.BoardSearchActivity;
+import com.dsource.idc.jellowintl.makemyboard.datamodels.ListItem;
 import com.dsource.idc.jellowintl.makemyboard.expandable_recycler_view.SimpleListAdapter;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.AddIconCallback;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.OnPhotoResultCallBack;
-import com.dsource.idc.jellowintl.makemyboard.datamodels.ListItem;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -112,6 +113,7 @@ public class DialogAddEditIcon extends BaseActivity implements View.OnClickListe
         //List on the dialog.
         listView.setVisibility(View.INVISIBLE);
         titleText.setHint(context.getResources().getString(R.string.icon_name));
+        titleText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(100)});
         //The list that will be shown with camera options
         final ArrayList<ListItem> list = new ArrayList<>();
         @SuppressLint("Recycle") TypedArray mArray = context.getResources().obtainTypedArray(R.array.add_photo_option);

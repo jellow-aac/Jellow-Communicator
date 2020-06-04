@@ -1,7 +1,7 @@
 package com.dsource.idc.jellowintl.makemyboard.dataproviders.databases;
 
-import com.dsource.idc.jellowintl.makemyboard.interfaces.IDataCallback;
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
+import com.dsource.idc.jellowintl.makemyboard.interfaces.IDataCallback;
 import com.dsource.idc.jellowintl.models.AppDatabase;
 
 import java.util.ArrayList;
@@ -43,5 +43,9 @@ public class BoardDatabase{
 
     public void deleteBoard(BoardModel boardID) {
         database.boardDao().deleteBoard(boardID);
+    }
+
+    public String getBoardName(String boardId) {
+        return database.boardDao().getBoardNameFromId(boardId);
     }
 }

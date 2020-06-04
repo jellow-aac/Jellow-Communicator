@@ -35,4 +35,7 @@ public interface BoardDao {
 
     @Delete
     void deleteBoard(BoardModel boardModel);
+
+    @Query("SELECT board_name from BoardModel where board_id = (:boardId)")
+    String getBoardNameFromId(String boardId);
 }

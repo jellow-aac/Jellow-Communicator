@@ -41,7 +41,7 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_jellow);
         enableNavigationBack();
-        setActivityTitle(getString(R.string.menuAbout));
+        setupActionBarTitle(View.VISIBLE, getString(R.string.home)+"/ "+getString(R.string.menuAbout));
         setNavigationUiConditionally();
         initializeViews();
         loadStrings();

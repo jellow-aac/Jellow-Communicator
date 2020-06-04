@@ -94,7 +94,7 @@ public class MainActivity extends LevelBaseActivity{
     /*Below array stores the speech text, below text, expressive button speech text,
      navigation button speech text respectively.*/
     private String[] mExprBtnTxt, mNavigationBtnTxt, mIconCode;
-    private String mActionBarTitleTxt, mHome;
+    private String txtKeyboard, txtHome;
 
     /*Firebase event Collector class instance.*/
     private UserEventCollector mUec;
@@ -107,7 +107,7 @@ public class MainActivity extends LevelBaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_levelx_layout);
-        setLevelActionBar(getString(R.string.action_bar_title));
+        setupActionBarTitle(View.GONE, getString(R.string.action_bar_title));
         setNavigationUiConditionally();
         adjustTopMarginForNavigationUi();
         mUec = new UserEventCollector();
@@ -120,7 +120,8 @@ public class MainActivity extends LevelBaseActivity{
         //The variables below are defined because android os fall back to default locale
         // after activity restart. These variable will hold the value for variables initialized using
         // user preferred locale.
-        mHome = getString(R.string.action_bar_title);
+        txtHome = getString(R.string.action_bar_title);
+        txtKeyboard = getString(R.string.keyboard);
         initializeLayoutViews();
         initializeViewListeners();
         //This method is invoked when the activity is launched from the SearchActivity
@@ -434,7 +435,7 @@ public class MainActivity extends LevelBaseActivity{
                     LevelUiUtils.enableAllExpressiveIcon(expressiveBtn);
                     mIvBack.setEnabled(false);
                     mIvBack.setAlpha(GlobalConstants.DISABLE_ALPHA);
-                    showActionBarTitle(true);
+                    setupActionBarTitle(txtHome);
                     //Firebase event
                     singleEvent("Navigation","Back");
                 }
@@ -463,7 +464,6 @@ public class MainActivity extends LevelBaseActivity{
      * This button enable the back button when keyboard is open.</p>
      * */
     private void initKeyboardBtnListener() {
-        final String strKeyboard = getString(R.string.keyboard);
         mIvKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -495,7 +495,7 @@ public class MainActivity extends LevelBaseActivity{
                         LevelUiUtils.enableAllExpressiveIcon(expressiveBtn);
                         mIvBack.setAlpha(GlobalConstants.DISABLE_ALPHA);
                         mIvBack.setEnabled(false);
-                        showActionBarTitle(true);
+                        setupActionBarTitle(txtHome);
                         //when mKeyState is set to false, it means user intent to use custom
                         //keyboard input text so below steps will follow:
                     } else {
@@ -525,8 +525,7 @@ public class MainActivity extends LevelBaseActivity{
                         mIvBack.setAlpha(GlobalConstants.ENABLE_ALPHA);
                         mIvBack.setEnabled(true);
                         mKeyState = GlobalConstants.KEY_OPEN;
-                        showActionBarTitle(false);
-                        getSupportActionBar().setTitle(strKeyboard);
+                        setupActionBarTitle(txtKeyboard);
 
                         mIvLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
                         mIvDontLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
@@ -1257,7 +1256,7 @@ public class MainActivity extends LevelBaseActivity{
      * {@link MainActivity}.</p>
      **/
     private void gotoHome(boolean isUserRedirected) {
-        getSupportActionBar().setTitle(mHome);
+        setupActionBarTitle(txtHome);
         // reset all expressive button flags.
         mFlgLike = mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = GlobalConstants.SHORT_SPEECH;
         // reset expressive buttons
@@ -1300,19 +1299,6 @@ public class MainActivity extends LevelBaseActivity{
         singleEvent("Navigation","Home");
         if(!isUserRedirected) {
             speak(mNavigationBtnTxt[0]);
-        }
-    }
-
-    /**
-     * <p>This function will set/reset action bar title depending on {@param showTitle} flag.
-     * @param showTitle is set action bar title is set other wise empty title</p>
-     **/
-    private void showActionBarTitle(boolean showTitle){
-        if (showTitle)
-            getSupportActionBar().setTitle(mActionBarTitleTxt);
-        else{
-            mActionBarTitleTxt = getSupportActionBar().getTitle().toString();
-            getSupportActionBar().setTitle("");
         }
     }
 

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
+import com.dsource.idc.jellowintl.MainActivity;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.SpeechEngineBaseActivity;
 import com.dsource.idc.jellowintl.TextToSpeechCallBacks;
@@ -110,11 +111,17 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
         if (getSupportActionBar() != null) {
             enableNavigationBack();
             setNavigationUiConditionally();
-            setActivityTitle(getString(R.string.home) + "/ " +
+            setupActionBarTitle(View.VISIBLE, getString(R.string.home) + "/ " +
                     getString(R.string.my_boards) + "/ " +
                     currentBoard.getBoardName());
             getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
         }
+        findViewById(R.id.iv_action_bar_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exitToBoardListScreen();
+            }
+        });
     }
 
     private void prepareRecyclerView() {
@@ -129,7 +136,7 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
         mRecyclerViewDragDropManager.setDraggingItemAlpha(0.8f);
         mRecyclerViewDragDropManager.setDraggingItemScale(1.3f);
         mWrappedAdapter = mRecyclerViewDragDropManager.createWrappedAdapter(adapter);
-        GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();//DraggableItemAnimator();
+        GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();
         rvRecycler.setLayoutManager(mLayoutManager);
         rvRecycler.setAdapter(mWrappedAdapter);
         rvRecycler.setItemAnimator(animator);
@@ -176,8 +183,6 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
                 }
             }
         });
-
-
     }
 
     private void moveIcon(int to, int from) {
@@ -189,7 +194,6 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
         expIconVerbiage = new ArrayList<>();
         for (int i = 0; i < 6; i++)
             expIconVerbiage.add(verbiageDatabase.getExpressiveIconsById(Nomenclature.getNameForExpressiveIcons(i, currentBoard.getLanguage())));
-
     }
 
     private void speakVerbiage(int expIconPos, int time) {
@@ -226,14 +230,14 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
         else verbiage = expIconVerbiage.get(expIconPos).getLL();
 
         if (!verbiage.equals("NA"))
-            speak(verbiage);
+            speakFromMMB(verbiage);
     }
 
     private void manageKeyboard() {
         ivKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speak(getResources().getString(R.string.keyboard));
+                speakFromMMB(getResources().getString(R.string.keyboard));
                 isKeyboardVisible = !isKeyboardVisible;
                 enableKeyboardView();
             }
@@ -266,7 +270,7 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
         selectedIconVerbiage = verbiageDatabase.getVerbiageById(jellowIcon.getVerbiageId());
         expIconManager.setAccordingVerbiage(selectedIconVerbiage);
         if (selectedIconVerbiage != null)
-            speak(selectedIconVerbiage.getSpeech_Label());
+            speakFromMMB(selectedIconVerbiage.getSpeech_Label());
     }
 
     private void initViews() {
@@ -288,7 +292,7 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
                         return;
                     }
                     ivSpeakerButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_stop));
-                    speak(etSpeechTextInput.getText().toString());
+                    speakFromMMB(etSpeechTextInput.getText().toString());
                 }
             }
         });
@@ -299,7 +303,7 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
                 isKeyboardVisible = false;
                 enableKeyboardView();
                 selectedIconVerbiage = null;
-                speak(getString(R.string.home));
+                speakFromMMB(getString(R.string.home));
                 ActivateView(ivHome, true);
                 ActivateView(ivBack, false);
                 expIconManager.resetSelection();
@@ -316,7 +320,7 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speak(getResources().getString(R.string.back));
+                speakFromMMB(getResources().getString(R.string.back));
                 selectedIconVerbiage = null;
                 if (isKeyboardVisible) {
                     isKeyboardVisible = false;
@@ -399,13 +403,7 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                if (getSession() != null) getSession().setCurrentBoardLanguage("");
-                startActivity(new Intent(getApplicationContext(), BoardListActivity.class));
-                stopSpeaking();
-                finishAffinity();
-                break;
-            case R.id.grid_size:
+             case R.id.grid_size:
                 showGridDialog();
                 break;
             case R.id.action_search:
@@ -426,13 +424,22 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
                 invalidateOptionsMenu();
                 break;
             case R.id.action_home_app:
-                startActivity(new Intent(getApplicationContext(), BoardListActivity.class));
-                finish();
+                exitToBoardListScreen();
                 break;
             default:
                 return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    private void exitToBoardListScreen() {
+        if (getSession() != null) getSession().setCurrentBoardLanguage("");
+        startActivities(new Intent[]{
+                new Intent(getApplicationContext(), MainActivity.class),
+                new Intent(getApplicationContext(), BoardListActivity.class)
+        });
+        stopSpeaking();
+        finishAffinity();
     }
 
     private void disableLayout(boolean disable) {

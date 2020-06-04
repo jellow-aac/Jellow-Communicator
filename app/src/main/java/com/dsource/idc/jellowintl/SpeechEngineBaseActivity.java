@@ -247,7 +247,11 @@ public class SpeechEngineBaseActivity extends BaseActivity{
         };
         handler.postAtTime(runnable, System.currentTimeMillis()+interval);
         handler.postDelayed(runnable, interval);
+    }
 
+    public void speakFromMMB(String speechText){
+        stopSpeaking();
+        sTts.speak(speechText.replace("_","").replace("-",""), TextToSpeech.QUEUE_FLUSH, map);
     }
 
     public void stopSpeaking(){

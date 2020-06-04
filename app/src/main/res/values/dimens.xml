@@ -309,7 +309,7 @@
     <dimen name="icon_select_icon_size">60dp</dimen>
     <dimen name="my_board_button_width">70dp</dimen>
     <dimen name="my_board_button_height">28dp</dimen>
-    <dimen name="level_select_pane_min_width">160dp</dimen>
+    <dimen name="level_select_pane_min_width">190dp</dimen>
     <dimen name="drop_down_width">160dp</dimen>
     <dimen name="bottom_nav_bar_padding">6dp</dimen>
     <dimen name="nav_bar_button_padding">4dp</dimen>
@@ -331,8 +331,10 @@
     <dimen name="nav_bar_icons_width">90dp</dimen>
     <dimen name="nav_bar_icon_height">80dp</dimen>
     <dimen name="nav_mar_right">12dp</dimen>
-    <dimen name="header_icon_size">56dp</dimen>
+    <dimen name="header_icon_size">60dp</dimen>
     <dimen name="header_title_size">14sp</dimen>
+    <dimen name="header_title_width">90dp</dimen>
+    <dimen name="header_edit_icon_size">24dp</dimen>
 
     <!--Edit board dialog dimensions-->
     <dimen name="board_add_edit_icon_size">196dp</dimen>
@@ -355,15 +357,20 @@
 
 
     <!--Dimensions related to the My Board Card-->
-    <dimen name="my_board_four_grid_icon_size">140dp</dimen>
+    <dimen name="my_board_grid_icon_size">144dp</dimen>
+    <dimen name="my_board_grid_text_width">162dp</dimen>
     <dimen name="my_board_text_size">16sp</dimen>
     <dimen name="my_board_edit_icon_size">38dp</dimen>
     <dimen name="board_edit_edittext_size">170dp</dimen>
     <dimen name="list_item_padding">5dp</dimen>
     <dimen name="dialog_width">400dp</dimen>
     <dimen name="dialog_height">500dp</dimen>
-    <dimen name="my_boards_card_margin">16dp</dimen>
+    <dimen name="my_boards_card_margin_horizontal">32dp</dimen>
+    <dimen name="my_boards_card_margin_vertical">32dp</dimen>
     <dimen name="my_board_title_top_margin">8dp</dimen>
+    <!--Board Icon Config-->
+    <dimen name="board_icon_thickness">8dp</dimen>
+    <dimen name="board_icon_radius">64dp</dimen>
 
 
     <!--Dimensions Related to the Grid DialogNoOfIconPerScreen-->

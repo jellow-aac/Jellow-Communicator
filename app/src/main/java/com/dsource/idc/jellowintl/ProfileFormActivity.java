@@ -41,8 +41,7 @@ public class ProfileFormActivity extends SpeechEngineBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_form);
-        enableNavigationBack();
-        setActivityTitle(getString(R.string.menuProfile));
+        setupActionBarTitle(View.VISIBLE, getString(R.string.home)+"/ "+getString(R.string.menuProfile));
         setNavigationUiConditionally();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         etChildName = findViewById(R.id.etName);

@@ -1,31 +1,29 @@
 package com.dsource.idc.jellowintl.makemyboard.activity;
 
 import android.content.Intent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dsource.idc.jellowintl.MainActivity;
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.makemyboard.adapters.BoardAdapter;
 import com.dsource.idc.jellowintl.makemyboard.custom_dialogs.DialogAddBoard;
 import com.dsource.idc.jellowintl.makemyboard.custom_dialogs.DialogCustom;
-import com.dsource.idc.jellowintl.makemyboard.adapters.BoardAdapter;
+import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
+import com.dsource.idc.jellowintl.makemyboard.interfaces.BoardClickListener;
+import com.dsource.idc.jellowintl.makemyboard.managers.SelectionManager;
 import com.dsource.idc.jellowintl.makemyboard.models.BoardListModel;
 import com.dsource.idc.jellowintl.makemyboard.presenter_interfaces.IBoardListPresenter;
 import com.dsource.idc.jellowintl.makemyboard.view_interfaces.IBoardListView;
-import com.dsource.idc.jellowintl.makemyboard.interfaces.BoardClickListener;
-import com.dsource.idc.jellowintl.makemyboard.managers.SelectionManager;
-import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.BOARD_ID;
 
 public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardListPresenter, BoardAdapter> implements IBoardListView, BoardClickListener {
-    private final int SEARCH_BOARD = 0;
 
     @Override
     public int getLayoutId() {
@@ -42,7 +40,7 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
         mPresenter.loadBoards("All");
         mAdapter.setOnItemClickListener(this);
         enableNavigationBack();
-        setActivityTitle(getString(R.string.home) + "/ "+ getString(R.string.menuMyBoards));
+        setupActionBarTitle(View.VISIBLE, getString(R.string.home) + "/ "+ getString(R.string.menuMyBoards));
         setNavigationUiConditionally();
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         findViewById(R.id.iv_action_bar_back).setOnClickListener(new View.OnClickListener() {
@@ -61,49 +59,6 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
     @Override
     public void setLayoutManager(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case R.id.action_search:
-                Intent searchIntent = new Intent(this, BoardSearchActivity.class);
-                searchIntent.putExtra(BoardSearchActivity.SEARCH_MODE, BoardSearchActivity.SEARCH_FOR_BOARD);
-                startActivityForResult(searchIntent, SEARCH_BOARD);
-                break;
-            /*case R.id.grid_size:
-                showGridDialog(new GridSelectListener() {
-                    @Override
-                    public void onGridSelectListener(int size) {
-                        switch (size) {
-                            case ONE_ICON_PER_SCREEN:
-                                mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 1));
-                                break;
-                            case TWO_ICONS_PER_SCREEN:
-                            case FOUR_ICONS_PER_SCREEN:
-                                mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
-                                break;
-                            case THREE_ICONS_PER_SCREEN:
-                            case NINE_ICONS_PER_SCREEN:
-                            default:
-                                mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
-                                break;
-                        }
-                    }
-                });
-                break;*/
-        }
-        return false;
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.board_home_menu, menu);
-        menu.getItem(1).setVisible(false);
-        menu.getItem(2).setVisible(false);
-        menu.getItem(3).setVisible(false);
-        return true;
     }
 
     @Override
@@ -145,14 +100,16 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
 
     @Override
     public void onBoardEdit(int position) {
-        Intent in = new Intent(getApplicationContext(), DialogAddBoard.class);
-        in.putExtra(BOARD_ID, mAdapter.getItem(position).getBoardId());
-        startActivity(in);
+        Intent intent = new Intent(this, IconSelectActivity.class);
+        intent.putExtra(BOARD_ID,mAdapter.getList().get(position).getBoardId());
+        startActivity(intent);
+        finish();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        setVisibleAct(BoardListActivity.class.getSimpleName());
         SelectionManager.getInstance().delete();
         getSession().setCurrentBoardLanguage("");
         initViewsAndEvents();
@@ -160,19 +117,28 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
 
     @Override
     public void onBackPressed() {
-        if(getSession()!=null) getSession().setCurrentBoardLanguage("");
-        startActivity(new Intent(mContext, MainActivity.class));
+        if(getSession()!=null)
+            getSession().setCurrentBoardLanguage("");
         finish();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SEARCH_BOARD && resultCode == RESULT_OK) {
-            String boardName = data.getStringExtra(getString(R.string.search_result));
+        if (requestCode == Integer.parseInt(getString(R.string.search_board)) && resultCode == RESULT_OK) {
+            final String boardName = data.getStringExtra(getString(R.string.search_result));
             for (int i = 0; i < mAdapter.getList().size(); i++) {
                 if (mAdapter.getList().get(i).getBoardName().equals(boardName)){
-                    mRecyclerView.smoothScrollToPosition(i);
+                    mAdapter.highlightSearchedBoard(i);
+                    Timer timer = new Timer();
+                    final int finalI = i;
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            speakFromMMB(boardName);
+                            mRecyclerView.smoothScrollToPosition(finalI);
+                        }
+                    },1000);
                     return;
                 }
             }

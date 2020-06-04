@@ -10,18 +10,19 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dsource.idc.jellowintl.MainActivity;
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.makemyboard.adapters.AddEditAdapter;
 import com.dsource.idc.jellowintl.makemyboard.custom_dialogs.DialogAddEditIcon;
 import com.dsource.idc.jellowintl.makemyboard.custom_dialogs.DialogCustom;
-import com.dsource.idc.jellowintl.makemyboard.adapters.AddEditAdapter;
-import com.dsource.idc.jellowintl.makemyboard.models.AddEditModel;
-import com.dsource.idc.jellowintl.makemyboard.presenter_interfaces.IAddEditPresenter;
-import com.dsource.idc.jellowintl.makemyboard.view_interfaces.IAddEditView;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.AddIconCallback;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.EditAdapterCallback;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.GridSelectListener;
-import com.dsource.idc.jellowintl.makemyboard.utility.CustomPair;
 import com.dsource.idc.jellowintl.makemyboard.managers.SearchScrollManager;
+import com.dsource.idc.jellowintl.makemyboard.models.AddEditModel;
+import com.dsource.idc.jellowintl.makemyboard.presenter_interfaces.IAddEditPresenter;
+import com.dsource.idc.jellowintl.makemyboard.utility.CustomPair;
+import com.dsource.idc.jellowintl.makemyboard.view_interfaces.IAddEditView;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 
 import java.util.ArrayList;
@@ -260,11 +261,6 @@ public class AddEditActivity extends BaseBoardActivity<IAddEditView, IAddEditPre
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                startActivity(new Intent(this, BoardListActivity.class));
-                finishAffinity();
-                getSession().setCurrentBoardLanguage("");
-                break;
             case R.id.grid_size:
                 showGridDialog();
                 break;
@@ -293,7 +289,11 @@ public class AddEditActivity extends BaseBoardActivity<IAddEditView, IAddEditPre
             @Override
             public void onPositiveClickListener() {
                 if(getSession()!=null) getSession().setCurrentBoardLanguage("");
-                startActivity(new Intent(mContext, BoardListActivity.class));
+                startActivities(new Intent[]{
+                        new Intent(getApplicationContext(), MainActivity.class),
+                        new Intent(getApplicationContext(), BoardListActivity.class)
+                });
+                /*startActivity(new Intent(mContext, BoardListActivity.class));*/
                 finishAffinity();
             }
         });

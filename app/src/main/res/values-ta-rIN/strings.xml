@@ -358,7 +358,7 @@
     <string name="add_category">வகையினைச் சேர்</string>
     <string name="add_icon">சின்னத்தைச் சேர்</string>
     <string name="edit_icon">சின்னத்தை மாற்று</string>
-    <string name="addicon_title">சின்னங்களைச் சேர்/ மாற்று</string>
+    <string name="addicon_title">சின்னங்களைச் சேர்- மாற்று</string>
     <string name="rep_activity_title">சின்னங்களின் இடத்தை மாற்று</string>
     <string name="i_like">எனக்கு பிடிக்கும்</string>
     <string name="really_like">எனக்கு மிகவும் பிடிக்கும்</string>
