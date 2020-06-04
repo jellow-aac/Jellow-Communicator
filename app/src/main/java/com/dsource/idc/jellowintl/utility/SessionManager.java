@@ -25,7 +25,7 @@ public class SessionManager {
     public final static String BN_IN = "bn-rIN";    // BN_IN -> Bengali
     public final static String BE_IN = "be-rIN";    // BE_IN -> Bengali (for some old API devices which return Bengali locale as be-rIN)
     public final static String MR_IN = "mr-rIN";
-    public final static String ES_ES = "es-rES";    // ES_ES -> Spanish
+    public final static String ES_ES = "es-rES";
     public final static String TA_IN = "ta-rIN";
     public final static String DE_DE = "de-rDE";
     public final static String FR_FR = "fr-rFR";
@@ -41,10 +41,10 @@ public class SessionManager {
             put("English (United States)", ENG_US);
             put ("French (France)", FR_FR);
             put("Spanish (Spain)", ES_ES);
-            put("मराठी", MR_IN);
-            put("हिंदी", HI_IN);
-            put("বাংলা", BN_IN);
-            put("தமிழ்", TA_IN);
+            put("मराठी (Marathi)", MR_IN);
+            put("हिंदी (Hindi)", HI_IN);
+            put("বাংলা (Bengali)", BN_IN);
+            put("தமிழ் (Tamil)", TA_IN);
         }
     };
 
@@ -57,10 +57,10 @@ public class SessionManager {
             put(ENG_US,"English (United States)");
             put(FR_FR, "French (France)");
             put(ES_ES, "Spanish (Spain)");
-            put(MR_IN,"मराठी");
-            put(HI_IN,"हिंदी");
-            put(BN_IN,"বাংলা");
-            put(TA_IN, "தமிழ்");
+            put(MR_IN,"मराठी (Marathi)");
+            put(HI_IN,"हिंदी (Hindi)");
+            put(BN_IN,"বাংলা (Bengali)");
+            put(TA_IN, "தமிழ் (Tamil)");
         }
     };
 

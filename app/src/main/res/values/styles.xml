@@ -138,4 +138,8 @@
         <item name="android:windowEnterAnimation">@anim/slide_up</item>
         <item name="android:windowExitAnimation">@anim/slide_bottom</item>
     </style>
+
+    <style name="mmb_spinner_text_size">
+        <item name="android:textSize">13sp</item>
+    </style>
 </resources>

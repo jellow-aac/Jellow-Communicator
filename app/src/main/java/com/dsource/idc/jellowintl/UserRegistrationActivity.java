@@ -211,13 +211,13 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
         if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             for (int i = 0; i < langNameToBeShorten.length; i++) {
                 switch (langNameToBeShorten[i]) {
-                    case "मराठी":
+                    case "मराठी (Marathi)":
                         shortenLanguageNames[i] = getString(R.string.acc_lang_marathi);
                         break;
-                    case "हिंदी":
+                    case "हिंदी (Hindi)":
                         shortenLanguageNames[i] = getString(R.string.acc_lang_hindi);
                         break;
-                    case "বাঙালি":
+                    case "বাংলা (Bengali)":
                         shortenLanguageNames[i] = getString(R.string.acc_lang_bengali);
                         break;
                     case "English (India)":
@@ -235,7 +235,7 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
                     case "Spanish (Spain)":
                         shortenLanguageNames[i] = getString(R.string.acc_lang_span_span);
                         break;
-                    case "தமிழ்":
+                    case "தமிழ் (Tamil)":
                         shortenLanguageNames[i] = getString(R.string.acc_lang_tamil_in);
                         break;
                     case "German (Deutschland)":

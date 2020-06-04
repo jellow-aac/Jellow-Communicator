@@ -62,7 +62,6 @@
         android:layout_below="@+id/icon_parent"
         android:gravity="center"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/colorPrimary"
         android:textSize="@dimen/my_board_text_size"/>
 
 </RelativeLayout>

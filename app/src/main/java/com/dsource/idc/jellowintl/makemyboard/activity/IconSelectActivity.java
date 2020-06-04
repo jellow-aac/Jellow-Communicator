@@ -148,7 +148,9 @@ public class IconSelectActivity extends BaseBoardActivity<ISelectIconView, ISele
     private void setupHeader() {
         String boardName= currentBoard.getBoardName().length() <= 24 ?
                 currentBoard.getBoardName()+" " + getString(R.string.board) :
-                currentBoard.getBoardName().substring(0,24) +"..>\n"+getString(R.string.board);
+                currentBoard.getBoardName().substring(0,24) +
+                        getString(R.string.limiter)+"\n"+
+                        getString(R.string.board);
         ((TextView) findViewById(R.id.board_name)).setText(boardName);
         File en_dir = mContext.getDir(SessionManager.BOARD_ICON_LOCATION, Context.MODE_PRIVATE);
         String path = en_dir.getAbsolutePath();

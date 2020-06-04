@@ -3,9 +3,7 @@ package com.dsource.idc.jellowintl;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.accessibility.AccessibilityManager;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -50,45 +48,6 @@ public class AccessibilitySettingsActivity extends BaseActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.profile:
-                startActivity(new Intent(this, ProfileFormActivity.class));
-                finish(); break;
-            case R.id.aboutJellow:
-                startActivity(new Intent(this, AboutJellowActivity.class));
-                finish();  break;
-            case R.id.tutorial:
-                startActivity(new Intent(this, TutorialActivity.class));
-                finish(); break;
-            case R.id.keyboardInput:
-                startActivity(new Intent(this, KeyboardInputActivity.class));
-                finish(); break;
-            case R.id.languageSelect:
-                startActivity(new Intent(this, LanguageSelectActivity.class));
-                finish(); break;
-            case R.id.settings:
-                startActivity(new Intent(this, SettingActivity.class));
-                finish(); break;
-            case R.id.resetPreferences:
-                startActivity(new Intent(this, ResetPreferencesActivity.class));
-                finish(); break;
-            case R.id.feedback:
-                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
-                } else {
-                    startActivity(new Intent(this, FeedbackActivity.class));
-                }
-                finish(); break;
-            case android.R.id.home:
-                finish(); break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
     }
 
     public void openSystemAccessibilitySetting(View view){

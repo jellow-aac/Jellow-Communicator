@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 
 import androidx.core.content.ContextCompat;
 
@@ -90,6 +91,12 @@ public class SplashActivity extends BaseActivity {
         }else{
             setUserProperty("PictureViewMode", "PictureOnly");
             setCrashlyticsCustomKey("PictureViewMode", "PictureOnly");
+        }
+
+        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
+            setUserProperty("VisualAccessibility", "true");
+        }else{
+            setUserProperty("VisualAccessibility", "false");
         }
     }
 }

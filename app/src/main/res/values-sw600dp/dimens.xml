@@ -376,6 +376,7 @@
     <dimen name="add_board_icon_size">120dp</dimen>
     <dimen name="add_board_icon_padding">10dp</dimen>
     <dimen name="add_board_text_size">20sp</dimen>
+    <dimen name="list_recycler_margin">16dp</dimen>
     <dimen name="left_mar_my_boards">280dp</dimen>
     <dimen name="add_board_dialog_width">400dp</dimen>
     <dimen name="edit_text_width_add_board">130dp</dimen>

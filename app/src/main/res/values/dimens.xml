@@ -300,6 +300,7 @@
     <dimen name="add_board_icon_padding">6dp</dimen>
     <dimen name="add_board_text_size">16sp</dimen>
     <dimen name="left_mar_my_boards">200dp</dimen>
+    <dimen name="list_recycler_margin">4dp</dimen>
     <dimen name="add_board_dialog_width">400dp</dimen>
     <dimen name="edit_text_width_add_board">130dp</dimen>
     <dimen name="board_dialog_edit_text">14sp</dimen>
@@ -344,6 +345,8 @@
     <dimen name="edit_board_button_margin_top">4dp</dimen>
     <dimen name="edit_board_button_side_margin">4dp</dimen>
     <dimen name="edit_board_button_width">65dp</dimen>
+    <dimen name="spinner_horizontal_padding">0dp</dimen>
+    <dimen name="spinner_vertical_padding">8dp</dimen>
     <dimen name="verbiage_button_width">80dp</dimen>
     <dimen name="edit_board_dialog_button_text_size">12sp</dimen>
     <dimen name="edit_board_dialog_internal_margin_top">10dp</dimen>
@@ -357,20 +360,20 @@
 
 
     <!--Dimensions related to the My Board Card-->
-    <dimen name="my_board_grid_icon_size">144dp</dimen>
+    <dimen name="my_board_grid_icon_size">72dp</dimen>
     <dimen name="my_board_grid_text_width">162dp</dimen>
-    <dimen name="my_board_text_size">16sp</dimen>
-    <dimen name="my_board_edit_icon_size">38dp</dimen>
+    <dimen name="my_board_text_size">13sp</dimen>
+    <dimen name="my_board_edit_icon_size">24dp</dimen>
     <dimen name="board_edit_edittext_size">170dp</dimen>
     <dimen name="list_item_padding">5dp</dimen>
     <dimen name="dialog_width">400dp</dimen>
     <dimen name="dialog_height">500dp</dimen>
     <dimen name="my_boards_card_margin_horizontal">32dp</dimen>
-    <dimen name="my_boards_card_margin_vertical">32dp</dimen>
+    <dimen name="my_boards_card_margin_vertical">4dp</dimen>
     <dimen name="my_board_title_top_margin">8dp</dimen>
     <!--Board Icon Config-->
-    <dimen name="board_icon_thickness">8dp</dimen>
-    <dimen name="board_icon_radius">64dp</dimen>
+    <dimen name="board_icon_thickness">5dp</dimen>
+    <dimen name="board_icon_radius">31dp</dimen>
 
 
     <!--Dimensions Related to the Grid DialogNoOfIconPerScreen-->
@@ -416,7 +419,7 @@
     <dimen name="camera_mar_right">2dp</dimen>
     <dimen name="verbiage_dialog_width">550dp</dimen>
     <dimen name="dialog_heading">16sp</dimen>
-    <dimen name="delete_icon_margin">-34dp</dimen>
+    <dimen name="delete_icon_margin">-22dp</dimen>
     <dimen name="dialog_btn_txt_size">14sp</dimen>
     <dimen name="close_button_width">32dp</dimen>
     <dimen name="dialog_margin">4dp</dimen>
