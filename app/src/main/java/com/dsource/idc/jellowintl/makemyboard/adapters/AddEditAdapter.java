@@ -3,6 +3,7 @@ package com.dsource.idc.jellowintl.makemyboard.adapters;
 import android.content.Context;
 import android.os.Handler;
 import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
 
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.EditAdapterCallback;
@@ -80,13 +81,14 @@ public class AddEditAdapter extends BaseRecyclerAdapter<JellowIcon> {
                 @Override
                 public void run() {
                     viewHolder.setMenuImageBorder(R.id.borderView,false,-1);
+                    viewHolder.getView(R.id.linearlayout_icon1).
+                            sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
                     highlightedPosition = -1;
                 }
             }, 1500);
         }else viewHolder.setMenuImageBorder(R.id.borderView,false,-1);
 
     }
-
 
     public void setListener(EditAdapterCallback editAdapterCallback) {
         this.callback = editAdapterCallback;

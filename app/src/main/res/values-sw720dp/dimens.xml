@@ -345,7 +345,8 @@
     <dimen name="my_board_grid_icon_size">192dp</dimen>
     <dimen name="my_board_grid_text_width">212dp</dimen>
     <dimen name="my_board_text_size">24sp</dimen>
-    <dimen name="my_board_edit_icon_size">56dp</dimen>
+    <dimen name="my_board_dialog_camera_icon_size">56dp</dimen>
+    <dimen name="my_board_edit_delete_size">56dp</dimen>
     <dimen name="board_edit_edittext_size">170dp</dimen>
     <dimen name="list_item_padding">6dp</dimen>
     <dimen name="dialog_width">400dp</dimen>

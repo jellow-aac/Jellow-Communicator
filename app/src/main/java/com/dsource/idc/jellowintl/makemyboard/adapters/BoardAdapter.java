@@ -6,6 +6,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
 import android.widget.ImageView;
 
 import androidx.core.content.ContextCompat;
@@ -90,6 +91,8 @@ public class BoardAdapter extends BaseRecyclerAdapter<BoardModel> {
                 @Override
                 public void run() {
                     viewHolder.setMenuImageBorder(R.id.borderView,false,-1);
+                    viewHolder.getView(R.id.parent).
+                            sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
                     selectedPosition = -1;
                 }
             }, 1500);

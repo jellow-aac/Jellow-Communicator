@@ -44,6 +44,7 @@
                 android:layout_alignParentRight="true"
                 android:src="@drawable/ic_edit_icon_red_back"
                 android:importantForAccessibility="yes"
+                android:focusable="true"
                 android:contentDescription="@string/edit_board_image"/>
         </RelativeLayout>
 

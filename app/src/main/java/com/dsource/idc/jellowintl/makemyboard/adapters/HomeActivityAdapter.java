@@ -6,8 +6,10 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.accessibility.AccessibilityEvent;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -57,7 +59,7 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
 
         JellowIcon thisIcon = (JellowIcon) mProvider.getItem(position);
 
@@ -98,12 +100,12 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
             setMenuImageBorder(holder, true, expIconPos);
         } else if (position == highlightedIcon) {
             setMenuImageBorder(holder, true, 100);
-            final MyViewHolder Fholder = holder;
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    setMenuImageBorder(Fholder, false, -1);
+                    setMenuImageBorder(holder, false, -1);
+                    holder.parent.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
                     highlightedIcon = -1;
                 }
             }, 1500);
@@ -211,6 +213,7 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
         FrameLayout mContainer;
         TextView iconTitle;
         ImageView iconImage;
+        LinearLayout parent;
         View holder;
         GradientDrawable backGround;
 
@@ -221,7 +224,7 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
             iconTitle = v.findViewById(R.id.te1);
             iconImage = v.findViewById(R.id.icon1);
             backGround = (GradientDrawable) v.findViewById(R.id.borderView).getBackground();
-
+            parent = v.findViewById(R.id.linearlayout_icon1);
             mContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

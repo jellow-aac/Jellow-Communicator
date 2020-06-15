@@ -3,6 +3,7 @@ package com.dsource.idc.jellowintl.makemyboard.adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
+import android.view.accessibility.AccessibilityEvent;
 import android.widget.CheckBox;
 
 import com.dsource.idc.jellowintl.R;
@@ -54,6 +55,8 @@ public class SelectIconAdapter extends BaseRecyclerAdapter<JellowIcon> {
                 public void run() {
                     viewHolder.setMenuImageBorder(R.id.borderView,false,-1);
                     highlightedIconPos = -1;
+                    viewHolder.getView(R.id.parent).
+                            sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
                 }
             }, 1500);
         }else viewHolder.setMenuImageBorder(R.id.borderView,false,-1);

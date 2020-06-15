@@ -3,7 +3,10 @@ package com.dsource.idc.jellowintl;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.method.KeyListener;
@@ -1229,6 +1232,10 @@ public class MainActivity extends LevelBaseActivity{
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.MATCH_PARENT;
         dialog.getWindow().setAttributes(lp);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && isNotchDevice()) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
     }
 
     private void clearSelectionAfterAccessibilityDialogClose() {

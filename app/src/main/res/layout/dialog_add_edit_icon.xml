@@ -34,8 +34,8 @@
                     android:src="@drawable/ic_board_person"
                     android:importantForAccessibility="no" />
                 <ImageView
-                    android:layout_width="@dimen/my_board_edit_icon_size"
-                    android:layout_height="@dimen/my_board_edit_icon_size"
+                    android:layout_width="@dimen/my_board_dialog_camera_icon_size"
+                    android:layout_height="@dimen/my_board_dialog_camera_icon_size"
                     android:layout_marginLeft="@dimen/camera_mar_left"
                     android:layout_marginTop="@dimen/camera_mar_right"
                     android:id="@+id/edit_board"

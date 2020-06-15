@@ -3,6 +3,9 @@ package com.dsource.idc.jellowintl;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -1473,6 +1476,10 @@ public class LevelThreeActivity extends LevelBaseActivity{
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.MATCH_PARENT;
         dialog.getWindow().setAttributes(lp);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && isNotchDevice()) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
     }
 
     private void clearSelectionAfterAccessibilityDialogClose() {
