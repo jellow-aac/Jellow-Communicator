@@ -140,7 +140,8 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
         bRegister = findViewById(R.id.bRegister);
         findViewById(R.id.childName).setFocusableInTouchMode(true);
         findViewById(R.id.childName).setFocusable(true);
-
+        findViewById(R.id.cb_privacy_consent).setContentDescription(
+                ((TextView)findViewById(R.id.tv_pivacy_link)).getText().toString());
         languageSelect = findViewById(R.id.langSelectSpinner);
         ArrayAdapter<String> adapter_lan = new ArrayAdapter<>(this,
                 R.layout.simple_spinner_item, populateCountryNameByUserType(languageNames));

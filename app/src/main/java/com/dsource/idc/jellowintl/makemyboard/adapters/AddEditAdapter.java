@@ -39,10 +39,15 @@ public class AddEditAdapter extends BaseRecyclerAdapter<JellowIcon> {
             viewHolder.setImageFromBoard(R.id.icon1, item.getIconDrawable(), R.drawable.ic_icon_placeholder);
         } else
             viewHolder.setImageFromLibrary(R.id.icon1, item.getIconDrawable());
+        viewHolder.setSetAccessibility(R.id.icon1, false);
 
         //Hide the edit and remove icon for the add_icon button, which is at the 0th position
         viewHolder.setVisible(R.id.delete_icons, position != 0);
         viewHolder.setVisible(R.id.edit_icons, position != 0);
+        viewHolder.setDescriptionToIcon(R.id.delete_icons,
+                getContext().getString(R.string.delete_current_icon));
+        viewHolder.setDescriptionToIcon(R.id.edit_icons,
+                getContext().getString(R.string.edit_current_icon));
 
         //Setting up listeners
         viewHolder.setOnClickListener(R.id.delete_icons, new View.OnClickListener() {

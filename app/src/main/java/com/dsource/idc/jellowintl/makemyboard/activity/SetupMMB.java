@@ -36,6 +36,7 @@ public class SetupMMB extends BaseActivity {
         mSession = new SessionManager(this);
         progressBar = findViewById(R.id.pg);
         progressText = findViewById(R.id.progress_text);
+        progressBar.setContentDescription(getString(R.string.setting_up_the_language));
         if(getIntent().getStringExtra(LCODE)!=null){
             langCode = getIntent().getStringExtra(LCODE);
             boardId = getIntent().getStringExtra(BOARD_ID);

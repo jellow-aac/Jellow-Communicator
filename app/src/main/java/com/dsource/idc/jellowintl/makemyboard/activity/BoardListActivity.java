@@ -2,6 +2,7 @@ package com.dsource.idc.jellowintl.makemyboard.activity;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -91,6 +92,10 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
             @Override
             public void onPositiveClickListener() {
                 mPresenter.deleteBoard(mContext,mAdapter.getItem(position));
+                Toast.makeText(mContext,
+                        getString(R.string.board_deleted).
+                                replace("_", mAdapter.getItem(position).getBoardName()),
+                        Toast.LENGTH_SHORT).show();
                 mAdapter.remove(position);
                 dialog.dismiss();
             }

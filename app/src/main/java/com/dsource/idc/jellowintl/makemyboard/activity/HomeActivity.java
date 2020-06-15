@@ -1,15 +1,22 @@
 package com.dsource.idc.jellowintl.makemyboard.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
@@ -17,6 +24,7 @@ import androidx.recyclerview.widget.SimpleItemAnimator;
 import com.dsource.idc.jellowintl.MainActivity;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.SpeechEngineBaseActivity;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.TextToSpeechCallBacks;
 import com.dsource.idc.jellowintl.makemyboard.adapters.HomeActivityAdapter;
 import com.dsource.idc.jellowintl.makemyboard.datamodels.DragNDropDataProvider;
@@ -32,8 +40,11 @@ import com.dsource.idc.jellowintl.makemyboard.managers.ModelManager;
 import com.dsource.idc.jellowintl.makemyboard.managers.SearchScrollManager;
 import com.dsource.idc.jellowintl.makemyboard.utility.Nomenclature;
 import com.dsource.idc.jellowintl.models.ExpressiveIcon;
+import com.dsource.idc.jellowintl.models.GlobalConstants;
 import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.models.JellowIcon;
+import com.dsource.idc.jellowintl.utility.DialogKeyboardUtterance;
+import com.dsource.idc.jellowintl.utility.LevelUiUtils;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
@@ -84,6 +95,7 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
         }
         registerSpeechEngineErrorHandle(this);
         currentBoard = database.getBoardById(boardId);
+        this.setTitle(currentBoard.getBoardName()+ " "+getString(R.string.board));
         setupToolbar();
         verbiageDatabase = new TextDatabase(this, currentBoard.getLanguage(), getAppDatabase());
         modelManager = new ModelManager(currentBoard.getIconModel());
@@ -163,6 +175,9 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
                 ivHome.setImageDrawable(getResources().getDrawable(R.drawable.home));
                 adapter.setSelectedPosition(position);
                 prepareSpeech(displayList.get(position));
+                if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    showAccessibleDialog();
+                }
             }
         });
         adapter.setOnItemMoveListener(
@@ -237,9 +252,13 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
         ivKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speakFromMMB(getResources().getString(R.string.keyboard));
-                isKeyboardVisible = !isKeyboardVisible;
-                enableKeyboardView();
+                if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
+                    new DialogKeyboardUtterance(HomeActivity.this).show();
+                }else {
+                    speakFromMMB(getResources().getString(R.string.keyboard));
+                    isKeyboardVisible = !isKeyboardVisible;
+                    enableKeyboardView();
+                }
             }
         });
     }
@@ -331,6 +350,14 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
         });
         if(rvRecycler.getItemAnimator()!=null)
             ((SimpleItemAnimator) rvRecycler.getItemAnimator()).setSupportsChangeAnimations(false);
+        int[] icons = {
+                R.id.ivlike, R.id.ivyes, R.id.ivadd,
+                R.id.ivdislike, R.id.ivno, R.id.ivminus,
+                R.id.ivhome, R.id.ivback, R.id.keyboard
+        };
+        for (int icon: icons){
+            ViewCompat.setAccessibilityDelegate(findViewById(icon), new TalkbackHints_SingleClick());
+        }
     }
 
     private int getLevelXAdapterLayout() {
@@ -398,7 +425,7 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
                 database.updateBoardIntoDatabase(currentBoard);
                 prepareRecyclerView();
             }
-        });
+        }, currentBoard.getGridSize());
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -448,6 +475,157 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
         expIconManager.disableExpressiveIcons(disable);
     }
 
+    private void showAccessibleDialog() {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(HomeActivity.this);
+        final View mView = getLayoutInflater().inflate(R.layout.dialog_layout, null);
+
+        Button enterCategory = mView.findViewById(R.id.enterCategory);
+        final Button closeDialog = mView.findViewById(R.id.btnClose);
+        ImageView ivLike = mView.findViewById(R.id.ivlike);
+        ImageView ivYes = mView.findViewById(R.id.ivyes);
+        ImageView ivAdd = mView.findViewById(R.id.ivadd);
+        ImageView ivDisLike = mView.findViewById(R.id.ivdislike);
+        ImageView ivNo = mView.findViewById(R.id.ivno);
+        ImageView ivMinus = mView.findViewById(R.id.ivminus);
+        final ImageView ivBack_ = mView.findViewById(R.id.back);
+        ivBack_.setEnabled(false);
+        ivBack_.setAlpha(GlobalConstants.DISABLE_ALPHA);
+        final ImageView ivHome_ = mView.findViewById(R.id.home);
+        final ImageView ivKeyboard_ = mView.findViewById(R.id.keyboard);
+        ViewCompat.setAccessibilityDelegate(ivLike, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivYes, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivAdd, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivDisLike, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivNo, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivMinus, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivBack_, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivHome_, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivKeyboard_, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(enterCategory, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(closeDialog, new TalkbackHints_SingleClick());
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+
+        enterCategory.setText(getString(R.string.speak));
+        enterCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                speak(selectedIconVerbiage.getSpeech_Label());
+            }
+        });
+
+        enterCategory.setAccessibilityDelegate(new View.AccessibilityDelegate(){
+            @Override
+            public void onPopulateAccessibilityEvent(View host, AccessibilityEvent event) {
+                super.onPopulateAccessibilityEvent(host, event);
+                if(event.getEventType() != AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED) {
+                    mView.findViewById(R.id.txTitleHidden).
+                            setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+                }
+            }
+        });
+        closeDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //clear all selection in current level
+                clearSelectionAfterAccessibilityDialogClose();
+                //dismiss dialog
+                dialog.dismiss();
+            }
+        });
+
+        final ImageView[] expressiveBtns = {ivLike, ivYes, ivAdd, ivDisLike, ivNo, ivMinus};
+        ivLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                findViewById(R.id.ivlike).performClick();
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtns, GlobalConstants.LIKE);
+            }
+        });
+        ivYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                findViewById(R.id.ivyes).performClick();
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtns, GlobalConstants.YES);
+            }
+        });
+        ivAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                findViewById(R.id.ivadd).performClick();
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtns, GlobalConstants.MORE);
+            }
+        });
+        ivDisLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                findViewById(R.id.ivdislike).performClick();
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtns, GlobalConstants.DONT_LIKE);
+            }
+        });
+        ivNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                findViewById(R.id.ivno).performClick();
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtns, GlobalConstants.NO);
+            }
+        });
+        ivMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                findViewById(R.id.ivminus).performClick();
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtns, GlobalConstants.LESS);
+            }
+        });
+        ivBack_.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        ivHome_.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ivHome.performClick();
+                dialog.dismiss();
+            }
+        });
+        ivKeyboard_.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ivKeyboard.performClick();
+                dialog.dismiss();
+            }
+        });
+        LevelUiUtils.setExpressiveIconConditionally(expressiveBtns, selectedIconVerbiage);
+
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                clearSelectionAfterAccessibilityDialogClose();
+            }
+        });
+
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2; //style id
+        dialog.show();
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        dialog.getWindow().setAttributes(lp);
+    }
+
+    private void clearSelectionAfterAccessibilityDialogClose() {
+        ivHome.setImageDrawable(getResources().getDrawable(R.drawable.home));
+        expIconManager.resetSelection();
+        LevelOneParent = -1;
+        adapter.setSelectedPosition(-1);
+        adapter.setExpIconPos(-1);
+        Level = 0;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!isKeyboardVisible) {
@@ -459,8 +637,10 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
                 expIconManager.resetSelection();
                 expIconManager.disableExpressiveIcons(true);
                 stopSpeaking();
+                menu.findItem(R.id.reposition_lock).setTitle(getString(R.string.disable_reposition_icons));
             }else{
                 expIconManager.disableExpressiveIcons(false);
+                menu.findItem(R.id.reposition_lock).setTitle(getString(R.string.enable_reposition_icons));
             }
         }
         return true;
@@ -482,7 +662,6 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
                 if (iconPos.size() >0)
                     highlightIcon(iconPos);
                 selectedIconVerbiage = null;
-
             }
         }
 

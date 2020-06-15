@@ -7,11 +7,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dsource.idc.jellowintl.MainActivity;
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.makemyboard.adapters.AddEditAdapter;
 import com.dsource.idc.jellowintl.makemyboard.custom_dialogs.DialogAddEditIcon;
 import com.dsource.idc.jellowintl.makemyboard.custom_dialogs.DialogCustom;
@@ -91,8 +93,15 @@ public class AddEditActivity extends BaseBoardActivity<IAddEditView, IAddEditPre
         getView(R.id.keyboard).setAlpha(.5f);
         setVisibility(R.id.et, false);
         setVisibility(R.id.ttsbutton, false);
-        getView(R.id.expressiveOne).setAlpha(.6f);
-        getView(R.id.expressiveTwo).setAlpha(.6f);
+        {
+            int []icons = {R.id.ivlike, R.id.ivyes, R.id.ivadd, R.id.ivdislike, R.id.ivno,
+                    R.id.ivminus, R.id.ivback, R.id.keyboard};
+            for (int icon : icons) {
+                getView(icon).setAlpha(.5f);
+                getView(icon).setEnabled(false);
+                ViewCompat.setAccessibilityDelegate(getView(icon), new TalkbackHints_SingleClick());
+            }
+        }
 
         //Call presenter to load the items
         mPresenter.loadIcons();
@@ -234,7 +243,7 @@ public class AddEditActivity extends BaseBoardActivity<IAddEditView, IAddEditPre
                 currentBoard.setGridSize(size);
                 changeGridSize();
             }
-        });
+        }, currentBoard.getGridSize());
     }
 
     private void changeGridSize() {

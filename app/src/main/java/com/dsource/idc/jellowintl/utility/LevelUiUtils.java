@@ -25,16 +25,14 @@ public class LevelUiUtils {
     public static void disableAllExpressiveIcon(ImageView[] btn){
         for (ImageView expr : btn) {
             expr.setEnabled(false);
-            expr.setAlpha(0.5f);
-            expr.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            expr.setAlpha(GlobalConstants.DISABLE_ALPHA);
         }
     }
 
     public static void enableAllExpressiveIcon(ImageView[] btn){
         for (ImageView expr : btn) {
             expr.setEnabled(true);
-            expr.setAlpha(1f);
-            expr.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+            expr.setAlpha(GlobalConstants.ENABLE_ALPHA);
         }
     }
 
@@ -44,11 +42,9 @@ public class LevelUiUtils {
             if (expr[i].equals(NA)){
                 btn[i].setAlpha(GlobalConstants.DISABLE_ALPHA);
                 btn[i].setEnabled(false);
-                btn[i].setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
             }else{
                 btn[i].setAlpha(GlobalConstants.ENABLE_ALPHA);
                 btn[i].setEnabled(true);
-                btn[i].setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
             }
         }
     }
@@ -152,7 +148,6 @@ public class LevelUiUtils {
         callIntent.setData(Uri.parse(contact));
         context.startActivity(callIntent);
     }
-
 
     /**
      * <p>This function increment the touch count for the selected category icon.

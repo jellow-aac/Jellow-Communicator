@@ -196,13 +196,14 @@
         <activity
             android:name=".makemyboard.custom_dialogs.DialogAddEditIcon"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/add_edit_icons_dialog"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Translucent"
             tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".makemyboard.activity.BoardListActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/menuMyBoards"
+            android:label="@string/my_boards_screen"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity"/>
@@ -210,18 +211,20 @@
             android:name=".makemyboard.custom_dialogs.DialogNoOfIconPerScreen"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
+            android:label="dialog"
             android:theme="@style/Theme.AppCompat.Translucent"
             tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".makemyboard.activity.IconSelectActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/menuIconSelect"
+            android:label="@string/icon_select_screen"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".makemyboard.activity.AddEditActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/icon_add_edit_screen"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity"/>

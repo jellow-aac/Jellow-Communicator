@@ -993,14 +993,6 @@ public class MainActivity extends LevelBaseActivity{
                         Settings.Secure.DEFAULT_INPUT_METHOD));
                 bundle.putString("utterence", mEtTTs.getText().toString());
                 bundleEvent("Keyboard", bundle);
-
-                //if expressive buttons always disabled during custom text speech output
-                mIvLike.setEnabled(false);
-                mIvDontLike.setEnabled(false);
-                mIvMore.setEnabled(false);
-                mIvLess.setEnabled(false);
-                mIvYes.setEnabled(false);
-                mIvNo.setEnabled(false);
             }
         });
     }

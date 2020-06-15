@@ -65,7 +65,7 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
                 thisIcon.getIconTitle() :
                 thisIcon.getIconTitle().substring(0,24)+ mContext.getString(R.string.limiter);
         holder.iconTitle.setText(iconTitle);
-
+        holder.mContainer.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         if (thisIcon.isCustomIcon())
             setImageFromBoard(holder.iconImage, thisIcon.getIconDrawable());
         else
@@ -299,5 +299,4 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
     public void onItemDragFinished(int fromPosition, int toPosition, boolean result) {
         notifyDataSetChanged();
     }
-
 }

@@ -19,6 +19,8 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.File;
 
+import static android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO;
+import static android.view.View.IMPORTANT_FOR_ACCESSIBILITY_YES;
 import static com.dsource.idc.jellowintl.factories.IconFactory.EXTENSION;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 
@@ -170,4 +172,15 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
             gd.setColor(ContextCompat.getColor(context, android.R.color.transparent));
     }
 
+    public void setSetAccessibility(int viewId, boolean enable) {
+        if (!enable){
+            getView(viewId).setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_NO);
+        }else{
+            getView(viewId).setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_YES);
+        }
+    }
+
+    public void setDescriptionToIcon(int edit_icons, String description) {
+        getView(edit_icons).setContentDescription(description);
+    }
 }

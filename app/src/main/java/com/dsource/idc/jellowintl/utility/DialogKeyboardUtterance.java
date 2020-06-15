@@ -13,8 +13,8 @@ import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.EditText;
 
-import com.dsource.idc.jellowintl.LevelBaseActivity;
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.SpeechEngineBaseActivity;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 
@@ -39,7 +39,7 @@ public class DialogKeyboardUtterance {
                 bundle.putString("utterence", speechText);
                 if (!speechText.isEmpty())
                     bundleEvent("Keyboard", bundle);
-                ((LevelBaseActivity)mContext).speak(speechText.toLowerCase().concat("_"));
+                ((SpeechEngineBaseActivity)mContext).speak(speechText.toLowerCase().concat("_"));
 
             }
         });
@@ -59,7 +59,6 @@ public class DialogKeyboardUtterance {
         builder.setView(dialogView);
         final AlertDialog dialog = builder.create();
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //dialog.setView(dialogView);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);
         dialog.show();

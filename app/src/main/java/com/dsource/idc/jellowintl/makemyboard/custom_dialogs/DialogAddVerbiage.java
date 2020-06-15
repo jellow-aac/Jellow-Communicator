@@ -14,9 +14,9 @@ import android.widget.RelativeLayout;
 
 import com.dsource.idc.jellowintl.BaseActivity;
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.TextDatabase;
-import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
 import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -178,7 +178,10 @@ public class DialogAddVerbiage extends BaseActivity implements View.OnClickListe
         //Loading expressive icons
         @SuppressLint("Recycle")
         TypedArray iconImages = context.getResources().obtainTypedArray(R.array.expressive_icon_unpressed);
-
+        String []contentDescExpression = {
+            getString(R.string.like),getString(R.string.yes),getString(R.string.more),
+            getString(R.string.dont_like),getString(R.string.no),getString(R.string.less)
+        };
         expListLayouts = new ArrayList<>();
         //Populating the list item of verbiage
         for (int i = 0; i < 6; i++) {
@@ -187,6 +190,9 @@ public class DialogAddVerbiage extends BaseActivity implements View.OnClickListe
             expListLayouts.add((RelativeLayout) view);
             view.findViewById(R.id.add_remove).setOnClickListener(this);
             ((ImageView) view.findViewById(R.id.icon)).setImageDrawable(iconImages.getDrawable(i));
+            view.findViewById(R.id.icon).setContentDescription(contentDescExpression[i]);
+            expListLayouts.get(i).findViewById(R.id.add_remove).
+                    setContentDescription(getString(R.string.tap_icon_to_deselect_expression));
             expList.addView(view);
         }
 
@@ -215,7 +221,10 @@ public class DialogAddVerbiage extends BaseActivity implements View.OnClickListe
                     expListLayouts.get(i).findViewById(R.id.verbiage_text).setAlpha(.6f);
                     expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setEnabled(false);
                     expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(.6f);
-                    ((ImageView) expListLayouts.get(i).findViewById(R.id.add_remove)).setImageDrawable(context.getResources().getDrawable(R.drawable.plus));
+                    ((ImageView) expListLayouts.get(i).findViewById(R.id.add_remove)).
+                            setImageDrawable(context.getResources().getDrawable(R.drawable.plus));
+                    expListLayouts.get(i).findViewById(R.id.add_remove).
+                            setContentDescription(getString(R.string.tap_icon_to_select_expression));
                 } else {
                     expListLayouts.get(i).findViewById(R.id.verbiage_text).setEnabled(true);
                     expListLayouts.get(i).findViewById(R.id.verbiage_text).setAlpha(1.0f);
@@ -223,6 +232,8 @@ public class DialogAddVerbiage extends BaseActivity implements View.OnClickListe
                     expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(1.0f);
                     ((ImageView) expListLayouts.get(i).findViewById(R.id.add_remove)).
                             setImageDrawable(context.getResources().getDrawable(R.drawable.minus));
+                    expListLayouts.get(i).findViewById(R.id.add_remove).
+                            setContentDescription(getString(R.string.tap_icon_to_deselect_expression));
                 }
             }
         }
@@ -288,6 +299,8 @@ public class DialogAddVerbiage extends BaseActivity implements View.OnClickListe
                 expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(1.0f);
                 ((ImageView) expListLayouts.get(i).findViewById(R.id.add_remove)).
                         setImageDrawable(context.getResources().getDrawable(R.drawable.minus));
+                expListLayouts.get(i).findViewById(R.id.add_remove).
+                        setContentDescription(getString(R.string.tap_icon_to_deselect_expression));
             }
         else
             for (int i = 0; i < 6; i++) {
@@ -297,6 +310,8 @@ public class DialogAddVerbiage extends BaseActivity implements View.OnClickListe
                 expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(.6f);
                 ((ImageView) expListLayouts.get(i).findViewById(R.id.add_remove)).
                         setImageDrawable(context.getResources().getDrawable(R.drawable.plus));
+                expListLayouts.get(i).findViewById(R.id.add_remove).
+                        setContentDescription(getString(R.string.tap_icon_to_select_expression));
             }
 
     }
@@ -363,6 +378,8 @@ public class DialogAddVerbiage extends BaseActivity implements View.OnClickListe
                     setImageDrawable(context.getResources().getDrawable(R.drawable.plus));
             ((EditText) expListLayouts.get(index).findViewById(R.id.verbiage_text)).setText(null);
             ((EditText) expListLayouts.get(index).findViewById(R.id.verbiage_really_text)).setText(null);
+            expListLayouts.get(index).findViewById(R.id.add_remove).
+                    setContentDescription(getString(R.string.tap_icon_to_select_expression));
 
         } else {
             expListLayouts.get(index).findViewById(R.id.verbiage_text).setEnabled(true);
@@ -371,6 +388,8 @@ public class DialogAddVerbiage extends BaseActivity implements View.OnClickListe
             expListLayouts.get(index).findViewById(R.id.verbiage_really_text).setAlpha(1f);
             ((ImageView) expListLayouts.get(index).findViewById(R.id.add_remove)).
                     setImageDrawable(context.getResources().getDrawable(R.drawable.minus));
+            expListLayouts.get(index).findViewById(R.id.add_remove).
+                    setContentDescription(getString(R.string.tap_icon_to_deselect_expression));
         }
     }
 

@@ -52,26 +52,23 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
         setContentView(R.layout.activity_search);
         EditText SearchEditText = findViewById(R.id.search_auto_complete);
         currentBoard = new BoardDatabase(getAppDatabase()).getBoardById(getIntent().getStringExtra(BOARD_ID));
-        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-            SearchEditText.setContentDescription("Enter to search");
-            findViewById(R.id.close_button).setVisibility(View.GONE);
-        } else {
-            SearchEditText.setHint("Search icon..");
-        }
         getWindow().setGravity(Gravity.LEFT);
-
         initFields();
         Mode = getIntent().getStringExtra(SEARCH_MODE);
+        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            findViewById(R.id.close_button).setVisibility(View.INVISIBLE);
+        }
+        SearchEditText.setHint(getString(R.string.enter_icon_name));
         if(Mode!=null)
         {
             switch (Mode) {
                 case NORMAL_SEARCH:
+                    setTitle(getString(R.string.search_icon_available_in_jellow));
                     normalSearch();
                     break;
                 case SEARCH_IN_BOARD:
-                {
+                    setTitle(getString(R.string.search_icon_the_board));
                     searchInBoard(currentBoard);
-                }
                     break;
                 case ICON_SEARCH:
                     searchForIcon();
@@ -80,15 +77,14 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
                     searchInBaseDatabase();
                     break;
                 case SEARCH_FOR_BOARD:
+                    setTitle(getString(R.string.search_board_screen));
+                    SearchEditText.setHint(getString(R.string.enter_board_name_to_search));
                     searchForBoard();
                     break;
             }
         }
 
-
-
         //Initialising the fields
-
         // To Close on touch outside
         (findViewById(R.id.search_layout)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,6 +169,7 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
     private void searchForBoard() {
         final BoardListModel blm = new BoardListModel(getAppDatabase());
         EditText searchEditText = findViewById(R.id.search_auto_complete);
+        adapter.setSearchingBoardName(true);
 
         //Adding text watcher so that we can address dynamic text changes
         searchEditText.addTextChangedListener(new TextWatcher() {

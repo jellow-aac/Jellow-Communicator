@@ -3,28 +3,44 @@
     android:layout_width="match_parent"
     android:background="@color/translucent"
     android:id="@+id/touch_outside"
-    android:layout_height="match_parent">
+    android:importantForAccessibility="no"
+    android:layout_height="match_parent"
+    android:onClick="closeDialog">
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_centerInParent="true"
         android:padding="@dimen/grid_dialog_padding"
         android:background="@drawable/number_of_icons_dialog"
+        android:importantForAccessibility="yes"
         android:layout_height="wrap_content">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="@string/number_of_icons_per_screen"
-        android:fontFamily="@font/mukta_semibold"
-        android:textSize="@dimen/grid_dialog_title_textsize"
-        android:paddingHorizontal="16dp"
-        android:textColor="@color/text_color"
-        android:layout_marginBottom="@dimen/grid_dialog_title_bottom_margin"
-        android:id="@+id/grid_dialog_title"
-        />
+        <LinearLayout
+            android:id="@+id/ll_title_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="@dimen/grid_dialog_title_bottom_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/number_of_icons_per_screen"
+                android:fontFamily="@font/mukta_semibold"
+                android:textSize="@dimen/grid_dialog_title_textsize"
+                android:paddingHorizontal="16dp"
+                android:textColor="@color/text_color"
+                android:id="@+id/grid_dialog_title"/>
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_close"
+                android:onClick="closeDialog"
+                android:contentDescription="@string/close"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/grid_dialog_title"
+            android:layout_below="@id/ll_title_bar"
             android:layout_width="wrap_content"
             android:orientation="horizontal"
             android:layout_height="wrap_content">
@@ -32,7 +48,9 @@
             android:layout_width="wrap_content"
             android:layout_marginRight="@dimen/grid_dialog_icon_margin"
             android:layout_marginLeft="@dimen/grid_dialog_icon_margin"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:importantForAccessibility="yes">
             <ImageView
                 android:background="@drawable/base_color_rounded_back"
                 android:id="@+id/grid_size_1x1"
@@ -42,7 +60,14 @@
                 android:src="@drawable/config_one_icon"
                 android:layout_centerHorizontal="true"
                 android:padding="4dp"
-                android:layout_height="@dimen/grid_dialog_icon_size" />
+                android:layout_height="@dimen/grid_dialog_icon_size"
+                android:importantForAccessibility="no"/>
+            <FrameLayout
+                android:id="@+id/fl_one_icon"
+                android:layout_marginBottom="@dimen/grid_dialog_text_margin"
+                android:layout_marginTop="@dimen/grid_dialog_text_margin"
+                android:layout_width="@dimen/grid_dialog_icon_size"
+                android:layout_height="@dimen/grid_dialog_icon_size"/>
             <TextView
                 android:layout_below="@id/grid_size_1x1"
                 android:layout_width="@dimen/grid_dialog_icon_size"
@@ -52,14 +77,15 @@
                 android:text="@string/_1_icon"
                 android:textColor="@color/text_color"
                 android:textAlignment="center"
-                android:textSize="@dimen/grid_dialog_title_textsize"
-                />
+                android:textSize="@dimen/grid_dialog_title_textsize"/>
 
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_marginRight="@dimen/grid_dialog_icon_margin"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:importantForAccessibility="yes">
         <ImageView
             android:background="@drawable/base_color_rounded_back"
             android:id="@+id/grid_size_1X2"
@@ -69,7 +95,14 @@
             android:layout_marginTop="@dimen/grid_dialog_text_margin"
             android:layout_centerHorizontal="true"
             android:src="@drawable/config_two_icon"
-            android:layout_height="@dimen/grid_dialog_icon_size" />
+            android:layout_height="@dimen/grid_dialog_icon_size"
+            android:importantForAccessibility="no"/>
+            <FrameLayout
+                android:id="@+id/fl_two_icon"
+                android:layout_marginBottom="@dimen/grid_dialog_text_margin"
+                android:layout_marginTop="@dimen/grid_dialog_text_margin"
+                android:layout_width="@dimen/grid_dialog_icon_size"
+                android:layout_height="@dimen/grid_dialog_icon_size"/>
         <TextView
             android:layout_below="@id/grid_size_1X2"
             android:layout_width="@dimen/grid_dialog_icon_size"
@@ -79,14 +112,15 @@
             android:text="@string/_2_icons"
             android:textColor="@color/text_color"
             android:textAlignment="center"
-            android:textSize="@dimen/grid_dialog_title_textsize"
-            />
+            android:textSize="@dimen/grid_dialog_title_textsize"/>
 
     </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_marginRight="@dimen/grid_dialog_icon_margin"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:importantForAccessibility="yes">
             <ImageView
                 android:background="@drawable/base_color_rounded_back"
                 android:id="@+id/grid_size_1X3"
@@ -96,7 +130,14 @@
                 android:src="@drawable/config_three_icon"
                 android:padding="4dp"
                 android:layout_centerHorizontal="true"
-                android:layout_height="@dimen/grid_dialog_icon_size" />
+                android:layout_height="@dimen/grid_dialog_icon_size"
+                android:importantForAccessibility="no" />
+            <FrameLayout
+                android:id="@+id/fl_three_icon"
+                android:layout_marginBottom="@dimen/grid_dialog_text_margin"
+                android:layout_marginTop="@dimen/grid_dialog_text_margin"
+                android:layout_width="@dimen/grid_dialog_icon_size"
+                android:layout_height="@dimen/grid_dialog_icon_size"/>
             <TextView
                 android:layout_below="@id/grid_size_1X3"
                 android:layout_width="@dimen/grid_dialog_icon_size"
@@ -106,14 +147,15 @@
                 android:text="@string/_3_icons"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/grid_dialog_title_textsize"
-                android:textAlignment="center"
-                />
+                android:textAlignment="center"/>
 
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_marginRight="@dimen/grid_dialog_icon_margin"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:importantForAccessibility="yes">
             <ImageView
                 android:background="@drawable/base_color_rounded_back"
                 android:id="@+id/grid_size_2x2"
@@ -123,7 +165,15 @@
                 android:src="@drawable/config_four_icon"
                 android:padding="4dp"
                 android:layout_centerHorizontal="true"
-                android:layout_height="@dimen/grid_dialog_icon_size" />
+                android:layout_height="@dimen/grid_dialog_icon_size"
+                android:focusable="false"
+                android:importantForAccessibility="no" />
+            <FrameLayout
+                android:id="@+id/fl_four_icon"
+                android:layout_marginBottom="@dimen/grid_dialog_text_margin"
+                android:layout_marginTop="@dimen/grid_dialog_text_margin"
+                android:layout_width="@dimen/grid_dialog_icon_size"
+                android:layout_height="@dimen/grid_dialog_icon_size"/>
             <TextView
                 android:layout_below="@id/grid_size_2x2"
                 android:layout_width="@dimen/grid_dialog_icon_size"
@@ -133,15 +183,15 @@
                 android:id="@+id/grid_size_2x2_text"
                 android:textColor="@color/text_color"
                 android:textAlignment="center"
-                android:textSize="@dimen/grid_dialog_title_textsize"
-                />
+                android:textSize="@dimen/grid_dialog_title_textsize"/>
 
         </RelativeLayout>
-
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_marginRight="@dimen/grid_dialog_icon_margin"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:importantForAccessibility="yes">
             <ImageView
                 android:background="@drawable/base_color_rounded_back"
                 android:id="@+id/grid_size_3X3"
@@ -151,7 +201,15 @@
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/config_nine_icon"
                 android:padding="4dp"
-                android:layout_height="@dimen/grid_dialog_icon_size" />
+                android:layout_height="@dimen/grid_dialog_icon_size"
+                android:focusable="false"
+                android:importantForAccessibility="no"/>
+            <FrameLayout
+                android:id="@+id/fl_nine_icon"
+                android:layout_marginBottom="@dimen/grid_dialog_text_margin"
+                android:layout_marginTop="@dimen/grid_dialog_text_margin"
+                android:layout_width="@dimen/grid_dialog_icon_size"
+                android:layout_height="@dimen/grid_dialog_icon_size"/>
             <TextView
                 android:layout_below="@id/grid_size_3X3"
                 android:layout_width="@dimen/grid_dialog_icon_size"
@@ -161,8 +219,7 @@
                 android:text="@string/_9_icons"
                 android:textColor="@color/text_color"
                 android:textAlignment="center"
-                android:textSize="@dimen/grid_dialog_title_textsize"
-                />
+                android:textSize="@dimen/grid_dialog_title_textsize"/>
 
         </RelativeLayout>
     </LinearLayout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:paddingTop="24dp"
     android:paddingBottom="48dp"
     android:background="@drawable/rounded_back"
@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin">
     <LinearLayout
         android:id="@+id/topBar"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
@@ -20,8 +20,8 @@
             android:text="@string/keyboard" />
         <ImageView
             android:id="@+id/dialog_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:padding="8dp"
             android:layout_marginRight="16dp"
             android:layout_marginEnd="16dp"

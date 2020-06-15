@@ -170,7 +170,8 @@
                     android:text="@string/privacy_link_info"
                     android:layout_marginEnd="@dimen/user_reg_tv_group"
                     android:layout_marginRight="@dimen/user_reg_tv_group"
-                    android:onClick="openPrivacyPolicyPage"/>
+                    android:onClick="openPrivacyPolicyPage"
+                    android:contentDescription="@string/open_jellow_privacy_policy"/>
             </LinearLayout>
             <Button
                 android:id="@+id/bRegister"

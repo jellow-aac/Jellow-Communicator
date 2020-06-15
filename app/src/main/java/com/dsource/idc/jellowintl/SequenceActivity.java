@@ -1185,7 +1185,6 @@ public class SequenceActivity extends LevelBaseActivity{
                         Settings.Secure.DEFAULT_INPUT_METHOD));
                 bundle.putString("utterence", mEtTTs.getText().toString());
                 bundleEvent("Keyboard", bundle);
-                //singleEvent("Keyboard", mEtTTs.getText().toString());
             }
         });
     }

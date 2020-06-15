@@ -51,7 +51,8 @@
                     android:padding="6dp"
                     android:src="@drawable/ic_board_person"
                     android:id="@+id/board_icon"
-                    android:background="@drawable/board_list_back"/>
+                    android:background="@drawable/board_list_back"
+                    android:importantForAccessibility="no"/>
                 <ImageView
                     android:layout_width="@dimen/my_board_edit_icon_size"
                     android:layout_height="@dimen/my_board_edit_icon_size"
@@ -59,7 +60,8 @@
                     android:layout_marginTop="@dimen/camera_mar_right"
                     android:id="@+id/edit_image"
                     android:src="@drawable/camera_symbol"
-                    android:layout_marginStart="@dimen/camera_mar_left" />
+                    android:layout_marginStart="@dimen/camera_mar_left"
+                    android:contentDescription="@string/select_image_for_board"/>
                 <ListView
                     android:visibility="invisible"
                     android:id="@+id/camera_list"
@@ -69,7 +71,8 @@
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="-12dp"
                     android:divider="@drawable/divider"
-                    android:dividerHeight=".5px"/>
+                    android:dividerHeight=".5px"
+                    android:contentDescription="@string/select_source_for_image_for_board"/>
             </RelativeLayout>
             <LinearLayout
                 android:layout_margin="12dp"
@@ -102,7 +105,8 @@
                     android:layout_marginTop="@dimen/edit_board_dialog_side_margin"
                     android:background="@drawable/custom_spinner_view"
                     android:paddingVertical="@dimen/spinner_vertical_padding"
-                    android:paddingHorizontal="@dimen/spinner_horizontal_padding"/>
+                    android:paddingHorizontal="@dimen/spinner_horizontal_padding"
+                    android:contentDescription="@string/select_language_for_board"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -111,7 +115,7 @@
                     android:text="@string/Language"
                     android:visibility="gone"
                     android:textColor="@color/black_80"
-                    />
+                    android:focusable="true" />
             </LinearLayout>
         </LinearLayout>
         <LinearLayout

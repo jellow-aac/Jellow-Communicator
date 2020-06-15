@@ -20,8 +20,8 @@
             android:text="@string/keyboard" />
         <ImageView
             android:id="@+id/dialog_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:padding="8dp"
             android:layout_marginRight="16dp"
             android:layout_marginEnd="16dp"

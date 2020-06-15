@@ -71,10 +71,9 @@ public class SearchActivity extends SpeechEngineBaseActivity {
         database = new IconDatabaseFacade(getSession().getLanguage(), getAppDatabase());
         EditText searchEditText = findViewById(R.id.search_auto_complete);
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-            searchEditText.setContentDescription("Enter to search");
-        } else {
-            searchEditText.setHint("Search icon..");
+            findViewById(R.id.close_button).setVisibility(View.INVISIBLE);
         }
+        searchEditText.setHint(getString(R.string.enter_icon_name));
         getWindow().setGravity(Gravity.LEFT);
 
         // To Close on touch outside

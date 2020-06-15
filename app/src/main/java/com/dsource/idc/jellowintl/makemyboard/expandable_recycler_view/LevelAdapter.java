@@ -53,12 +53,6 @@ public class LevelAdapter extends ExpandableRecyclerAdapter<LevelParent, LevelCh
         return new ViewHolderParent(view, collapseCallback,context);
     }
 
-    public LevelAdapter setContext(Context context){
-        this.context = context;
-        return this;
-    }
-
-
     @Override
     public LevelChildViewHolder onCreateChildViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.level_select_card, parent, false);
@@ -92,7 +86,6 @@ public class LevelAdapter extends ExpandableRecyclerAdapter<LevelParent, LevelCh
         if (childPosition != selectedChildPosition) {
             rl.setBackgroundColor(context.getResources().getColor(R.color.app_background));
             artistName.setTextColor(context.getResources().getColor(R.color.level_select_text_color));
-
         }else{
             rl.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
             artistName.setTextColor(context.getResources().getColor(R.color.app_background));
@@ -128,6 +121,11 @@ public class LevelAdapter extends ExpandableRecyclerAdapter<LevelParent, LevelCh
     public void expandTheListAtPosition(int parent0, int parent1){
         expandParent(parent0);
         selectedChildPosition = parent1;
+    }
+
+    public LevelAdapter setContext(Context context){
+        this.context = context;
+        return this;
     }
 
 }

@@ -17,7 +17,7 @@
         android:layout_height="28dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="@android:drawable/ic_menu_close_clear_cancel"
+        android:background="@drawable/ic_close"
         android:contentDescription="@string/close"/>
     <Button
         android:id="@+id/enterCategory"

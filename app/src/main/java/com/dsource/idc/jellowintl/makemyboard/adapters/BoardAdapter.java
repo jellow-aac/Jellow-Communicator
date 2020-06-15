@@ -1,6 +1,7 @@
 package com.dsource.idc.jellowintl.makemyboard.adapters;
 
 import android.content.Context;
+import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -35,6 +36,7 @@ public class BoardAdapter extends BaseRecyclerAdapter<BoardModel> {
     @Override
     public void bindData(final BaseViewHolder viewHolder, BoardModel board, int position) {
         SpannableString spannedStr;
+        viewHolder.setMenuImageBorder(R.id.borderView, false, -1);
         if (position == 0){
             viewHolder.setVisible(R.id.edit_board, false);
             viewHolder.setVisible(R.id.remove_board, false);
@@ -57,8 +59,6 @@ public class BoardAdapter extends BaseRecyclerAdapter<BoardModel> {
         spannedStr.setSpan(new ForegroundColorSpan (ContextCompat.getColor(getContext(),
                 R.color.colorPrimary)), 0, board.getBoardName().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         viewHolder.setText(R.id.board_title, spannedStr);
-        /*viewHolder.setText(R.id.board_title, board.getBoardName() +
-                "\n"+ LangValueMap.get(board.getLanguage()));*/
         viewHolder.setImageFromBoard(R.id.board_icon,board.getBoardId());
         viewHolder.setOnClickListener(R.id.remove_board, new View.OnClickListener() {
             @Override
@@ -83,11 +83,16 @@ public class BoardAdapter extends BaseRecyclerAdapter<BoardModel> {
                     listener.onItemClick(viewHolder.getAdapterPosition());
             }
         });
-
-        viewHolder.setMenuImageBorder(R.id.borderView, false, -1);
         if(selectedPosition == position) {
             viewHolder.setMenuImageBorder(R.id.borderView, true, 100);
-            selectedPosition = -1;
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    viewHolder.setMenuImageBorder(R.id.borderView,false,-1);
+                    selectedPosition = -1;
+                }
+            }, 1500);
         }
     }
 

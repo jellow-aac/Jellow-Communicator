@@ -1401,9 +1401,6 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         Settings.Secure.DEFAULT_INPUT_METHOD));
                 bundle.putString("utterence", mEtTTs.getText().toString());
                 bundleEvent("Keyboard", bundle);
-                //singleEvent("Keyboard", mEtTTs.getText().toString());
-                //if expressive buttons always disabled during custom text speech output
-                LevelUiUtils.disableAllExpressiveIcon(expressiveBtn);
             }
         });
     }

@@ -10,9 +10,9 @@
     <dimen name="search_edit_text_top_margin">5dp</dimen>
     <dimen name="search_edit_margin_left">3dp</dimen>
     <dimen name="searchView_padding">4dp</dimen>
-    <dimen name="search_bar_width">250dp</dimen>
+    <dimen name="search_bar_width">316dp</dimen>
     <dimen name="search_edit_text_margin_bottom">2dp</dimen>
-    <dimen name="search_edit_text_size">16sp</dimen>
+    <dimen name="search_edit_text_size">14sp</dimen>
     <dimen name="search_drawable_padding">6dp</dimen>
 
     <dimen name="search_list_dir_text_size">10sp</dimen>

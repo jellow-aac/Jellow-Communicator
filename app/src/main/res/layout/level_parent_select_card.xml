@@ -8,8 +8,7 @@
         android:layout_width="@dimen/level_select_pane_min_width"
         android:layout_height="1.5dp"
         android:background="@color/dark_base"
-        android:layout_centerHorizontal="true"
-        />
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/icon_title"
@@ -27,7 +26,7 @@
         android:text="Times and weather"
         android:textColor="@color/level_select_text_color"
         android:textSize="@dimen/level_select_pane_text_size"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"/>
     <ImageView
         android:layout_width="38dp"
         android:padding="3dp"
@@ -37,6 +36,6 @@
         android:layout_centerVertical="true"
         android:src="@drawable/ic_action_navigation_arrow_down"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="12dp" />
+        android:layout_marginRight="12dp"/>
 
 </RelativeLayout>

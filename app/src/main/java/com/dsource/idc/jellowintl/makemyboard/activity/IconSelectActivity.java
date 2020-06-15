@@ -173,6 +173,8 @@ public class IconSelectActivity extends BaseBoardActivity<ISelectIconView, ISele
         builder.append(")");
 
         ((TextView) getView(R.id.icon_count)).setText(builder.toString());
+        ((TextView) getView(R.id.icon_count)).setContentDescription(
+                SelectionManager.getInstance().getList().size()+ getString(R.string.icons_selected));
 
         //Disable the checkbox by default
         cbSelectAll.setChecked(false);

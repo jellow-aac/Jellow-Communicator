@@ -182,7 +182,10 @@ public class DialogAddBoard extends BaseActivity implements IAddBoardDialogView,
             public void onClick(View v) {
                 if (listView.getVisibility() == View.VISIBLE)
                     listView.setVisibility(View.INVISIBLE);
-                else listView.setVisibility(View.VISIBLE);
+                else{
+                    listView.setVisibility(View.VISIBLE);
+                    listView.requestFocus();
+                }
             }
         });
 

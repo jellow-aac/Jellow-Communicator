@@ -41,8 +41,9 @@
                 android:layout_centerVertical="true"
                 android:padding="2dp"
                 android:layout_marginRight="8dp"
-                android:src="@android:drawable/ic_menu_close_clear_cancel"
-                tools:ignore="RtlHardcoded" />
+                android:src="@drawable/ic_close"
+                tools:ignore="RtlHardcoded"
+                android:contentDescription="@string/close"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,7 +52,8 @@
                 android:id="@+id/xyz"
                 android:layout_alignParentTop="true"
                 android:layout_centerVertical="true"
-                >
+                android:importantForAccessibility="yes"
+                android:contentDescription="@string/tap_add_to_add_expression">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -32,6 +32,7 @@ import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
+import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.GRID_SIZE;
 import static com.dsource.idc.jellowintl.utility.Analytics.setCrashlyticsCustomKey;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 
@@ -79,6 +80,7 @@ public class BaseActivity extends AppCompatActivity{
         }else if(getVisibleAct().contains(getBoardListClass())){
             menu.findItem(R.id.my_boards_icon).setVisible(false);
             menu.findItem(R.id.number_of_icons).setVisible(false);
+            menu.findItem(R.id.search).setTitle(R.string.search_board_in_jellow);
         }
         if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             menu.findItem(R.id.closePopup).setVisible(true);
@@ -115,7 +117,7 @@ public class BaseActivity extends AppCompatActivity{
                         startActivity(new Intent(getApplicationContext(), SplashActivity.class));
                         finish();
                     }
-                });
+                },getSession().getGridSize());
                 break;
             case R.id.profile:
                 if(getVisibleAct().equals(ProfileFormActivity.class.getSimpleName()))
@@ -346,8 +348,9 @@ public class BaseActivity extends AppCompatActivity{
         return target != null && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
 
-    public void showGridDialog(GridSelectListener mGridSizeSelectListener) {
-        Intent gridDialog =new Intent(this, DialogNoOfIconPerScreen.class);
+    public void showGridDialog(GridSelectListener mGridSizeSelectListener, int gridSize) {
+        Intent gridDialog = new Intent(this, DialogNoOfIconPerScreen.class);
+        gridDialog.putExtra(GRID_SIZE, gridSize);
         DialogNoOfIconPerScreen.mGridSelectionListener =mGridSizeSelectListener;
         startActivity(gridDialog);
     }
@@ -356,4 +359,3 @@ public class BaseActivity extends AppCompatActivity{
         return getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
     }
 }
-

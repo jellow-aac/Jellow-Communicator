@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class BoardSearchAdapter extends BaseRecyclerAdapter<JellowIcon> {
 
     private IconDatabaseFacade iconDatabase;
+    private boolean isSearchingBoardName = false;
 
     /**
      * public constructor
@@ -48,6 +49,9 @@ public class BoardSearchAdapter extends BaseRecyclerAdapter<JellowIcon> {
 
         if(!(getContext() instanceof BoardSearchActivity)){
             viewHolder.setVisible(R.id.parent_directory, true);
+        }
+        if(isSearchingBoardName()){
+            viewHolder.setVisible(R.id.parent_directory, false);
         }
 
 
@@ -110,4 +114,11 @@ public class BoardSearchAdapter extends BaseRecyclerAdapter<JellowIcon> {
     }
 
 
+    public boolean isSearchingBoardName() {
+        return isSearchingBoardName;
+    }
+
+    public void setSearchingBoardName(boolean searchingTheBoard) {
+        isSearchingBoardName = searchingTheBoard;
+    }
 }

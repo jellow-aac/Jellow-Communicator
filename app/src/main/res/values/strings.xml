@@ -215,7 +215,7 @@
     <!--Strings related to the Searching capability
     @AyazAlam
     -->
-    <string name="search_title">Search Icon…</string>
+    <string name="search_title">Search icon</string>
     <string name="search_parent_0" translatable="false">parent_0</string>
     <string name="search_parent_1" translatable="false">parent_1</string>
     <string name="search_parent_2" translatable="false">parent_2</string>
@@ -507,4 +507,32 @@
     <string name="delete_the_board">Delete the current board</string>
     <string name="menuIconSelect">Select icons</string>
     <string name="edit_board_image">Edit the board icon and name</string>
+    <string name="search_board_in_jellow">Search board</string>
+    <string name="enter_board_name_to_search">Enter the board name to search</string>
+    <string name="search_board_screen">Search boards screen</string>
+    <string name="enter_icon_name">Enter the icon name to search</string>
+
+    <!--Content Description-->
+    <string name="my_boards_screen">My boards screen</string>
+    <string name="select_image_for_board">Select image for the board</string>
+    <string name="select_source_for_image_for_board">Select source for board image</string>
+    <string name="select_language_for_board">Select language for the board</string>
+    <string name="icon_select_screen">Add icons screen</string>
+    <string name="icons_selected"> icons selected</string>
+    <string name="icon_add_edit_screen">Add or Edit icons screen</string>
+    <string name="edit_current_icon">Edit the current icon</string>
+    <string name="delete_current_icon">Delete the current icon</string>
+    <string name="add_edit_icons_dialog">Add/Edit icon dialog</string>
+    <string name="select_image_for_icon">Select image for the icon</string>
+    <string name="enable_reposition_icons">Enable repositioning of icons</string>
+    <string name="disable_reposition_icons">Disable repositioning of icons</string>
+    <string name="tap_icon_to_select_expression">Tap to add expression</string>
+    <string name="tap_icon_to_deselect_expression">Tap to remove expression</string>
+    <string name="tap_add_to_add_expression">Tap add button to select expression</string>
+    <string name="open_jellow_privacy_policy">Open the Jellow\'s privacy policy.</string>
+    <string name="board_deleted">_ board deleted</string>
+    <string name="search_icon_available_in_jellow">Search icon available in Jellow</string>
+    <string name="search_icon_the_board">Search icon in the current board</string>
+
+
 </resources>
