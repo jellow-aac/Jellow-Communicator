@@ -55,7 +55,7 @@ public class IconSelectActivity extends BaseBoardActivity<ISelectIconView, ISele
 
     @Override
     public void initViewsAndEvents() {
-        searchScrollManager = new SearchManager(mRecyclerView, this);
+        searchScrollManager = new SearchManager(mRecyclerView);
 
         RecyclerView levelSelectRecycler = findViewById(R.id.rv_level_select);
 
@@ -92,7 +92,7 @@ public class IconSelectActivity extends BaseBoardActivity<ISelectIconView, ISele
                     SelectionManager.getInstance().addIconToList(mAdapter.getItem(position));
 
                 manageSelection();
-                searchScrollManager.clear();
+                mAdapter.setCheckedPosition(position);
                 mAdapter.notifyItemChanged(position);
             }
         });
@@ -246,12 +246,10 @@ public class IconSelectActivity extends BaseBoardActivity<ISelectIconView, ISele
             setVisibility(R.id.icon_count, true);
         }
 
-        if (searchScrollManager.isFromSearch()) {
-            searchScrollManager.addSearchedIcon(getPosition(searchScrollManager.getIconToBeSearched()));
+        if (searchScrollManager.isUserSearchedTheIcon()) {
+            searchScrollManager.scrollToIcon(getPosition(searchScrollManager.getSearchedIcon()));
         }
-
         manageSelection();
-        searchScrollManager.clear();
     }
 
     private int getPosition(JellowIcon iconToBeSearched) {
@@ -352,10 +350,15 @@ public class IconSelectActivity extends BaseBoardActivity<ISelectIconView, ISele
                 JellowIcon icon = (JellowIcon) data.getExtras().getSerializable(getString(R.string.search_result));
                 if (icon != null && !SelectionManager.getInstance().isPresent(icon)) {
                     SelectionManager.getInstance().addIconToList(icon);
-                    searchScrollManager.setFromSearch(icon);
-                    levelManager.updateSelection((icon.getParent0() + 1), icon.getParent1());
-                    levelManager.highlightSelection((icon.getParent0() + 1), icon.getParent1());
-
+                    searchScrollManager.setSearchedIcon(icon);
+                    /*If user searched an icon from level two*/
+                    if(icon.getVerbiageId().substring(6,10).equals("0000")){
+                        levelManager.updateSelection((icon.getParent0() + 1), icon.getParent2());
+                        levelManager.highlightSelection((icon.getParent0() + 1), icon.getParent2());
+                    }else {
+                        levelManager.updateSelection((icon.getParent0() + 1), icon.getParent1());
+                        levelManager.highlightSelection((icon.getParent0() + 1), icon.getParent1());
+                    }
                 } else
                     Toast.makeText(this, getResources().getString(R.string.icon_already_present), Toast.LENGTH_SHORT).show();
             }
@@ -365,7 +368,6 @@ public class IconSelectActivity extends BaseBoardActivity<ISelectIconView, ISele
 
     @Override
     public void onBackPressed() {
-        searchScrollManager.clear();
         final DialogCustom dialog = new DialogCustom(this);
         dialog.setText(getString(R.string.icon_select_exit_warning));
         dialog.setOnPositiveClickListener(new DialogCustom.OnPositiveClickListener() {

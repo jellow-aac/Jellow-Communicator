@@ -50,7 +50,8 @@ public class IconDatabaseFacade {
         ArrayList<VerbiageModel> vList = new ArrayList<>(database.verbiageDao().getVerbiageList(iconID,languageCode));
         for(VerbiageModel model:vList){
             icon = gson.fromJson(model.getIcon(), Icon.class);
-            if(model.getIconId().length()>=10&&model.getIconId().charAt(9)!='0')
+            /*Level two icons are not loaded, here only load level three icons*/
+            if(model.getIconId().length()>=10&&!model.getIconId().substring(6,10).equals("0000"))
                 list.add(new JellowIcon(model.getIconId(), icon.getDisplay_Label(),
                         icon.getSpeech_Label(), model.getEventTag()));
         }

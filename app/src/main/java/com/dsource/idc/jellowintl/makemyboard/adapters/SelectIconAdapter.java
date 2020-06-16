@@ -16,6 +16,7 @@ public class SelectIconAdapter extends BaseRecyclerAdapter<JellowIcon> {
 
     private boolean isCheckBoxMode;
     private int highlightedIconPos = -1;
+    private int checkedPosition = -1;
 
     public SelectIconAdapter(Context context, ArrayList<JellowIcon> data, boolean isCheckBoxMode) {
         super(context, R.layout.icon_card, data);
@@ -41,7 +42,6 @@ public class SelectIconAdapter extends BaseRecyclerAdapter<JellowIcon> {
             viewHolder.setVisible(R.id.icon_selection_checkbox,true);
             CheckBox checkBox = viewHolder.getView(R.id.icon_selection_checkbox);
             checkBox.setChecked(SelectionManager.getInstance().isPresent(item));
-
         }else{
             viewHolder.setVisible(R.id.icon_selection_checkbox,false);
         }
@@ -59,13 +59,18 @@ public class SelectIconAdapter extends BaseRecyclerAdapter<JellowIcon> {
                             sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
                 }
             }, 1500);
-        }else viewHolder.setMenuImageBorder(R.id.borderView,false,-1);
-
-
-    }
-
-    public boolean isCheckBoxMode() {
-        return isCheckBoxMode;
+        }else if (position == checkedPosition){
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    viewHolder.getView(R.id.parent).
+                            sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+                }
+            }, 1500);
+            checkedPosition = -1;
+        }else
+            viewHolder.setMenuImageBorder(R.id.borderView,false,-1);
     }
 
     public void setCheckBoxMode(boolean checkBoxMode) {
@@ -74,5 +79,10 @@ public class SelectIconAdapter extends BaseRecyclerAdapter<JellowIcon> {
 
     public void setHighlightedIconPos(int highlightedIconPos) {
         this.highlightedIconPos = highlightedIconPos;
+        notifyItemChanged(highlightedIconPos);
+    }
+
+    public void setCheckedPosition(int position) {
+        checkedPosition=position;
     }
 }

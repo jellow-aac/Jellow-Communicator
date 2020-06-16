@@ -159,10 +159,10 @@
             tools:ignore="LockedOrientationActivity" />
 	    <activity android:name=".LanguagePackUpdateActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/language_package_update"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             tools:ignore="LockedOrientationActivity"/>
-
         <activity
             android:name=".makemyboard.activity.BoardSearchActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -186,6 +186,7 @@
             android:name=".makemyboard.activity.SetupMMB"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
+            android:label="@string/preparing_language_screen"
             tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".makemyboard.custom_dialogs.DialogAddVerbiage"
@@ -211,7 +212,7 @@
             android:name=".makemyboard.custom_dialogs.DialogNoOfIconPerScreen"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
-            android:label="dialog"
+            android:label="@string/dialog"
             android:theme="@style/Theme.AppCompat.Translucent"
             tools:ignore="LockedOrientationActivity"/>
         <activity

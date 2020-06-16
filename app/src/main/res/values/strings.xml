@@ -533,6 +533,10 @@
     <string name="board_deleted">_ board deleted</string>
     <string name="search_icon_available_in_jellow">Search icon available in Jellow</string>
     <string name="search_icon_the_board">Search icon in the current board</string>
+    <string name="preparing_language_screen">Language setup screen</string>
+    <string name="language_package_update">Jellow content update screen</string>
+    <string name="dialog">dialog</string>
+    <string name="close_content_download_screen">close content download screen</string>
 
 
 </resources>

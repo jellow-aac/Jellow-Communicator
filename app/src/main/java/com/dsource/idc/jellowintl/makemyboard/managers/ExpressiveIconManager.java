@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.models.GlobalConstants;
 import com.dsource.idc.jellowintl.models.Icon;
 
 import java.util.ArrayList;
@@ -76,7 +77,7 @@ public class ExpressiveIconManager implements View.OnClickListener {
     public void resetSelection() {
         for (int i = 0; i < expIconList.size(); i++) {
             expIconList.get(i).setImageDrawable(unPressed.getDrawable(i));
-            expIconList.get(i).setAlpha(1f);
+            expIconList.get(i).setAlpha(GlobalConstants.ENABLE_ALPHA);
             expIconList.get(i).setEnabled(true);
             buttonFlags.set(i, 0);
         }
@@ -113,10 +114,10 @@ public class ExpressiveIconManager implements View.OnClickListener {
     private void disableButton(ImageView imageView, boolean disable) {
         if (disable) {
             imageView.setEnabled(false);
-            imageView.setAlpha(.5f);
+            imageView.setAlpha(GlobalConstants.DISABLE_ALPHA);
         } else {
             imageView.setEnabled(true);
-            imageView.setAlpha(1f);
+            imageView.setAlpha(GlobalConstants.ENABLE_ALPHA);
         }
     }
 

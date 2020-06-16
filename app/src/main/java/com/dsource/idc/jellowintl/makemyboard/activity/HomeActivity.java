@@ -412,10 +412,10 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
 
     private void ActivateView(ImageView view, boolean activate) {
         if (activate) {
-            view.setAlpha(1f);
+            view.setAlpha(GlobalConstants.ENABLE_ALPHA);
             view.setClickable(true);
         } else {
-            view.setAlpha(.5f);
+            view.setAlpha(GlobalConstants.DISABLE_ALPHA);
             view.setClickable(false);
         }
     }

@@ -15,6 +15,7 @@ import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardMod
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.presenter_interfaces.IBasePresenter;
 import com.dsource.idc.jellowintl.makemyboard.view_interfaces.IBaseView;
+import com.dsource.idc.jellowintl.models.GlobalConstants;
 
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.BOARD_ID;
 
@@ -104,10 +105,10 @@ public abstract class BaseBoardActivity<V extends IBaseView, P extends IBasePres
         if (getView(resId) != null) {
             if (isDisabled) {
                 getView(resId).setEnabled(false);
-                getView(resId).setAlpha(.6f);
+                getView(resId).setAlpha(GlobalConstants.DISABLE_ALPHA);
             } else {
                 getView(resId).setEnabled(true);
-                getView(resId).setAlpha(1.0f);
+                getView(resId).setAlpha(GlobalConstants.ENABLE_ALPHA);
             }
         }
     }

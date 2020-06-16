@@ -17,6 +17,7 @@ import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.data_models.BoardModel;
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.dataproviders.databases.TextDatabase;
+import com.dsource.idc.jellowintl.models.GlobalConstants;
 import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -218,18 +219,18 @@ public class DialogAddVerbiage extends BaseActivity implements View.OnClickListe
             if (v == expListLayouts.get(i).findViewById(R.id.add_remove)) {
                 if (expListLayouts.get(i).findViewById(R.id.verbiage_text).isEnabled()) {
                     expListLayouts.get(i).findViewById(R.id.verbiage_text).setEnabled(false);
-                    expListLayouts.get(i).findViewById(R.id.verbiage_text).setAlpha(.6f);
+                    expListLayouts.get(i).findViewById(R.id.verbiage_text).setAlpha(GlobalConstants.DISABLE_ALPHA);
                     expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setEnabled(false);
-                    expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(.6f);
+                    expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(GlobalConstants.DISABLE_ALPHA);
                     ((ImageView) expListLayouts.get(i).findViewById(R.id.add_remove)).
                             setImageDrawable(context.getResources().getDrawable(R.drawable.plus));
                     expListLayouts.get(i).findViewById(R.id.add_remove).
                             setContentDescription(getString(R.string.tap_icon_to_select_expression));
                 } else {
                     expListLayouts.get(i).findViewById(R.id.verbiage_text).setEnabled(true);
-                    expListLayouts.get(i).findViewById(R.id.verbiage_text).setAlpha(1.0f);
+                    expListLayouts.get(i).findViewById(R.id.verbiage_text).setAlpha(GlobalConstants.ENABLE_ALPHA);
                     expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setEnabled(true);
-                    expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(1.0f);
+                    expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(GlobalConstants.ENABLE_ALPHA);
                     ((ImageView) expListLayouts.get(i).findViewById(R.id.add_remove)).
                             setImageDrawable(context.getResources().getDrawable(R.drawable.minus));
                     expListLayouts.get(i).findViewById(R.id.add_remove).
@@ -294,9 +295,9 @@ public class DialogAddVerbiage extends BaseActivity implements View.OnClickListe
         if (disable)
             for (int i = 0; i < 6; i++) {
                 expListLayouts.get(i).findViewById(R.id.verbiage_text).setEnabled(true);
-                expListLayouts.get(i).findViewById(R.id.verbiage_text).setAlpha(1.0f);
+                expListLayouts.get(i).findViewById(R.id.verbiage_text).setAlpha(GlobalConstants.ENABLE_ALPHA);
                 expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setEnabled(true);
-                expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(1.0f);
+                expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(GlobalConstants.ENABLE_ALPHA);
                 ((ImageView) expListLayouts.get(i).findViewById(R.id.add_remove)).
                         setImageDrawable(context.getResources().getDrawable(R.drawable.minus));
                 expListLayouts.get(i).findViewById(R.id.add_remove).
@@ -305,9 +306,9 @@ public class DialogAddVerbiage extends BaseActivity implements View.OnClickListe
         else
             for (int i = 0; i < 6; i++) {
                 expListLayouts.get(i).findViewById(R.id.verbiage_text).setEnabled(false);
-                expListLayouts.get(i).findViewById(R.id.verbiage_text).setAlpha(.6f);
+                expListLayouts.get(i).findViewById(R.id.verbiage_text).setAlpha(GlobalConstants.DISABLE_ALPHA);
                 expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setEnabled(false);
-                expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(.6f);
+                expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(GlobalConstants.DISABLE_ALPHA);
                 ((ImageView) expListLayouts.get(i).findViewById(R.id.add_remove)).
                         setImageDrawable(context.getResources().getDrawable(R.drawable.plus));
                 expListLayouts.get(i).findViewById(R.id.add_remove).
@@ -371,9 +372,9 @@ public class DialogAddVerbiage extends BaseActivity implements View.OnClickListe
     public void disableVerbiage(int index, boolean disable) {
         if (disable) {
             expListLayouts.get(index).findViewById(R.id.verbiage_text).setEnabled(false);
-            expListLayouts.get(index).findViewById(R.id.verbiage_text).setAlpha(.6f);
+            expListLayouts.get(index).findViewById(R.id.verbiage_text).setAlpha(GlobalConstants.DISABLE_ALPHA);
             expListLayouts.get(index).findViewById(R.id.verbiage_really_text).setEnabled(false);
-            expListLayouts.get(index).findViewById(R.id.verbiage_really_text).setAlpha(.6f);
+            expListLayouts.get(index).findViewById(R.id.verbiage_really_text).setAlpha(GlobalConstants.DISABLE_ALPHA);
             ((ImageView) expListLayouts.get(index).findViewById(R.id.add_remove)).
                     setImageDrawable(context.getResources().getDrawable(R.drawable.plus));
             ((EditText) expListLayouts.get(index).findViewById(R.id.verbiage_text)).setText(null);
@@ -383,9 +384,9 @@ public class DialogAddVerbiage extends BaseActivity implements View.OnClickListe
 
         } else {
             expListLayouts.get(index).findViewById(R.id.verbiage_text).setEnabled(true);
-            expListLayouts.get(index).findViewById(R.id.verbiage_text).setAlpha(1f);
+            expListLayouts.get(index).findViewById(R.id.verbiage_text).setAlpha(GlobalConstants.ENABLE_ALPHA);
             expListLayouts.get(index).findViewById(R.id.verbiage_really_text).setEnabled(true);
-            expListLayouts.get(index).findViewById(R.id.verbiage_really_text).setAlpha(1f);
+            expListLayouts.get(index).findViewById(R.id.verbiage_really_text).setAlpha(GlobalConstants.ENABLE_ALPHA);
             ((ImageView) expListLayouts.get(index).findViewById(R.id.add_remove)).
                     setImageDrawable(context.getResources().getDrawable(R.drawable.minus));
             expListLayouts.get(index).findViewById(R.id.add_remove).

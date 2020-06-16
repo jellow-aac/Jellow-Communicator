@@ -1,6 +1,8 @@
 package com.dsource.idc.jellowintl;
 
 import android.os.Bundle;
+import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +33,9 @@ public class LanguagePackUpdateActivity extends BaseActivity implements Progress
         statusText = findViewById(R.id.status);
         progressBar = findViewById(R.id.pg);
         progressBar.setMax(1);
-
+        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            findViewById(R.id.btnClose).setVisibility(View.VISIBLE);
+        }
         if(ConnectionUtils.isConnected(this)){
             updateManager.startDownload();
         } else {
@@ -91,5 +95,9 @@ public class LanguagePackUpdateActivity extends BaseActivity implements Progress
         long sessionTime = validatePushId(getSession().getSessionCreatedAt());
         getSession().setSessionCreatedAt(sessionTime);
         stopMeasuring("LanguagePackUpdateActivity");
+    }
+
+    public void closeActivity(View v){
+        finish();
     }
 }

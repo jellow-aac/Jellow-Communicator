@@ -7,6 +7,17 @@
     android:layout_height="match_parent"
     android:background="@color/app_background"
     tools:context="com.dsource.idc.jellowintl.LanguagePackUpdateActivity">
+    <Button
+        android:id="@+id/btnClose"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone"
+        android:onClick="closeActivity"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:background="@drawable/ic_close"
+        android:contentDescription="@string/close_content_download_screen"/>
 
     <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
         android:id="@+id/pg"

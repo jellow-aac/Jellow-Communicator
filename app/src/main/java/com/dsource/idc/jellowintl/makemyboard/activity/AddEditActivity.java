@@ -25,6 +25,7 @@ import com.dsource.idc.jellowintl.makemyboard.models.AddEditModel;
 import com.dsource.idc.jellowintl.makemyboard.presenter_interfaces.IAddEditPresenter;
 import com.dsource.idc.jellowintl.makemyboard.utility.CustomPair;
 import com.dsource.idc.jellowintl.makemyboard.view_interfaces.IAddEditView;
+import com.dsource.idc.jellowintl.models.GlobalConstants;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 
 import java.util.ArrayList;
@@ -90,15 +91,16 @@ public class AddEditActivity extends BaseBoardActivity<IAddEditView, IAddEditPre
     public void initViewsAndEvents() {
         //Disable Expressive Icons for this activity
         setVisibility(R.id.save_button, true);
-        getView(R.id.keyboard).setAlpha(.5f);
+        getView(R.id.keyboard).setAlpha(GlobalConstants.DISABLE_ALPHA);
         setVisibility(R.id.et, false);
         setVisibility(R.id.ttsbutton, false);
         {
             int []icons = {R.id.ivlike, R.id.ivyes, R.id.ivadd, R.id.ivdislike, R.id.ivno,
                     R.id.ivminus, R.id.ivback, R.id.keyboard};
             for (int icon : icons) {
-                getView(icon).setAlpha(.5f);
+                getView(icon).setAlpha(GlobalConstants.DISABLE_ALPHA);
                 getView(icon).setEnabled(false);
+                getView(icon).setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
                 ViewCompat.setAccessibilityDelegate(getView(icon), new TalkbackHints_SingleClick());
             }
         }
@@ -126,7 +128,7 @@ public class AddEditActivity extends BaseBoardActivity<IAddEditView, IAddEditPre
         });
 
         getView(R.id.ivback).setEnabled(false);
-        getView(R.id.ivback).setAlpha(.6f);
+        getView(R.id.ivback).setAlpha(GlobalConstants.DISABLE_ALPHA);
         getView(R.id.ivhome).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
