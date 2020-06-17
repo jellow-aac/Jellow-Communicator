@@ -12,7 +12,8 @@
     android:paddingLeft="@dimen/twoIcon_parentPaddingHorizontal"
     android:paddingRight="@dimen/twoIcon_parentPaddingHorizontal"
     android:paddingTop="@dimen/twoIcon_parentPaddingVertical"
-    android:paddingBottom="@dimen/twoIcon_parentPaddingVertical">
+    android:paddingBottom="@dimen/twoIcon_parentPaddingVertical"
+    android:focusable="true">
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

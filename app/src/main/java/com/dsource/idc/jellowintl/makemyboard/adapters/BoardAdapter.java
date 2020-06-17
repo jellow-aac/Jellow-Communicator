@@ -91,7 +91,7 @@ public class BoardAdapter extends BaseRecyclerAdapter<BoardModel> {
                 @Override
                 public void run() {
                     viewHolder.setMenuImageBorder(R.id.borderView,false,-1);
-                    viewHolder.getView(R.id.parent).
+                    viewHolder.getView(R.id.icon_parent).
                             sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
                     selectedPosition = -1;
                 }

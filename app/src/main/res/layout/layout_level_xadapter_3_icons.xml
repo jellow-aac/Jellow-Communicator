@@ -8,7 +8,8 @@
     android:paddingTop="@dimen/threeIcon_parentPaddingVertical"
     android:paddingBottom="@dimen/threeIcon_parentPaddingVertical"
     android:layout_marginTop="@dimen/threeIcon_parentVertical"
-    android:layout_marginBottom="@dimen/threeIcon_parentVertical">
+    android:layout_marginBottom="@dimen/threeIcon_parentVertical"
+    android:focusable="true">
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

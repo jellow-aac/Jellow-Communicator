@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/my_boards_card_margin_horizontal"
-    android:layout_marginVertical="@dimen/my_boards_card_margin_vertical">
+    android:layout_marginVertical="@dimen/my_boards_card_margin_vertical"
+    android:focusable="true"
+    android:importantForAccessibility="yes">
     <RelativeLayout
         android:id="@+id/icon_parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:importantForAccessibility="yes">
+        android:layout_centerHorizontal="true">
         <ImageView
             android:id="@+id/board_icon"
             android:layout_width="@dimen/my_board_grid_icon_size"

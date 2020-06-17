@@ -2,6 +2,7 @@ package com.dsource.idc.jellowintl;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,7 @@ public class LanguagePackUpdateActivity extends BaseActivity implements Progress
             updateManager.startDownload();
         } else {
             statusText.setText(getString(R.string.checkConnectivity));
+            statusText.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
         }
     }
 
@@ -49,13 +51,12 @@ public class LanguagePackUpdateActivity extends BaseActivity implements Progress
     }
 
     @Override
-    public void onIconDownloadTaskCompleted(boolean success) {
-
-    }
+    public void onIconDownloadTaskCompleted(boolean success) {}
 
     @Override
     public void updateStatusText(String message) {
         statusText.setText(message);
+        statusText.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
     }
 
     @Override

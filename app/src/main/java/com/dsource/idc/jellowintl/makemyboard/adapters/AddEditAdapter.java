@@ -41,6 +41,8 @@ public class AddEditAdapter extends BaseRecyclerAdapter<JellowIcon> {
         } else
             viewHolder.setImageFromLibrary(R.id.icon1, item.getIconDrawable());
         viewHolder.setSetAccessibility(R.id.icon1, false);
+        viewHolder.getView(R.id.linearlayout_icon1).
+                setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
 
         //Hide the edit and remove icon for the add_icon button, which is at the 0th position
         viewHolder.setVisible(R.id.delete_icons, position != 0);

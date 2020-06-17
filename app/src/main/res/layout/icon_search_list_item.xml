@@ -29,6 +29,7 @@
         android:paddingRight="@dimen/search_list_icon_size"
         android:layout_centerVertical="true"
         android:layout_margin="@dimen/search_list_margin"
+        android:focusable="true"
         android:importantForAccessibility="yes">
     <TextView
 
@@ -63,6 +64,7 @@
         android:layout_margin="@dimen/search_list_margin"
         android:id="@+id/speak_button"
         android:contentDescription="@string/speak"
+        android:focusable="true"
         android:importantForAccessibility="yes"
         />
     </RelativeLayout>

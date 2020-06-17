@@ -9,7 +9,8 @@
     android:layout_marginBottom="@dimen/oneIcon_parentVertical"
     android:layout_marginLeft="@dimen/oneIcon_parentHorizontal"
     android:layout_marginRight="@dimen/oneIcon_parentHorizontal"
-    android:padding="@dimen/oneIcon_parentPadding">
+    android:padding="@dimen/oneIcon_parentPadding"
+    android:focusable="true">
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

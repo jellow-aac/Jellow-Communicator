@@ -6,7 +6,8 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:layout_marginTop="@dimen/fourIcon_parentVertical"
-    android:layout_marginBottom="@dimen/fourIcon_parentVertical">
+    android:layout_marginBottom="@dimen/fourIcon_parentVertical"
+    android:focusable="true">
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

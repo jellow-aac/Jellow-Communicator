@@ -500,6 +500,7 @@
     <string name="setting_up_the_language">Setting up the language, please wait…</string>
     <string name="completed_process">Language setup completed.</string>
     <string name="unable_to_create_board">Unable to create board, please try again</string>
+
     <string name="board">Board</string>
     <string name="press_next_to_select_icons">Press \"Next\" to add selected icons.</string>
     <string name="limiter" translatable="false"> . . ></string>
@@ -537,6 +538,4 @@
     <string name="language_package_update">Jellow content update screen</string>
     <string name="dialog">dialog</string>
     <string name="close_content_download_screen">close content download screen</string>
-
-
 </resources>

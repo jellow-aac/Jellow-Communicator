@@ -87,6 +87,7 @@
     <string name="checkConnectivity">कृपया अपने इंटरनेट कनेक्टिविटी की जांच करें</string>
 
     <string name="menuProfile">प्रोफाइल (Profile)</string>
+    <string name="menuMyBoards">मेरे बोर्ड(My Boards)</string>
     <string name="menuAbout">जेलो के बारे में (About Jellow)</string>
     <string name="menuTutorials">ट्यूटोरियल (Tutorial)</string>
     <string name="menuKeyboardInput">कीबोर्ड नियंत्रण (Keyboard Control)</string>
@@ -417,4 +418,6 @@
     <string name="setting_up_the_language">भाषा सेट हो रही है, कृपया प्रतीक्षा करें…</string>
     <string name="completed_process">भाषा सेट हो गई हैं।</string>
     <string name="unable_to_create_board">बोर्ड बनाने में असमर्थ, कृपया पुनः प्रयास करें</string>
+
+    <string name="board">बोर्ड</string>
 </resources>
