@@ -7,7 +7,7 @@ android {
         applicationId "com.dsource.idc.jellowintl"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 40
+        versionCode 66
         versionName "2.0.1"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -52,6 +52,7 @@ dependencies {
     /*Issue with the new 1.1.0 release is that BaseContext configuration change does not apply to activity*/
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.play:core:1.7.3'
 
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'

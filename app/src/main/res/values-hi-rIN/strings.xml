@@ -420,4 +420,40 @@
     <string name="unable_to_create_board">बोर्ड बनाने में असमर्थ, कृपया पुनः प्रयास करें</string>
 
     <string name="board">बोर्ड</string>
+    <string name="press_next_to_select_icons">चुने हुए आइकन जोड़ने के लिए \"आगे\" बटन को दबाएं।.</string>
+    <string name="edit_board">वर्तमान बोर्ड को संपादित करें</string>
+    <string name="delete_the_board">वर्तमान बोर्ड को डिलीट करें</string>
+    <string name="menuIconSelect">आइकन चुनें</string>
+    <string name="edit_board_image">बोर्ड का आइकन और नाम संपादित करें</string>
+    <string name="search_board_in_jellow">बोर्ड सर्च करें</string>
+    <string name="enter_board_name_to_search">सर्च करने के लिए बोर्ड का नाम दर्ज करें</string>
+    <string name="search_board_screen">बोर्ड सर्च करें स्क्रीन</string>
+    <string name="enter_icon_name">सर्च करने के लिए आइकन के नाम को दर्ज करें</string>
+
+    <!--Content Description-->
+    <string name="my_boards_screen">मेरे बोर्ड स्क्रीन</string>
+    <string name="select_image_for_board">बोर्ड के लिए चित्र का चयन करें</string>
+    <string name="select_source_for_image_for_board">बोर्ड चित्र के लिए स्रोत का चयन करें</string>
+    <string name="select_language_for_board">बोर्ड के लिए भाषा का चयन करें</string>
+    <string name="icon_select_screen">आइकन जोड़ें स्क्रीन</string>
+    <string name="icons_selected">_ आइकन चुने गए हैं</string>
+    <string name="icon_add_edit_screen">आइकन जोड़ें या संपादित करें स्क्रीन</string>
+    <string name="edit_current_icon">वर्तमान आइकन को संपादित करें</string>
+    <string name="delete_current_icon">वर्तमान आइकन को डिलीट करें</string>
+    <string name="add_edit_icons_dialog">आइकन जोड़ें या संपादित करें डायलॉग </string>
+    <string name="select_image_for_icon">आइकन के लिए चित्र का चयन करें</string>
+    <string name="enable_reposition_icons">आइकन की पुनः स्थिति को सक्षम करें</string>
+    <string name="disable_reposition_icons">आइकन की पुनः स्थिति को अक्षम करें</string>
+    <string name="tap_icon_to_select_expression">एक्सप्रेशन जोड़ने के लिए टैप करें</string>
+    <string name="tap_icon_to_deselect_expression">एक्सप्रेशन निकालने के लिए टैप करें</string>
+    <string name="tap_add_to_add_expression">एक्सप्रेशन का चयन करने के लिए जोड़ें बटन को टैप करें</string>
+    <string name="open_jellow_privacy_policy">जेलो की प्राइवेसी पॉलिसी खोलें।</string>
+    <string name="board_deleted">_ बोर्ड डिलीट किया गया है</string>
+    <string name="search_icon_available_in_jellow">जेलो में उपलब्ध को आइकन सर्च करें</string>
+    <string name="search_icon_the_board">वर्तमान बोर्ड में आइकन को सर्च करें</string>
+    <string name="preparing_language_screen">भाषा सेटअप स्क्रीन</string>
+    <string name="language_package_update">जेलो सामग्री (कंटेंट) अपडेट स्क्रीन</string>
+    <string name="dialog">डायलॉग</string>
+    <string name="close_content_download_screen">सामग्री डाउनलोड स्क्रीन बंद करें</string>
+    <string name="app_update_message">जेलो ऐप का नया संस्करण उपलब्ध है। क्या आप अभी अपडेट करना चाहते हैं?</string>
 </resources>

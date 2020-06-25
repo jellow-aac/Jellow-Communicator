@@ -1,16 +1,18 @@
 package com.dsource.idc.jellowintl;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
@@ -23,12 +25,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DropDownMenu;
 import com.dsource.idc.jellowintl.factories.LanguageFactory;
 import com.dsource.idc.jellowintl.models.GlobalConstants;
+import com.dsource.idc.jellowintl.utility.AppUpdateUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -59,27 +63,25 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.UNIVERSAL_PACKAG
 /**
  * Created by Rahul on 12 Nov, 2019.
  */
-public class UserRegistrationActivity extends BaseActivity implements CheckNetworkStatus {
+public class UserRegistrationActivity extends BaseActivity implements CheckNetworkStatus{
     public static final String LCODE = "lcode";
     public static final String TUTORIAL = "tutorial";
+
+    enum REQUEST_NEED{
+        APP_UPDATE, REGISTER, OTHER
+    }
 
     private Button bRegister;
     private EditText etName, etEmergencyContact, etAddress;
     private DatabaseReference mRef;
     private CountryCodePicker mCcp;
-    Spinner languageSelect;
-    String[] languagesCodes = new String[LangMap.size()],
-            languageNames = new String[LangMap.size()];
-    String selectedLanguage;
+    private String[] languagesCodes = new String[LangMap.size()];
+    private String selectedLanguage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_registration);
         FirebaseMessaging.getInstance().subscribeToTopic("jellow_aac");
-        setupActionBarTitle(View.GONE, getString(R.string.menuUserRegistration));
-        setNavigationUiConditionally();
-        findViewById(R.id.iv_action_bar_back).setVisibility(View.GONE);
         getSession().changePreferencesFile(this);
         //Reset Board Language
         getSession().setCurrentBoardLanguage("");
@@ -89,7 +91,62 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
             getSession().setSessionCreatedAt(new Date().getTime());
             Crashlytics.setUserIdentifier(getSession().getUserId());
         }
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
+            new NetworkConnectionTest(
+                    UserRegistrationActivity.this,
+                    REQUEST_NEED.APP_UPDATE).execute();
+        }else{
+            continueLoadingRegistrationScreen();
+        }
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
+            new AppUpdateUtil().
+                    executeUpdateFlow(
+                            AppUpdateUtil.UpdateStatus.RUNNING,
+                            UserRegistrationActivity.this);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==AppUpdateUtil.UPDATE_REQUEST_CODE && resultCode == RESULT_OK){
+            Intent mStartActivity = new Intent(UserRegistrationActivity.this, UserRegistrationActivity.class);
+            int mPendingIntentId = 123456;
+            PendingIntent mPendingIntent = PendingIntent.getActivity(this, mPendingIntentId,
+                    mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+            AlarmManager mgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+            mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+            System.exit(0);
+        }else if(requestCode == AppUpdateUtil.UPDATE_REQUEST_CODE){
+            Toast.makeText(this, "Resumed on RESULT_OK not.", Toast.LENGTH_SHORT).show();
+            continueLoadingRegistrationScreen();
+        }
+    }
+
+    @Override
+    public void onReceiveNetworkState(int state, REQUEST_NEED requestNeed) {
+         if(requestNeed == REQUEST_NEED.APP_UPDATE && state == GlobalConstants.NETWORK_CONNECTED){
+            AppUpdateUtil updateUtil = new AppUpdateUtil();
+            updateUtil.executeUpdateFlow(AppUpdateUtil.UpdateStatus.INIT, UserRegistrationActivity.this);
+        }else if(requestNeed == REQUEST_NEED.APP_UPDATE && state == GlobalConstants.NETWORK_DISCONNECTED){
+            continueLoadingRegistrationScreen();
+        }else if(requestNeed == REQUEST_NEED.REGISTER && state == GlobalConstants.NETWORK_CONNECTED){
+            Toast.makeText(UserRegistrationActivity.this,
+                    getString(R.string.register_user), Toast.LENGTH_SHORT).show();
+            autoLoginAndSetupUser();
+        }else if(requestNeed == REQUEST_NEED.REGISTER && state == GlobalConstants.NETWORK_DISCONNECTED) {
+            bRegister.setEnabled(true);
+            Toast.makeText(UserRegistrationActivity.this,
+                    getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void continueLoadingRegistrationScreen() {
         if (getSession().isUserLoggedIn()) {
             if (LanguageFactory.isLanguageDataAvailable(this) && getSession().isCompletedIntro()) {
                 startActivity(new Intent(this, SplashActivity.class));
@@ -109,16 +166,18 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
             finish();
         } else {
             getSession().setBlood(-1);
+            initializeScreenViewsAndListeners();
         }
+    }
 
-        FirebaseDatabase mDB = FirebaseDatabase.getInstance();
-        mRef = mDB.getReference(BuildConfig.DB_TYPE + "/users");
-
+    private void initializeScreenViewsAndListeners() {
+        setContentView(R.layout.activity_user_registration);
+        setupActionBarTitle(View.GONE, getString(R.string.menuUserRegistration));
+        setNavigationUiConditionally();
+        findViewById(R.id.iv_action_bar_back).setVisibility(View.GONE);
         languagesCodes = LanguageFactory.getAvailableLanguages();
-        languageNames = LanguageFactory.getAvailableLanguages();
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        String[] languageNames = LanguageFactory.getAvailableLanguages();
         etName = findViewById(R.id.etName);
-        etName.clearFocus();
         ((TextView)findViewById(R.id.tv_pivacy_link)).setText(Html.fromHtml(getString(R.string.privacy_link_info)));
         etEmergencyContact = findViewById(R.id.etEmergencyContact);
         mCcp = findViewById(R.id.ccp);
@@ -126,7 +185,7 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
             mCcp.setCountryPreference(null);
         ViewCompat.setAccessibilityDelegate(mCcp, new TalkbackHints_DropDownMenu());
         mCcp.registerCarrierNumberEditText(etEmergencyContact);
-        //This listener is useful only when Talkback accessibility is "ON".
+        //This listener is useful only when TalkBack accessibility is "ON".
         mCcp.setDialogEventsListener(new CountryCodePicker.DialogEventsListener() {
             @Override public void onCcpDialogOpen(Dialog dialog) {}
 
@@ -142,7 +201,7 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
         findViewById(R.id.childName).setFocusable(true);
         findViewById(R.id.cb_privacy_consent).setContentDescription(
                 ((TextView)findViewById(R.id.tv_pivacy_link)).getText().toString());
-        languageSelect = findViewById(R.id.langSelectSpinner);
+        Spinner languageSelect = findViewById(R.id.langSelectSpinner);
         ArrayAdapter<String> adapter_lan = new ArrayAdapter<>(this,
                 R.layout.simple_spinner_item, populateCountryNameByUserType(languageNames));
         adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -195,8 +254,9 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
 
                 if(selectedLanguage == null)
                     return;
-
-                new NetworkConnectionTest(UserRegistrationActivity.this).execute();
+                new NetworkConnectionTest(
+                        UserRegistrationActivity.this,
+                        REQUEST_NEED.REGISTER).execute();
             }
         });
 
@@ -205,6 +265,10 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
             etEmergencyContact.setText(getSession().getCaregiverNumber());
             etAddress.setText(getSession().getAddress());
         }
+    }
+
+    public void continueLoadingTheApp() {
+        continueLoadingRegistrationScreen();
     }
 
     private String[] populateCountryNameByUserType(String[] langNameToBeShorten) {
@@ -283,19 +347,6 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
         return shortenLanguageNames;
     }
 
-    @Override
-    public void onReceiveNetworkState(int state) {
-        if (state == GlobalConstants.NETWORK_CONNECTED){
-            Toast.makeText(UserRegistrationActivity.this,
-                    getString(R.string.register_user), Toast.LENGTH_SHORT).show();
-            autoLoginAndSetupUser();
-        }else {
-            bRegister.setEnabled(true);
-            Toast.makeText(UserRegistrationActivity.this,
-                    getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
-        }
-    }
-
     private void autoLoginAndSetupUser() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
@@ -317,6 +368,8 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
                             map.put("firstLanguage", selectedLanguage);
                             map.put("versionCode", BuildConfig.VERSION_CODE);
                             map.put("joinedOn", ServerValue.TIMESTAMP);
+                            FirebaseDatabase mDB = FirebaseDatabase.getInstance();
+                            mRef = mDB.getReference(BuildConfig.DB_TYPE + "/users");
                             mRef.child(getSession().getUserId()).setValue(map)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -374,13 +427,15 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
     }
 
     @SuppressLint("StaticFieldLeak")
-    private class NetworkConnectionTest extends AsyncTask<Void, Void, Boolean> {
+    class NetworkConnectionTest extends AsyncTask<Void, Void, Boolean> {
         private Context context;
         private CheckNetworkStatus listener;
+        private UserRegistrationActivity.REQUEST_NEED requestNeed;
 
-        NetworkConnectionTest(Context context) {
+        NetworkConnectionTest(Context context, UserRegistrationActivity.REQUEST_NEED requestNeed) {
             this.context = context;
             this.listener = (CheckNetworkStatus) context;
+            this.requestNeed = requestNeed;
         }
 
         @Override
@@ -390,7 +445,9 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
             try {
                 URL url = new URL("http://www.google.com");
                 HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
-                urlc.setConnectTimeout(3000);
+                urlc.setRequestProperty("User-Agent", "Test");
+                urlc.setRequestProperty("Connection", "close");
+                urlc.setConnectTimeout(1500);
                 urlc.connect();
                 if (urlc.getResponseCode() == HttpURLConnection.HTTP_OK) {
                     urlc.disconnect();
@@ -408,9 +465,9 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
         protected void onPostExecute(Boolean isConnected) {
             super.onPostExecute(isConnected);
             if(isConnected){
-                listener.onReceiveNetworkState(GlobalConstants.NETWORK_CONNECTED);
+                listener.onReceiveNetworkState(GlobalConstants.NETWORK_CONNECTED, requestNeed);
             }else{
-                listener.onReceiveNetworkState(GlobalConstants.NETWORK_DISCONNECTED);
+                listener.onReceiveNetworkState(GlobalConstants.NETWORK_DISCONNECTED, requestNeed);
             }
         }
     }

@@ -120,7 +120,7 @@
     <string name="invalid_address">অকার্যকরী ঠিকানা</string>
     <string name="invalid_emailId">অকার্যকরী ই-মেল ঠিকানা</string>
     <string name="enterTheName">দয়া করে আপনার সন্তানের নাম লিখুন</string>
-    <string name="search_act_title">জেলোতে কথার আইকন</string>
+    <string name="search_act_title">জেলোতে অনুসন্ধান আইকন</string>
     <string name="iconsHasBeenReset">পছন্দগুলি পুনরায় সাজানো হয়েছে</string>
     <string name="speak">বলা</string>
     <string name="pause">বিরতি</string>

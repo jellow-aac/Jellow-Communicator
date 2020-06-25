@@ -391,15 +391,16 @@
     <string name="lpu_parse_update">Processing the downloaded data</string>
     <string name="lpu_download_icons">Downloading icon files</string>
     <string name="lpu_download_verbiage">Downloading speech files</string>
-    <string name="lpu_update_success">Language pack successfully updated!</string>
-    <string name="lpu_toast_update_success">Update successful!</string>
-    <string name="lpu_toast_check_success">Checking update success!</string>
-    <string name="lpu_no_updates_found">No updates found!</string>
+    <string name="lpu_update_success">Language pack successfully updated.</string>
+    <string name="lpu_toast_update_success">Update successful.</string>
+    <string name="lpu_toast_check_success">Checking update success.</string>
+    <string name="lpu_no_updates_found">No updates found.</string>
     <string name="lpu_update_error">Error completing update, please try again.</string>
-    <string name="lpu_toast_check_error">Language package update failed!!</string>
+    <string name="lpu_toast_check_error">Language package update failed.</string>
     <string name="update_now">Update now</string>
     <string name="update_later">Later</string>
     <string name="update_message">New content is available in the app. Do you want to update now?</string>
+    <string name="app_update_message">The new version of the Jellow app is available. Do you want to update now?</string>
 
 
     <!--String resources for MMB-->
@@ -519,11 +520,11 @@
     <string name="select_source_for_image_for_board">Select source for board image</string>
     <string name="select_language_for_board">Select language for the board</string>
     <string name="icon_select_screen">Add icons screen</string>
-    <string name="icons_selected"> icons selected</string>
+    <string name="icons_selected">_ icons selected</string>
     <string name="icon_add_edit_screen">Add or Edit icons screen</string>
     <string name="edit_current_icon">Edit the current icon</string>
     <string name="delete_current_icon">Delete the current icon</string>
-    <string name="add_edit_icons_dialog">Add/Edit icon dialog</string>
+    <string name="add_edit_icons_dialog">Add or Edit icon dialog</string>
     <string name="select_image_for_icon">Select image for the icon</string>
     <string name="enable_reposition_icons">Enable repositioning of icons</string>
     <string name="disable_reposition_icons">Disable repositioning of icons</string>
@@ -533,7 +534,7 @@
     <string name="open_jellow_privacy_policy">Open the Jellow\'s privacy policy.</string>
     <string name="board_deleted">_ board deleted</string>
     <string name="search_icon_available_in_jellow">Search icon available in Jellow</string>
-    <string name="search_icon_the_board">Search icon in the current board</string>
+    <string name="search_icon_the_board">Search an icon in the current board</string>
     <string name="preparing_language_screen">Language setup screen</string>
     <string name="language_package_update">Jellow content update screen</string>
     <string name="dialog">dialog</string>
