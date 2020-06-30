@@ -400,5 +400,18 @@
     <dimen name="v_dialog_et_mar">16dp</dimen>
     <dimen name="scrollbar_mar">12dp</dimen>
 
+    <!--Keyboard utterance dialog -->
+    <dimen name="custom_keyboard_padding_bottom_parent">48dp</dimen>
+    <dimen name="custom_keyboard_back_icon_size">48dp</dimen>
+    <dimen name="custom_keyboard_back_icon_horizontal_margin">16dp</dimen>
+    <dimen name="custom_keyboard_et_width">450dp</dimen>
+    <dimen name="custom_keyboard_et_height">80dp</dimen>
+    <dimen name="custom_keyboard_et_horizontal_margin">8dp</dimen>
+    <dimen name="custom_keyboard_et_horizontal_margin_top">16dp</dimen>
+    <dimen name="custom_keyboard_et_text_size">20sp</dimen>
+    <dimen name="custom_keyboard_iv_speak_size">56dp</dimen>
+    <dimen name="custom_keyboard_layout_margin_top">48dp</dimen>
+    <dimen name="custom_keyboard_toolbar_height">66dp</dimen>
+
 
 </resources>

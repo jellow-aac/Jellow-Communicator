@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 import com.dsource.idc.jellowintl.R;
-import com.dsource.idc.jellowintl.models.GlobalConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -256,26 +255,15 @@ public class SessionManager {
     }
 
     /**
-     * Ayaz
+     * Created by Ayaz
+     **
+     * Updated by Rahul on 30th June 2020*
      **/
-    public void setLanguageChange(int code)
-    {
-        if(code==GlobalConstants.LANGUAGE_STATE_CHANGED)
-            storePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code),"Yes");
-        else if(code==GlobalConstants.LANGUAGE_STATE_DB_CREATE)
-            storePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code),"Create");
-        else
-            storePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code),"No");
+    public void setLanguageDataUpdateState(int state){
+        storePreferenceKeyWithValue(Integer.class.toString(), mContext.getString(R.string.lang_change_code), state);
     }
-
-    public int isLanguageChanged()
-    {
-        String lang_change=(String)retrievePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code));
-        if(lang_change.equals("Yes"))
-            return GlobalConstants.LANGUAGE_STATE_CHANGED;
-        else if(lang_change.equals("Create"))
-            return GlobalConstants.LANGUAGE_STATE_DB_CREATE;
-        else return GlobalConstants.LANGUAGE_STATE_NO_CHANGE;
+    public int getLanguageDataUpdateState(){
+        return (Integer)retrievePreferenceKeyWithValue(Integer.class.toString(),mContext.getString(R.string.lang_change_code));
     }
 
     /**

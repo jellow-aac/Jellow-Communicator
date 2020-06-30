@@ -38,4 +38,6 @@
     <color name="transparent">#00d70202</color>
     <color name="fourty_percent_translucent">#40000000</color>
     <color name="light_base">#f9f5d9</color>
+    <color name="navigation_bar_color">#444D53</color>
+    <color name="color_app_bar_title">#58595A</color>
 </resources>

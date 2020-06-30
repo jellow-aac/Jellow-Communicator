@@ -3,8 +3,8 @@ package com.dsource.idc.jellowintl.models;
 import androidx.annotation.Keep;
 import androidx.annotation.Nullable;
 
-import com.dsource.idc.jellowintl.makemyboard.interfaces.AbstractDataProvider;
-import com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants;
+import com.dsource.idc.jellowintl.make_my_board_module.interfaces.AbstractDataProvider;
+import com.dsource.idc.jellowintl.make_my_board_module.utility.BoardConstants;
 
 import java.io.Serializable;
 

@@ -56,11 +56,13 @@ public class GlobalConstants {
 
     public final static int LANGUAGE_STATE_NO_CHANGE = 0;
 
-    public final static int LANGUAGE_STATE_CHANGED = 1;
-
-    public final static int LANGUAGE_STATE_DB_CREATE = 2;
+    public final static int LANGUAGE_STATE_CREATE_DB = 1;
 
     public static final int NETWORK_CONNECTED = 0;
 
     public static final int NETWORK_DISCONNECTED = 1;
+
+    public static final int STATUS_SUCCESS = 0;
+
+    public static final int STATUS_FAILED = 1;
 }

@@ -18,5 +18,5 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/iv_action_bar_back"
         android:layout_centerVertical="true"
-        android:textColor="#58595A"/>
+        android:textColor="@color/color_app_bar_title"/>
 </RelativeLayout>

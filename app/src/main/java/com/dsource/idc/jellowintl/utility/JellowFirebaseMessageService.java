@@ -12,7 +12,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.dsource.idc.jellowintl.BuildConfig;
 import com.dsource.idc.jellowintl.R;
-import com.dsource.idc.jellowintl.UserRegistrationActivity;
+import com.dsource.idc.jellowintl.activities.UserRegistrationActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 

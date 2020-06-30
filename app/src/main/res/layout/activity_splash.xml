@@ -8,7 +8,7 @@
     android:background="@drawable/bg"
     android:layout_marginTop="@dimen/splash_margin_top">
 
-    <com.dsource.idc.jellowintl.PlayGifView
+    <com.dsource.idc.jellowintl.utility.PlayGifView
         android:id="@+id/viewGif"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"

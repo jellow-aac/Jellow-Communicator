@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_base"
-    tools:context="com.dsource.idc.jellowintl.makemyboard.activity.BoardListActivity">
+    tools:context="com.dsource.idc.jellowintl.make_my_board_module.activity.BoardListActivity">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"

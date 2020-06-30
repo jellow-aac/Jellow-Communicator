@@ -8,7 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AlertDialog;
 
 import com.dsource.idc.jellowintl.R;
-import com.dsource.idc.jellowintl.UserRegistrationActivity;
+import com.dsource.idc.jellowintl.activities.SplashActivity;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
@@ -28,7 +28,7 @@ public class AppUpdateUtil{
         INIT, SHOW_RATIONALE, START, RUNNING, CANCELED, FAILED, NOT_AVAILABLE
     }
 
-    public void executeUpdateFlow(UpdateStatus status, UserRegistrationActivity context){
+    public void executeUpdateFlow(UpdateStatus status, SplashActivity context){
             Log.i("JellowApp","Created appUpdateManager");
         switch(status){
             case INIT:
@@ -51,7 +51,7 @@ public class AppUpdateUtil{
         }
     }
 
-    public void checkIfNewVersionAvailable(final UserRegistrationActivity context) {
+    public void checkIfNewVersionAvailable(final SplashActivity context) {
         appUpdateManager = AppUpdateManagerFactory.create(context);
         Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
         appUpdateInfoTask.addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>() {
@@ -73,7 +73,7 @@ public class AppUpdateUtil{
         });
     }
 
-    private void showUpdateRationaleToUser(final UserRegistrationActivity context) {
+    private void showUpdateRationaleToUser(final SplashActivity context) {
         String updateNow = context.getString(R.string.update_now);
         String updateLater = context.getString(R.string.update_later);
         String message = context.getString(R.string.app_update_message);
@@ -117,7 +117,7 @@ public class AppUpdateUtil{
         negativeButton.setTextSize(18f);
     }
 
-    public void startUpdateProcess(UserRegistrationActivity context){
+    public void startUpdateProcess(SplashActivity context){
         try {
             appUpdateManager.startUpdateFlowForResult(
                     appUpdateInfo, IMMEDIATE,
@@ -131,7 +131,7 @@ public class AppUpdateUtil{
         }
     }
 
-    public void callUpdateUIToForegroundIfRunning(final UserRegistrationActivity context) {
+    public void callUpdateUIToForegroundIfRunning(final SplashActivity context) {
         appUpdateManager = AppUpdateManagerFactory.create(context);
         appUpdateManager
             .getAppUpdateInfo()

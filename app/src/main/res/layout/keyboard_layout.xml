@@ -2,16 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/rounded_back"
-    android:paddingTop="24dp"
-    android:paddingBottom="48dp"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin">
-    <LinearLayout
-        android:id="@+id/topBar"
+    android:background="@color/app_background">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="@dimen/custom_keyboard_toolbar_height"
+        android:background="@color/menu_screen_bottom_bar">
         <TextView
             android:id="@+id/dialogTitle"
             android:layout_width="wrap_content"
@@ -20,44 +16,53 @@
             android:text="@string/keyboard" />
         <ImageView
             android:id="@+id/dialog_back"
-            android:layout_width="48dp"
-            android:layout_height="36dp"
-            android:padding="8dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_width="@dimen/custom_keyboard_back_icon_size"
+            android:layout_height="@dimen/custom_keyboard_back_icon_size"
+            android:layout_marginRight="@dimen/custom_keyboard_back_icon_horizontal_margin"
+            android:layout_marginEnd="@dimen/custom_keyboard_back_icon_horizontal_margin"
             android:src="@drawable/ic_action_navigation_arrow_back"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/keyboard"
-            style="@style/defaultTextViewStyle"
-            android:fontFamily="@font/mukta_semibold"
-            android:textSize="18sp"/>
-    </LinearLayout>
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:textColor="@color/color_app_bar_title"
+            android:fontFamily="@font/mukta_semibold"/>
+    </androidx.appcompat.widget.Toolbar>
     <LinearLayout
-        android:layout_width="375dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:layout_below="@+id/topBar"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="@dimen/custom_keyboard_et_horizontal_margin_top"
         android:layout_centerHorizontal="true">
-        <EditText
-            android:id="@+id/et_keyboard_utterances"
-            android:layout_width="320dp"
-            android:layout_height="80dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:textSize="18sp"
-            android:imeOptions="actionDone|flagNoExtractUi"
-            android:contentDescription="@string/edttxt_msg"/>
-        <ImageView
-            android:id="@+id/speak_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_search_list_speaker"
-            android:layout_marginTop="16dp"
-            android:contentDescription="@string/speak"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/custom_keyboard_layout_margin_top">
+            <EditText
+                android:id="@+id/et_keyboard_utterances"
+                android:layout_width="@dimen/custom_keyboard_et_width"
+                android:layout_height="@dimen/custom_keyboard_et_height"
+                android:layout_marginHorizontal="@dimen/custom_keyboard_et_horizontal_margin"
+                android:textSize="@dimen/custom_keyboard_et_text_size"
+                android:padding="8dp"
+                android:fadeScrollbars="false"
+                android:scrollbars="vertical"
+                android:scrollbarDefaultDelayBeforeFade="@null"
+                android:background="@drawable/rounded_back"
+                android:gravity="start"
+                android:imeOptions="actionDone|flagNoExtractUi"
+                android:contentDescription="@string/edttxt_msg">
+                <requestFocus/>
+            </EditText>
+            <ImageView
+                android:id="@+id/speak_button"
+                android:layout_width="@dimen/custom_keyboard_iv_speak_size"
+                android:layout_height="@dimen/custom_keyboard_iv_speak_size"
+                android:src="@drawable/ic_search_list_speaker"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/speak"/>
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
