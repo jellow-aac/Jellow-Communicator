@@ -23,6 +23,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static com.dsource.idc.jellowintl.make_my_board_module.utility.BoardConstants.BOARD_ID;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
+import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardListPresenter, BoardAdapter> implements IBoardListView, BoardClickListener {
 
@@ -81,7 +86,8 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
     @Override
     public void onItemDelete(final int position) {
         final DialogCustom dialog = new DialogCustom(mContext);
-        dialog.setText(getString(R.string.delete_board)+" ?");
+        dialog.setText(getString(R.string.delete_board).replace("-",
+                mAdapter.getItem(position).getBoardName()));
         dialog.setOnNegativeClickListener(new DialogCustom.OnNegativeClickListener() {
             @Override
             public void onNegativeClickListener() {
@@ -105,6 +111,7 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
 
     @Override
     public void onBoardEdit(int position) {
+        getSession().setCurrentBoardLanguage(mAdapter.getList().get(position).getLanguage());
         Intent intent = new Intent(this, IconSelectActivity.class);
         intent.putExtra(BOARD_ID,mAdapter.getList().get(position).getBoardId());
         startActivity(intent);
@@ -115,9 +122,28 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
     protected void onResume() {
         super.onResume();
         setVisibleAct(BoardListActivity.class.getSimpleName());
+        if(!isAnalyticsActive()){
+            resetAnalytics(this, getSession().getUserId());
+        }
+        // Start measuring user app screen timer.
+        startMeasuring();
         SelectionManager.getInstance().delete();
         getSession().setCurrentBoardLanguage("");
         initViewsAndEvents();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Check if pushId is older than 24 hours (86400000 millisecond).
+        // If yes then create new pushId (user session)
+        // If no then do not create new pushId instead user existing and
+        // current session time is saved.
+        long sessionTime = validatePushId(getSession().getSessionCreatedAt());
+        getSession().setSessionCreatedAt(sessionTime);
+
+        // Stop measuring user app screen timer.
+        stopMeasuring(BoardListActivity.class.getSimpleName());
     }
 
     @Override

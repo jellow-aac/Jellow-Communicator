@@ -7,7 +7,7 @@
     <dimen name="search_edit_text_top_margin">10dp</dimen>
     <dimen name="search_edit_margin_left">6dp</dimen>
     <dimen name="searchView_padding">12dp</dimen>
-    <dimen name="search_bar_width">400dp</dimen>
+    <dimen name="search_bar_width">590dp</dimen>
     <dimen name="search_edit_text_margin_bottom">4dp</dimen>
     <dimen name="search_edit_text_size">16sp</dimen>
     <dimen name="search_drawable_padding">12dp</dimen>
@@ -58,11 +58,11 @@
 
     <!--9 icons configuration-->
     <dimen name="nineIcon_parentHorizontal">0dp</dimen>
-    <dimen name="nineIcon_width">132dp</dimen>
+    <dimen name="nineIcon_width">136dp</dimen>
     <dimen name="nineIcon_textWidth">245dp</dimen>
     <dimen name="nineIcon_textSize">20sp</dimen>
     <dimen name="nineIcon_borderThickness">8.5dp</dimen>
-    <dimen name="nineIcon_innerRadius">57.2dp</dimen>
+    <dimen name="nineIcon_innerRadius">59dp</dimen>
 
     <!--activity_user_registration.xml dimensions-->
     <dimen name="user_reg_parent_padding">10dp</dimen>
@@ -271,7 +271,7 @@
     <dimen name="feedback_et_height">120dp</dimen>
     <dimen name="feedback_et_text_padding">8dp</dimen>
     <dimen name="feedback_bottom_bar_height">58dp</dimen>
-    <dimen name="feedback_btn_height">40dp</dimen>
+    <dimen name="feedback_btn_size">40dp</dimen>
     <dimen name="feedback_btn_txt_size">22sp</dimen>
     <dimen name="feedback_btn_padding_left">8dp</dimen>
     <dimen name="feedback_btn_share_margin_horizontal">4dp</dimen>
@@ -323,6 +323,8 @@
     <dimen name="edit_board_dialog_button_text_size">22sp</dimen>
     <dimen name="edit_board_dialog_internal_margin_top">16dp</dimen>
     <dimen name="icon_dialog_button_width">86dp</dimen>
+    <dimen name="lang_popup_item_height">40dp</dimen>
+    <dimen name="lang_popup_item_divider_top">39dp</dimen>
     <dimen name="header_icon_size">75dp</dimen>
     <dimen name="header_title_size">20sp</dimen>
     <dimen name="header_title_width">130dp</dimen>
@@ -383,7 +385,7 @@
     <dimen name="add_board_text_size">24sp</dimen>
     <dimen name="list_recycler_margin">16dp</dimen>
     <dimen name="left_mar_my_boards">340dp</dimen>
-    <dimen name="add_board_dialog_width">440dp</dimen>
+    <dimen name="add_board_dialog_width">585dp</dimen>
     <dimen name="edit_text_width_add_board">140dp</dimen>
     <dimen name="board_dialog_edit_text">18sp</dimen>
 
@@ -393,7 +395,7 @@
     <dimen name="threeIcon_remove_btn">46dp</dimen>
     <dimen name="fourIcon_remove_btn">42dp</dimen>
     <dimen name="nineIcon_remove_btn">40dp</dimen>
-    <dimen name="delete_icon_margin">-48dp</dimen>
+    <dimen name="delete_icon_margin">-54dp</dimen>
 
     <dimen name="camera_mar_left">-6dp</dimen>
     <dimen name="dialog_btn_txt_size">18sp</dimen>
@@ -407,7 +409,7 @@
     <!--Keyboard utterance dialog -->
     <dimen name="custom_keyboard_padding_bottom_parent">48dp</dimen>
     <dimen name="custom_keyboard_back_icon_size">48dp</dimen>
-    <dimen name="custom_keyboard_back_icon_horizontal_margin">16dp</dimen>
+    <dimen name="custom_keyboard_back_icon_horizontal_margin">2dp</dimen>
     <dimen name="custom_keyboard_et_width">550dp</dimen>
     <dimen name="custom_keyboard_et_height">120dp</dimen>
     <dimen name="custom_keyboard_et_horizontal_margin">8dp</dimen>

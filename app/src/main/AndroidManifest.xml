@@ -167,14 +167,13 @@
             android:name=".make_my_board_module.activity.BoardSearchActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/search_act_title"
-            android:theme="@style/Theme.AppCompat.Translucent"
-            android:windowSoftInputMode="adjustNothing"
-            tools:ignore="LockedOrientationActivity"/>
+            android:windowSoftInputMode="adjustPan|adjustNothing"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
         <activity
             android:name=".make_my_board_module.activity.HomeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan"
+            android:windowSoftInputMode="adjustPan|adjustNothing"
             tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
@@ -206,7 +205,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/my_boards_screen"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan"
+            android:windowSoftInputMode="adjustPan|adjustNothing"
             tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".make_my_board_module.custom_dialogs.DialogNoOfIconPerScreen"

@@ -3,6 +3,7 @@ package com.dsource.idc.jellowintl.activities;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -12,9 +13,17 @@ import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.graphics.drawable.DrawableCompat;
 
+import com.dsource.idc.jellowintl.BuildConfig;
 import com.dsource.idc.jellowintl.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -22,7 +31,7 @@ import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 public class FeedbackActivity extends BaseActivity {
     private RatingBar mRatingEasyToUse;
     private EditText mEtComments;
-    private String strEaseOfUse, mClearPicture, mClearVoice, mEaseToNav;
+    private float strEaseOfUse=0f, stClearPicture=0f, strClearVoice=0f, strEaseToNav=0f;
     private String strRateJellow;
 
     @Override
@@ -77,41 +86,71 @@ public class FeedbackActivity extends BaseActivity {
         mRatingEasyToUse.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
-                strEaseOfUse = String.valueOf(rating);
+                strEaseOfUse = rating;
             }
         });
         pictures.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
-                mClearPicture = String.valueOf(rating);
+                stClearPicture = rating;
             }
         });
         voice.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
-                mClearVoice = String.valueOf(rating);
+                strClearVoice = rating;
             }
         });
         navigate.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
-                mEaseToNav = String.valueOf(rating);
+                strEaseToNav = rating;
             }
         });
     }
 
-    public void sendEmailFeedback(View v){
-        if((strEaseOfUse != null) && (mClearPicture != null) && (mClearVoice != null) && (mEaseToNav != null) &&
-            (!strEaseOfUse.equals("0.0")) && (!mClearPicture.equals("0.0")) && (!mClearVoice.equals("0.0")) && (!mEaseToNav.equals("0.0"))) {
-        String cs = mEtComments.getText().toString();
-        Intent email = new Intent(Intent.ACTION_SEND);
-        email.putExtra(Intent.EXTRA_EMAIL, new String[]{"jellowcommunicator@gmail.com"});
-        email.putExtra(Intent.EXTRA_SUBJECT, "Jellow Feedback");
-        email.putExtra(Intent.EXTRA_TEXT, "Easy to use: " + strEaseOfUse + "\nClear Pictures: " + mClearPicture + "\nClear Voices: " + mClearVoice + "\nEasy to Navigate: " + mEaseToNav + "\n\nComments and Suggestions:-\n" + cs);
-        email.setType("message/rfc822");
-        startActivity(Intent.createChooser(email, "Choose an Email client :"));
+    public void sendFeedbackToDevelopers(View v){
+        if(strEaseOfUse!=0f&&stClearPicture!=0f&&strClearVoice!=0f&&strEaseToNav!=0f) {
+            FirebaseDatabase mDB = FirebaseDatabase.getInstance();
+            DatabaseReference mRef = mDB.getReference(BuildConfig.DB_TYPE +"/in-app-reviews");
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("Easy to use", strEaseOfUse);
+            map.put("Clear pictures", stClearPicture);
+            map.put("Clear voice", strClearVoice);
+            map.put("Easy to navigate", strEaseToNav);
+            map.put("Platform", "Android");
+            map.put("Comments", mEtComments.getText().toString());
+            mRef.child(mRef.push().getKey()).setValue(map)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(FeedbackActivity.this,
+                                getString(R.string.received_your_feedback), Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    finish();
+                }
+            });
         }else{
             Toast.makeText(FeedbackActivity.this, strRateJellow, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void rateTheJellowApp(View v){
+        Uri uri = Uri.parse("market://details?id=" + getPackageName());
+        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+        try {
+            goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            startActivity(goToMarket);
+        } catch (Exception e) {
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
         }
     }
 

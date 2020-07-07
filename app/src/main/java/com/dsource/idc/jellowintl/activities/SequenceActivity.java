@@ -766,6 +766,7 @@ public class SequenceActivity extends LevelBaseActivity{
                 //Firebase event
                 singleEvent("Navigation", "Keyboard");
                 new DialogKeyboardUtterance(SequenceActivity.this).show();
+                speak(mNavigationBtnTxt[2]);
                 mIvKeyboard.setImageResource(R.drawable.keyboard_pressed);
                 mIvBack.setImageResource(R.drawable.back);
                 mIvHome.setImageResource(R.drawable.home);

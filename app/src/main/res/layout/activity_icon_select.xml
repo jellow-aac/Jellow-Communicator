@@ -66,7 +66,6 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:background="@color/light_base"
-        android:layout_marginRight="2dp"
         android:layout_toEndOf="@+id/left_level_select_pane"
         android:layout_toRightOf="@+id/left_level_select_pane">
 
@@ -135,7 +134,7 @@
                 android:paddingRight="@dimen/mmb_btn_pad"
                 android:layout_toLeftOf="@id/btn_next_step"
                 android:textAllCaps="true"
-                android:text="@string/next"
+                android:text="@string/next_btn"
                 android:layout_gravity="center_vertical"
                 android:layout_height="@dimen/profile_save_btn_height"
                 android:textSize="@dimen/profile_save_btn_txt_size"

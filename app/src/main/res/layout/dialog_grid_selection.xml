@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="@color/translucent"
-    android:id="@+id/touch_outside"
+    android:id="@+id/parent"
     android:importantForAccessibility="no"
     android:layout_height="match_parent"
     android:onClick="closeDialog">
@@ -77,6 +77,7 @@
                 android:text="@string/_1_icon"
                 android:textColor="@color/text_color"
                 android:textAlignment="center"
+                android:gravity="center"
                 android:textSize="@dimen/grid_dialog_title_textsize"/>
 
         </RelativeLayout>
@@ -112,6 +113,7 @@
             android:text="@string/_2_icons"
             android:textColor="@color/text_color"
             android:textAlignment="center"
+            android:gravity="center"
             android:textSize="@dimen/grid_dialog_title_textsize"/>
 
     </RelativeLayout>
@@ -147,7 +149,8 @@
                 android:text="@string/_3_icons"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/grid_dialog_title_textsize"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:gravity="center"/>
 
         </RelativeLayout>
         <RelativeLayout
@@ -183,6 +186,7 @@
                 android:id="@+id/grid_size_2x2_text"
                 android:textColor="@color/text_color"
                 android:textAlignment="center"
+                android:gravity="center"
                 android:textSize="@dimen/grid_dialog_title_textsize"/>
 
         </RelativeLayout>
@@ -219,6 +223,7 @@
                 android:text="@string/_9_icons"
                 android:textColor="@color/text_color"
                 android:textAlignment="center"
+                android:gravity="center"
                 android:textSize="@dimen/grid_dialog_title_textsize"/>
 
         </RelativeLayout>

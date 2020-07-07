@@ -89,7 +89,8 @@ public class IconDatabaseFacade {
         String selectQuery = iconTitle+"%";
         Gson gson = new Gson();
         Icon icon;
-        ArrayList<VerbiageModel> vList = new ArrayList<>(database.verbiageDao().getVerbiageListByTitle(selectQuery,languageCode));
+        ArrayList<VerbiageModel> vList = new ArrayList<>(
+                database.verbiageDao().getVerbiageListByTitle(selectQuery,languageCode));
         for(VerbiageModel model:vList){
             icon = gson.fromJson(model.getIcon(), Icon.class);
             if(model.getIconId().length()>=12)

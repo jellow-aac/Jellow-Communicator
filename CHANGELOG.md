@@ -1,13 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-##[2.1.0] - Yet to release
+##[3.0.1]
+- Added the Telugu language.
+
+##[3.0.0] - Yet to release
 ### Added
 - Make My Board
 - User can search in using english text for any icon in any language.
 - In "Main Screen" and "Language"  screen, an update dialog is added. The dialog will notify user if language package has changes.
 - Update icon will change if update available.
-- Added the Telugu language
 - Fixed Android 10 Navigation UI issues.
 
 
@@ -15,7 +17,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Fixed app shows english text at all places for menu screens.
 - Fixed the app crash on privacy link at user registration link.
-- Add play & Pause feature to About Jellow speak 
+- Add play & Pause feature to About Jellow speak.
 
 
 ##[2.0] - 24 November, 2019

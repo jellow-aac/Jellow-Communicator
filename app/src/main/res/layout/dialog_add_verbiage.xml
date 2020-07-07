@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:clickable="false"
                     android:layout_gravity="center_vertical"
-                    android:text="@string/expressive_heading"
+                    android:text="@string/expressive_heading1"
                     android:textSize="@dimen/dialog_heading"
                     android:textColor="@color/colorAccent"
                     />

@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.make_my_board_module.activity.HomeActivity;
 import com.dsource.idc.jellowintl.make_my_board_module.interfaces.AbstractDataProvider;
 import com.dsource.idc.jellowintl.make_my_board_module.interfaces.OnItemClickListener;
 import com.dsource.idc.jellowintl.make_my_board_module.interfaces.OnItemMoveListener;
@@ -61,7 +62,7 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
-        JellowIcon thisIcon = (JellowIcon) mProvider.getItem(position);
+        final JellowIcon thisIcon = (JellowIcon) mProvider.getItem(position);
 
         String iconTitle = thisIcon.getIconTitle().length() <= 24 ?
                 thisIcon.getIconTitle() :
@@ -105,6 +106,7 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    ((HomeActivity)mContext).speakFromMMB(thisIcon.getIconSpeech());
                     setMenuImageBorder(holder, false, -1);
                     holder.parent.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
                     highlightedIcon = -1;

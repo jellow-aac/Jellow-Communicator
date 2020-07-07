@@ -25,6 +25,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.make_my_board_module.utility.BoardConstants.BOARD_ID;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
+import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class DialogAddVerbiage extends BaseActivity implements View.OnClickListener {
 
@@ -64,6 +69,30 @@ public class DialogAddVerbiage extends BaseActivity implements View.OnClickListe
             setUpFields();
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isAnalyticsActive()){
+            resetAnalytics(this, getSession().getUserId());
+        }
+        // Start measuring user app screen timer.
+        startMeasuring();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Check if pushId is older than 24 hours (86400000 millisecond).
+        // If yes then create new pushId (user session)
+        // If no then do not create new pushId instead user existing and
+        // current session time is saved.
+        long sessionTime = validatePushId(getSession().getSessionCreatedAt());
+        getSession().setSessionCreatedAt(sessionTime);
+
+        // Stop measuring user app screen timer.
+        stopMeasuring(DialogAddVerbiage.class.getSimpleName());
     }
 
     private void setUpFields() {

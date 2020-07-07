@@ -65,6 +65,11 @@ import static com.dsource.idc.jellowintl.make_my_board_module.utility.BoardConst
 import static com.dsource.idc.jellowintl.make_my_board_module.utility.BoardConstants.CAMERA_REQUEST;
 import static com.dsource.idc.jellowintl.make_my_board_module.utility.BoardConstants.LIBRARY_REQUEST;
 import static com.dsource.idc.jellowintl.make_my_board_module.utility.ImageStorageHelper.storeImageToStorage;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
+import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class DialogAddBoard extends BaseActivity implements IAddBoardDialogView,View.OnClickListener, View.OnFocusChangeListener {
 
@@ -92,6 +97,30 @@ public class DialogAddBoard extends BaseActivity implements IAddBoardDialogView,
             setUpAddBoardDialog(null);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isAnalyticsActive()){
+            resetAnalytics(this, getSession().getUserId());
+        }
+        // Start measuring user app screen timer.
+        startMeasuring();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Check if pushId is older than 24 hours (86400000 millisecond).
+        // If yes then create new pushId (user session)
+        // If no then do not create new pushId instead user existing and
+        // current session time is saved.
+        long sessionTime = validatePushId(getSession().getSessionCreatedAt());
+        getSession().setSessionCreatedAt(sessionTime);
+
+        // Stop measuring user app screen timer.
+        stopMeasuring(DialogAddBoard.class.getSimpleName());
+    }
+
     @SuppressLint("ResourceType")
     private void setUpAddBoardDialog(final BoardModel board) {
         final ImageView boardIcon = findViewById(R.id.board_icon);
@@ -101,7 +130,7 @@ public class DialogAddBoard extends BaseActivity implements IAddBoardDialogView,
         final EditText boardName = findViewById(R.id.board_name);
         final Spinner languageSelect = findViewById(R.id.langSelectSpinner);
 
-        findViewById(R.id.touch_outside).setOnClickListener(this);
+        findViewById(R.id.parent).setOnClickListener(this);
         findViewById(R.id.touch_inside).setOnClickListener(this);
         boardName.setOnFocusChangeListener(this);
         boardIcon.setOnClickListener(this);
@@ -113,7 +142,11 @@ public class DialogAddBoard extends BaseActivity implements IAddBoardDialogView,
         for (String lang : SessionManager.NoTTSLang)
             languageList.remove(SessionManager.LangValueMap.get(lang));
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,
+        if(Build.VERSION.SDK_INT< Build.VERSION_CODES.LOLLIPOP){
+            for (String lang : SessionManager.NOT_SUPPORTED_API_BELOW_21)
+                languageList.remove(SessionManager.LangValueMap.get(lang));
+        }
+        ArrayAdapter arrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, languageList);
         arrayAdapter.setDropDownViewResource(R.layout.popup_menu_item);
         languageSelect.setAdapter(arrayAdapter);

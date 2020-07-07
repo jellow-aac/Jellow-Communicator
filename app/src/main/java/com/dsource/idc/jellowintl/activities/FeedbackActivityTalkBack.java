@@ -1,6 +1,7 @@
 package com.dsource.idc.jellowintl.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -10,13 +11,22 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.dsource.idc.jellowintl.BuildConfig;
 import com.dsource.idc.jellowintl.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 
 public class FeedbackActivityTalkBack extends BaseActivity{
-    Spinner mEasyToUse, mClearPictures, mClearVoice, mNavigate;
+    Spinner mEasyToUse, mClearPicture, mClearVoice, mEaseToNavigate;
     ArrayAdapter<CharSequence> adapter;
     private String strRateJellow;
 
@@ -63,29 +73,57 @@ public class FeedbackActivityTalkBack extends BaseActivity{
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mEasyToUse = findViewById(R.id.easytouse);
         mEasyToUse.setAdapter(adapter);
-        mClearPictures = findViewById(R.id.clearpictures);
-        mClearPictures.setAdapter(adapter);
+        mClearPicture = findViewById(R.id.clearpictures);
+        mClearPicture.setAdapter(adapter);
         mClearVoice = findViewById(R.id.clearvoice);
         mClearVoice.setAdapter(adapter);
-        mNavigate = findViewById(R.id.navigate);
-        mNavigate.setAdapter(adapter);
+        mEaseToNavigate = findViewById(R.id.navigate);
+        mEaseToNavigate.setAdapter(adapter);
     }
 
-    public void sendEmailFeedback(View v){
-        if((mEasyToUse != null) && (mClearPictures != null) && (mClearVoice != null) && (mNavigate != null)) {
-            Intent email = new Intent(Intent.ACTION_SEND);
-            email.putExtra(Intent.EXTRA_EMAIL, new String[]{"jellowcommunicator@gmail.com"});
-            email.putExtra(Intent.EXTRA_SUBJECT, "Jellow Feedback");
-            email.putExtra(Intent.EXTRA_TEXT, "Easy to use: " + mEasyToUse.getSelectedItem() +
-                    "\nClear Pictures: " + mClearPictures.getSelectedItem() + "\nClear Voices: "
-                    + mClearVoice.getSelectedItem() + "\nEasy to Navigate: " + mNavigate.getSelectedItem() +
-                    "\n\nComments and Suggestions:-\n" + ((EditText)findViewById(R.id.comments))
-                        .getText().toString());
-            email.setType("message/rfc822");
-            startActivity(Intent.createChooser(email, "Choose an Email client :"));
-        } else {
-            Toast.makeText(FeedbackActivityTalkBack.this,
-                    strRateJellow, Toast.LENGTH_SHORT).show();
+    public void sendFeedbackToDevelopers(View v){
+        if((mEasyToUse != null) && (mClearPicture != null) && (mClearVoice != null) && (mEaseToNavigate != null)) {
+            FirebaseDatabase mDB = FirebaseDatabase.getInstance();
+            DatabaseReference mRef = mDB.getReference(BuildConfig.DB_TYPE +"/in-app-reviews");
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("Easy to use", mEasyToUse.getSelectedItem());
+            map.put("Clear pictures", mClearPicture.getSelectedItem());
+            map.put("Clear voice", mClearVoice.getSelectedItem());
+            map.put("Easy to navigate", mEaseToNavigate.getSelectedItem());
+            map.put("Platform", "Android");
+            map.put("Comments", ((EditText)findViewById(R.id.comments)).getText().toString());
+            mRef.child(mRef.push().getKey())
+                .setValue(map)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(FeedbackActivityTalkBack.this,
+                                getString(R.string.received_your_feedback), Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        finish();
+                    }
+                });
+        }else{
+            Toast.makeText(FeedbackActivityTalkBack.this, strRateJellow, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void rateTheJellowApp(View v){
+        Uri uri = Uri.parse("market://details?id=" + getPackageName());
+        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+        try {
+            goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                    Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                    Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            startActivity(goToMarket);
+        } catch (Exception e) {
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
         }
     }
 
@@ -108,7 +146,7 @@ public class FeedbackActivityTalkBack extends BaseActivity{
                 }
             }
         });
-        mClearPictures.setAccessibilityDelegate(new View.AccessibilityDelegate() {
+        mClearPicture.setAccessibilityDelegate(new View.AccessibilityDelegate() {
             @Override
             public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
                 super.onInitializeAccessibilityEvent(host, event);
@@ -126,7 +164,7 @@ public class FeedbackActivityTalkBack extends BaseActivity{
                 }
             }
         });
-        mNavigate.setAccessibilityDelegate(new View.AccessibilityDelegate() {
+        mEaseToNavigate.setAccessibilityDelegate(new View.AccessibilityDelegate() {
             @Override
             public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
                 super.onInitializeAccessibilityEvent(host, event);

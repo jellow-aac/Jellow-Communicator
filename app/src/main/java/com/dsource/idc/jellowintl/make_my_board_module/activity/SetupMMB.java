@@ -14,6 +14,7 @@ import com.dsource.idc.jellowintl.activities.BaseActivity;
 import com.dsource.idc.jellowintl.make_my_board_module.dataproviders.databases.TextDatabase;
 import com.dsource.idc.jellowintl.make_my_board_module.dataproviders.helper_classes.GeneralDatabaseCreator;
 import com.dsource.idc.jellowintl.make_my_board_module.interfaces.SuccessCallBack;
+import com.dsource.idc.jellowintl.models.GlobalConstants;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import static com.dsource.idc.jellowintl.activities.UserRegistrationActivity.LCODE;
@@ -98,6 +99,7 @@ public class SetupMMB extends BaseActivity {
         intent.putExtra(LCODE,langCode);
         intent.putExtra(BOARD_ID,boardId);
         startActivity(intent);
+        mSession.setLanguageDataUpdateState(langCode, GlobalConstants.LANGUAGE_STATE_NO_CHANGE);
         mSession.setCurrentBoardLanguage(langCode);
         mSession.setBoardDatabaseStatus(true,langCode);
         finish();

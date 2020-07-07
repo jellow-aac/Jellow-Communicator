@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowintl;
+package com.dsource.idc.jellowintl.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -9,6 +9,8 @@ import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.dsource.idc.jellowintl.BuildConfig;
+import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.factories.PathFactory;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
@@ -183,7 +185,7 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
         mIntro10 = getString(R.string.about_je_intro10);
         mIntro11 = getString(R.string.about_je_intro11);
         mIntro12 = getString(R.string.about_je_intro12);
-        mIntro13 = getString(R.string.about_je_intro13) + " "+ getString(R.string.websiteLink);
+        mIntro13 = getString(R.string.about_je_intro13).replace("_", getString(R.string.websiteLink));
         mIntro14 = getString(R.string.about_je_intro14);
         mCredits = getString(R.string.credits);
         mIntro15 = getString(R.string.about_je_intro15);

@@ -1,5 +1,6 @@
 package com.dsource.idc.jellowintl.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
@@ -13,6 +14,7 @@ import com.dsource.idc.jellowintl.models.GlobalConstants;
 import com.dsource.idc.jellowintl.package_updater_module.ConnectionUtils;
 import com.dsource.idc.jellowintl.package_updater_module.UpdateManager;
 import com.dsource.idc.jellowintl.package_updater_module.interfaces.ProgressReceiver;
+import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -69,7 +71,15 @@ public class LanguagePackUpdateActivity extends BaseActivity implements Progress
     @Override
     public void iconsModified(boolean modified) {
         if(modified){
-            getSession().setLanguageDataUpdateState(GlobalConstants.LANGUAGE_STATE_CREATE_DB);
+            for (String language :
+                    SessionManager.LangValueMap.keySet()) {
+                getSession().setLanguageDataUpdateState(language,
+                        GlobalConstants.LANGUAGE_STATE_CREATE_DB);
+            }
+            startActivity(new Intent(getApplicationContext(), SplashActivity.class));
+            finishAffinity();
+        }else{
+            finish();
         }
     }
 

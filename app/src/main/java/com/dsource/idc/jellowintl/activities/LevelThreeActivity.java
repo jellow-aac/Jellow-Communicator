@@ -655,6 +655,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                 //Firebase event
                 singleEvent("Navigation", "Keyboard");
                 new DialogKeyboardUtterance(LevelThreeActivity.this).show();
+                speak(mNavigationBtnTxt[2]);
                 mIvKeyboard.setImageResource(R.drawable.keyboard_pressed);
                 mIvBack.setImageResource(R.drawable.back);
                 mIvHome.setImageResource(R.drawable.home);

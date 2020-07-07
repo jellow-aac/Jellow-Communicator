@@ -76,7 +76,6 @@ public abstract class BaseBoardActivity<V extends IBaseView, P extends IBasePres
         } catch (NullPointerException e) {
             Toast.makeText(this, "Some error occurred", Toast.LENGTH_LONG).show();
         }
-
     }
 
     public void refreshBoard(){
@@ -129,6 +128,7 @@ public abstract class BaseBoardActivity<V extends IBaseView, P extends IBasePres
             }
         });
     }
+
     public int getNumberOfIconPerScreen() {
         switch (currentBoard.getGridSize()) {
             case 0:
@@ -144,6 +144,4 @@ public abstract class BaseBoardActivity<V extends IBaseView, P extends IBasePres
         }
         return 9;
     }
-
-
 }

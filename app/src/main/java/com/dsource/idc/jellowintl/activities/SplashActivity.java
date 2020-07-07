@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.cache.CacheManager;
 import com.dsource.idc.jellowintl.factories.TextFactory;
+import com.dsource.idc.jellowintl.make_my_board_module.dataproviders.databases.TextDatabase;
 import com.dsource.idc.jellowintl.models.GlobalConstants;
 import com.dsource.idc.jellowintl.utility.AppUpdateUtil;
 import com.dsource.idc.jellowintl.utility.PlayGifView;
@@ -42,12 +43,6 @@ public class SplashActivity extends BaseActivity implements CheckNetworkStatus, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && isNotchDevice()) {
-            findViewById(R.id.parent).
-                    setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
-        }else if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH){
-            getWindow().setNavigationBarColor(getResources().getColor(R.color.navigation_bar_color));
-        }
 
         PlayGifView pGif = findViewById(R.id.viewGif);
         pGif.setImageResource(R.drawable.jellow_j);
@@ -57,7 +52,9 @@ public class SplashActivity extends BaseActivity implements CheckNetworkStatus, 
                 != PackageManager.PERMISSION_GRANTED))
             getSession().setEnableCalling(false);
 
-        if(getSession().getLanguageDataUpdateState()==GlobalConstants.LANGUAGE_STATE_CREATE_DB) {
+        TextDatabase textDb = new TextDatabase(this, getSession().getLanguage(), getAppDatabase());
+        if(getSession().getLanguageDataUpdateState(getSession().getLanguage()) ==
+                GlobalConstants.LANGUAGE_STATE_CREATE_DB || !textDb.checkForTableExists()) {
             CacheManager.clearCache();
             TextFactory.clearJson();
             createDataBase = new CreateDataBase();
@@ -76,6 +73,13 @@ public class SplashActivity extends BaseActivity implements CheckNetworkStatus, 
         if(!isAnalyticsActive()) {
             resetAnalytics(this, getSession().getUserId());
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && isNotchDevice()) {
+            findViewById(R.id.parent).
+                    setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+        }else if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH){
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.navigation_bar_color));
+        }
+
         setUserParameters();
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
             new AppUpdateUtil().
@@ -109,9 +113,11 @@ public class SplashActivity extends BaseActivity implements CheckNetworkStatus, 
     public void onTaskComplete(int status) {
         createDataBase.unRegisterReceiver();
         if(status == GlobalConstants.STATUS_SUCCESS)
-            getSession().setLanguageDataUpdateState(GlobalConstants.LANGUAGE_STATE_NO_CHANGE);
+            getSession().setLanguageDataUpdateState(getSession().getLanguage(),
+                    GlobalConstants.LANGUAGE_STATE_NO_CHANGE);
         else
-            getSession().setLanguageDataUpdateState(GlobalConstants.LANGUAGE_STATE_CREATE_DB);
+            getSession().setLanguageDataUpdateState(getSession().getLanguage(),
+                    GlobalConstants.LANGUAGE_STATE_CREATE_DB);
         continueLoadingTheApp();
     }
 

@@ -204,7 +204,6 @@
     <string name="err_dialog_msg">Google TTS engine is not installed on your device. Do you want to install TTS engine?</string>
     <string name="exit_dialog_msg">Jellow will not work without Google Text-to-speech engine. Do you really want to exit?</string>
 
-    <string name="lang_change_code" translatable="false">Language_change</string>
     <string name="level_one_intent_pos_tag" translatable="false">mLevelOneItemPos</string>
     <string name="intent_menu_path_tag" translatable="false">selectedMenuItemPath</string>
     <string name="level_2_item_pos_tag" translatable="false">mLevelTwoItemPos</string>
@@ -244,7 +243,7 @@
     <string name="about_je_intro10">Work on Jellow is attributed to the Indian Institute of Technology Bombay.</string>
     <string name="about_je_intro11">The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes.</string>
     <string name="about_je_intro12">When the content is used, we request you to acknowledge Indian Institute of Technology Bombay.</string>
-    <string name="about_je_intro13">Jellow is available for download at</string>
+    <string name="about_je_intro13">Jellow is available for download at _</string>
     <string name="about_je_intro14">If interested in further developing the code, please write to Professor Ravi Poovaiah at jellowcommunicator@gmail.com</string>
     <string name="credits">Credits:</string>
     <string name="about_je_intro15">Idea Conception, Project Investigation and Supervision:</string>
@@ -310,6 +309,7 @@
     <string name="no">No</string>
     <string name="less">less</string>
     <string name="back">back</string>
+    <string name="yes_btn">Yes</string>
     <string name="enter_category">enter category</string>
     <string name="intro_cd">The image shows a screenshot of the home page of Jellow. The home page contains a central grid of 9 icons called category buttons that are arranged in 3 rows and 3 columns. The 9 category buttons are “Greet and feel”, “Daily activities”, “Eating”, “Fun”, “Learning”, “People”, “Places, “Time and weather”, and “Help”. Below the category buttons are 3 navigation buttons of “Back”, “Home” and “keyboard” arranged in that order at the bottom of the home screen. On the right and left sides of the central category icons are 3 expressive icons each. To the left of the central grid are 3 expressive buttons of “Like”, “Yes” and “More” arranged from top to bottom in that order. To the right of the central grid, are the remaining 3 expressive buttons of “Don’t like”, “No” and “Less” arranged from top to bottom. On the top right corner of the home screen is visible a settings icon. In this image the central grid of 9 icons has been highlighted with all other buttons faded out.</string>
     <string name="intro2_cd">This image has the home screen of Jellow with only 2 icons of “Eating” and “Yes” highlighted. The rest of the buttons are faded out. The image shows that to speak using Jellow, user has to first click on any category button, for instance, “Eating” and then on an expressive button, for example, “Yes”. In this way the user can speak using Jellow.</string>
@@ -404,25 +404,8 @@
 
 
     <!--String resources for MMB-->
-    <string name="wait_text" translatable="false">Please wait...</string>
-    <string name="no_internet" translatable="false">No Internet</string>
-    <string name="my_boards" translatable="false">My Boards</string>
-    <string name="filter_text" translatable="false">Filter</string>
-    <string name="delete_board" translatable="false">Delete Board</string>
-    <string name="no_board_to_delete" translatable="false">There are no board to delete</string>
-    <string name="icon_list" translatable="false">IconList</string>
     <string name="search_result" translatable="false">search_result</string>
-    <string name="icon_select_mode" translatable="false">icon_select_mode</string>
-    <string name="delete_icons" translatable="false">Delete Icons</string>
-    <string name="add_edit_icons" translatable="false">Add Edit Icons</string>
-    <string name="icon_select_text" translatable="false">Select Icons</string>
-    <string name="done" translatable="false">Done</string>
     <string name="search_board" translatable="false">0</string>
-    <string-array name="entries">
-        <item>Camera</item>
-        <item>Gallery</item>
-        <item>Library</item>
-    </string-array>
 
     <array name="expressive_icon_pressed">
         <item>@drawable/like_pressed</item>
@@ -445,9 +428,8 @@
         <item>@drawable/ic_jellow_library</item>
     </string-array>
 
-
+    <string name="delete_board">\"-\" board will be deleted?</string>
     <string name="exit_warning">Are you sure you want to exit?</string>
-    <string name="expressive_heading">Tap  </string>
     <string name="icon_select_exit_warning">Your selection will be lost</string>
     <string name="current_board">Added icons</string>
     <string name="place_holder_text">Icon selected by you will appear here</string>
@@ -539,4 +521,10 @@
     <string name="language_package_update">Jellow content update screen</string>
     <string name="dialog">dialog</string>
     <string name="close_content_download_screen">close content download screen</string>
+    <string name="share_jellow_app">Share the Jellow app</string>
+    <string name="rate_jellow_app">Rate the Jellow app on Google Play store</string>
+    <string name="received_your_feedback">Thank you for your feedback.</string>
+    <string name="no_btn">No</string>
+    <string name="next_btn">Next</string>
+    <string name="my_boards">My Boards</string>
 </resources>

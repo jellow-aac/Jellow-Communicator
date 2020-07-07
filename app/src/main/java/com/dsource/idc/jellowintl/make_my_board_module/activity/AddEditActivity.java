@@ -32,6 +32,11 @@ import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.make_my_board_module.custom_dialogs.DialogAddVerbiage.JELLOW_ID;
 import static com.dsource.idc.jellowintl.make_my_board_module.utility.BoardConstants.BOARD_ID;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
+import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class AddEditActivity extends BaseBoardActivity<IAddEditView, IAddEditPresenter, AddEditAdapter> implements IAddEditView {
 
@@ -270,6 +275,30 @@ public class AddEditActivity extends BaseBoardActivity<IAddEditView, IAddEditPre
         initViewsAndEvents();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isAnalyticsActive()){
+            resetAnalytics(this, getSession().getUserId());
+        }
+        // Start measuring user app screen timer.
+        startMeasuring();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Check if pushId is older than 24 hours (86400000 millisecond).
+        // If yes then create new pushId (user session)
+        // If no then do not create new pushId instead user existing and
+        // current session time is saved.
+        long sessionTime = validatePushId(getSession().getSessionCreatedAt());
+        getSession().setSessionCreatedAt(sessionTime);
+
+        // Stop measuring user app screen timer.
+        stopMeasuring(AddEditActivity.class.getSimpleName());
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.grid_size:
@@ -370,6 +399,4 @@ public class AddEditActivity extends BaseBoardActivity<IAddEditView, IAddEditPre
             return ((GridLayoutManager)mRecyclerView.getLayoutManager()).findFirstVisibleItemPosition();
         return -1;
     }
-
-
 }

@@ -56,6 +56,11 @@ import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.make_my_board_module.utility.BoardConstants.BOARD_ID;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
+import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpeechCallBacks {
 
@@ -77,7 +82,6 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
     private EditText etSpeechTextInput;
     private ImageView ivSpeakerButton;
     private ImageView ivKeyboard;
-    private boolean isKeyboardVisible = false;
     private SearchScrollManager searchScrollManager;
     private GridLayoutManager mLayoutManager;
     private RecyclerViewDragDropManager mRecyclerViewDragDropManager;
@@ -255,37 +259,12 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
         ivKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
-                    new DialogKeyboardUtterance(HomeActivity.this).show();
-                }else {
-                    speakFromMMB(getResources().getString(R.string.keyboard));
-                    isKeyboardVisible = !isKeyboardVisible;
-                    enableKeyboardView();
-                }
+                new DialogKeyboardUtterance(HomeActivity.this).show();
+                speakFromMMB(getResources().getString(R.string.keyboard));
+                ivHome.setImageDrawable(getResources().getDrawable(R.drawable.home));
+                ivKeyboard.setImageDrawable(getResources().getDrawable(R.drawable.keyboard_pressed));
             }
         });
-    }
-
-    private void enableKeyboardView() {
-        if (isKeyboardVisible) {
-            ivHome.setImageDrawable(getResources().getDrawable(R.drawable.home));
-            ivKeyboard.setImageDrawable(getResources().getDrawable(R.drawable.keyboard_pressed));
-            rvRecycler.setVisibility(View.GONE);
-            etSpeechTextInput.setVisibility(View.VISIBLE);
-            etSpeechTextInput.requestFocus();
-            ivSpeakerButton.setVisibility(View.VISIBLE);
-            expIconManager.disableExpressiveIcons(true);
-            selectedIconVerbiage = null;
-            ActivateView(ivBack, true);
-        } else {
-            ivKeyboard.setImageDrawable(getResources().getDrawable(R.drawable.keyboard));
-            rvRecycler.setVisibility(View.VISIBLE);
-            etSpeechTextInput.setVisibility(View.GONE);
-            ivSpeakerButton.setVisibility(View.GONE);
-            expIconManager.disableExpressiveIcons(false);
-            ActivateView(ivBack, false);
-        }
-        invalidateOptionsMenu();
     }
 
     private void prepareSpeech(JellowIcon jellowIcon) {
@@ -322,8 +301,7 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
         ivHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isKeyboardVisible = false;
-                enableKeyboardView();
+                ivKeyboard.setImageDrawable(getResources().getDrawable(R.drawable.keyboard));
                 selectedIconVerbiage = null;
                 speakFromMMB(getString(R.string.home));
                 ActivateView(ivHome, true);
@@ -344,11 +322,7 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
             public void onClick(View v) {
                 speakFromMMB(getResources().getString(R.string.back));
                 selectedIconVerbiage = null;
-                if (isKeyboardVisible) {
-                    isKeyboardVisible = false;
-                    enableKeyboardView();
-                    if (Level == 0) ActivateView(ivBack, false);
-                } else onBackPressed();
+                onBackPressed();
             }
         });
         if(rvRecycler.getItemAnimator()!=null)
@@ -385,10 +359,6 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
         adapter.setSelectedPosition(-1);
         adapter.setExpIconPos(-1);
         selectedIconVerbiage = null;
-        if (isKeyboardVisible) {
-            isKeyboardVisible = false;
-            enableKeyboardView();
-        }
         if (Level == 2) {
             if (LevelOneParent != -1) {
                 displayList = modelManager.getLevelTwoFromModel(LevelOneParent);
@@ -635,20 +605,18 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!isKeyboardVisible) {
-            getMenuInflater().inflate(R.menu.board_home_menu, menu);
-            menu.findItem(R.id.reposition_lock).setIcon(mode == HomeActivityAdapter.REPOSITION_MODE ? R.drawable.ic_unlocked : R.drawable.ic_locked);
-            if(mode==HomeActivityAdapter.REPOSITION_MODE){
-                adapter.setSelectedPosition(-1);
-                selectedIconVerbiage =  null;
-                expIconManager.resetSelection();
-                expIconManager.disableExpressiveIcons(true);
-                stopSpeaking();
-                menu.findItem(R.id.reposition_lock).setTitle(getString(R.string.disable_reposition_icons));
-            }else{
-                expIconManager.disableExpressiveIcons(false);
-                menu.findItem(R.id.reposition_lock).setTitle(getString(R.string.enable_reposition_icons));
-            }
+        getMenuInflater().inflate(R.menu.board_home_menu, menu);
+        menu.findItem(R.id.reposition_lock).setIcon(mode == HomeActivityAdapter.REPOSITION_MODE ? R.drawable.ic_unlocked : R.drawable.ic_locked);
+        if(mode==HomeActivityAdapter.REPOSITION_MODE){
+            adapter.setSelectedPosition(-1);
+            selectedIconVerbiage =  null;
+            expIconManager.resetSelection();
+            expIconManager.disableExpressiveIcons(true);
+            stopSpeaking();
+            menu.findItem(R.id.reposition_lock).setTitle(getString(R.string.disable_reposition_icons));
+        }else{
+            expIconManager.disableExpressiveIcons(false);
+            menu.findItem(R.id.reposition_lock).setTitle(getString(R.string.enable_reposition_icons));
         }
         return true;
     }
@@ -701,6 +669,11 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
                     getSession().getToastMessage(), Toast.LENGTH_SHORT).show();
             getSession().setToastMessage("");
         }
+        if(!isAnalyticsActive()){
+            resetAnalytics(this, getSession().getUserId());
+        }
+        // Start measuring user app screen timer.
+        startMeasuring();
     }
 
     @Override
@@ -708,6 +681,15 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
         mRecyclerViewDragDropManager.cancelDrag();
         stopSpeaking();
         super.onPause();
+        // Check if pushId is older than 24 hours (86400000 millisecond).
+        // If yes then create new pushId (user session)
+        // If no then do not create new pushId instead user existing and
+        // current session time is saved.
+        long sessionTime = validatePushId(getSession().getSessionCreatedAt());
+        getSession().setSessionCreatedAt(sessionTime);
+
+        // Stop measuring user app screen timer.
+        stopMeasuring(HomeActivity.class.getSimpleName());
     }
 
     @Override
@@ -768,5 +750,9 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
     @Override
     public void speechSynthesisCompleted() {
         revertTheSpeakerIcon();
+    }
+
+    public void hideCustomKeyboardDialog() {
+        ivKeyboard.setImageDrawable(getResources().getDrawable(R.drawable.keyboard));
     }
 }

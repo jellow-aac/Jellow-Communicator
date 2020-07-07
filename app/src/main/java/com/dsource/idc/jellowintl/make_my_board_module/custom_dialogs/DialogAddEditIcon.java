@@ -55,6 +55,11 @@ import static com.dsource.idc.jellowintl.make_my_board_module.utility.BoardConst
 import static com.dsource.idc.jellowintl.make_my_board_module.utility.BoardConstants.CAMERA_REQUEST;
 import static com.dsource.idc.jellowintl.make_my_board_module.utility.BoardConstants.LIBRARY_REQUEST;
 import static com.dsource.idc.jellowintl.make_my_board_module.utility.ImageStorageHelper.storeImageToStorage;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
+import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class DialogAddEditIcon extends BaseActivity implements View.OnClickListener, View.OnFocusChangeListener {
 
@@ -90,6 +95,30 @@ public class DialogAddEditIcon extends BaseActivity implements View.OnClickListe
             if (icon != null)
                 setAlreadyPresentIcon(icon);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isAnalyticsActive()){
+            resetAnalytics(this, getSession().getUserId());
+        }
+        // Start measuring user app screen timer.
+        startMeasuring();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Check if pushId is older than 24 hours (86400000 millisecond).
+        // If yes then create new pushId (user session)
+        // If no then do not create new pushId instead user existing and
+        // current session time is saved.
+        long sessionTime = validatePushId(getSession().getSessionCreatedAt());
+        getSession().setSessionCreatedAt(sessionTime);
+
+        // Stop measuring user app screen timer.
+        stopMeasuring(DialogAddEditIcon.class.getSimpleName());
     }
 
     public static void subscribe(AddIconCallback addIconCallback) {
@@ -165,7 +194,7 @@ public class DialogAddEditIcon extends BaseActivity implements View.OnClickListe
         editBoardIconButton = findViewById(R.id.edit_board);
         iconImage = findViewById(R.id.board_icon);
         listView = findViewById(R.id.camera_list);
-        findViewById(R.id.touch_outside).setOnClickListener(this);
+        findViewById(R.id.parent).setOnClickListener(this);
         findViewById(R.id.icon_container).setOnClickListener(this);
 
         iconImage.setOnClickListener(this);
@@ -178,7 +207,7 @@ public class DialogAddEditIcon extends BaseActivity implements View.OnClickListe
         saveButton.setOnClickListener(this);
         editBoardIconButton.setOnClickListener(this);
         cancelSaveBoard.setOnClickListener(this);
-        findViewById(R.id.touch_outside).setOnClickListener(this);
+        findViewById(R.id.parent).setOnClickListener(this);
         findViewById(R.id.touch_inside).setOnClickListener(this);
     }
 

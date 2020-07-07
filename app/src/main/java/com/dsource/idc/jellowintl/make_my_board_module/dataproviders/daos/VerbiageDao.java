@@ -25,7 +25,7 @@ public interface VerbiageDao {
     @Update
     void updateVerbiage(VerbiageModel verbiageModel);
 
-    @Query("DELETE FROM VERBIAGEMODEL WHERE language_code = (:language_code)")
+    @Query("DELETE FROM VerbiageModel WHERE language_code = (:language_code)")
     void deleteVerbiage(String language_code);
 
     @Query("SELECT COUNT(*) FROM VerbiageModel WHERE language_code = (:languageCode) and id LIKE :id")
@@ -34,6 +34,7 @@ public interface VerbiageDao {
     @Query("SELECT * FROM VerbiageModel where language_code  = (:languageCode) and id like :id")
     List<VerbiageModel> getVerbiageList(String  id,String languageCode);
 
-    @Query("SELECT * FROM VerbiageModel WHERE language_code  = (:languageCode) and title LIKE :iconTitle")
-    List<VerbiageModel> getVerbiageListByTitle(String iconTitle,String languageCode);
+    @Query("SELECT * FROM VerbiageModel WHERE language_code  = (:languageCode) and " +
+            "(title LIKE :iconTitle OR search_Tag like :iconTitle)")
+    List<VerbiageModel> getVerbiageListByTitle(String iconTitle, String languageCode);
 }

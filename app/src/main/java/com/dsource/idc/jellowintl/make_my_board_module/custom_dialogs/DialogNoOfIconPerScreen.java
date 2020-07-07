@@ -82,26 +82,31 @@ public class DialogNoOfIconPerScreen extends BaseActivity {
 
         switch (gridSize){
             case GlobalConstants.ONE_ICON_PER_SCREEN:
-                findViewById(R.id.fl_one_icon).setForeground(
+                findViewById(R.id.fl_one_icon).setBackground(
                         getResources().getDrawable(R.drawable.border_number_of_icons_per_screen));
                 break;
             case GlobalConstants.TWO_ICONS_PER_SCREEN:
-                findViewById(R.id.fl_two_icon).setForeground(
+                findViewById(R.id.fl_two_icon).setBackground(
                         getResources().getDrawable(R.drawable.border_number_of_icons_per_screen));
                 break;
             case GlobalConstants.THREE_ICONS_PER_SCREEN:
-                findViewById(R.id.fl_three_icon).setForeground(
+                findViewById(R.id.fl_three_icon).setBackground(
                         getResources().getDrawable(R.drawable.border_number_of_icons_per_screen));
                 break;
             case GlobalConstants.FOUR_ICONS_PER_SCREEN:
-                findViewById(R.id.fl_four_icon).setForeground(
+                findViewById(R.id.fl_four_icon).setBackground(
                         getResources().getDrawable(R.drawable.border_number_of_icons_per_screen));
                 break;
             case GlobalConstants.NINE_ICONS_PER_SCREEN:
-                findViewById(R.id.fl_nine_icon).setForeground(
+                findViewById(R.id.fl_nine_icon).setBackground(
                         getResources().getDrawable(R.drawable.border_number_of_icons_per_screen));
                 break;
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setNavigationUiConditionally();
+    }
 }

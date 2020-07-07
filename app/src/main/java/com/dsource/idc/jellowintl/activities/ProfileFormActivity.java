@@ -58,12 +58,11 @@ public class ProfileFormActivity extends SpeechEngineBaseActivity {
                     R.array.bloodgroup_talkback, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             mBloodGroup.setAdapter(adapter);
-        }
-        else{
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.bloodgroup, R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mBloodGroup.setAdapter(adapter);
+        }else{
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                    this, R.array.bloodgroup, R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            mBloodGroup.setAdapter(adapter);
         }
         btnSave = findViewById(R.id.bSave);
 

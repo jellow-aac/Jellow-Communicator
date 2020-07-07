@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.models.GlobalConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,6 +66,10 @@ public class SessionManager {
 
     public final static ArrayList<String> NoTTSLang = new ArrayList<String>(){{
         add(MR_IN);
+    }};
+
+    public final static ArrayList<String> NOT_SUPPORTED_API_BELOW_21 = new ArrayList<String>(){{
+        add(TA_IN);
     }};
 
     private final String PREF_NAME = "JellowPreferences";
@@ -259,11 +264,21 @@ public class SessionManager {
      **
      * Updated by Rahul on 30th June 2020*
      **/
-    public void setLanguageDataUpdateState(int state){
-        storePreferenceKeyWithValue(Integer.class.toString(), mContext.getString(R.string.lang_change_code), state);
+    public void setLanguageDataUpdateState(String langCode, int state){
+        storePreferenceKeyWithValue(Integer.class.toString(), langCode, state);
     }
-    public int getLanguageDataUpdateState(){
-        return (Integer)retrievePreferenceKeyWithValue(Integer.class.toString(),mContext.getString(R.string.lang_change_code));
+    public int getLanguageDataUpdateState(String langCode){
+        try{
+            return (!checkPreferenceExist(langCode)) ?
+                    GlobalConstants.LANGUAGE_STATE_CREATE_DB :
+                    (Integer)retrievePreferenceKeyWithValue(Integer.class.toString(), langCode);
+        }catch (ClassCastException e){
+            return GlobalConstants.LANGUAGE_STATE_CREATE_DB;
+        }
+    }
+
+    private boolean checkPreferenceExist(String langCode) {
+        return mPreferences.contains(langCode);
     }
 
     /**

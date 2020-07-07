@@ -23,7 +23,7 @@
     <string name="action_settings">सेटिंग्स (Settings)</string>
 
     <string name="Language">भाषा (Language)</string>
-    <string name="saveLanguage">भाषा बदला</string>
+    <string name="saveLanguage">भाषा बदला (Apply Changes)</string>
 
 
     <string-array name="bloodgroup">
@@ -81,7 +81,7 @@
     <string name="txtDisplayMode">प्रदर्शन प्रकार</string>
     <string name="txtVoiceVolume">आवाजाचा स्तर</string>
     <string name="txtNumOfPerPerScr">प्रति स्क्रीन आइकॉन संख्या</string>
-    <string name="txtDemo">स्पीच डेमो</string>
+    <string name="txtDemo">स्पीच डेमो (SPEECH DEMO)</string>
     <string name="txtSave">सेट करा (Save)</string>
     <string name="demoTtsSpeech">0507MSTT.mp3</string>
     <string name="savedSettingsMessage">सेटिंग्स सेव झाल्या आहेत.</string>
@@ -90,6 +90,7 @@
 
 
     <string name="menuProfile">प्रोफाइल (Profile)</string>
+    <string name="menuMyBoards">माझे बोर्ड (My Boards)</string>
     <string name="menuAbout">जेलोची माहिती (About Jellow)</string>
     <string name="menuTutorials">ट्यूटोरियल (Tutorial)</string>
     <string name="menuKeyboardInput">कीबोर्ड नियंत्रण (Keyboard Control)</string>
@@ -105,15 +106,15 @@
     <string name="clearVoice">स्पष्ट आवाज</string>
     <string name="easyToNavigate">मार्गनिर्देशन करण्यास सोपे</string>
     <string name="commentSuggestions">टिप्पणी/सल्ले</string>
-    <string name="submit">सबमिट करा</string>
+    <string name="submit">सबमिट करा (SUBMIT)</string>
     <string name="serial_keyboard_title">सिरियल कीबोर्ड:</string>
     <string name="serial_keyboard_info">जेलो कम्युनिकेटर ऍप्लिकेशनमध्ये सिरीयल कीबोर्ड उपलब्ध आहे. हा कीबोर्ड शिक्षकांच्या प्रतिक्रियांच्या आधारे तयार केला आहे. या कीबोर्डमध्ये वर्णमालेनुसार अक्षरांची क्रमवारी आहे. त्यामुळे, वापरकर्ते सिरीयल कीबोर्डवरील अक्षरांचा अंदाज सहजपणे लावू शकतात. हा कीबोर्ड नवीन भाषा शिकणाऱ्यांसाठी उपयुक्त आहे. अक्षरांच्या व्यतिरिक्त या सिरीयल कीबोर्डमध्ये ० ते ९ पर्यंत अंक आणि चिन्हे आहेत, जे दररोज बोलण्याच्या प्रक्रियेसाठी महत्वाचे आहेत.</string>
     <string name="keyboardControlTxt">आपल्या पसंतीचा कीबोर्ड निवडण्यासाठी आणि त्याला डिफ़ॉल्ट बनविण्यासाठी तुम्हाला २ चरण पूर्ण करावे लागतील:</string>
     <string name="step1">चरण १: टैबलेट/मोबाइल च्या सेटिंग्स मधून कीबोर्ड सक्रिय करा</string>
-    <string name="qwertyKeyboard">डिफ़ॉल्ट देवनागरी कीबोर्ड</string>
-    <string name="serialKeyboard">क्रमिक \'कखग\' कीबोर्ड</string>
+    <string name="qwertyKeyboard">डिफ़ॉल्ट देवनागरी कीबोर्ड (QWERTY)</string>
+    <string name="serialKeyboard">क्रमिक \'कखग\' कीबोर्ड (SERIAL ABC)</string>
     <string name="step2">चरण २: निवडलेला कीबोर्ड डिफ़ॉल्ट बनवा</string>
-    <string name="saveAsDefault">सेट करा</string>
+    <string name="saveAsDefault">सेट करा (SAVE AS DEFAULT)</string>
     <string name="getKeyboardControl">कीबोर्ड नियंत्रण</string>
     <string name="childName">मुलाचे नाव **</string>
     <string name="caregiverName">काळजी घेणाऱ्या व्यक्तीचे नाव **</string>
@@ -127,9 +128,9 @@
     <string name="enterTheName">कृपया आपल्या मुलाचे नाव दाखिल करा</string>
     <string name="search_act_title">जेलो अॅप्लिकेशन मध्ये आइकॉन्स शोधा</string>
     <string name="iconsHasBeenReset">आयकॉन रीसेट झाले आहेत.</string>
-    <string name="speak">बोला</string>
-    <string name="pause">विराम द्या</string>
-    <string name="stop">थांबा</string>
+    <string name="speak">बोला (Speak)</string>
+    <string name="pause">विराम द्या (Pause)</string>
+    <string name="stop">थांबा (Stop)</string>
     <string name="about_jellow_speech">0506MSTT.mp3</string>
     <!--<string name="about_jellow_speech">जेलो अॅप्लिकेशन आइकॉन आणि चिञ वापरुन संवाद साधण्यास मदत करते. जे बोलायला शिकत आहेत, किंवा ज्यांना बोलायला अडचण येत आहे, ते जेलोचा वापर करुन इतरांशी संवाद साधू शकतात. जेलो चा विकास, इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे, मुंबई (आई आई टी-बी), च्या आईडीसी स्कूल ऑफ डिझाइन येथे झाला आहे. जेलो अॅप्लिकेशनची भाषा क्षमता वाढवण्यासाठी या प्रोजेक्टच्या प्रमुख संशोधकांनी एका नवीन इमोशनल लैंगग्विज प्रोटोकॉल (ELP) ची संकल्पना केली आहे. विज्युअल इमोशनल लैंगग्विज प्रोटोकॉल संकल्पनेत ६ भाववाहक आइकॉन आहेत, जे इंटरफेसचे मूलभूत भाग आहेत. या प्रमुख भाववाहक आइकॉनांच्या मदतीने जेलोचे वापरकर्ते त्यांच्या आवडी-निवडी आणि गरजा इतरांना सांगू शकतात. जेलो चा वापर मुले अत्यंत सहजपणे शिकु शकतात. जेलो अॅप्लिकेशन एंड्रॉयड टैबलेटसाठी अनुकूलित आहे. जेलो अॅप्लिकेशन सध्या इंग्रजी, हिंदी, बंगाली, मराठी, तमिळ, स्पॅनिश, जर्मन, फ्रेंच आणि इटालियन या भाषांमध्ये उपलब्ध आहे. जेलो अॅप्लिकेशनची वर्तमान आवृत्ती _ आहे. जेलो अॅप्लिकेशनचा विकास सध्या चालू आहे. या संदर्भात आपले काही सल्ले असल्यास, कृपया \"अभिप्राय\" टॅब मध्ये सबमिट करा. जेलो अॅप्लिकेशनचे लाइसेंस क्रिएटिव कॉमन्स एटट्रिब्यूशन-नॉन-कमर्शियल- शेयर-ए-लाइक ४.० लाइसेंन्सच्या खाली प्राप्त आहे. जेलो अॅप्लिकेशन सबंधित सर्व कार्यांचे श्रेय इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे यांना दिले जाते. जेलो अॅप्लिकेशनचे सर्व कन्टेन्ट (समाविष्ट केलेले चिन्ह, लेआउट, आर्किटेक्चर, व्हिज्युअल आइडेन्टिटी, भाषांतर आणि सॉफ्टवेयर कोड) शेयर किंवा समावून घेतला जाऊ शकतो परंतु व्यावसायिक उद्देशांसाठी वापरला जाऊ शकत नाही. जेंव्हा कन्टेन्टचा वापर केला जाईल तेंव्हा तुम्हाला विनंती आहे की, तुम्ही इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे (आयआयटी-बी) प्रति आभार व्यक्त करा. जेलो अॅप्लिकेशन येथे डाउनलोड करण्यासाठी उपलब्ध आहे: http://www.jellow.org ! जर कोणाला जेलोचा विकास करायचा असेल तर, त्यांना विंनती आहे की, जेलो प्रोजेक्टचे प्रमुख संशोधक प्राध्यापक रवि पूवैया यांना r a v i @ i i t b . a c . i n ! किंवा ! j e l l o w c o m m u n i c a t o r @ g m a i l . c o m या ई-मेल आयडीवर संपर्क करा."Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech.  Jellow can also be used by toddlers and early learners to learn words and categories frequently used in their daily lives. Jellow\'s colourful and friendly icons can help children develop an association between pictures and their corresponding word labels. It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai. A novel Emotional Language Proto call or ELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. ELP represents the 6 expressive icons that form the core of the interface. Using these core icons, the child can communicate their likes, dislikes, and needs with others. Jellow is conceived as children-friendly with an easy-to-learn interface. The application is optimized for Android tablets.Jellow is currently available in English,Hindi and Bengali. The current version of Jellow is _. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.  Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Work on Jellow is attributed to the Indian Institute of Technology Bombay. The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes. When the content is used, we request you to acknowledge Indian Institute of Technology Bombay. Jellow is available for download at www dot jellow dot o r g. If interested in further developing the code, please write to Professor Ravi Poovaiah at ravi @ i i t b dot a c.in or,! j e l l o w c o m m u n i c a t o r @ g m a i l . c o m</string>-->
     <string name="catBtnDesc">जेलो अॅप्लिकेशनच्या स्क्रीनच्या मध्यभागी मुख्य वर्गांचे ९ बटन आहेत आणि दोन्ही बाजूंना ६ भाववाहक बटन आहेत.</string>
@@ -174,7 +175,7 @@
     <string name="change_language_line5">चरण ३: आपल्या डिव्हाइसवर _ साठी व्हॉइस डेटा उपलब्ध आहे का हे तपासा. नसल्यास व्हॉइस डेटा डाउनलोड करा. व्हॉइस डेटा उपलब्ध नसल्यास, कृपया इंटरनेट चालू करा आणि निवडलेल्या भाषेसाठी व्हॉइस डेटा डाउनलोड करा. प्रक्रिया थांबली असेल तर, कृपया आपले इंटरनेट कनेक्शन तपासा आणि पुन्हा प्रयत्न करा.</string>
     <string name="txtChangeLanguage">डिफॉल्ट भाषा बदला:</string>
     <string name="txtApplyChanges">चरण ४: नवीन भाषा डीफॉल्ट बनविण्यासाठी \'भाषा बदला\' बटनावर क्लिक करा</string>
-    <string name="txt_actLangSel_downloadDat">व्हॉइस डेटा तपासा</string>
+    <string name="txt_actLangSel_downloadDat">व्हॉइस डेटा तपासा (Check voice data)</string>
     <string name="language_downloaded">_ भाषा डाउनलोड झाली आहे</string>
     <string name="language_downloading">_ भाषा डाउनलोड होत आहे</string>
     <string name="granted_call_permission_req">कॉल करण्याची परवानगी दिली आहे.</string>
@@ -206,7 +207,7 @@
     <string name="about_je_intro5">जेलो चा वापर मुले अत्यंत सहजपणे शिकु शकतात.</string>
     <string name="about_je_intro6">जेलो अॅप्लिकेशन एंड्रॉयड टैबलेटसाठी अनुकूलित आहे.</string>
     <string name="about_je_intro7">जेलो अॅप्लिकेशन सध्या इंग्रजी, हिंदी, बंगाली, मराठी, तमिळ, स्पॅनिश, जर्मन आणि फ्रेंच या भाषांमध्ये उपलब्ध आहे.</string>
-    <string name="play_video">व्हिडिओ प्ले करा</string>
+    <string name="play_video">व्हिडिओ प्ले करा (Play video)</string>
     <string name="software_info">सॉफ्टवेयर आवृत्ती: _</string>
     <string name="about_je_intro8">जेलो अॅप्लिकेशनची वर्तमान आवृत्ती _ आहे. जेलो अॅप्लिकेशनचा विकास सध्या चालू आहे. या संदर्भात आपले काही सल्ले असल्यास, कृपया "अभिप्राय" टॅब मध्ये सबमिट करा.</string>
     <string name="terms_of_use">वापरण्याच्या अटी आणि नियम</string>
@@ -214,7 +215,7 @@
     <string name="about_je_intro10">जेलो अॅप्लिकेशन सबंधित सर्व कार्यांचे श्रेय इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे यांना दिले जाते.</string>
     <string name="about_je_intro11">जेलो अॅप्लिकेशनचे सर्व कन्टेन्ट (समाविष्ट केलेले चिन्ह, लेआउट, आर्किटेक्चर, व्हिज्युअल आइडेन्टिटी, भाषांतर आणि सॉफ्टवेयर कोड) शेयर किंवा समावून घेतला जाऊ शकतो परंतु व्यावसायिक उद्देशांसाठी वापरला जाऊ शकत नाही.</string>
     <string name="about_je_intro12">जेंव्हा कन्टेन्टचा वापर केला जाईल तेंव्हा तुम्हाला विनंती आहे की, तुम्ही इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे (आयआयटी-बी) प्रति आभार व्यक्त करा.</string>
-    <string name="about_je_intro13">जेलो अॅप्लिकेशन http://www.jellow.org येथे डाउनलोड करण्यासाठी उपलब्ध आहे.</string>
+    <string name="about_je_intro13">जेलो अॅप्लिकेशन _ येथे डाउनलोड करण्यासाठी उपलब्ध आहे.</string>
     <string name="about_je_intro14">जर कोणाला जेलोचा विकास करायचा असेल तर, त्यांना विंनती आहे की, जेलो प्रोजेक्टचे प्रमुख संशोधक प्राध्यापक रवि पूवैया यांना jellowcommunicator@gmail.com ई-मेलवर संपर्क करा.</string>
     <string name="credits">आभार सूची:</string>
     <string name="about_je_intro15"> प्रोजेक्ट अन्वेषण, संकल्पना आणि पर्यवेक्षण:</string>
@@ -305,7 +306,7 @@
     <string name="lang_setting_option3_cd">The third image is the third step in this process where now the user is at the “Google TTS options” screen. The second item on this screen which is a toggle switch for “Use Wi-Fi only” has been highlighted in this image. The user is asked to turn off or disable this switch in this step.”</string>
     <!--end content description-->
 
-    <string name="txt_tts_stting">टेक्स्ट-टू-स्पीच सेटिंग्स</string>
+    <string name="txt_tts_stting">टेक्स्ट-टू-स्पीच सेटिंग्स (TTS SETTINGS)</string>
     <string name="change_language_tts_wifi">चरण २: खाली दिलेल्या \'टेक्स्ट-टू-स्पीच सेटिंग्स\' बटनाला टॅप करून गूगल टेक्स्ट-टू-स्पीच च्या सेटिंग्स वर जा आणि \'केवळ वाय-फाय चा वापर करा\' या बटनाला बंद करा. जर हे बटण सेटिंग्समध्ये आधीपासूनच बंद केले असेल तर, कृपया पुढे जा.</string>
     <string name="txtStep2">चरण २:</string>
     <string name="close">close dialog</string>
@@ -335,7 +336,7 @@
     <string name="sequence_screen">Activity sequence</string>
     <string name="close_searchbar">Close search bar</string>
 
-    <string name="txt_accessibility_setting">ऍक्सेसिबिलिटी सेटिंग</string>
+    <string name="txt_accessibility_setting">ऍक्सेसिबिलिटी सेटिंग (Accessibility Setting)</string>
     <string name="visual_access_title">विजुअल एक्सेसिबिलिटी:</string>
     <string name="visual_access_info_one">दृष्टीदोषीत वापरकर्ते आता जेलोच्या व्हिज्युअल ऍक्सेसिबिलिटी सुविधेचा वापर करु शकतात.</string>
     <string name="visual_access_info_two">एंड्रॉइड स्मार्टफोन वर \'टॉक बॅक\' बटण चालू करुन वापरकर्ते या सुविधेचा वापर करू शकतात.</string>
@@ -364,16 +365,16 @@
     <string name="update_now">आता अपडेट करा</string>
     <string name="update_later">नंतर करा</string>
     <string name="update_message">अ‍ॅप्लिकेशन मध्ये नवीन सामग्री उपलब्ध आहे. आपण आता अपडेट करू इच्छिता का?</string>
+    <string name="app_update_message">जेलो अॅपची नवीन आवृत्ती उपलब्ध आहे. आपण आत्ता अपडेट करू इच्छिता का?</string>
 
     <!--String resources for MMB-->
     <string name="exit_warning">तुम्हाला मागे जायचे आहे का?</string>
-    <string name="expressive_heading">भाववाहक</string>
     <string name="icon_select_exit_warning" >आपण सेलेक्ट केलेल्या श्रेणी डिलीट होऊ शकतात</string>
-    <string name="current_board">वर्तमान बोर्ड</string>
+    <string name="current_board">जोडलेले आयकॉन</string>
     <string name="place_holder_text">आपण निवडलेले आयकॉन येथे दिसेल</string>
-    <string name="board_name">बोर्डचे नाव </string>
+    <string name="board_name">बोर्डचे नाव</string>
     <string name="select_all">सर्व निवडा</string>
-    <string name="reset">रीसेट करा</string>
+    <string name="reset">रीसेट करा (Reset)</string>
     <string name="select_icon_title">आयकॉन निवडा</string>
     <string name="default_text" >डिफ़ॉल्ट</string>
     <string name="add_category">श्रेणी जोडा</string>
@@ -401,7 +402,7 @@
     <string name="all_boards">सर्व भाषा</string>
     <string name="add_board">बोर्ड जोडा</string>
     <string name="custom_icon">कस्टम आयकॉन</string>
-    <string name="cancel">रद्द करा</string>
+    <string name="cancel">रद्द करा (Cancel)</string>
     <string name="icon">आइकॉन</string>
     <string name="category">श्रेणी</string>
     <string name="database_not_created_info">भाषेसाठी डेटाबेस तयार केला जात आहे.</string>
@@ -413,7 +414,7 @@
     <string name="reposition_text">कोणत्याही आइकॉनला पुन:स्थित करण्यासाठी दीर्घकाळ प्रेस करा</string>
     <string name="reposition_complete_msg">आइकॉनची नवीन स्थिती सेव झाली आहे</string>
     <string name="please_select_icon">कृपया प्रथम चित्र निवडा</string>
-    <string name="txtContinue">चालू ठेवा</string>
+    <string name="txtContinue">चालू ठेवा (Continue)</string>
     <string name="expressive_heading1">भाववाहक बटणे निवडण्यासाठी</string>
     <string name="expressive_heading2">बटणावर टॅप करा</string>
     <string name="icon_delete_warning">\"-\" आइकॉन काढले जाईल?</string>
@@ -431,7 +432,7 @@
     <string name="search_board_in_jellow">बोर्ड शोधा</string>
     <string name="enter_board_name_to_search">शोधण्यासाठी बोर्डचे नाव प्रविष्ट करा</string>
     <string name="search_board_screen">बोर्ड शोधा स्क्रीन</string>
-    <string name="enter_icon_name">सर्च करण्यासाठी आइकॉनचे नाव प्रविष्ट कराx</string>
+    <string name="enter_icon_name">सर्च करण्यासाठी आइकॉनचे नाव प्रविष्ट करा</string>
 
     <!--Content Description-->
     <string name="my_boards_screen">माझे बोर्ड स्क्रीन</string>
@@ -458,6 +459,12 @@
     <string name="language_package_update">जेलो सामग्री (कंटेंट) अपडेट स्क्रीन</string>
     <string name="dialog">डायलॉग</string>
     <string name="close_content_download_screen">सामग्री डाउनलोड स्क्रीन बंद करा</string>
-    <string name="app_update_message">जेलो अॅपची नवीन आवृत्ती उपलब्ध आहे. आपण आत्ता अपडेट करू इच्छिता का?</string>
-    <string name="menuMyBoards">माझे बोर्ड(My Boards)</string>
+    <string name="share_jellow_app">जेलो अ‍ॅप शेअर करा</string>
+    <string name="rate_jellow_app">गूगल प्ले स्टोअरवर जेलो अ‍ॅपला रेट करा</string>
+    <string name="received_your_feedback">आपल्या अभिप्रायाबद्दल धन्यवाद.</string>
+    <string name="yes_btn">हो (Yes)</string>
+    <string name="no_btn">नाही (No)</string>
+    <string name="next_btn">Next</string>
+    <string name="my_boards">माझे बोर्ड</string>
+    <string name="delete_board">\"-\" बोर्ड काढले जाईल?</string>
 </resources>

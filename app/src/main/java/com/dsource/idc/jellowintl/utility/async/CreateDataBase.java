@@ -24,9 +24,11 @@ public class CreateDataBase extends AsyncTask<Object, Void, Object> {
     @Override
     protected Void doInBackground(Object... objects) {
         try{
+            SessionManager session =new SessionManager((Context)objects[0]);
             TextDatabase database = new TextDatabase(((Context)objects[0]),
-                    new SessionManager(((Context)objects[0])).getLanguage(), ((AppDatabase)objects[1]));
-                database.fillDatabase(null);
+                    session.getLanguage(), ((AppDatabase)objects[1]));
+            database.dropTable();
+            database.fillDatabase(null);
             handler.onTaskComplete(GlobalConstants.STATUS_SUCCESS);
         }catch(Exception e){
             handler.onTaskComplete(GlobalConstants.STATUS_FAILED);

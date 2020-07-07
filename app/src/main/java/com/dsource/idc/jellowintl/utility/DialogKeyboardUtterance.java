@@ -21,6 +21,7 @@ import com.dsource.idc.jellowintl.activities.LevelTwoActivity;
 import com.dsource.idc.jellowintl.activities.MainActivity;
 import com.dsource.idc.jellowintl.activities.SequenceActivity;
 import com.dsource.idc.jellowintl.activities.SpeechEngineBaseActivity;
+import com.dsource.idc.jellowintl.make_my_board_module.activity.HomeActivity;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 
@@ -86,8 +87,10 @@ public class DialogKeyboardUtterance {
                     ((LevelTwoActivity)mContext).hideCustomKeyboardDialog();
                 }else if (mContext instanceof LevelThreeActivity){
                     ((LevelThreeActivity)mContext).hideCustomKeyboardDialog();
-                }else{
+                }else if (mContext instanceof SequenceActivity){
                     ((SequenceActivity)mContext).hideCustomKeyboardDialog();
+                }else{
+                    ((HomeActivity)mContext).hideCustomKeyboardDialog();
                 }
             }
         });

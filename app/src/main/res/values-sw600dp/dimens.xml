@@ -10,7 +10,7 @@
     <dimen name="search_edit_text_top_margin">10dp</dimen>
     <dimen name="search_edit_margin_left">6dp</dimen>
     <dimen name="searchView_padding">10dp</dimen>
-    <dimen name="search_bar_width">350dp</dimen>
+    <dimen name="search_bar_width">490dp</dimen>
     <dimen name="search_edit_text_margin_bottom">4dp</dimen>
     <dimen name="search_drawable_padding">12dp</dimen>
     <dimen name="search_edit_text_size">16sp</dimen>
@@ -273,7 +273,7 @@
     <dimen name="feedback_et_height">120dp</dimen>
     <dimen name="feedback_et_text_padding">8dp</dimen>
     <dimen name="feedback_bottom_bar_height">58dp</dimen>
-    <dimen name="feedback_btn_height">40dp</dimen>
+    <dimen name="feedback_btn_size">40dp</dimen>
     <dimen name="feedback_btn_txt_size">20sp</dimen>
     <dimen name="feedback_btn_padding_left">8dp</dimen>
     <dimen name="feedback_btn_share_margin_horizontal">4dp</dimen>
@@ -328,6 +328,8 @@
     <dimen name="edit_board_dialog_button_text_size">16sp</dimen>
     <dimen name="edit_board_dialog_internal_margin_top">16dp</dimen>
     <dimen name="icon_dialog_button_width">92dp</dimen>
+    <dimen name="lang_popup_item_height">40dp</dimen>
+    <dimen name="lang_popup_item_divider_top">39dp</dimen>
     <dimen name="header_icon_size">70dp</dimen>
     <dimen name="header_title_size">19sp</dimen>
     <dimen name="header_title_width">100dp</dimen>
@@ -343,7 +345,7 @@
     <dimen name="vl_padding">14dp</dimen>
     <dimen name="edit_board_dialog_side_margin">24dp</dimen>
     <dimen name="drop_icon_size">28dp</dimen>
-    <dimen name="verbiage_dialog_width">630dp</dimen>
+    <dimen name="verbiage_dialog_width">660dp</dimen>
     <dimen name="dialog_heading">18sp</dimen>
     <dimen name="list_item_text_size">18sp</dimen>
 
@@ -379,7 +381,7 @@
     <dimen name="add_board_text_size">20sp</dimen>
     <dimen name="list_recycler_margin">16dp</dimen>
     <dimen name="left_mar_my_boards">280dp</dimen>
-    <dimen name="add_board_dialog_width">400dp</dimen>
+    <dimen name="add_board_dialog_width">460dp</dimen>
     <dimen name="edit_text_width_add_board">130dp</dimen>
     <dimen name="board_dialog_edit_text">18sp</dimen>
     <dimen name="camera_mar_left">4dp</dimen>

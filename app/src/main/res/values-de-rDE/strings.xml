@@ -23,7 +23,7 @@
     <string name="action_settings">Einstellungen (Settings)</string>
 
     <string name="Language">Sprache (Language)</string>
-    <string name="saveLanguage">Änderungen speichern</string>
+    <string name="saveLanguage">Änderungen speichern (Apply Changes)</string>
 
     <string-array name="bloodgroup">
         <item>nicht gewählt</item>
@@ -88,6 +88,7 @@
     <string name="checkConnectivity">Keine Internetverbindung. Schalten Sie bitte das Internet an.</string>
 
     <string name="menuProfile">Profil (Profile)</string>
+    <string name="menuMyBoards">Meine Boards (My Boards)</string>
     <string name="menuAbout">Über Jellow (About Jellow)</string>
     <string name="menuTutorials">Tutorial (Tutorial)</string>
     <string name="menuKeyboardInput">Tastatursteuerung (Keyboard Control)</string>
@@ -103,7 +104,7 @@
     <string name="clearVoice">klare Stimme</string>
     <string name="easyToNavigate">einfach zu navigieren</string>
     <string name="commentSuggestions">Kommentare / Anregungen</string>
-    <string name="submit">Absenden</string>
+    <string name="submit">Absenden (SUBMIT)</string>
     <string name="serial_keyboard_title">Serielle Tastatur:</string>
     <string name="serial_keyboard_info">Jellow Communicator ist mit eigener \'Serielle Jellow-Tastatur\' ausgestattet. Die Tastatur wurde aufgrund des Feedbacks von besonderen Pädagogen und Lehrern gestaltet und bietet in eine Serie angeordnete Alphabete dar, die mit dem Alphabet \'A\' beginnt. Die serielle Tastatur ermöglicht dem Benutzer, die Lage eines bestimmten Alphabets auf der Tastatur vorauszuahnen, und ist für diejenigen Kinder sehr hilfreich, die gerade erst mit dem Lernen begonnen haben. Ebenso bietet die Tastatur die Zahlen-Tasten von 0 bis 9 und jene Symbole dar, die bei alltäglicher Kommunikation von Belang sind.</string>
     <string name="keyboardControlTxt">Um Ihre gewünschte Tastatur zu wählen und sie als Standard zu setzen, müssen Sie die folgenden 2 Schritte durchführen:</string>
@@ -111,7 +112,7 @@
     <string name="qwertyKeyboard">Deutsche (QWERTZ) Tastatur</string>
     <string name="serialKeyboard">Serie ABC</string>
     <string name="step2">Schritt 2: Gewählte Tastatur als Standard sichern</string>
-    <string name="saveAsDefault">Als Standard sichern</string>
+    <string name="saveAsDefault">Als Standard sichern (SAVE AS DEFAULT)</string>
     <string name="getKeyboardControl">Tastatursteuerung</string>
     <string name="childName">Name des Kindes: **</string>
     <string name="caregiverName">Name der Bezugsperson **</string>
@@ -125,9 +126,9 @@
     <string name="enterTheName">Namen Ihres Kindes eingeben</string>
     <string name="search_act_title">Icons in Jellow durchsuchen</string>
     <string name="iconsHasBeenReset">Benutzerpräferenzen zurückgesezt</string>
-    <string name="speak">Sprechen</string>
+    <string name="speak">Sprechen (Speak)</string>
     <string name="pause">Pause</string>
-    <string name="stop">Halten</string>
+    <string name="stop">Halten (Stop)</string>
     <string name="about_jellow_speech">Jellow ist eine kommunikative App, die durch Gebrauch von Icons und Bildern das Sprechen ermöglicht. Die App ist geeignet sowohl für diejenigen, die das Sprechen lernen als auch für diejenigen, die Schwierigkeiten beim Sprechen haben. Jellow kann von Kleinkindern sowie von denjenigen benutzt werden, die gerade erst mit dem Lernen begonnen haben, um Wörter, Begriffe und Ausdrücke zu lernen, die sorgfältig in unterschiedlichen Kategorien eingeordnet worden sind. Die farbigen und benutzerfreundlichen Icons Jellows ermöglichen und vereinfachen den Kindern das Lernen, indem sie einen Zusammenhang zwischen Bildern und dementsprechenden Begriffen herstellen. Jellow wird in \"IDC School of Design\" an Indian Institute of Technology Bombay (Mumbai) entwickelt. Um Jellows Lernfähigkeit zu verbessern, wurde von den Projekt-Forschern ein neuartiges \"Emotional Language Protokoll (ELP)\" entworfen und entwickelt. Das ELP führt 6 expressive Icons ein, die als Grundlage für das ganze Interface dienen. Der Benutzer kann mithilfe dieser Icons seine Vorlieben, Abneigungen und Bedürfnisse vermitteln. Jellow wird als eine kinderfreundliche App mit leicht erlernbarem Interface entworfen. Jellow wird für Android-Tablets optimiert und ist zurzeit auf Englisch, Hindi, Bengali, Marathi, Tamil, Spanisch, Deutsch, Französisch verfügbar. Die aktuelle Version Jellows ist _. Die App wird allerdings weiterentwickelt. Falls Sie Vorschläge oder Bemerkungen haben, teilen Sie uns diese in dem Feedback-Tab mit oder schreiben Sie uns an jellowcommunicator@gmail.com. Jellow wird unter der Lizenz der Creative-Common-Attribution Share Alike 4.0 veröffentlicht und Indian Institute of Technology Bombay zugeschrieben. Der Inhalt dieser App inklusiv der Icons, Gestaltung, Übersetzung, visuellen Identität, des Aufbaus und der Softwarecodes kann zu gemeinnützigen, nicht gewerblichen Zwecken geteilt und übernommen werden, in welchem Fall wird es Sie um die Anerkennung von Indian Institute of Technology Bombay gebeten. Jellow ist auf www dot jellow dot org zum Downloaden vorhanden. Bei Interesse an Weiterentwicklung des Codes, können Sie an Professor Ravi Poovaiah schreiben: j e l l o w c o m m u n i c a t o r @ g m a i l . c o m </string>
     <string name="catBtnDesc">Jellow hat 9 Hauptkategorien-Tasten und 6 expressive Tastenstring</string>
     <string name="catBtn">Kategorien-Tasten:</string>
@@ -170,7 +171,7 @@
     <string name="change_language_line5">Schritt 3: Die Verfügbarkeit der Stimme für _ prüfen. Wenn nicht vorhanden, dann herunterladen. Falls der Download-Vorgang angehalten wird, wiederholen.</string>
     <string name="txtChangeLanguage">Standard-Sprache ändern:</string>
     <string name="txtApplyChanges">Schritt 4:\"Einstellungen ändern\" klicken, um die neue Sprache als Standard zu setzen</string>
-    <string name="txt_actLangSel_downloadDat">Sprachdaten prüfen</string>
+    <string name="txt_actLangSel_downloadDat">Sprachdaten prüfen (Check voice data)</string>
     <string name="language_downloaded">_ Sprachdaten heruntergeladen</string>
     <string name="language_downloading">_ wird heruntergeladen</string>
     <string name="granted_call_permission_req">Anrufberechtigungen erteilt</string>
@@ -201,7 +202,7 @@
     <string name="about_je_intro5">Jellow wird als eine kinderfreundliche App mit leicht erlernbarem Interface entworfen.</string>
     <string name="about_je_intro6">Die App ist für Android-Tablets optimiert.</string>
     <string name="about_je_intro7">Jellow ist zurzeit auf Englisch, Hindi, Bengali, Marathi, Tamil, Spanisch, Deutsch, Französisch verfügbar.</string>
-    <string name="play_video">video afspelen</string>
+    <string name="play_video">video afspelen (Play video)</string>
     <string name="software_info">Softwareversion: _</string>
     <string name="about_je_intro8">Die aktuelle Version Jellows ist _. Die App wird allerdings weiterentwickelt. Falls Sie Vorschläge oder Bemerkungen haben, teilen Sie diese im Feedback-Tab mit oder schreiben Sie uns an jellowcommunicator@gmail.com</string>
     <string name="terms_of_use">Nutzungsbedingungen</string>
@@ -209,7 +210,7 @@
     <string name="about_je_intro10">Die Erstellung und Entwicklung von Jellow wird Indian Institute of Technology Bombay zugeschrieben.</string>
     <string name="about_je_intro11">Der Inhalt dieser App inklusive der Icons, visuellen Identität, Übersetzung, Softwarecodes und des Aufbaus kann zu gemeinnützigen, nicht gewerblichen Zwecken geteilt und übernommen werden.</string>
     <string name="about_je_intro12">Wenn der Inhalt gebraucht wird, wird Sie um die Anerkennung von Indian Institute of Technology Bombay gebeten.</string>
-    <string name="about_je_intro13">Jellow kann auf www.jellow.org heruntergeladen werden.</string>
+    <string name="about_je_intro13">Jellow kann auf _ heruntergeladen werden.</string>
     <string name="about_je_intro14">Bei Interesse an Weiterentwicklung der Codes können Sie an Professor Ravi Poovaiah an jellowcommunicator@gmail.com schreiben.</string>
     <string name="credits">Credits:</string>
     <string name="about_je_intro15">Ideekonzeption, Projektforschung und Projektbeaufsichtigung:</string>
@@ -275,6 +276,7 @@
     <string name="no">Nein</string>
     <string name="less">Weniger</string>
     <string name="back">Zurück</string>
+    <string name="yes_btn">Ja (Yes)</string>
     <string name="enter_category">Kategorie abrufen</string>
     <string name="intro_cd">Das Bild zeigt die Bildschirmaufnahme von der Startseite Jellows auf. Sie beinhaltet ein Gitternetz von 9 Icons namens Kategorien-Tasten, die in 3 Spalten und 3 Reihen angeordnet sind. Die 9 Kategorien-Tasten sind \"Begrüßungen und Gefühle\", \"Tägliche Aktivitäten\", \"Essen und Trinken\", \"Spaß\", \"Lernen\", \"Leute\", \"Orte\", \"Zeit und Wetter\" und \"Hilfe\". Darunter stehen die 3 Tasten zum Navigieren nämlich \"Zurück\", \"Startseite\" und \"Tastatur\". Auf der linken und der rechten Seite der zentralen Kategorien-Tasten gibt es je 3 expressive Icons. Auf der linken Seite gibt es die drei expressiven Tasten nämlich \"Gefällt mir\", \"Ja\" und \"Mehr\" bzw. auf der linken Seite die Tasten \"Gefällt mir nicht\", \"Nein\" und \"Weniger\". In der oberen rechten Ecke steht das Icon \"Einstellungen\". Auf diesem Bild wird das zentrale Gitternetz hervorgehoben, während die anderen Icons abgeblendet worden sind.</string>
     <string name="intro2_cd">Das Bild zeigt die Startseite Jellows auf, auf dem die zwei Icons \"Essen und Trinken\" und \"Ja\" hervorgehoben worden sind. Die anderen Tasten sind abgeblendet. Auf dem Bild wird es beschrieben, dass der Benutzer zuerst die Taste einer Kategorie zum Beispiel \"Essen\" und dann eine expressive Taste zum Beispiel \"Ja\" klicken muss, um Jellow zum Sprechen zu bringen.</string>
@@ -301,7 +303,7 @@
     <string name="lang_setting_option3_cd">Das dritte Bild ist der Schritt 3 des Vorgangs, wo der Benutzer sich vor dem Bildschirm \"Google TTS-Optionen\" befindet. Der zweite Eintrag auf dem Bildschirm, was der Umschalter für \"Nur WLAN nutzen\" ist, wird hervorgehoben. In diesem Schritt wird der Benutzer um die Deaktivierung des Schalters gebeten.</string>
     <!--end content description-->
 
-    <string name="txt_tts_stting">TTS-Einstellungen</string>
+    <string name="txt_tts_stting">TTS-Einstellungen (TTS SETTINGS)</string>
     <string name="change_language_tts_wifi">Schritt 2: Google TTS-Einstellungen öffnen und \"Nur WLAN nutzen\" ausschalten. Falls schon ausgeschaltet, diesen Schritt überspringen</string>
     <string name="txtStep2">Schritt 2:</string>
     <string name="close">Gespräch beenden</string>
@@ -331,7 +333,7 @@
     <string name="sequence_screen">Vorgangsreihenfolge</string>
     <string name="close_searchbar">Suchleiste schließen</string>
 
-    <string name="txt_accessibility_setting">Bedienungshilfen</string>
+    <string name="txt_accessibility_setting">Bedienungshilfen (Accessibility Setting)</string>
     <string name="visual_access_title">Visuelle Barrierefreiheit:</string>
     <string name="visual_access_info_one">Die visuelle Barrierefreiheitsfunktion Jellows ermöglicht den Benutzern mit Sehbehinderung oder Blindheit den Gebrauch von Jellow sowie eine wirksame Kommunikation mit anderen.</string>
     <string name="visual_access_info_two">Sie verwendet die \'Talk-Back-Funktion\' auf Android-Smartphones innerhalb der App zu navigieren.</string>
@@ -345,15 +347,33 @@
     <string name="switch_access_info_four">Um den Schalterzugriff mit einem Schalter nutzen zu können: 1. Einstellungen öffnen, 2. in die Schalterzugriff-Einstellungen kommen 3. Schalterzugriff aktivieren, 4. Entweder \"USB\"- oder \"Bluetooth\"-Schalter wählen, 5. In die Einstellungen kommen und Zahl des Schalters als \"ein Schalter\" wählen.</string>
     <string name="switch_access_info_five">Um den Schalterzugriff mit zwei Schaltern nutzen zu können: 1. Einstellungen öffnen, 2. in die Barrierefreiheit Einstellungen kommen, 3. Schalterzugriff aktivieren, 4. Entweder "USB"- oder "Bluetooth"-Schalter wählen, 5. In die Einstellungen kommen und Zahl des Schalters als "zwei Schalter" wählen, 6. "Weiter" klicken und beide Schalter markieren und den Prozess durchführen, nachdem die Schalter getestet worden sind.</string>
 
+
+    <!--Language package update strings are here-->
+    <string name="lpu">Sprachpaket-Update</string>
+    <string name="lpu_start_update">Aktualisierung des Sprachpakets gestartet</string>
+    <string name="lpu_parse_update">Verarbeitung der heruntergeladenen Daten</string>
+    <string name="lpu_download_icons">Icon-Dateien herunterladen</string>
+    <string name="lpu_download_verbiage">Sprachdateien herunterladen</string>
+    <string name="lpu_update_success">Sprachpaket erfolgreich aktualisiert.</string>
+    <string name="lpu_toast_update_success">Aktualisierung erfolgreich.</string>
+    <string name="lpu_toast_check_success">Überprüfen des Update-Erfolgs.</string>
+    <string name="lpu_no_updates_found">Keine Updates gefunden</string>
+    <string name="lpu_update_error">Fehler beim Abschluss des Updates. Bitte versuche es erneut.</string>
+    <string name="lpu_toast_check_error">Aktualisierung des Sprachpakets fehlgeschlagen.</string>
+    <string name="update_now">Jetzt aktualisieren</string>
+    <string name="update_later">Später</string>
+    <string name="update_message">Neue Inhalte sind in der App verfügbar. Möchten Sie jetzt aktualisieren?</string>
+    <string name="app_update_message">Die neue Version der Jellow-App ist verfügbar. Möchten Sie jetzt aktualisieren?</string>
+
     <!--String resources for MMB-->
+    <string name="delete_board">\"-\" Board wird gelöscht?</string>
     <string name="exit_warning">Möchten Sie die App wirklich verlassen?</string>
-    <string name="expressive_heading">Expressiv</string>
     <string name="icon_select_exit_warning">Ihre Auswahl wird gelöscht</string>
-    <string name="current_board">Aktuelles Board</string>
+    <string name="current_board">Symbole hinzugefügt</string>
     <string name="place_holder_text">Von Ihnen gewähltes Icon wird hier aufgezeigt</string>
     <string name="board_name">Name des Boards</string>
     <string name="select_all">Alles auswählen</string>
-    <string name="reset">Zurücksetzen</string>
+    <string name="reset">Zurücksetzen (Reset)</string>
     <string name="select_icon_title">Icons auswählen</string>
     <string name="default_text" >Standard</string>
     <string name="add_category">Kategorie hinzufügen</string>
@@ -381,4 +401,67 @@
     <string name="all_boards">Alle Sprachen</string>
     <string name="add_board">Boards hinzufügen</string>
     <string name="custom_icon">Benutzerdefiniertes Icon</string>
+    <string name="cancel">Stornieren (Cancel)</string>
+    <string name="icon">Icon</string>
+    <string name="category">Kategorie</string>
+    <string name="database_not_created_info">Datenbank für die Sprache erstellen.</string>
+    <string name="icon_already_present">Icon bereits ausgewählt</string>
+    <string name="add_icon_folder">Icon hinzufügen</string>
+    <string name="camera_missing">Kamera nicht gefunden</string>
+    <string name="no_board_created">Es wurde noch kein Board erstellt</string>
+    <string name="no_icon_warning">Bitte fügen Sie mindestens ein Icon hinzu, um fortzufahren.</string>
+    <string name="reposition_text">Drücken Sie lange auf ein Icon, um es neu zu positionieren</string>
+    <string name="reposition_complete_msg">Die neue Position des Icons wird gespeichert</string>
+    <string name="please_select_icon">Bitte wählen Sie zuerst ein Bild aus</string>
+    <string name="txtContinue">Fortsetzen (Continue)</string>
+    <string name="expressive_heading1">Tippen Sie auf die Schaltfläche</string>
+    <string name="expressive_heading2">um den Ausdruck auszuwählen</string>
+    <string name="icon_delete_warning">\"-\" -Symbol wird gelöscht?</string>
+    <string name="board_not_found">Board nicht gefunden</string>
+    <string name="setting_up_the_language">Bitte richten Sie die Sprache ein…</string>
+    <string name="completed_process">Spracheinrichtung abgeschlossen.</string>
+    <string name="unable_to_create_board">Board kann nicht erstellt werden. Bitte versuchen Sie es erneut</string>
+
+    <string name="board">Board</string>
+    <string name="press_next_to_select_icons">Klicken Sie auf \"Weiter\", um ausgewählte icons hinzuzufügen.</string>
+    <string name="edit_board">Bearbeiten Sie die aktuelle Karte</string>
+    <string name="delete_the_board">Löschen Sie die aktuelle Karte</string>
+    <string name="menuIconSelect">Wählen Sie icons aus</string>
+    <string name="edit_board_image">Bearbeiten Sie das Platinensymbol und den Namen</string>
+    <string name="search_board_in_jellow">Suchbrett</string>
+    <string name="enter_board_name_to_search">Geben Sie den Namen der Karte ein, nach der gesucht werden soll</string>
+    <string name="search_board_screen">Suchtafeln Bildschirm</string>
+    <string name="enter_icon_name">Geben Sie den zu suchenden Symbolnamen ein</string>
+
+    <!--Content Description-->
+    <string name="my_boards_screen">Mein Board-Bildschirm</string>
+    <string name="select_image_for_board">Bild für die Tafel auswählen</string>
+    <string name="select_source_for_image_for_board">Wählen Sie die Quelle für das Board-Image</string>
+    <string name="select_language_for_board">Wählen Sie die Sprache für das Board</string>
+    <string name="icon_select_screen">Bildschirm "Symbole hinzufügen"</string>
+    <string name="icons_selected">_ Symbole ausgewählt</string>
+    <string name="icon_add_edit_screen">Bildschirm "Symbole hinzufügen oder bearbeiten"</string>
+    <string name="edit_current_icon">Bearbeiten Sie das aktuelle Symbol</string>
+    <string name="delete_current_icon">Löschen Sie das aktuelle Symbol</string>
+    <string name="add_edit_icons_dialog">Symboldialog hinzufügen / bearbeiten</string>
+    <string name="select_image_for_icon">Wählen Sie ein Bild für das Symbol</string>
+    <string name="enable_reposition_icons">Aktivieren Sie die Neupositionierung von Symbolen</string>
+    <string name="disable_reposition_icons">Deaktivieren Sie die Neupositionierung von Symbolen</string>
+    <string name="tap_icon_to_select_expression">Tippen Sie hier, um einen Ausdruck hinzuzufügen</string>
+    <string name="tap_icon_to_deselect_expression">Tippen Sie auf, um den Ausdruck zu entfernen</string>
+    <string name="tap_add_to_add_expression">Tippen Sie auf die Schaltfläche Hinzufügen, um den Ausdruck auszuwählen</string>
+    <string name="open_jellow_privacy_policy">Öffnen Sie die Datenschutzrichtlinie des Jellow.</string>
+    <string name="board_deleted">_ Board gelöscht</string>
+    <string name="search_icon_available_in_jellow">Suchen Sie nach einem in Jellow verfügbaren Symbol</string>
+    <string name="search_icon_the_board">Suchsymbol im aktuellen Board</string>
+    <string name="preparing_language_screen">Sprach-Setup-Bildschirm</string>
+    <string name="language_package_update">Bildschirm zum Aktualisieren von gelben Inhalten</string>
+    <string name="dialog">dialog</string>
+    <string name="close_content_download_screen">Schließen Sie den Download-Bildschirm für Inhalte</string>
+    <string name="share_jellow_app">Teilen Sie die Jellow-App</string>
+    <string name="rate_jellow_app">Bewerten Sie die Jellow-App im Google Play Store</string>
+    <string name="received_your_feedback">Danke für deine Rückmeldung</string>
+    <string name="no_btn">Nein</string>
+    <string name="next_btn">Weiter (Next)</string>
+    <string name="my_boards">Meine Boards</string>
 </resources>

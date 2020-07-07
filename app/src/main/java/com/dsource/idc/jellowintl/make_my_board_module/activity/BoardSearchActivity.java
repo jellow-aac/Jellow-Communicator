@@ -29,6 +29,11 @@ import com.dsource.idc.jellowintl.models.JellowIcon;
 import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.make_my_board_module.utility.BoardConstants.BOARD_ID;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
+import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class BoardSearchActivity extends SpeechEngineBaseActivity {
     public static final String BASE_ICON_SEARCH = "base_icon_search";
@@ -48,17 +53,15 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        getWindow().setGravity(Gravity.LEFT);
-        setContentView(R.layout.activity_search);
         EditText SearchEditText = findViewById(R.id.search_auto_complete);
         currentBoard = new BoardDatabase(getAppDatabase()).getBoardById(getIntent().getStringExtra(BOARD_ID));
-        getWindow().setGravity(Gravity.LEFT);
         initFields();
         Mode = getIntent().getStringExtra(SEARCH_MODE);
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             findViewById(R.id.close_button).setVisibility(View.INVISIBLE);
         }
         SearchEditText.setHint(getString(R.string.enter_icon_name));
+        getWindow().setGravity(Gravity.LEFT);
         if(Mode!=null)
         {
             switch (Mode) {
@@ -86,7 +89,7 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
 
         //Initialising the fields
         // To Close on touch outside
-        (findViewById(R.id.search_layout)).setOnClickListener(new View.OnClickListener() {
+        (findViewById(R.id.parent)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -164,6 +167,26 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
     protected void onResume() {
         super.onResume();
         setVisibleAct(BoardSearchActivity.class.getSimpleName());
+        if(!isAnalyticsActive()){
+            resetAnalytics(this, getSession().getUserId());
+        }
+        // Start measuring user app screen timer.
+        startMeasuring();
+        setNavigationUiConditionally();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Check if pushId is older than 24 hours (86400000 millisecond).
+        // If yes then create new pushId (user session)
+        // If no then do not create new pushId instead user existing and
+        // current session time is saved.
+        long sessionTime = validatePushId(getSession().getSessionCreatedAt());
+        getSession().setSessionCreatedAt(sessionTime);
+
+        // Stop measuring user app screen timer.
+        stopMeasuring(BoardSearchActivity.class.getSimpleName());
     }
 
     private void searchForBoard() {

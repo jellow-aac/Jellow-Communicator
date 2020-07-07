@@ -6,6 +6,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -41,12 +43,8 @@ public class Intro extends AppIntro {
         parentAct = new SpeechEngineBaseActivity();
         parentAct.setVisibleAct(Intro.class.getSimpleName());
         //Set the language database create preference
-        parentAct.getSession().setLanguageDataUpdateState(GlobalConstants.LANGUAGE_STATE_CREATE_DB);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && isNotchDevice()) {
-            getWindow().setNavigationBarColor(getColor(R.color.app_background));
-        }else if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH){
-            getWindow().setNavigationBarColor(getResources().getColor(R.color.navigation_bar_color));
-        }
+        parentAct.getSession().setLanguageDataUpdateState(parentAct.getSession().getLanguage(),
+                GlobalConstants.LANGUAGE_STATE_CREATE_DB);
         addSlide(SampleSlideFragment.newInstance(R.layout.intro, "intro"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro5, "intro5"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro2, "intro2"));
@@ -66,13 +64,17 @@ public class Intro extends AppIntro {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
-
     @Override
     protected void onResume() {
         super.onResume();
-        /*if(parentAct.isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
+        if(parentAct.isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
             findViewById(R.id.btnMoveRight).sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
-        }*/
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && isNotchDevice()) {
+            getWindow().setNavigationBarColor(getColor(R.color.app_background));
+        }else if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH){
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.navigation_bar_color));
+        }
     }
 
     @Override

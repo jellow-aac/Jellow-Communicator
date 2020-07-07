@@ -79,7 +79,7 @@ public class SearchActivity extends SpeechEngineBaseActivity {
         getWindow().setGravity(Gravity.LEFT);
 
         // To Close on touch outside
-        (findViewById(R.id.search_layout)).setOnClickListener(new View.OnClickListener() {
+        (findViewById(R.id.parent)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(iconNotFound&&!(notFoundIconText.equals("Null"))) {
@@ -171,6 +171,7 @@ public class SearchActivity extends SpeechEngineBaseActivity {
         }
         // Start measuring user app screen timer.
         startMeasuring();
+        setNavigationUiConditionally();
     }
 
     @Override

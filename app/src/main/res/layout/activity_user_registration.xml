@@ -127,7 +127,7 @@
                 android:contentDescription="@string/enter_caregiver_s_email_address"
                 android:ems="10"
                 android:imeOptions="actionDone"
-                android:inputType="textEmailAddress" />
+                android:inputType="textPostalAddress" />
 
             <TextView
                 style="@style/defaultTextViewStyle"

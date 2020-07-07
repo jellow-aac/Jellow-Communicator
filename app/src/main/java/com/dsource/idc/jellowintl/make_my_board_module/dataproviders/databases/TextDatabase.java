@@ -74,6 +74,7 @@ public class TextDatabase {
         model.setLanguageCode(langCode);
         model.setTitle(holder.getIconName());
         model.setEventTag(holder.getIconVerbiage().getEvent_Tag());
+        model.setSearchTag(holder.getIconVerbiage().getSearchTag());
         database.verbiageDao().insertVerbiage(model);
     }
 
@@ -120,6 +121,10 @@ public class TextDatabase {
         if (model != null)
             return new Gson().fromJson(model.getIcon(), Icon.class);
         else return null;
+    }
+
+    public void dropTable() {
+        database.verbiageDao().deleteVerbiage(langCode);
     }
 
     public interface ProgressUpdates{
