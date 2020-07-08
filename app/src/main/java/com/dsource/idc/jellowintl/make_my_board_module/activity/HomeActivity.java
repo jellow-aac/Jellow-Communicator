@@ -14,7 +14,6 @@ import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -79,8 +78,6 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
     private TextDatabase verbiageDatabase;
     private ExpressiveIconManager expIconManager;
     private ArrayList<ExpressiveIcon> expIconVerbiage;
-    private EditText etSpeechTextInput;
-    private ImageView ivSpeakerButton;
     private ImageView ivKeyboard;
     private SearchScrollManager searchScrollManager;
     private GridLayoutManager mLayoutManager;
@@ -259,7 +256,7 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
         ivKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DialogKeyboardUtterance(HomeActivity.this).show();
+                new DialogKeyboardUtterance().show(HomeActivity.this);
                 speakFromMMB(getResources().getString(R.string.keyboard));
                 ivHome.setImageDrawable(getResources().getDrawable(R.drawable.home));
                 ivKeyboard.setImageDrawable(getResources().getDrawable(R.drawable.keyboard_pressed));
@@ -275,28 +272,8 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
     }
 
     private void initViews() {
-        etSpeechTextInput = findViewById(R.id.et);
-        etSpeechTextInput.setVisibility(View.GONE);
-        ivSpeakerButton = findViewById(R.id.ttsbutton);
-        ivSpeakerButton.setVisibility(View.GONE);
         ivKeyboard = findViewById(R.id.keyboard);
         ivKeyboard.setVisibility(View.VISIBLE);
-        ivSpeakerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (etSpeechTextInput.getText().toString().equals("")) {
-                    etSpeechTextInput.requestFocus();
-                } else{
-                    if(isEngineSpeaking()){
-                        stopSpeaking();
-                        ivSpeakerButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_search_list_speaker));
-                        return;
-                    }
-                    ivSpeakerButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_stop));
-                    speakFromMMB(etSpeechTextInput.getText().toString());
-                }
-            }
-        });
         ivHome = findViewById(R.id.ivhome);
         ivHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -731,16 +708,6 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
         return 9;
     }
 
-    public void revertTheSpeakerIcon(){
-        HomeActivity.this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                ivSpeakerButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_search_list_speaker));
-                ivSpeakerButton.refreshDrawableState();
-            }
-        });
-    }
-
     @Override
     public void sendSpeechEngineLanguageNotSetCorrectlyError() {}
 
@@ -748,9 +715,7 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
     public void speechEngineNotFoundError() {}
 
     @Override
-    public void speechSynthesisCompleted() {
-        revertTheSpeakerIcon();
-    }
+    public void speechSynthesisCompleted() {}
 
     public void hideCustomKeyboardDialog() {
         ivKeyboard.setImageDrawable(getResources().getDrawable(R.drawable.keyboard));

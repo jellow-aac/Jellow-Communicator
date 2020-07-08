@@ -8,16 +8,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.text.method.KeyListener;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -74,10 +70,8 @@ public class MainActivity extends LevelBaseActivity{
     /*Image views which are visible on the layout such as six expressive buttons, below navigation
       buttons and speak button when keyboard is open.*/
     private ImageView mIvLike, mIvDontLike, mIvYes, mIvNo, mIvMore, mIvLess,
-            mIvHome, mIvKeyboard, mIvBack, mIvTTs;
-    /*Input text view to speak custom text.*/
-    private EditText mEtTTs;
-    private KeyListener originalKeyListener;
+            mIvHome, mIvKeyboard, mIvBack;
+
     /*Recycler view which will populate category icons.*/
     public RecyclerView mRecyclerView;
     /*This variable indicates index of category icon selected in level one*/
@@ -94,7 +88,7 @@ public class MainActivity extends LevelBaseActivity{
      selected icon.*/
     private boolean mShouldReadFullSpeech = false;
     /* This flag indicates keyboard is open or not, true indicates is not open.*/
-    private boolean mKeyState = GlobalConstants.KEY_CLOSE, mSearched = false;
+    private boolean mSearched = false;
     /*This variable hold the views populated in recycler view (category icon) list.*/
     private ArrayList<View> mRecyclerItemsViewList;
     /*Below array stores the speech text, below text, expressive button speech text,
@@ -293,16 +287,6 @@ public class MainActivity extends LevelBaseActivity{
         mIvBack.setEnabled(false);
         mIvKeyboard = findViewById(R.id.keyboard);
 
-        mEtTTs = findViewById(R.id.et);
-        //Initially custom input text is invisible
-        mEtTTs.setVisibility(View.INVISIBLE);
-
-        mIvTTs = findViewById(R.id.ttsbutton);
-        //Set button for tts callback
-        setCustomKeyboardView(this);
-        //Initially custom input text speak button is invisible
-        mIvTTs.setVisibility(View.INVISIBLE);
-
         ViewCompat.setAccessibilityDelegate(mIvLike, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvYes, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvMore, new TalkbackHints_SingleClick());
@@ -312,11 +296,7 @@ public class MainActivity extends LevelBaseActivity{
         ViewCompat.setAccessibilityDelegate(mIvKeyboard, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvHome, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvBack, new TalkbackHints_SingleClick());
-        ViewCompat.setAccessibilityDelegate(mIvTTs, new TalkbackHints_SingleClick());
 
-        // Set it to null - this will make the field non-editable
-        originalKeyListener = mEtTTs.getKeyListener();
-        mEtTTs.setKeyListener(null);
         expressiveBtn = new ImageView[]{ mIvLike, mIvYes, mIvMore, mIvDontLike, mIvNo, mIvLess };
     }
 
@@ -348,11 +328,8 @@ public class MainActivity extends LevelBaseActivity{
      **/
     private void initializeViewListeners() {
         initRecyclerViewListeners();
-        initBackBtnListener();
         initHomeBtnListener();
         initKeyboardBtnListener();
-        initTTsBtnListener();
-        initTTsEditTxtListener();
         initLikeBtnListener();
         initDontLikeBtnListener();
         initYesBtnListener();
@@ -409,46 +386,6 @@ public class MainActivity extends LevelBaseActivity{
     }
 
     /**
-     * <p>This function will initialize the click scrollListener to Navigation "back" button.
-     * {@link MainActivity} navigation back button enabled when user using custom keyboard input
-     * and keyboard is opened.</p>
-     * */
-    private void initBackBtnListener() {
-        mIvBack.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
-                //when mKeyState is true, it means user is using custom keyboard input
-                // text and system keyboard is visible.
-                if (mKeyState){
-                    // As user is using custom keyboard input text and then back button is pressed,
-                    // user intent to close custom keyboard input text so below steps will follow:
-                    // a) hide custom input text and speak button views
-                    // b) showDialog category icons
-                    // c) set back button to pressed state
-                    // d) set flag mKeyState = false, as user not using custom keyboard input
-                    // anymore.
-                    // e) disable back button as no more back process available in this level.
-                    mIvKeyboard.setImageResource(R.drawable.keyboard);
-                    mIvBack.setImageResource(R.drawable.back);
-                    mIvHome.setImageResource(R.drawable.home);
-                    mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
-                    speak(mNavigationBtnTxt[1]);
-                    mEtTTs.setVisibility(View.INVISIBLE);
-                    mRecyclerView.setVisibility(View.VISIBLE);
-                    mIvTTs.setVisibility(View.INVISIBLE);
-                    mKeyState = GlobalConstants.KEY_CLOSE;
-                    // after closing keyboard, then enable all expressive buttons
-                    LevelUiUtils.enableAllExpressiveIcon(expressiveBtn);
-                    mIvBack.setEnabled(false);
-                    mIvBack.setAlpha(GlobalConstants.DISABLE_ALPHA);
-                    setupActionBarTitle(txtHome);
-                    //Firebase event
-                    singleEvent("Navigation","Back");
-                }
-            }
-        });
-    }
-
-    /**
      * <p>This function will initialize the click scrollListener to Navigation "home" button.
      * {@link MainActivity} navigation home button when clicked it clears, every state of view as
      * like app is launched as fresh.</p>
@@ -474,12 +411,11 @@ public class MainActivity extends LevelBaseActivity{
             public void onClick(View v) {
                 //Firebase event
                 singleEvent("Navigation","Keyboard");
-                new DialogKeyboardUtterance(MainActivity.this).show();
+                new DialogKeyboardUtterance().show(MainActivity.this);
                 speak(mNavigationBtnTxt[2]);
                 mIvKeyboard.setImageResource(R.drawable.keyboard_pressed);
                 mIvBack.setImageResource(R.drawable.back);
                 mIvHome.setImageResource(R.drawable.home);
-                mKeyState = GlobalConstants.KEY_OPEN;
             }
         });
     }
@@ -918,51 +854,6 @@ public class MainActivity extends LevelBaseActivity{
     }
 
     /**
-     * <p>This function will initialize the click scrollListener to Tts Speak button.
-     * When Tts speak button is pressed, send speak request is sent to speech engine.
-     * Message typed in Text-to-speech input view is speech out by service.</p>
-     * */
-    private void initTTsBtnListener() {
-        mIvTTs.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
-                if(isEngineSpeaking()){
-                    stopSpeaking();
-                    mIvTTs.setImageDrawable(getResources().getDrawable(R.drawable.ic_search_list_speaker));
-                    return;
-                }
-                speak(mEtTTs.getText().toString().concat("_"));
-                mIvTTs.setImageDrawable(getResources().getDrawable(R.drawable.ic_stop));
-                //Firebase event
-                Bundle bundle = new Bundle();
-                bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
-                        Settings.Secure.DEFAULT_INPUT_METHOD));
-                bundle.putString("utterence", mEtTTs.getText().toString());
-                bundleEvent("Keyboard", bundle);
-            }
-        });
-    }
-
-    /**
-     * <p>This function will initialize the click scrollListener to EditText which is used by user to
-     * input custom strings.</p>
-     * */
-    private void initTTsEditTxtListener() {
-        mEtTTs.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                // If custom keyboard input text loses focus.
-                if (!hasFocus) {
-                    // Hide system keyboard.
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(mEtTTs.getWindowToken(), 0);
-                    // Make it non-editable.
-                    mEtTTs.setKeyListener(null);
-                }
-            }
-        });
-    }
-
-    /**
      * <p>This function is called when user taps a category icon. It will change the state of
      * category icon pressed. Also, it set the flag for app speak full verbiage sentence.
      * @param view is parent view in selected RecyclerView.
@@ -1212,29 +1103,7 @@ public class MainActivity extends LevelBaseActivity{
         // clear verbiage speak (mShouldReadFullSpeech), border color flag (mFlgImage)
         mShouldReadFullSpeech = false;
         mFlgImage = GlobalConstants.NO_EXPR;
-        //when mKeyState is true, it means user is using custom keyboard input
-        // text and system keyboard is visible.
-        if (mKeyState){
-            // As user is using custom keyboard input text and then press the home button,
-            // user is either intent to close custom keyboard input text or
-            // want to go home so below steps will follow:
-            // a) set keyboard button to unpressed state.
-            // b) disable back button
-            // c) hide custom input text and speak button views
-            // d) showDialog category icons
-            // e) set flag mKeyState = false, as user not using custom keyboard input
-            //    anymore.
-            // f) disable back button as no more back process available in this level.
-            mIvKeyboard.setImageResource(R.drawable.keyboard);
-            mIvBack.setImageResource(R.drawable.back);
-            mEtTTs.setVisibility(View.INVISIBLE);
-            mRecyclerView.setVisibility(View.VISIBLE);
-            mIvTTs.setVisibility(View.INVISIBLE);
-            mKeyState = GlobalConstants.KEY_CLOSE;
-            LevelUiUtils.enableAllExpressiveIcon(expressiveBtn);
-            mIvBack.setAlpha(GlobalConstants.DISABLE_ALPHA);
-            mIvBack.setEnabled(false);
-        }
+
         mIvHome.setImageResource(R.drawable.home_pressed);
         //Firebase event
         singleEvent("Navigation","Home");
@@ -1335,18 +1204,7 @@ public class MainActivity extends LevelBaseActivity{
                 }).show();
     }
 
-    public void revertTheSpeakerIcon(){
-        MainActivity.this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mIvTTs.setImageDrawable(getResources().getDrawable(R.drawable.ic_search_list_speaker));
-                mIvTTs.refreshDrawableState();
-            }
-        });
-    }
-
     public void hideCustomKeyboardDialog() {
-        mKeyState = GlobalConstants.KEY_CLOSE;
         mIvKeyboard.setImageResource(R.drawable.keyboard);
         mIvBack.setImageResource(R.drawable.back);
     }

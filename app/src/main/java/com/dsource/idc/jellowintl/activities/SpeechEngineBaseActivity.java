@@ -22,7 +22,6 @@ import java.util.Locale;
 
 import static com.dsource.idc.jellowintl.factories.PathFactory.UNIVERSAL_FOLDER;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getAudioPath;
-import static com.dsource.idc.jellowintl.factories.PathFactory.getBaseDirectoryPath;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BE_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.DE_DE;
@@ -332,21 +331,6 @@ public class SpeechEngineBaseActivity extends BaseActivity{
         }
     }
 
-    public void createAudioFileForSpeech(String aboutMe) {
-        try {
-            File name = new File(getBaseDirectoryPath(this) + "about_jellow.mp3");
-            Log.i("File : ", String.valueOf(name.createNewFile()));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                sTts.synthesizeToFile(aboutMe, null, name, UTTERANCE_ID);
-            } else {
-                sTts.synthesizeToFile(aboutMe, null,
-                        getBaseDirectoryPath(this) + "about_jellow.mp3");
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
     public synchronized void playAudio(String audioPath) {
         try {
             mMediaPlayer = new MediaPlayer();
@@ -359,14 +343,6 @@ public class SpeechEngineBaseActivity extends BaseActivity{
         }
     }
 
-    public void pauseAudio(){
-        try {
-            mMediaPlayer.pause();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void stopMediaAudio(){
         try {
             mMediaPlayer.stop();
@@ -374,37 +350,6 @@ public class SpeechEngineBaseActivity extends BaseActivity{
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void resumeMediaAudio(){
-        try {
-            mMediaPlayer.seekTo(mMediaPlayer.getCurrentPosition());
-            mMediaPlayer.start();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public boolean isMediaRunning(){
-        try {
-            return mMediaPlayer.isPlaying();
-        }catch (Exception e){
-            return false;
-        }
-    }
-
-    public boolean isMediaReady(String audioPath) {
-        try {
-            mMediaPlayer = new MediaPlayer();
-            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mMediaPlayer.setDataSource(audioPath);
-            mMediaPlayer.prepare();
-            mMediaPlayer.reset();
-        } catch (IOException e) {
-            mMediaPlayer.reset();
-            return false;
-        }
-        return true;
     }
 
     public void playInQueue(final String speechTextInQueue) {

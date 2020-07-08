@@ -1,6 +1,8 @@
 package com.dsource.idc.jellowintl.activities;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -13,17 +15,16 @@ import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.dsource.idc.jellowintl.BuildConfig;
 import com.dsource.idc.jellowintl.R;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.List;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -124,17 +125,25 @@ public class FeedbackActivity extends BaseActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        Intent email = new Intent(Intent.ACTION_SEND);
+                        email.putExtra(Intent.EXTRA_EMAIL, new String[]{"jellowcommunicator@gmail.com"});
+                        email.putExtra(Intent.EXTRA_SUBJECT, "Jellow Feedback");
+                        email.putExtra(Intent.EXTRA_TEXT, "Easy to use: " + strEaseOfUse
+                                + "\nClear Pictures: " + stClearPicture
+                                + "\nClear Voices: " + strClearVoice + "\nEasy to Navigate: "
+                                + strEaseToNav + "\n\nComments and Suggestions:-\n" +
+                                mEtComments.getText().toString());
+                        email.setType("message/rfc822");
+                        PackageManager packageManager = getPackageManager();
+                        List<ResolveInfo> activities = packageManager.queryIntentActivities(email, 0);
+                        boolean isIntentSafe = activities.size() > 0;
+                        if (isIntentSafe)
+                            startActivity(Intent.createChooser(email, "Choose an Email client :"));
                         Toast.makeText(FeedbackActivity.this,
                                 getString(R.string.received_your_feedback), Toast.LENGTH_SHORT).show();
                         finish();
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    finish();
-                }
-            });
+                });
         }else{
             Toast.makeText(FeedbackActivity.this, strRateJellow, Toast.LENGTH_SHORT).show();
         }

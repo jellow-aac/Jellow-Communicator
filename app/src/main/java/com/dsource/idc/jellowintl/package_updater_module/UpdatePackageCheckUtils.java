@@ -97,38 +97,42 @@ public class UpdatePackageCheckUtils {
 
 
     private void showUpdateDialog(final Context context){
-        String updateNow = context.getString(R.string.update_now);
-        String updateLater = context.getString(R.string.update_later);
-        String message = context.getString(R.string.update_message);
+        try {
+            String updateNow = context.getString(R.string.update_now);
+            String updateLater = context.getString(R.string.update_later);
+            String message = context.getString(R.string.update_message);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        // Add the buttons
-        builder
-            .setPositiveButton(updateNow, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    context.startActivity(new Intent(context, LanguagePackUpdateActivity.class));
-                    dialog.dismiss();
-                }
-            })
-            .setNegativeButton(updateLater, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int i) {
-                    dialog.dismiss();
-                }
-            })
-            // Set other dialog properties
-            .setCancelable(true)
-            .setMessage(message);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            // Add the buttons
+            builder
+                    .setPositiveButton(updateNow, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            context.startActivity(new Intent(context, LanguagePackUpdateActivity.class));
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton(updateLater, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int i) {
+                            dialog.dismiss();
+                        }
+                    })
+                    // Set other dialog properties
+                    .setCancelable(true)
+                    .setMessage(message);
 
-        // Create the AlertDialog
-        AlertDialog dialog = builder.create();
-        // Show the AlertDialog
-        dialog.show();
-        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        positiveButton.setTextColor(context.getResources().getColor(R.color.colorAccent));
-        positiveButton.setTextSize(18f);
-        Button negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-        negativeButton.setTextColor(context.getResources().getColor(R.color.colorAccent));
-        negativeButton.setTextSize(18f);
+            // Create the AlertDialog
+            AlertDialog dialog = builder.create();
+            // Show the AlertDialog
+            dialog.show();
+            Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            positiveButton.setTextColor(context.getResources().getColor(R.color.colorAccent));
+            positiveButton.setTextSize(18f);
+            Button negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+            negativeButton.setTextColor(context.getResources().getColor(R.color.colorAccent));
+            negativeButton.setTextSize(18f);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

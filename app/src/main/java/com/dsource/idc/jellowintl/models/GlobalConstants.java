@@ -50,10 +50,6 @@ public class GlobalConstants {
     /*GENERAL*/
     public  final static int NOT_SELECTED = -1;
 
-    public final static boolean KEY_OPEN = true;
-
-    public final static boolean KEY_CLOSE = false;
-
     public final static int LANGUAGE_STATE_NO_CHANGE = 0;
 
     public final static int LANGUAGE_STATE_CREATE_DB = 1;

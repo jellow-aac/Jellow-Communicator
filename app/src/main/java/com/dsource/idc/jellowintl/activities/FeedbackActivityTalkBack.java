@@ -1,6 +1,8 @@
 package com.dsource.idc.jellowintl.activities;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.List;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -97,9 +100,23 @@ public class FeedbackActivityTalkBack extends BaseActivity{
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        Intent email = new Intent(Intent.ACTION_SEND);
+                        email.putExtra(Intent.EXTRA_EMAIL, new String[]{"jellowcommunicator@gmail.com"});
+                        email.putExtra(Intent.EXTRA_SUBJECT, "Jellow Feedback");
+                        email.putExtra(Intent.EXTRA_TEXT, "Easy to use: " + mEasyToUse.getSelectedItem()
+                                + "\nClear Pictures: " + mClearPicture.getSelectedItem()
+                                + "\nClear Voices: " + mClearVoice.getSelectedItem()
+                                + "\nEasy to Navigate: " + mEaseToNavigate.getSelectedItem()
+                                + "\n\nComments and Suggestions:-\n" +
+                                ((EditText)findViewById(R.id.comments)).getText().toString());
+                        email.setType("message/rfc822");
+                        PackageManager packageManager = getPackageManager();
+                        List<ResolveInfo> activities = packageManager.queryIntentActivities(email, 0);
+                        boolean isIntentSafe = activities.size() > 0;
+                        if (isIntentSafe)
+                            startActivity(Intent.createChooser(email, "Choose an Email client :"));
                         Toast.makeText(FeedbackActivityTalkBack.this,
                                 getString(R.string.received_your_feedback), Toast.LENGTH_SHORT).show();
-                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

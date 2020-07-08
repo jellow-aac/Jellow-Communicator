@@ -1,7 +1,6 @@
 package com.dsource.idc.jellowintl.activities;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,16 +10,12 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.text.Html;
-import android.text.method.KeyListener;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -51,7 +46,6 @@ import com.dsource.idc.jellowintl.utility.UserEventCollector;
 
 import static com.dsource.idc.jellowintl.factories.IconFactory.EXTENSION;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
-import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
@@ -71,18 +65,13 @@ public class SequenceActivity extends LevelBaseActivity{
             mFlgNo = GlobalConstants.SHORT_SPEECH, mFlgLess = GlobalConstants.SHORT_SPEECH;
     /* This flag identifies either hide/showDialog expressive buttons.*/
     private int mFlgHideExpBtn = -1;
-    /* This flag indicates keyboard is open or not, 0 indicates is not open.*/
-    private boolean mKeyState = GlobalConstants.KEY_CLOSE;
     /*This variable indicates index of category icon selected in level one*/
     private int mLevelTwoItemPos, count = 0;
     /*Image views which are visible on the layout such as six expressive buttons, below navigation
       buttons, speak button when keyboard is open and 3 category icons from left to right.*/
     private ImageView mIvLike, mIvDontLike, mIvMore, mIvLess, mIvYes, mIvNo,
-            mIvHome, mIvKeyboard, mIvBack, mIvTTs, mIvCategoryIcon1,
+            mIvHome, mIvKeyboard, mIvBack, mIvCategoryIcon1,
             mIvCategoryIcon2, mIvCategoryIcon3;
-    /*Input text view to speak custom text.*/
-    private EditText mEtTTs;
-    private KeyListener originalKeyListener;
     /* Heading, caption text for category icon respectively .*/
     private TextView mTvHeading, mTvCategory1Caption, mTvCategory2Caption, mTvCategory3Caption;
     private ImageView mIvArrowLeft, mIvArrowRight;
@@ -214,18 +203,6 @@ public class SequenceActivity extends LevelBaseActivity{
         mIvBack = findViewById(R.id.ivback);
         mIvHome = findViewById(R.id.ivhome);
         mIvKeyboard = findViewById(R.id.keyboard);
-        mIvTTs = findViewById(R.id.ttsbutton);
-        //Set button for tts callback
-        setCustomKeyboardView(this);
-        //Initially custom input text speak button is invisible
-        mIvTTs.setVisibility(View.INVISIBLE);
-        mEtTTs = findViewById(R.id.et);
-        mEtTTs.setVisibility(View.INVISIBLE);
-        originalKeyListener = mEtTTs.getKeyListener();
-        // Initially make this field non-editable
-        mEtTTs.setKeyListener(null);
-        //Initially custom input text is invisible
-        mEtTTs.setVisibility(View.INVISIBLE);
         mRelativeLayCategory = findViewById(R.id.relativeLayout);
         mBtnNext = findViewById(R.id.forward);
         mBtnBack = findViewById(R.id.backward);
@@ -259,7 +236,6 @@ public class SequenceActivity extends LevelBaseActivity{
         ViewCompat.setAccessibilityDelegate(mIvKeyboard, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvHome, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvBack, new TalkbackHints_SingleClick());
-        ViewCompat.setAccessibilityDelegate(mIvTTs, new TalkbackHints_SingleClick());
 
         ViewCompat.setAccessibilityDelegate(mIvCategoryIcon1, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvCategoryIcon2, new TalkbackHints_SingleClick());
@@ -286,8 +262,6 @@ public class SequenceActivity extends LevelBaseActivity{
         initNoBtnListener();
         initMoreBtnListener();
         initLessBtnListener();
-        initTTsBtnListener();
-        initTTsEditTxtListener();
     }
 
     /**
@@ -670,43 +644,23 @@ public class SequenceActivity extends LevelBaseActivity{
                 speak(mNavigationBtnTxt[1]);
                 //Firebase event
                 singleEvent("Navigation","Back");
-                mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
-                if (mKeyState) {
-                    // When keyboard is open, close it and retain expressive button,
-                    // category icon states as they are before keyboard opened.
-                    mIvKeyboard.setImageResource(R.drawable.keyboard);
-                    mIvBack.setImageResource(R.drawable.back_pressed);
-                    mEtTTs.setVisibility(View.INVISIBLE);
-                    mRelativeLayCategory.setVisibility(View.VISIBLE);
-                    mIvTTs.setVisibility(View.INVISIBLE);
-                    mKeyState = GlobalConstants.KEY_CLOSE;
-                    // after closing keyboard, then enable all expressive buttons and set visible
-                    // category icon navigation icons
-                    LevelUiUtils.enableAllExpressiveIcon(expressiveBtn);
-                    mBtnNext.setVisibility(View.VISIBLE);
-                    mBtnBack.setVisibility(View.VISIBLE);
-                    setupActionBarTitle(txtActionBarTitle);
-                } else {
-                    // When keyboard is not open simply set result and close the activity.
-                    mUec.createSendFbEventFromTappedView(27, "", "");
-                    mIvBack.setImageResource(R.drawable.back_pressed);
-                    String str = getIntent().getExtras().getString(getString(R.string.from_search));
-                    if(str != null && !str.isEmpty() && str.equals(getString(R.string.search_tag))) {
-                        Intent intent = new Intent(SequenceActivity.this, LevelTwoActivity.class);
-                        intent.putExtra(getString(R.string.level_one_intent_pos_tag), 1/*1 is index for Daily Activities*/);
-                        intent.putExtra("search_and_back", true);
-                        {
-                            String path = getIntent().getExtras().getString(getString(R.string.intent_menu_path_tag));
-                            path = path.split("/")[0]+ "/"+path.split("/")[1]+"/";
-                            intent.putExtra(getString(R.string.intent_menu_path_tag), path);
-                        }
-                        startActivity(intent);
-                        finish();
-                    }else{
-                        setResult(RESULT_OK);
-                        finish();
+                mUec.createSendFbEventFromTappedView(27, "", "");
+                mIvBack.setImageResource(R.drawable.back_pressed);
+                String str = getIntent().getExtras().getString(getString(R.string.from_search));
+                if(str != null && !str.isEmpty() && str.equals(getString(R.string.search_tag))) {
+                    Intent intent = new Intent(SequenceActivity.this, LevelTwoActivity.class);
+                    intent.putExtra(getString(R.string.level_one_intent_pos_tag), 1/*1 is index for Daily Activities*/);
+                    intent.putExtra("search_and_back", true);
+                    {
+                        String path = getIntent().getExtras().getString(getString(R.string.intent_menu_path_tag));
+                        path = path.split("/")[0]+ "/"+path.split("/")[1]+"/";
+                        intent.putExtra(getString(R.string.intent_menu_path_tag), path);
                     }
+                    startActivity(intent);
+                }else{
+                    setResult(RESULT_OK);
                 }
+                finish();
             }
         });
     }
@@ -765,12 +719,11 @@ public class SequenceActivity extends LevelBaseActivity{
             public void onClick(View v) {
                 //Firebase event
                 singleEvent("Navigation", "Keyboard");
-                new DialogKeyboardUtterance(SequenceActivity.this).show();
+                new DialogKeyboardUtterance().show(SequenceActivity.this);
                 speak(mNavigationBtnTxt[2]);
                 mIvKeyboard.setImageResource(R.drawable.keyboard_pressed);
                 mIvBack.setImageResource(R.drawable.back);
                 mIvHome.setImageResource(R.drawable.home);
-                mKeyState = GlobalConstants.KEY_OPEN;
             }
         });
     }
@@ -1120,51 +1073,6 @@ public class SequenceActivity extends LevelBaseActivity{
         else if (mFlgHideExpBtn == 3)
             return seqIconObjects[count+2].getEvent_Tag();
         else return "";
-    }
-
-    /**
-     * <p>This function will initialize the click scrollListener to Tts Speak button.
-     * When Tts speak button is pressed, broadcast speak request is sent to Text-to-speech service.
-     * Message typed in Text-to-speech input view, is synthesized by the service.</p>
-     * */
-    private void initTTsBtnListener() {
-        mIvTTs.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                if(isEngineSpeaking()){
-                    stopSpeaking();
-                    mIvTTs.setImageDrawable(getResources().getDrawable(R.drawable.ic_search_list_speaker));
-                    return;
-                }
-                speak(mEtTTs.getText().toString().concat("_"));
-                mIvTTs.setImageDrawable(getResources().getDrawable(R.drawable.ic_stop));
-                //Firebase event
-                Bundle bundle = new Bundle();
-                bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
-                        Settings.Secure.DEFAULT_INPUT_METHOD));
-                bundle.putString("utterence", mEtTTs.getText().toString());
-                bundleEvent("Keyboard", bundle);
-            }
-        });
-    }
-
-    /**
-     * <p>This function will initialize the click scrollListener to EditText which is used by user to
-     * input custom strings.</p>
-     * */
-    private void initTTsEditTxtListener() {
-        mEtTTs.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                // If it loses focus...
-                if (!hasFocus) {
-                    // Hide soft mIvKeyboard.
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(mEtTTs.getWindowToken(), 0);
-                    // Make it non-editable again.
-                    mEtTTs.setKeyListener(null);
-                }
-            }
-        });
     }
 
     private void showAccessibleDialog(final int position, final View disabledView) {
@@ -1546,18 +1454,7 @@ public class SequenceActivity extends LevelBaseActivity{
         }
     }
 
-    public void revertTheSpeakerIcon(){
-        SequenceActivity.this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mIvTTs.setImageDrawable(getResources().getDrawable(R.drawable.ic_search_list_speaker));
-                mIvTTs.refreshDrawableState();
-            }
-        });
-    }
-
     public void hideCustomKeyboardDialog() {
-        mKeyState = GlobalConstants.KEY_CLOSE;
         mIvKeyboard.setImageResource(R.drawable.keyboard);
         mIvBack.setImageResource(R.drawable.back);
     }

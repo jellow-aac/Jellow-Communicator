@@ -26,17 +26,15 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
  */
 
 public class AboutJellowActivity extends SpeechEngineBaseActivity {
-    final String ABOUT_ME_AUDIO_FILE ="about_jellow.mp3";
     private Button mBtnSpeak, mBtnStop;
     private TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9, tv10, tv11, tv12, tv13, tv14, tv15, tv16,
             tv17, tv18, tv19, tv20, tv21, tv22, tv23, tv24, tv25, tv26, tv27, tv28, tv29, tv30, tv31,
             tv32, tv33, tv35, tv36, tv37;
-    private String mSpeechTxt, mGenInfo, mSoftInfo, mTermofUse, mCredits,
+    private String mSpeechTxt, mGenInfo, mSoftInfo, mTermsOfUse, mCredits,
             mIntro1, mIntro2, mIntro3, mIntro4, mIntro5, mIntro6, mIntro7, mIntro8,
             mIntro9, mIntro10, mIntro11, mIntro12, mIntro13, mIntro14, mIntro15, mIntro16, mIntro17,
             mIntro18, mIntro19, mIntro20, mIntro21, mIntro22, mIntro23, mIntro24, mIntro25, mIntro26,
-            mIntro27, mIntro28, mIntro29, mIntro30, mIntro31, mIntro32, mSpeak, mStop, mPause;
-    private boolean isMediaPaused = false;
+            mIntro27, mIntro28, mIntro29, mIntro30, mIntro31, mIntro32, mSpeak, mStop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,33 +45,16 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
         setNavigationUiConditionally();
         initializeViews();
         loadStrings();
-        if (getSession().getLanguage() != SessionManager.MR_IN)
-            createAudioFileForSpeech(mSpeechTxt);
         setTextToTextViews();
         mBtnSpeak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isMediaPaused) {
-                    resumeMediaAudio();
-                    isMediaPaused = false;
-                    mBtnSpeak.setText(mPause);
-                } else if (!isMediaRunning()) {
-                    String mediaPath ="";
-                    if (getSession().getLanguage().equals(SessionManager.MR_IN)){
-                        mediaPath = PathFactory.getAudioPath(AboutJellowActivity.this)
-                                + getString(R.string.about_jellow_speech);
-                    }else {
-                        mediaPath = PathFactory.getBaseDirectoryPath(AboutJellowActivity.this)
-                                + ABOUT_ME_AUDIO_FILE;
-                    }
-                    if (!isMediaReady(mediaPath))
-                        return;
+                if (getSession().getLanguage().equals(SessionManager.MR_IN)){
+                    String mediaPath = PathFactory.getAudioPath(AboutJellowActivity.this)
+                            + getString(R.string.about_jellow_speech);
                     playAudio(mediaPath);
-                    mBtnSpeak.setText(mPause);
-                } else {
-                    pauseAudio();
-                    isMediaPaused = true;
-                    mBtnSpeak.setText(mSpeak);
+                }else {
+                    speak(mSpeechTxt);
                 }
             }
         });
@@ -84,8 +65,6 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
                 stopSpeaking();
                 stopAudio();
                 stopMediaAudio();
-                mBtnSpeak.setText(mSpeak);
-                isMediaPaused = false;
             }
         });
     }
@@ -180,7 +159,7 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
         mIntro8 = getString(R.string.about_je_intro8);
         mSoftInfo = mSoftInfo.replace("_", versionCode);
         mIntro8 = mIntro8.contains("_") ? mIntro8.replace("_", versionCode) : mIntro8;
-        mTermofUse = getString(R.string.terms_of_use);
+        mTermsOfUse = getString(R.string.terms_of_use);
         mIntro9 = getString(R.string.about_je_intro9);
         mIntro10 = getString(R.string.about_je_intro10);
         mIntro11 = getString(R.string.about_je_intro11);
@@ -207,7 +186,6 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
         mIntro31 = getString(R.string.about_je_intro31);
         mSpeak = getString(R.string.speak);
         mStop = getString(R.string.stop);
-        mPause = getString(R.string.pause);
         mIntro32 = getString(R.string.about_je_intro32);
 
         mSpeechTxt = getString(R.string.about_jellow_speech);
@@ -286,7 +264,7 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
         tv7.setText(mIntro7);
         tv8.setText(mSoftInfo);
         tv9.setText(mIntro8);
-        tv10.setText(mTermofUse);
+        tv10.setText(mTermsOfUse);
         tv11.setText(mIntro9);
         tv12.setText(mIntro10);
         tv13.setText(mIntro11);

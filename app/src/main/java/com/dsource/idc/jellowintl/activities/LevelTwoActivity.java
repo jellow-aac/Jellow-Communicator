@@ -8,17 +8,13 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.telephony.TelephonyManager;
-import android.text.method.KeyListener;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -71,18 +67,14 @@ public class LevelTwoActivity extends LevelBaseActivity{
             mFlgNo = GlobalConstants.SHORT_SPEECH, mFlgLess = GlobalConstants.SHORT_SPEECH;
     /* This flag identifies which expressive button is pressed.*/
     private int mFlgImage = -1;
-    /* This flag indicates custom keyboard input text layout is open or not, 0 indicates is not open.*/
-    private boolean mKeyState = GlobalConstants.KEY_CLOSE;
     /* This flag identifies that user is pressed a category icon and which border should appear
       on pressed category icon. If flag value = 0, then brown (initial border) will appear.*/
     private int mActionBtnClickCount;
     /*Image views which are visible on the layout such as six expressive buttons, below navigation
       buttons and speak button when keyboard is open.*/
     private ImageView mIvLike, mIvDontLike, mIvYes, mIvNo, mIvMore, mIvLess,
-            mIvHome, mIvKeyboard, mIvBack, mIvTts;
+            mIvHome, mIvKeyboard, mIvBack;
     /*Input text view to speak custom text.*/
-    private EditText mEtTTs;
-    private KeyListener originalKeyListener;
     /*Recycler view which will populate category icons.*/
     private RecyclerView mRecyclerView;
 
@@ -109,7 +101,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
       selected.*/
     private Integer[] mArrPeopleTapCount, mArrSort;
 
-    private String txtActionBarTitle, txtKeyboard, mSpeak, mEnterCat;
+    private String txtActionBarTitle, mSpeak, mEnterCat;
 
     /*Firebase event Collector class instance.*/
     private UserEventCollector mUec;
@@ -126,7 +118,6 @@ public class LevelTwoActivity extends LevelBaseActivity{
         mLevelOneItemPos = getIntent().getExtras().getInt(getString(R.string.level_one_intent_pos_tag));
         // Get and set title of category icons selected in level one.
         txtActionBarTitle = getIntent().getExtras().getString(getString(R.string.intent_menu_path_tag));
-        txtKeyboard = getString(R.string.keyboard);
         setupActionBarTitle(View.GONE, txtActionBarTitle);
         setNavigationUiConditionally();
         adjustTopMarginForNavigationUi();
@@ -330,15 +321,6 @@ public class LevelTwoActivity extends LevelBaseActivity{
         mIvBack = findViewById(R.id.ivback);
         mIvBack.setAlpha(GlobalConstants.ENABLE_ALPHA);
         mIvKeyboard = findViewById(R.id.keyboard);
-        mEtTTs = findViewById(R.id.et);
-        //Initially custom input text is invisible
-        mEtTTs.setVisibility(View.INVISIBLE);
-
-        mIvTts = findViewById(R.id.ttsbutton);
-        //Set button for tts callback
-        setCustomKeyboardView(this);
-        //Initially custom input text speak button is invisible
-        mIvTts.setVisibility(View.INVISIBLE);
 
         ViewCompat.setAccessibilityDelegate(mIvLike, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvYes, new TalkbackHints_SingleClick());
@@ -349,11 +331,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
         ViewCompat.setAccessibilityDelegate(mIvKeyboard, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvHome, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvBack, new TalkbackHints_SingleClick());
-        ViewCompat.setAccessibilityDelegate(mIvTts, new TalkbackHints_SingleClick());
 
-        originalKeyListener = mEtTTs.getKeyListener();
-        // Set it to null - this will make the field non-editable
-        mEtTTs.setKeyListener(null);
         mRecyclerView = findViewById(R.id.recycler_view);
         // Initiate 3 columns in Recycler View.
         //This code is to decide the speed of the Scrolling
@@ -414,8 +392,6 @@ public class LevelTwoActivity extends LevelBaseActivity{
         initNoBtnListener();
         initMoreBtnListener();
         initLessBtnListener();
-        initTTsBtnListener();
-        initTTsEditTxtListener();
     }
 
     /**
@@ -480,48 +456,17 @@ public class LevelTwoActivity extends LevelBaseActivity{
                 //Firebase event
                 singleEvent("Navigation","Back");
                 speak(mNavigationBtnTxt[1]);
-                //when mKeyState is true, it means user is using custom keyboard input
-                // text and system keyboard is visible.
-                if (mKeyState) {
-                    // As user is using custom keyboard input text and then back button is pressed,
-                    // user intent to close custom keyboard input text so below steps will follow:
-                    // a) set keyboard button to unpressed state.
-                    // b) set back button to pressed state.
-                    // c) hide custom keyboard input text view.
-                    // d) showDialog category icons.
-                    // e) set flag mKeyState = false, as user not using custom keyboard input
-                    //    anymore.
-                    // e) retain expressive button state as they were before custom keyboard input text
-                    //    open.
-                    mIvKeyboard.setImageResource(R.drawable.keyboard);
-                    mIvBack.setImageResource(R.drawable.back_pressed);
-                    mEtTTs.setVisibility(View.INVISIBLE);
-                    mRecyclerView.setVisibility(View.VISIBLE);
-                    mIvTts.setVisibility(View.INVISIBLE);
-                    mKeyState = GlobalConstants.KEY_CLOSE;
-                    setupActionBarTitle(txtActionBarTitle);
-                    if(mLevelTwoItemPos == GlobalConstants.NOT_SELECTED)
-                        LevelUiUtils.enableAllExpressiveIcon(expressiveBtn);
-                    else
-                        LevelUiUtils.setExpressiveIconConditionally(expressiveBtn, level2IconObjects[mLevelTwoItemPos]);
-                //when back button is pressed and if mKeyState is false, then custom keyboard
-                // input text is not open and user intends to close current screen. Then simply
-                // close activity and after setting result code. The result code is useful
-                // to identify for returning activity that user is returned by pressing "back" button.
-                } else {
-                    mUec.createSendFbEventFromTappedView(27, "", "");
-                    mIvBack.setImageResource(R.drawable.back_pressed);
-                    String str = getIntent().getExtras().getString(getString(R.string.from_search));
-                    boolean close =getIntent().getExtras().getBoolean("search_and_back");
-                    if((str != null && !str.isEmpty() && str.equals(getString(R.string.search_tag)))
-                            || close){
-                        startActivity(new Intent(LevelTwoActivity.this, MainActivity.class));
-                        finish();
-                    }else {
-                        setResult(RESULT_OK);
-                        finish();
-                    }
+                mUec.createSendFbEventFromTappedView(27, "", "");
+                mIvBack.setImageResource(R.drawable.back_pressed);
+                String str = getIntent().getExtras().getString(getString(R.string.from_search));
+                boolean close =getIntent().getExtras().getBoolean("search_and_back");
+                if((str != null && !str.isEmpty() && str.equals(getString(R.string.search_tag)))
+                        || close){
+                    startActivity(new Intent(LevelTwoActivity.this, MainActivity.class));
+                }else {
+                    setResult(RESULT_OK);
                 }
+                finish();
             }
         });
     }
@@ -588,12 +533,11 @@ public class LevelTwoActivity extends LevelBaseActivity{
             public void onClick(View v) {
                 //Firebase event
                 singleEvent("Navigation", "Keyboard");
-                new DialogKeyboardUtterance(LevelTwoActivity.this).show();
+                new DialogKeyboardUtterance().show(LevelTwoActivity.this);
                 speak(mNavigationBtnTxt[2]);
                 mIvKeyboard.setImageResource(R.drawable.keyboard_pressed);
                 mIvBack.setImageResource(R.drawable.back);
                 mIvHome.setImageResource(R.drawable.home);
-                mKeyState = GlobalConstants.KEY_OPEN;
             }
         });
     }
@@ -1339,51 +1283,6 @@ public class LevelTwoActivity extends LevelBaseActivity{
     }
 
     /**
-     * <p>This function will initialize the click scrollListener to Tts Speak button.
-     * When Tts speak button is pressed, broadcast speak request is sent to Text-to-speech service.
-     * Message typed in Text-to-speech input view, is synthesized by the service.</p>
-     * */
-    private void initTTsBtnListener() {
-        mIvTts.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                if(isEngineSpeaking()){
-                    stopSpeaking();
-                    mIvTts.setImageDrawable(getResources().getDrawable(R.drawable.ic_search_list_speaker));
-                    return;
-                }
-                speak(mEtTTs.getText().toString().concat("_"));
-                mIvTts.setImageDrawable(getResources().getDrawable(R.drawable.ic_stop));
-                //Firebase event
-                Bundle bundle = new Bundle();
-                bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
-                        Settings.Secure.DEFAULT_INPUT_METHOD));
-                bundle.putString("utterence", mEtTTs.getText().toString());
-                bundleEvent("Keyboard", bundle);
-            }
-        });
-    }
-
-    /**
-     * <p>This function will initialize the click scrollListener to EditText which is used by user to
-     * input custom strings.</p>
-     * */
-    private void initTTsEditTxtListener() {
-        mEtTTs.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                // If custom keyboard input text loses focus.
-                if (!hasFocus) {
-                    // Hide soft mIvKeyboard.
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(mEtTTs.getWindowToken(), 0);
-                    // Make it non-editable.
-                    mEtTTs.setKeyListener(null);
-                }
-            }
-        });
-    }
-
-    /**
      * <p>This function is called when user taps a category icon. It will change the state of
      * category icon pressed. Also, it set the flag for app speak full verbiage sentence.
      * @param view is parent view in selected RecyclerView.
@@ -1974,18 +1873,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
         }
     }
 
-    public void revertTheSpeakerIcon(){
-        LevelTwoActivity.this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mIvTts.setImageDrawable(getResources().getDrawable(R.drawable.ic_search_list_speaker));
-                mIvTts.refreshDrawableState();
-            }
-        });
-    }
-
     public void hideCustomKeyboardDialog() {
-        mKeyState = GlobalConstants.KEY_CLOSE;
         mIvKeyboard.setImageResource(R.drawable.keyboard);
         mIvBack.setImageResource(R.drawable.back);
     }

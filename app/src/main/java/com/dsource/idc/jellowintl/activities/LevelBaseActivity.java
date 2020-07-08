@@ -1,6 +1,5 @@
 package com.dsource.idc.jellowintl.activities;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -20,7 +19,6 @@ import java.util.Objects;
 
 public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextToSpeechCallBacks {
     private String mErrorMessage, mDialogTitle, mLanguageSetting, mSwitchLang;
-    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +46,6 @@ public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextT
             FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) rl.getLayoutParams();
             lp.topMargin = 72;
         }
-    }
-
-    public void setCustomKeyboardView(Context context){
-        this.context = context;
     }
 
 
@@ -106,20 +100,6 @@ public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextT
     }
 
     @Override
-    public void speechSynthesisCompleted() {
-        if (context instanceof MainActivity){
-            MainActivity activity = (MainActivity) context;
-            activity.revertTheSpeakerIcon();
-        }else if (context instanceof LevelTwoActivity){
-            LevelTwoActivity activity = (LevelTwoActivity) context;
-            activity.revertTheSpeakerIcon();
-        }else if (context instanceof LevelThreeActivity){
-            LevelThreeActivity activity = (LevelThreeActivity) context;
-            activity.revertTheSpeakerIcon();
-        }else{
-            SequenceActivity activity = (SequenceActivity) context;
-            activity.revertTheSpeakerIcon();
-        }
-    }
+    public void speechSynthesisCompleted() {}
     /*-------------*/
 }

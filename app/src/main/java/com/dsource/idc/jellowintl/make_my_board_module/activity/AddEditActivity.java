@@ -97,8 +97,6 @@ public class AddEditActivity extends BaseBoardActivity<IAddEditView, IAddEditPre
         //Disable Expressive Icons for this activity
         setVisibility(R.id.save_button, true);
         getView(R.id.keyboard).setAlpha(GlobalConstants.DISABLE_ALPHA);
-        setVisibility(R.id.et, false);
-        setVisibility(R.id.ttsbutton, false);
         {
             int []icons = {R.id.ivlike, R.id.ivyes, R.id.ivadd, R.id.ivdislike, R.id.ivno,
                     R.id.ivminus, R.id.ivback, R.id.keyboard};
