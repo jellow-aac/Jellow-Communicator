@@ -29,6 +29,7 @@ import com.dsource.idc.jellowintl.models.JellowIcon;
 import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.make_my_board_module.utility.BoardConstants.BOARD_ID;
+import static com.dsource.idc.jellowintl.make_my_board_module.utility.BoardConstants.ENABLE_DROPDOWN_SPEAKER;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
@@ -58,7 +59,7 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
         initFields();
         Mode = getIntent().getStringExtra(SEARCH_MODE);
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-            findViewById(R.id.close_button).setVisibility(View.INVISIBLE);
+            findViewById(R.id.close_button).setVisibility(View.GONE);
         }
         SearchEditText.setHint(getString(R.string.enter_icon_name));
         getWindow().setGravity(Gravity.LEFT);
@@ -333,6 +334,9 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
                     if(iconList.size()>0) {
                         adapter = new BoardSearchAdapter(BoardSearchActivity.this,
                                 iconList,currentBoard.getLanguage(), getAppDatabase());
+                        if(getIntent().getBooleanExtra(ENABLE_DROPDOWN_SPEAKER,false)){
+                            adapter.activateSearchDropdownSpeaker();
+                        }
                         adapter.setOnItemClickListener(new OnItemClickListener() {
                             @Override
                             public void onItemClick(int position) {
@@ -445,6 +449,10 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
 
     public void closeSearchBar(View view) {
         finish();
+    }
+
+    public void speakOnly(int position) {
+        speakFromMMB(iconList.get(position).getIconSpeech());
     }
 }
 

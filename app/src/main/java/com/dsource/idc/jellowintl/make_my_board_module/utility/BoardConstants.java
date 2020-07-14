@@ -10,4 +10,5 @@ public class BoardConstants {
     public static final int NORMAL_TYPE=1251;
     public static final int CATEGORY_TYPE=9509;
     public static final String GRID_SIZE="grid_size";
+    public static final String ENABLE_DROPDOWN_SPEAKER="enableSpeaker";
 }

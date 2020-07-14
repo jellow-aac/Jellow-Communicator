@@ -328,7 +328,7 @@
     <dimen name="header_icon_size">75dp</dimen>
     <dimen name="header_title_size">20sp</dimen>
     <dimen name="header_title_width">130dp</dimen>
-    <dimen name="header_edit_icon_size">40dp</dimen>
+    <dimen name="header_edit_icon_size">24dp</dimen>
 
     <!--Dimensions related to the verbiage item-->
     <dimen name="verbiage_list_item_width">320dp</dimen>
@@ -356,7 +356,7 @@
     <dimen name="my_boards_card_margin_horizontal">92dp</dimen>
     <dimen name="my_boards_card_margin_vertical">16dp</dimen>
     <dimen name="my_board_title_top_margin">14dp</dimen>
-    <dimen name="camera_drop_down_width">154dp</dimen>
+    <dimen name="camera_drop_down_width">194dp</dimen>
     <!--Board Icon Config-->
     <dimen name="board_icon_thickness">9dp</dimen>
     <dimen name="board_icon_radius">86dp</dimen>
@@ -402,7 +402,7 @@
     <dimen name="close_button_width">40dp</dimen>
     <dimen name="dialog_margin">16dp</dimen>
     <dimen name="ver_dialog_pad">16dp</dimen>
-    <dimen name="mmb_btn_pad">4dp</dimen>
+    <dimen name="mmb_btn_pad">6dp</dimen>
     <dimen name="v_dialog_et_mar">8dp</dimen>
     <dimen name="scrollbar_mar">12dp</dimen>
 

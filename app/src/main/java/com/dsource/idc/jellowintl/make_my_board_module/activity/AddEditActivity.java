@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
-import com.dsource.idc.jellowintl.activities.MainActivity;
 import com.dsource.idc.jellowintl.make_my_board_module.adapters.AddEditAdapter;
 import com.dsource.idc.jellowintl.make_my_board_module.custom_dialogs.DialogAddEditIcon;
 import com.dsource.idc.jellowintl.make_my_board_module.custom_dialogs.DialogCustom;
@@ -321,21 +320,10 @@ public class AddEditActivity extends BaseBoardActivity<IAddEditView, IAddEditPre
 
     @Override
     public void onBackPressed() {
-        DialogCustom dialog = new DialogCustom(this);
-        dialog.setText(getResources().getString(R.string.exit_warning));
-        dialog.setOnPositiveClickListener(new DialogCustom.OnPositiveClickListener() {
-            @Override
-            public void onPositiveClickListener() {
-                if(getSession()!=null) getSession().setCurrentBoardLanguage("");
-                startActivities(new Intent[]{
-                        new Intent(getApplicationContext(), MainActivity.class),
-                        new Intent(getApplicationContext(), BoardListActivity.class)
-                });
-                /*startActivity(new Intent(mContext, BoardListActivity.class));*/
-                finishAffinity();
-            }
-        });
-        dialog.show();
+        Intent intent = new Intent(AddEditActivity.this, IconSelectActivity.class);
+        intent.putExtra(BOARD_ID,currentBoard.getBoardId());
+        startActivity(intent);
+        finishAffinity();
     }
 
     private void searchInBoard() {

@@ -2,8 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:id="@+id/menuGroupInfo">
-
-
         <item
             android:id="@+id/action_search"
             android:title="@string/search_title"

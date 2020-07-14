@@ -48,12 +48,10 @@ public class SelectIconAdapter extends BaseRecyclerAdapter<JellowIcon> {
 
         //Highlight the searched icon
         if (position == highlightedIconPos) {
-            viewHolder.setMenuImageBorder(R.id.borderView, true, 100);
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    viewHolder.setMenuImageBorder(R.id.borderView,false,-1);
                     highlightedIconPos = -1;
                     viewHolder.getView(R.id.parent).
                             sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);

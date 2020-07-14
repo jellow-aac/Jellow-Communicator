@@ -1426,7 +1426,6 @@ public class SequenceActivity extends LevelBaseActivity{
             case 4: gd.setColor(ContextCompat.getColor(this, R.color.colorMore)); break;
             case 5: gd.setColor(ContextCompat.getColor(this, R.color.colorLess)); break;
             case 6: gd.setColor(ContextCompat.getColor(this, R.color.colorSelect)); break;
-            case 7: gd.setColor(ContextCompat.getColor(this,R.color.search_highlight)); break;
             default: gd.setColor(ContextCompat.getColor(this, android.R.color.transparent));
         }
     }

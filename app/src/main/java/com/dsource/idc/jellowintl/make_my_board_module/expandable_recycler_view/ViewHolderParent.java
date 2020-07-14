@@ -1,9 +1,12 @@
 package com.dsource.idc.jellowintl.make_my_board_module.expandable_recycler_view;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.core.content.res.ResourcesCompat;
 
 import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
 import com.dsource.idc.jellowintl.R;
@@ -62,5 +65,12 @@ public class ViewHolderParent extends ParentViewHolder {
         void disableCollapse(boolean disable){
             if(disable)holder.findViewById(R.id.collapseView).setVisibility(View.INVISIBLE);
             else holder.findViewById(R.id.collapseView).setVisibility(View.VISIBLE);
+        }
+
+        void makeTextBold(boolean makeBold){
+            if(makeBold) {
+                Typeface tf = ResourcesCompat.getFont(context, R.font.mukta_semibold);
+                genreTitle.setTypeface(tf);
+            }
         }
 }

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import androidx.core.content.ContextCompat;
 
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.make_my_board_module.activity.BoardListActivity;
 import com.dsource.idc.jellowintl.make_my_board_module.dataproviders.data_models.BoardModel;
 import com.dsource.idc.jellowintl.make_my_board_module.interfaces.BoardClickListener;
 
@@ -23,6 +24,7 @@ public class BoardAdapter extends BaseRecyclerAdapter<BoardModel> {
 
     private BoardClickListener listener;
     private int selectedPosition = -1;
+    private boolean enableEditMode = BoardListActivity.EDIT_DISABLED;
 
     /**
      * public constructor
@@ -60,23 +62,31 @@ public class BoardAdapter extends BaseRecyclerAdapter<BoardModel> {
         spannedStr.setSpan(new ForegroundColorSpan (ContextCompat.getColor(getContext(),
                 R.color.colorPrimary)), 0, board.getBoardName().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         viewHolder.setText(R.id.board_title, spannedStr);
+
+        if (enableEditMode){
+            viewHolder.getView(R.id.edit_board).setVisibility(View.VISIBLE);
+            viewHolder.getView(R.id.remove_board).setVisibility(View.VISIBLE);
+            viewHolder.setOnClickListener(R.id.edit_board, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener!=null)
+                        listener.onBoardEdit(viewHolder.getAdapterPosition());
+                }
+            });
+            viewHolder.setOnClickListener(R.id.remove_board, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener!=null)
+                        listener.onItemDelete(viewHolder.getAdapterPosition());
+
+                }
+            });
+        }else{
+            viewHolder.getView(R.id.edit_board).setVisibility(View.GONE);
+            viewHolder.getView(R.id.remove_board).setVisibility(View.GONE);
+        }
+
         viewHolder.setImageFromBoard(R.id.board_icon,board.getBoardId());
-        viewHolder.setOnClickListener(R.id.remove_board, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(listener!=null)
-                    listener.onItemDelete(viewHolder.getAdapterPosition());
-
-            }
-        });
-        viewHolder.setOnClickListener(R.id.edit_board, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(listener!=null)
-                    listener.onBoardEdit(viewHolder.getAdapterPosition());
-            }
-        });
-
         viewHolder.setOnClickListener(R.id.board_icon, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,15 +95,13 @@ public class BoardAdapter extends BaseRecyclerAdapter<BoardModel> {
             }
         });
         if(selectedPosition == position) {
-            viewHolder.setMenuImageBorder(R.id.borderView, true, 100);
+            viewHolder.setMenuImageBorder(R.id.borderView, true, -1);
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    viewHolder.setMenuImageBorder(R.id.borderView,false,-1);
                     viewHolder.getView(R.id.icon_parent).
                             sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
-                    selectedPosition = -1;
                 }
             }, 1500);
         }
@@ -106,5 +114,9 @@ public class BoardAdapter extends BaseRecyclerAdapter<BoardModel> {
 
     public void setOnItemClickListener(final BoardClickListener mItemClickListener) {
         this.listener = mItemClickListener;
+    }
+
+    public void setEditMode(boolean edit_disabled) {
+        enableEditMode = edit_disabled;
     }
 }

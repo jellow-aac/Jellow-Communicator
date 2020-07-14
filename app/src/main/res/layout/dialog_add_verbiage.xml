@@ -29,29 +29,13 @@
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="@dimen/edit_board_button_side_margin"
             android:layout_marginRight="@dimen/edit_board_button_side_margin"
-            android:paddingBottom="4dp"
-            android:paddingTop="4dp"
-            >
-
-            <ImageView
-                android:id="@+id/close"
-                android:layout_width="@dimen/close_button_width"
-                android:layout_height="@dimen/close_button_width"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:padding="2dp"
-                android:layout_marginRight="8dp"
-                android:src="@drawable/ic_close"
-                tools:ignore="RtlHardcoded"
-                android:contentDescription="@string/close"/>
+            android:paddingVertical="4dp">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/xyz"
-                android:layout_alignParentTop="true"
-                android:layout_centerVertical="true"
+                android:id="@+id/ll_add_verbiage"
                 android:importantForAccessibility="yes"
                 android:contentDescription="@string/tap_add_to_add_expression">
                 <TextView
@@ -61,15 +45,13 @@
                     android:layout_gravity="center_vertical"
                     android:text="@string/expressive_heading1"
                     android:textSize="@dimen/dialog_heading"
-                    android:textColor="@color/colorAccent"
-                    />
+                    android:textColor="@color/colorAccent"/>
                 <ImageView
                     android:layout_width="@dimen/verbiage_item_add_remove"
                     android:layout_height="@dimen/verbiage_item_add_remove"
                     android:src="@drawable/plus"
-                    android:padding="4dp"
-                    android:layout_gravity="center_vertical"
-                    />
+                    android:paddingHorizontal="2dp"
+                    android:layout_gravity="center_vertical"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -77,11 +59,52 @@
                     android:clickable="false"
                     android:text="@string/expressive_heading2"
                     android:textSize="@dimen/dialog_heading"
+                    android:textColor="@color/colorAccent"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/ll_remove_verbiage"
+                android:layout_below="@+id/ll_add_verbiage"
+                android:importantForAccessibility="yes"
+                android:contentDescription="@string/tap_delete_to_delete_expression">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/expressive_heading3"
+                    android:textSize="@dimen/dialog_heading"
                     android:textColor="@color/colorAccent"
                     />
-
+                <ImageView
+                    android:layout_width="@dimen/verbiage_item_add_remove"
+                    android:layout_height="@dimen/verbiage_item_add_remove"
+                    android:src="@drawable/minus"
+                    android:paddingHorizontal="2dp"
+                    android:layout_gravity="center_vertical"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:clickable="false"
+                    android:text="@string/expressive_heading4"
+                    android:textSize="@dimen/dialog_heading"
+                    android:textColor="@color/colorAccent"/>
             </LinearLayout>
-
+            <ImageView
+                android:id="@+id/close"
+                android:layout_width="@dimen/close_button_width"
+                android:layout_height="@dimen/close_button_width"
+                android:layout_alignParentRight="true"
+                android:padding="2dp"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/ic_close"
+                tools:ignore="RtlHardcoded"
+                android:contentDescription="@string/close"/>
         </RelativeLayout>
 
         <ScrollView
@@ -98,17 +121,15 @@
             >
         <LinearLayout
             android:id="@+id/exp_verbiage_list"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:fadeScrollbars="false"
             android:paddingLeft="@dimen/ver_dialog_pad"
             android:paddingRight="@dimen/ver_dialog_pad"
             android:scrollbars="vertical"
-            android:scrollbarSize="1dp">
-
-
-
+            android:scrollbarSize="1dp"
+            android:layout_gravity="center_horizontal">
         </LinearLayout>
         </ScrollView>
     </RelativeLayout>
@@ -124,21 +145,10 @@
         android:layout_marginTop="@dimen/edit_board_dialog_internal_margin_top"
         android:gravity="center_horizontal">
         <Button
-            android:id="@+id/save_button"
-            android:layout_width="wrap_content"
-            android:paddingLeft="@dimen/mmb_btn_pad"
-            android:paddingRight="@dimen/mmb_btn_pad"
-            android:background="@drawable/button_background"
-            android:text="@string/txtSave"
-            android:textAllCaps="false"
-            android:layout_height="@dimen/profile_save_btn_height"
-            android:textSize="@dimen/profile_save_btn_txt_size"/>
-        <Button
             android:id="@+id/cancel_button"
             android:layout_width="wrap_content"
             android:paddingLeft="@dimen/mmb_btn_pad"
             android:paddingRight="@dimen/mmb_btn_pad"
-            android:layout_marginLeft="8dp"
             android:text="@string/reset"
             android:background="@drawable/button_background"
             android:textAllCaps="false"
@@ -146,6 +156,17 @@
             android:layout_height="@dimen/profile_save_btn_height"
             android:textSize="@dimen/profile_save_btn_txt_size"
             tools:ignore="RtlHardcoded" />
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="wrap_content"
+            android:paddingLeft="@dimen/mmb_btn_pad"
+            android:paddingRight="@dimen/mmb_btn_pad"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/button_background"
+            android:text="@string/txtSave"
+            android:textAllCaps="false"
+            android:layout_height="@dimen/profile_save_btn_height"
+            android:textSize="@dimen/profile_save_btn_txt_size"/>
     </LinearLayout>
 </RelativeLayout>
 </RelativeLayout>

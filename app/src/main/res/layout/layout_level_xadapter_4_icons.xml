@@ -56,5 +56,7 @@
         android:text="TIME AND WEATHER"
         android:gravity="center"
         android:textSize="@dimen/fourIcon_textSize"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:lineSpacingExtra="1dp"
+        android:lineSpacingMultiplier=".8"/>
 </LinearLayout>

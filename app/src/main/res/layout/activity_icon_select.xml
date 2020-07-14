@@ -11,12 +11,12 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@color/app_background"
-        android:layout_alignParentLeft="true">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
         <RelativeLayout
             android:id="@+id/ll_header"
             android:layout_width="@dimen/level_select_pane_min_width"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/activity_vertical_margin">
+            android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/board_icon"
                 android:layout_width="@dimen/header_icon_size"
@@ -24,30 +24,37 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
-                android:layout_marginHorizontal="8dp" />
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginVertical="8dp"/>
             <TextView
                 android:id="@+id/board_name"
-                android:layout_width="@dimen/header_title_width"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/board_icon"
                 style="@style/defaultTextViewStyle"
                 android:textSize="@dimen/header_title_size"
-                android:textColor="@color/colorPrimary"/>
-            <ImageView
-                android:id="@+id/edit_board_name_icon"
-                android:layout_width="@dimen/header_edit_icon_size"
-                android:layout_height="@dimen/header_edit_icon_size"
-                android:layout_toRightOf="@+id/board_name"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/ic_edit_icon_red_back"
-                android:importantForAccessibility="yes"
-                android:focusable="true"
-                android:contentDescription="@string/edit_board_image"/>
+                android:text="Greetings Board"
+                android:textColor="@color/colorPrimary"
+                android:lineSpacingExtra="1dp"
+                android:lineSpacingMultiplier=".7"/>
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fl_imageHeader"
+                android:layout_toStartOf="@+id/board_name"
+                android:layout_toLeftOf="@+id/board_name">
+                <ImageView
+                    android:id="@+id/edit_board_name_icon"
+                    android:layout_width="@dimen/header_edit_icon_size"
+                    android:layout_height="@dimen/header_edit_icon_size"
+                    android:src="@drawable/ic_edit_icon_red_back"
+                    android:layout_gravity="right"
+                    android:importantForAccessibility="yes"
+                    android:focusable="true"
+                    android:contentDescription="@string/edit_board_image" />
+            </FrameLayout>
         </RelativeLayout>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_level_select"
             android:layout_width="wrap_content"
@@ -160,7 +167,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="12sp"
                     android:text="(0)"
-                    android:textAlignment="center"
+                    android:gravity="center"
                     android:textColor="@color/black_80"
                     android:textSize="@dimen/select_text_size"
                     android:layout_marginRight="12sp" />
@@ -229,6 +236,7 @@
                     android:clickable="false"
                     android:text="@string/add_category"
                     android:textAlignment="center"
+                    android:gravity="center"
                     android:textColor="@color/light_grey"
                     android:textSize="@dimen/edit_option_text_size" />
 
@@ -262,6 +270,7 @@
                     android:clickable="false"
                     android:text="@string/add_icon"
                     android:textAlignment="center"
+                    android:gravity="center"
                     android:textColor="@color/light_grey"
                     android:textSize="@dimen/edit_option_text_size" />
             </RelativeLayout>

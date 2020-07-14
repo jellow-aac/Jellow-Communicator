@@ -115,9 +115,9 @@ public abstract class BaseBoardActivity<V extends IBaseView, P extends IBasePres
     public void setupToolBar(int stringResId){
         if(getSupportActionBar()!=null) {
             enableNavigationBack();
-            setupActionBarTitle(View.VISIBLE, getString(R.string.home) + "/ " +
-                    getString(R.string.my_boards) + "/ " +
-                    currentBoard.getBoardName() + "/ " +
+            setupActionBarTitle(View.VISIBLE, getString(R.string.home) + "/" +
+                    getString(R.string.my_boards) + "/" +
+                    currentBoard.getBoardName()+" "+getString(R.string.board) + "/" +
                     getString(stringResId));
             setNavigationUiConditionally();
         }

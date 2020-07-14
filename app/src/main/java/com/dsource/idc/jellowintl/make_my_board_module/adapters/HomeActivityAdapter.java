@@ -2,11 +2,9 @@ package com.dsource.idc.jellowintl.make_my_board_module.adapters;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.accessibility.AccessibilityEvent;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,7 +15,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dsource.idc.jellowintl.R;
-import com.dsource.idc.jellowintl.make_my_board_module.activity.HomeActivity;
 import com.dsource.idc.jellowintl.make_my_board_module.interfaces.AbstractDataProvider;
 import com.dsource.idc.jellowintl.make_my_board_module.interfaces.OnItemClickListener;
 import com.dsource.idc.jellowintl.make_my_board_module.interfaces.OnItemMoveListener;
@@ -45,7 +42,6 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
     private OnItemClickListener onItemClickListener;
     private OnItemMoveListener mOnItemMoveListener;
     private int expIconPos = -1;
-    private int highlightedIcon = -1;
     private int selectedPosition = -1;
     private AbstractDataProvider mProvider;
     private OnSelectionClearListener resetVerbiageCallback;
@@ -100,36 +96,10 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
         //Set the selected position colour
         if (selectedPosition == position) {
             setMenuImageBorder(holder, true, expIconPos);
-        } else if (position == highlightedIcon) {
-            setMenuImageBorder(holder, true, 100);
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    ((HomeActivity)mContext).speakFromMMB(thisIcon.getIconSpeech());
-                    setMenuImageBorder(holder, false, -1);
-                    holder.parent.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
-                    highlightedIcon = -1;
-                }
-            }, 1500);
-        } else setMenuImageBorder(holder,false, -1);
-    }
-
-    public void setHighlightedIcon(int position) {
-        this.highlightedIcon = position;
-        selectedPosition = -1;
-        if(resetVerbiageCallback !=null)
-            resetVerbiageCallback.onSelectionCleared();
-        if (highlightedIcon != -1) notifyItemChanged(position);
+        }  else setMenuImageBorder(holder,false, -1);
     }
 
     public void setSelectedPosition(int selectedPosition) {
-        if (highlightedIcon != -1) {
-            int highlightedPos = highlightedIcon;
-            highlightedIcon = -1;
-            notifyItemChanged(highlightedPos);
-        }
-
         //Reset the last position
         if (this.selectedPosition != -1 && selectedPosition != -1) {
             int lastPosition = this.selectedPosition;
@@ -174,9 +144,6 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
                 case 5:
                     gd.setColor(ContextCompat.getColor(mContext, R.color.colorLess));
                     break;
-                case 100:
-                    gd.setColor(ContextCompat.getColor(mContext, R.color.search_highlight));
-                    break;
             }
         } else
             gd.setColor(ContextCompat.getColor(mContext, android.R.color.transparent));
@@ -203,6 +170,10 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
 
     public void setSelectionClearListener(OnSelectionClearListener selectionClearListener){
         this.resetVerbiageCallback = selectionClearListener;
+    }
+
+    public void tapSearchedItem(int iconPos) {
+        onItemClickListener.onItemClick(iconPos);
     }
 
     @NonNull @Override
@@ -294,7 +265,6 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
     @Override
     public void onItemDragStarted(int position) {
         selectedPosition = -1;
-        highlightedIcon  = -1;
         expIconPos = -1;
         if(resetVerbiageCallback !=null)
             resetVerbiageCallback.onSelectionCleared();

@@ -1,6 +1,7 @@
 package com.dsource.idc.jellowintl.make_my_board_module.activity;
 
 import android.content.Intent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -30,6 +31,9 @@ import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardListPresenter, BoardAdapter> implements IBoardListView, BoardClickListener {
+    public static final boolean EDIT_ENABLED = true;
+    public static final boolean EDIT_DISABLED = false;
+    private boolean editMode = EDIT_DISABLED;
 
     @Override
     public int getLayoutId() {
@@ -174,5 +178,24 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
                 }
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.enable_edit){
+            if(editMode==EDIT_DISABLED){
+                item.setTitle("Enabled board edit");
+                mAdapter.setEditMode(EDIT_ENABLED);
+                editMode = EDIT_ENABLED;
+                item.setIcon(R.drawable.ic_edit_icon_enabled);
+            }else{
+                item.setTitle("Disabled board edit");
+                mAdapter.setEditMode(EDIT_DISABLED);
+                editMode = EDIT_DISABLED;
+                item.setIcon(R.drawable.ic_edit_icon_disabled);
+            }
+            mAdapter.notifyDataSetChanged();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

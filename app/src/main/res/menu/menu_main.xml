@@ -3,6 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:id="@+id/menuGroupInfo">
         <item
+            android:id="@+id/enable_edit"
+            android:title="@string/board_settings"
+            android:icon="@drawable/ic_edit_icon_disabled"
+            android:checked="true"
+            android:visible="false"
+            app:showAsAction="always"
+            android:orderInCategory="1"/>
+        <item
             android:id="@+id/search"
             android:title="@string/search_title"
             android:icon="@drawable/ic_search_large"

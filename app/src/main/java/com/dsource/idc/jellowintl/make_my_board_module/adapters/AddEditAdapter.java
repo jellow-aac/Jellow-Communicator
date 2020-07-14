@@ -77,15 +77,13 @@ public class AddEditAdapter extends BaseRecyclerAdapter<JellowIcon> {
 
         //Highlight the searched icon
         if (position == highlightedPosition) {
-            viewHolder.setMenuImageBorder(R.id.borderView, true, 100);
+            viewHolder.setMenuImageBorder(R.id.borderView, true, -1);
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    viewHolder.setMenuImageBorder(R.id.borderView,false,-1);
                     viewHolder.getView(R.id.linearlayout_icon1).
                             sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
-                    highlightedPosition = -1;
                 }
             }, 1500);
         }else viewHolder.setMenuImageBorder(R.id.borderView,false,-1);
@@ -98,7 +96,6 @@ public class AddEditAdapter extends BaseRecyclerAdapter<JellowIcon> {
 
     public void setHighlightedPosition(int position) {
         highlightedPosition = position;
+        notifyDataSetChanged();
     }
-
-
 }

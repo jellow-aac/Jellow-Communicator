@@ -6,11 +6,11 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.activities.BaseActivity;
@@ -46,7 +46,7 @@ public class DialogAddVerbiage extends BaseActivity implements View.OnClickListe
     private String id;
     private Context context;
     private LinearLayout expList;
-    private ArrayList<RelativeLayout> expListLayouts;
+    private ArrayList<LinearLayout> expListLayouts;
     private ArrayList<String> verbiageList;
     private ArrayList<String> defaultVerbiage;
     private JellowIcon thisIcon = null;
@@ -217,7 +217,14 @@ public class DialogAddVerbiage extends BaseActivity implements View.OnClickListe
         for (int i = 0; i < 6; i++) {
             @SuppressLint("InflateParams")
             View view = LayoutInflater.from(context).inflate(R.layout.verbiage_list_item, null);
-            expListLayouts.add((RelativeLayout) view);
+
+            if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                ImageView iv = ((LinearLayout) view).findViewById(R.id.add_remove);
+                ((LinearLayout) view).removeViewAt(3);
+                ((LinearLayout) view).addView(iv, 1);
+            }
+
+            expListLayouts.add((LinearLayout) view);
             view.findViewById(R.id.add_remove).setOnClickListener(this);
             ((ImageView) view.findViewById(R.id.icon)).setImageDrawable(iconImages.getDrawable(i));
             view.findViewById(R.id.icon).setContentDescription(contentDescExpression[i]);

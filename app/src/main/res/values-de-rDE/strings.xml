@@ -128,7 +128,7 @@
     <string name="iconsHasBeenReset">Benutzerpräferenzen zurückgesezt</string>
     <string name="speak">Sprechen (Speak)</string>
     <string name="stop">Halten (Stop)</string>
-    <string name="about_jellow_speech">Jellow ist eine kommunikative App, die durch Gebrauch von Icons und Bildern das Sprechen ermöglicht. Die App ist geeignet sowohl für diejenigen, die das Sprechen lernen als auch für diejenigen, die Schwierigkeiten beim Sprechen haben. Jellow kann von Kleinkindern sowie von denjenigen benutzt werden, die gerade erst mit dem Lernen begonnen haben, um Wörter, Begriffe und Ausdrücke zu lernen, die sorgfältig in unterschiedlichen Kategorien eingeordnet worden sind. Die farbigen und benutzerfreundlichen Icons Jellows ermöglichen und vereinfachen den Kindern das Lernen, indem sie einen Zusammenhang zwischen Bildern und dementsprechenden Begriffen herstellen. Jellow wird in \"IDC School of Design\" an Indian Institute of Technology Bombay (Mumbai) entwickelt. Um Jellows Lernfähigkeit zu verbessern, wurde von den Projekt-Forschern ein neuartiges \"Emotional Language Protokoll (ELP)\" entworfen und entwickelt. Das ELP führt 6 expressive Icons ein, die als Grundlage für das ganze Interface dienen. Der Benutzer kann mithilfe dieser Icons seine Vorlieben, Abneigungen und Bedürfnisse vermitteln. Jellow wird als eine kinderfreundliche App mit leicht erlernbarem Interface entworfen. Jellow wird für Android-Tablets optimiert und ist zurzeit auf Englisch, Hindi, Bengali, Marathi, Tamil, Spanisch, Deutsch, Französisch verfügbar. Die aktuelle Version Jellows ist _. Die App wird allerdings weiterentwickelt. Falls Sie Vorschläge oder Bemerkungen haben, teilen Sie uns diese in dem Feedback-Tab mit oder schreiben Sie uns an jellowcommunicator@gmail.com. Jellow wird unter der Lizenz der Creative-Common-Attribution Share Alike 4.0 veröffentlicht und Indian Institute of Technology Bombay zugeschrieben. Der Inhalt dieser App inklusiv der Icons, Gestaltung, Übersetzung, visuellen Identität, des Aufbaus und der Softwarecodes kann zu gemeinnützigen, nicht gewerblichen Zwecken geteilt und übernommen werden, in welchem Fall wird es Sie um die Anerkennung von Indian Institute of Technology Bombay gebeten. Jellow ist auf www dot jellow dot org zum Downloaden vorhanden. Bei Interesse an Weiterentwicklung des Codes, können Sie an Professor Ravi Poovaiah schreiben: j e l l o w c o m m u n i c a t o r @ g m a i l . c o m </string>
+    <string name="about_jellow_speech">Jellow ist eine kommunikative App, die durch Gebrauch von Icons und Bildern das Sprechen ermöglicht. Die App ist geeignet sowohl für diejenigen, die das Sprechen lernen als auch für diejenigen, die Schwierigkeiten beim Sprechen haben. Jellow kann von Kleinkindern sowie von denjenigen benutzt werden, die gerade erst mit dem Lernen begonnen haben, um Wörter, Begriffe und Ausdrücke zu lernen, die sorgfältig in unterschiedlichen Kategorien eingeordnet worden sind. Die farbigen und benutzerfreundlichen Icons Jellows ermöglichen und vereinfachen den Kindern das Lernen, indem sie einen Zusammenhang zwischen Bildern und dementsprechenden Begriffen herstellen. Jellow wird in \"IDC School of Design\" an Indian Institute of Technology Bombay (Mumbai) entwickelt. Um Jellows Lernfähigkeit zu verbessern, wurde von den Projekt-Forschern ein neuartiges \"Emotional Language Protokoll (ELP)\" entworfen und entwickelt. Das ELP führt 6 expressive Icons ein, die als Grundlage für das ganze Interface dienen. Der Benutzer kann mithilfe dieser Icons seine Vorlieben, Abneigungen und Bedürfnisse vermitteln. Jellow wird als eine kinderfreundliche App mit leicht erlernbarem Interface entworfen. Jellow wird für Android-Tablets optimiert und ist zurzeit auf Englisch, Hindi, Bengali, Marathi, Tamil, Spanisch, Deutsch, Französisch verfügbar. Die aktuelle Version Jellows ist _. Die App wird allerdings weiterentwickelt. Falls Sie Vorschläge oder Bemerkungen haben, teilen Sie uns diese in dem Feedback-Tab mit oder schreiben Sie uns an jellowcommunicator@gmail.com. Jellow wird unter der Lizenz der Creative-Common-Attribution Share Alike 4.0 veröffentlicht und Indian Institute of Technology Bombay zugeschrieben. Der Inhalt dieser App inklusiv der Icons, Gestaltung, Übersetzung, visuellen Identität, des Aufbaus und der Softwarecodes kann zu gemeinnützigen, nicht gewerblichen Zwecken geteilt und übernommen werden, in welchem Fall wird es Sie um die Anerkennung von Indian Institute of Technology Bombay gebeten. Jellow ist auf www dot jellow dot org zum Downloaden vorhanden. Bei Interesse an Weiterentwicklung des Codes Bei Interesse an Weiterentwicklung der Codes können oder um einen Jellow-Workshop bei Ihnen durchzuführen, können Sie an Professor Ravi Poovaiah schreiben: j e l l o w c o m m u n i c a t o r @ g m a i l . c o m </string>
     <string name="catBtnDesc">Jellow hat 9 Hauptkategorien-Tasten und 6 expressive Tastenstring</string>
     <string name="catBtn">Kategorien-Tasten:</string>
     <string name="expBtn">Expressive Tasten:</string>
@@ -210,14 +210,14 @@
     <string name="about_je_intro11">Der Inhalt dieser App inklusive der Icons, visuellen Identität, Übersetzung, Softwarecodes und des Aufbaus kann zu gemeinnützigen, nicht gewerblichen Zwecken geteilt und übernommen werden.</string>
     <string name="about_je_intro12">Wenn der Inhalt gebraucht wird, wird Sie um die Anerkennung von Indian Institute of Technology Bombay gebeten.</string>
     <string name="about_je_intro13">Jellow kann auf _ heruntergeladen werden.</string>
-    <string name="about_je_intro14">Bei Interesse an Weiterentwicklung der Codes können Sie an Professor Ravi Poovaiah an jellowcommunicator@gmail.com schreiben.</string>
+    <string name="about_je_intro14">Bei Interesse an Weiterentwicklung der Codes können oder um einen Jellow-Workshop bei Ihnen durchzuführen Sie an Professor Ravi Poovaiah an jellowcommunicator@gmail.com schreiben.</string>
     <string name="credits">Credits:</string>
     <string name="about_je_intro15">Ideekonzeption, Projektforschung und Projektbeaufsichtigung:</string>
     <string name="about_je_intro16">Prof. Dr. Ravi Poovaiah, Dr. Ajanta Sen</string>
     <string name="about_je_intro17">Erstentwicklung des Konzepts:</string>
     <string name="about_je_intro18">Anchal Kumar, Samraat Sardesai, Peter Joseph, Antara Hazarika</string>
     <string name="about_je_intro19">Softwareentwicklung:</string>
-    <string name="about_je_intro20">Rahul Rupchand Jidge, Narayana Reddy, Nikhil Ahirrao, Ayaz Alam, Harshit Budhraja, Sumeet Agrawal, Roopa Narayan Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</string>
+    <string name="about_je_intro20">Rahul Rupchand Jidge, Ayaz Alam, Sourabh Jain, Laxman Kumar, Narayana Reddy, Nikhil Ahirrao, Harshit Budhraja, Sumeet Agrawal, Roopa Narayan Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</string>
     <string name="about_je_intro31">Software- und Gebrauchstauglichkeitsprüfung:</string>
     <string name="about_je_intro32">Dr. Sudha Srinivasan, Vinaya Tawde, Sachin Sonawane, Roopa Narayan Sahoo, Rahul Rupchand Jidge</string>
     <string name="about_je_intro21">Webseitengestaltung:</string>
@@ -394,7 +394,7 @@
     <string name="really_dont_want_more">Ich möchte wirklich nicht mehr</string>
     <string name="please_enter_name">Bitte Namen eingeben</string>
     <string name="photos">Fotos</string>
-    <string name="library">Bibliothek</string>
+    <string name="library">Jellow Bibliothek</string>
     <string name="icon_name">Name des Icons</string>
     <string name="category_name">Kategorienname</string>
     <string name="all_boards">Alle Sprachen</string>
@@ -415,6 +415,8 @@
     <string name="txtContinue">Fortsetzen (Continue)</string>
     <string name="expressive_heading1">Tippen Sie auf die Schaltfläche</string>
     <string name="expressive_heading2">um den Ausdruck auszuwählen</string>
+    <string name="expressive_heading3">Tippen Sie auf die Schaltfläche</string>
+    <string name="expressive_heading4">um den Ausdruck Abwählen</string>
     <string name="icon_delete_warning">\"-\" -Symbol wird gelöscht?</string>
     <string name="board_not_found">Board nicht gefunden</string>
     <string name="setting_up_the_language">Bitte warten, die Sprache wird eingestellt…</string>
@@ -449,6 +451,7 @@
     <string name="tap_icon_to_select_expression">Tippen Sie hier, um einen Ausdruck hinzuzufügen</string>
     <string name="tap_icon_to_deselect_expression">Tippen Sie hier, um den Ausdruck zu entfernen</string>
     <string name="tap_add_to_add_expression">Tippen Sie auf die Schaltfläche Hinzufügen, um den Ausdruck auszuwählen</string>
+    <string name="tap_delete_to_delete_expression">Tippen Sie auf die Schaltfläche löschen um den Ausdruck Abwählen</string>
     <string name="open_jellow_privacy_policy">Öffnen Sie die Datenschutzrichtlinie von Jellow.</string>
     <string name="board_deleted">_ Board gelöscht</string>
     <string name="search_icon_available_in_jellow">Suchen Sie nach einem in Jellow verfügbaren Symbol</string>
@@ -463,4 +466,9 @@
     <string name="no_btn">Nein</string>
     <string name="next_btn">Weiter (Next)</string>
     <string name="my_boards">Meine Boards</string>
+    <string name="board_settings">Board-Einstellungen</string>
+    <string name="add_expression_here">Fügen Sie Ihre eigene expressivelinie hinzu</string>
+    <string name="about_je_intro42">Mit Make My Board (Meine Boards) können Sie Ihre eigenen benutzerdefinierten Symbole und deren ausdrucksstarken Text hinzufügen.</string>
+    <string name="about_je_intro43">Reichweite und Förderung:</string>
+    <string name="about_je_intro44">Vidya Upadhya, Shweta Gourish Pathare, Sanmati Hosure</string>
 </resources>

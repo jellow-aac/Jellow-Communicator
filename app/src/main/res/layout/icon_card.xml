@@ -38,12 +38,13 @@
         android:layout_height="wrap_content"
         android:text="Speech_Label"
         android:id="@+id/icon_title"
-        android:textAlignment="center"
+        android:gravity="center"
         android:textColor="@color/black_80"
         android:textSize="@dimen/icon_title_text_size"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/icon_wrapper"
-        />
+        android:lineSpacingExtra="1dp"
+        android:lineSpacingMultiplier=".8"/>
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

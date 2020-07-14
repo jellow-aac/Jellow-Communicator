@@ -79,6 +79,7 @@ public class BaseActivity extends AppCompatActivity{
             menu.findItem(R.id.my_boards_icon).setVisible(false);
             menu.findItem(R.id.number_of_icons).setVisible(false);
         }else if(getVisibleAct().contains(getBoardListClass())){
+            menu.findItem(R.id.enable_edit).setVisible(true);
             menu.findItem(R.id.my_boards_icon).setVisible(false);
             menu.findItem(R.id.number_of_icons).setVisible(false);
             menu.findItem(R.id.search).setTitle(R.string.search_board_in_jellow);

@@ -164,9 +164,6 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
                 case 5:
                     gd.setColor(ContextCompat.getColor(context, R.color.colorLess));
                     break;
-                case 100:
-                    gd.setColor(ContextCompat.getColor(context, R.color.search_highlight));
-                    break;
             }
         } else
             gd.setColor(ContextCompat.getColor(context, android.R.color.transparent));

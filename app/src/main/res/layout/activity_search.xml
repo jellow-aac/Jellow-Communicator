@@ -14,7 +14,9 @@
             android:id="@+id/llSearchBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp">
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginHorizontal="8dp">
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"

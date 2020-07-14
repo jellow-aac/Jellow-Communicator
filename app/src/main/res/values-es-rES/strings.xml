@@ -127,7 +127,7 @@
     <string name="iconsHasBeenReset">Las preferencias han sido restablecidas.</string>
     <string name="speak">Hablar (Speak)</string>
     <string name="stop">Para (Stop)</string>
-    <string name="about_jellow_speech">Jellow es un comunicador que utiliza iconos para activar el habla y también se puede usar para aprender a hablar o por quienes tienen dificultades de habla. Jellow es apto para menores para aprender palabras y categorias comúnes de su vida cotidiana. Los iconos de Jellow son coloridos y pueden ayudar a los niños para desarrollar una relación entre las imagenes y sus etiquetas corespondientes. Se ha desarrollado en IDC School of Design, IIT-Bombay, Mumbai. Los Investigadores concibieron y desarrollaron un innovador Protocolo de Idioma Emocional (Emotional Language Protocol o ELP) para mejorar la habilidad de lenguaje de Jellow. ELP representa los 6 iconos expresivos que forman el núcleo de la interfaz. Con estos iconos principales, el niño puede comunicar lo que le gusta o no le gusta y sus necesidades. Jellow es apto para menores y tiene una interfaz fácil de entender. La aplicación está diseñada para tabletas de Android. Actualmente, Jellow está disponible en inglés, hindi, bengali, marathi, tamil, español, alemán e frances. La versión actual de Jellow es _ . La versión actual de Jellow es 5.0. La aplicación está en desarrollo. Por eso, si tienes alguna sugerencia, por favor envíala en la página de retroalimentación o a jellowcommunicator@gmail.com. Jellow se distribuye bajo licencia de Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Jellow es una aplicación creada por Indian Institute of Technology Bombay. El contenido (iconos, plano, arquitectura, diseño, traducción y códigos) puede ser compartido y adoptado pero no puede ser usado con objetivos comerciales. Cuando uses el contenido, agradeceríamos que valoraras la labor de Indian Institute of Technology, Bombay. Jellow está disponible para descargar en w w w dot j e l l o w dot o r g. Si tienes interés en desarrollar más el código, por favor escribe al Profesor Ravi Poovaiah, al j e l l o w c o m m u n i c a t o r @ g m a i l dot c o m</string>
+    <string name="about_jellow_speech">Jellow es un comunicador que utiliza iconos para activar el habla y también se puede usar para aprender a hablar o por quienes tienen dificultades de habla. Jellow es apto para menores para aprender palabras y categorias comúnes de su vida cotidiana. Los iconos de Jellow son coloridos y pueden ayudar a los niños para desarrollar una relación entre las imagenes y sus etiquetas corespondientes. Se ha desarrollado en IDC School of Design, IIT-Bombay, Mumbai. Los Investigadores concibieron y desarrollaron un innovador Protocolo de Idioma Emocional (Emotional Language Protocol o ELP) para mejorar la habilidad de lenguaje de Jellow. ELP representa los 6 iconos expresivos que forman el núcleo de la interfaz. Con estos iconos principales, el niño puede comunicar lo que le gusta o no le gusta y sus necesidades. Jellow es apto para menores y tiene una interfaz fácil de entender. La aplicación está diseñada para tabletas de Android. Actualmente, Jellow está disponible en inglés, hindi, bengali, marathi, tamil, español, alemán e frances. La versión actual de Jellow es _ . La versión actual de Jellow es 5.0. La aplicación está en desarrollo. Por eso, si tienes alguna sugerencia, por favor envíala en la página de retroalimentación o a jellowcommunicator@gmail.com. Jellow se distribuye bajo licencia de Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Jellow es una aplicación creada por Indian Institute of Technology Bombay. El contenido (iconos, plano, arquitectura, diseño, traducción y códigos) puede ser compartido y adoptado pero no puede ser usado con objetivos comerciales. Cuando uses el contenido, agradeceríamos que valoraras la labor de Indian Institute of Technology, Bombay. Jellow está disponible para descargar en w w w dot j e l l o w dot o r g. Si tienes interés en desarrollar más el código o realizar un taller Jellow en su lugar, por favor escribe al Profesor Ravi Poovaiah, al j e l l o w c o m m u n i c a t o r @ g m a i l dot c o m</string>
     <string name="catBtnDesc">Jellow tiene 9 botones de categorías principales y 6 botones expresivos laterales</string>
     <string name="catBtn">Botones de categoría :</string>
     <string name="expBtn">Botones expresivos :</string>
@@ -210,14 +210,14 @@
     <string name="about_je_intro11">El contenido (iconos, plano, arquitectura, diseño, traducción y códigos) puede ser compartido y adoptado pero no puede ser usado con objetivos comerciales.</string>
     <string name="about_je_intro12">Cuando uses el contenido, agradeceríamos que valoraras la labor de Indian Institute of Technology, Bombay.</string>
     <string name="about_je_intro13">Jellow está disponible para descargar en _</string>
-    <string name="about_je_intro14">Si tienes interés en desarrollar más el código, por favor escribe al Profesor Ravi Poovaiah, jellowcommunicator@gmail.com</string>
+    <string name="about_je_intro14">Si tienes interés en desarrollar más el código o realizar un taller Jellow en su lugar, por favor escribe al Profesor Ravi Poovaiah, jellowcommunicator@gmail.com</string>
     <string name="credits">Créditos:</string>
     <string name="about_je_intro15">Concepción de la idea, Investigación del proyecto y Supervisión:</string>
     <string name="about_je_intro16">Prof. Ravi Poovaiah y Dr. Ajanta Sen</string>
     <string name="about_je_intro17">Desarrollo del Concepto Inicial:</string>
     <string name="about_je_intro18">Anchal Kumar, Samraat Sardesai, Peter Joseph, Antara Hazarika</string>
     <string name="about_je_intro19">Desarrollo de Software:</string>
-    <string name="about_je_intro20">Rahul Rupchand Jidge, Narayana Reddy, Nikhil Ahirrao, Ayaz Alam, Harshit Budhraja, Sumeet Agrawal, Roopa Narayan Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</string>
+    <string name="about_je_intro20">Rahul Rupchand Jidge, Ayaz Alam, Sourabh Jain, Laxman Kumar, Narayana Reddy, Nikhil Ahirrao, Harshit Budhraja, Sumeet Agrawal, Roopa Narayan Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</string>
     <string name="about_je_intro31">Pruebas de software y de uso:</string>
     <string name="about_je_intro32">Dra. Sudha Srinivasan, Vinaya Tawde, Sachin Sonawane, Roopa Narayan Sahoo, Rahul Rupchand Jidge</string>
     <string name="about_je_intro21">Diseño de Sitio Web:</string>
@@ -388,7 +388,7 @@
     <string name="really_dont_want_more">Realmente no quiero más</string>
     <string name="please_enter_name">Por favor ingrese el nombre</string>
     <string name="photos">Fotos</string>
-    <string name="library">Biblioteca</string>
+    <string name="library">Biblioteca Jellow</string>
     <string name="icon_name">Nombre del icono</string>
     <string name="category_name">Nombre de la categoría</string>
     <string name="all_boards">Todos los idiomas</string>
@@ -409,6 +409,8 @@
     <string name="txtContinue">Continuar (Continue)</string>
     <string name="expressive_heading1">Puntee en el botón</string>
     <string name="expressive_heading2">para seleccionar una expresión</string>
+    <string name="expressive_heading3">Puntee en el botón</string>
+    <string name="expressive_heading4">para deseleccionar una expresión</string>
     <string name="icon_delete_warning">¿El icono de \"-\" será borrado?</string>
     <string name="board_not_found">Tablón no encontrado</string>
     <string name="setting_up_the_language">Puesta en marcha el idioma…</string>
@@ -443,6 +445,7 @@
     <string name="tap_icon_to_select_expression">Toque para añadir la expresión</string>
     <string name="tap_icon_to_deselect_expression">Toque para eliminar la expresión</string>
     <string name="tap_add_to_add_expression">Toque el boton para seleccionar la expresión</string>
+    <string name="tap_delete_to_delete_expression">Puntee en el botón Eliminar para deseleccionar una expresión</string>
     <string name="open_jellow_privacy_policy">Abra las políticas de privacidad.</string>
     <string name="board_deleted">_el tablón he eliminado</string>
     <string name="search_icon_available_in_jellow">Busque un icono disponible en Jellow</string>
@@ -459,4 +462,9 @@
     <string name="next_btn">Siguiente (Next)</string>
     <string name="my_boards">Mis tablónes</string>
     <string name="delete_board">¿Se eliminará el tablero de \"-\"?</string>
+    <string name="board_settings">Configuraciones de tablero</string>
+    <string name="add_expression_here">Agrega tu propia línea expresiva</string>
+    <string name="about_je_intro42">Al usar Make My Board (Mis tablónes), puede agregar sus propios iconos personalizados y su texto expresivo.</string>
+    <string name="about_je_intro43">Alcance y promoción:</string>
+    <string name="about_je_intro44">Vidya Upadhya, Shweta Gourish Pathare, Sanmati Hosure</string>
 </resources>

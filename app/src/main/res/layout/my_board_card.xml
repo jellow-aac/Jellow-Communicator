@@ -63,6 +63,8 @@
         android:layout_marginTop="@dimen/my_board_title_top_margin"
         android:layout_below="@+id/icon_parent"
         android:gravity="center"
+        android:lineSpacingExtra="1dp"
+        android:lineSpacingMultiplier=".7"
         android:text="This is the experimental board name"
         android:layout_centerHorizontal="true"
         android:textSize="@dimen/my_board_text_size"/>

@@ -55,6 +55,7 @@ import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.make_my_board_module.utility.BoardConstants.BOARD_ID;
+import static com.dsource.idc.jellowintl.make_my_board_module.utility.BoardConstants.ENABLE_DROPDOWN_SPEAKER;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
@@ -116,7 +117,6 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
             }
         });
         loadExpressiveIconVerbiage();
-        //ActivateView(ivHome,false);
         ActivateView(ivBack, false);
 
         searchScrollManager = new SearchScrollManager(this, rvRecycler);
@@ -127,9 +127,9 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
         if (getSupportActionBar() != null) {
             enableNavigationBack();
             setNavigationUiConditionally();
-            setupActionBarTitle(View.VISIBLE, getString(R.string.home) + "/ " +
-                    getString(R.string.my_boards) + "/ " +
-                    currentBoard.getBoardName());
+            setupActionBarTitle(View.VISIBLE, getString(R.string.home) + "/" +
+                    getString(R.string.my_boards) + "/" +
+                    currentBoard.getBoardName()+" "+getString(R.string.board));
             getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
         }
         findViewById(R.id.iv_action_bar_back).setOnClickListener(new View.OnClickListener() {
@@ -602,6 +602,7 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
         Intent searchIntent = new Intent(this, BoardSearchActivity.class);
         searchIntent.putExtra(BoardSearchActivity.SEARCH_MODE, BoardSearchActivity.SEARCH_IN_BOARD);
         searchIntent.putExtra(BOARD_ID, currentBoard.getBoardId());
+        searchIntent.putExtra(ENABLE_DROPDOWN_SPEAKER, true);
         startActivityForResult(searchIntent, SEARCH);
     }
 
@@ -611,23 +612,19 @@ public class HomeActivity extends SpeechEngineBaseActivity implements TextToSpee
             if (resultCode == RESULT_OK) {
                 JellowIcon icon = (JellowIcon) data.getSerializableExtra(getString(R.string.search_result));
                 ArrayList<Integer> iconPos = modelManager.getIconPositionInModel(icon);
-                if (iconPos.size() >0)
-                    highlightIcon(iconPos);
+                if (iconPos.size() >0) {
+                    ActivateView(ivBack, Level > 0);
+                    ivHome.setImageDrawable(getResources().getDrawable(R.drawable.home_pressed));
+                    if (getNumberOfIconPerScreen() <= iconPos.get(0) || iconPos.get(0) < getLastVisibleItem())
+                        searchScrollManager.scrollToPosition(iconPos.get(0));
+                    adapter.tapSearchedItem(iconPos.get(0));
+                    return;
+                }
                 selectedIconVerbiage = null;
             }
         }
 
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void highlightIcon(final ArrayList<Integer> iconPos) {
-        ActivateView(ivBack, Level > 0);
-        ivHome.setImageDrawable(getResources().getDrawable(R.drawable.home_pressed));
-        adapter.setHighlightedIcon(iconPos.get(0));
-        if (getNumberOfIconPerScreen() <= iconPos.get(0) || iconPos.get(0) < getLastVisibleItem())
-            searchScrollManager.scrollToPosition(iconPos.get(0));
-        else
-            adapter.notifyDataSetChanged();
     }
 
     private Integer getLastVisibleItem() {

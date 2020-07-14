@@ -68,7 +68,14 @@ public class LevelAdapter extends ExpandableRecyclerAdapter<LevelParent, LevelCh
     @Override
     public void onBindParentViewHolder(@NonNull ViewHolderParent parentViewHolder, int parentPosition, @NonNull LevelParent parent) {
         parentViewHolder.setParentTitle(parent);
-        if(parent.getChildList().size()==0) parentViewHolder.disableCollapse(true);
+        if (parentPosition > 0){
+            parentViewHolder.makeTextBold(false);
+        }else{
+            parentViewHolder.makeTextBold(true);
+        }
+        if(parent.getChildList().size()==0){
+            parentViewHolder.disableCollapse(true);
+        }
         else parentViewHolder.disableCollapse(false);
         try {
             if (parent == items.get(selectedParentPosition)) parentViewHolder.setSelected(true);

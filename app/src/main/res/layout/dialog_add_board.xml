@@ -125,17 +125,6 @@
             android:orientation="vertical"
             android:layout_marginTop="@dimen/edit_board_dialog_side_margin"
             android:gravity="center_horizontal">
-
-            <Button
-                android:id="@+id/save_button"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/profile_save_btn_height"
-                android:paddingHorizontal="@dimen/mmb_btn_pad"
-                android:background="@drawable/button_background"
-                android:text="@string/txtContinue"
-                android:textAllCaps="false"
-                android:textSize="@dimen/profile_save_btn_txt_size"
-                android:textStyle="normal" />
             <Button
                 android:id="@+id/cancel_button"
                 android:layout_width="wrap_content"
@@ -146,7 +135,17 @@
                 android:textAllCaps="false"
                 android:textSize="@dimen/profile_save_btn_txt_size"
                 android:textStyle="normal"
-                android:layout_marginTop="@dimen/edit_board_dialog_side_margin"/>
+                android:layout_marginBottom="@dimen/edit_board_dialog_side_margin"/>
+            <Button
+                android:id="@+id/save_button"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/profile_save_btn_height"
+                android:paddingHorizontal="@dimen/mmb_btn_pad"
+                android:background="@drawable/button_background"
+                android:text="@string/txtContinue"
+                android:textAllCaps="false"
+                android:textSize="@dimen/profile_save_btn_txt_size"
+                android:textStyle="normal" />
         </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.dsource.idc.jellowintl.make_my_board_module.adapters;
 
 import android.content.Context;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 
@@ -16,6 +17,7 @@ public class BoardSearchAdapter extends BaseRecyclerAdapter<JellowIcon> {
 
     private IconDatabaseFacade iconDatabase;
     private boolean isSearchingBoardName = false;
+    private boolean displaySpeakerInDropdown = false;
 
     /**
      * public constructor
@@ -32,14 +34,23 @@ public class BoardSearchAdapter extends BaseRecyclerAdapter<JellowIcon> {
 
 
     @Override
-    public void bindData(BaseViewHolder viewHolder, JellowIcon icon, int position) {
+    public void bindData(BaseViewHolder viewHolder, JellowIcon icon, final int position) {
 
-
-        viewHolder.setVisible(R.id.speak_button,false);
+        if(displaySpeakerInDropdown){
+            viewHolder.getView(R.id.speak_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((BoardSearchActivity)getContext()).speakOnly(position);
+                }
+            });
+        }else{
+            viewHolder.setVisible(R.id.speak_button,false);
+        }
 
         //If the "No icon found" condition comes the remove speakButton
         if (icon.getIconDrawable().equals("NULL") || icon.getIconTitle().equals(getContext().getResources().getString(R.string.not_found))) {
             viewHolder.setText(R.id.search_icon_title, getContext().getResources().getString(R.string.icon_not_found));
+            viewHolder.setVisible(R.id.speak_button,false);
             if (icon.getIconTitle().equals(getContext().getResources().getString(R.string.board_not_found)))
                 viewHolder.setText(R.id.search_icon_title, getContext().getResources().getString(R.string.board_not_found));
             viewHolder.setVisible(R.id.parent_directory, false);
@@ -120,5 +131,9 @@ public class BoardSearchAdapter extends BaseRecyclerAdapter<JellowIcon> {
 
     public void setSearchingBoardName(boolean searchingTheBoard) {
         isSearchingBoardName = searchingTheBoard;
+    }
+
+    public void activateSearchDropdownSpeaker(){
+        displaySpeakerInDropdown=true;
     }
 }
