@@ -28,8 +28,7 @@
                 android:fontFamily="@font/mukta_semibold"
                 android:textSize="@dimen/grid_dialog_title_textsize"
                 android:paddingHorizontal="16dp"
-                android:textColor="@color/text_color"
-                android:id="@+id/grid_dialog_title"/>
+                android:textColor="@color/text_color" />
             <ImageView
                 android:id="@+id/iv_close"
                 android:layout_width="24dp"
@@ -71,7 +70,6 @@
             <TextView
                 android:layout_below="@id/grid_size_1x1"
                 android:layout_width="@dimen/grid_dialog_icon_size"
-                android:id="@+id/grid_size_1x1_text"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:text="@string/_1_icon"
@@ -111,7 +109,6 @@
                     android:layout_marginBottom="@dimen/grid_dialog_text_margin" />
 
                 <TextView
-                    android:id="@+id/grid_size_1x2_text"
                     android:layout_width="@dimen/grid_dialog_icon_size"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/grid_size_1X2"
@@ -151,7 +148,6 @@
             <TextView
                 android:layout_below="@id/grid_size_1X3"
                 android:layout_width="@dimen/grid_dialog_icon_size"
-                android:id="@+id/grid_size_1x3_text"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:text="@string/_3_icons"
@@ -193,7 +189,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:text="@string/_4_icons"
-                android:id="@+id/grid_size_2x2_text"
                 android:textColor="@color/text_color"
                 android:textAlignment="center"
                 android:gravity="center"
@@ -229,7 +224,6 @@
             <TextView
                 android:layout_below="@id/grid_size_3X3"
                 android:layout_width="@dimen/grid_dialog_icon_size"
-                android:id="@+id/grid_size_3x3_text"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:text="@string/_9_icons"

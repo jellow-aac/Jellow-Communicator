@@ -134,8 +134,10 @@ public class AddEditActivity extends BaseBoardActivity<IAddEditView, IAddEditPre
         getView(R.id.ivhome).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mRecyclerView.getLayoutManager()!=null)
-                    mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,0);
+                if(mRecyclerView.getLayoutManager()!=null) {
+                    mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView, null, 0);
+                    mAdapter.setHighlightedPosition(-1);
+                }
             }
         });
     }

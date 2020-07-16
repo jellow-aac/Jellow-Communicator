@@ -345,7 +345,6 @@
     <string name="switch_access_info_five">சுவிட்ச் அணுகலை இரு சுவிட்ச் இல் பெற-Open settings(தொலைபேசியில் அமைப்பினைத் திறந்த உடன் ) -> Go to accessibility (accessibility சென்று) -> Turn on the switch access (switch access ஐ ஆன் செய்க) -> Choose switches either USB or Bluetooth switches (USB அல்லது Bluetooth இல் எதனை சுவிட்ச் செய்யவேண்டுமென்று தேர்ந்தெடுக்கவும்) -> Go to settings and Choose number of switches as one switch(அமைப்பில் சென்று number of switch இல் two switches என தேர்ந்தெடுக்கவும்) . பிறகு,type of scanning ஐ தேர்ந்தெடுத்து,next ஐ அழுத்தி இரு சுவிட்சுகளுக்கு அனுமதி அளித்து சுவிட்சுகளை சரிபார்த்துக்கொண்டு செயல்பாட்டை முடிக்கவும்.</string>
 
     <!--Language package update strings are here-->
-    <string name="lpu">மொழித் தொகுப்பை புதுப்பி</string>
     <string name="lpu_start_update">மொழித் தொகுப்பு புதுப்பித்தல் தொடங்கியது</string>
     <string name="lpu_parse_update">தரவிறக்கப்பட்ட தகவல்கள் செயலாக்கம் செய்யப்படுகிறது</string>
     <string name="lpu_download_icons">சின்னங்களுக்கான கோப்புகள் தரவிறக்கப்படுகிறது</string>
@@ -363,7 +362,6 @@
 
     <!--String resources for MMB-->
     <string name="delete_board">\"-\" பலகை நீக்கப்படுமா?</string>
-    <string name="exit_warning">நீங்கள் உறுதியாக வெளியேற நினைக்கிறீரா?</string>
     <string name="icon_select_exit_warning">தேர்ந்தேடுத்தவைகள் இழக்கப்படும்!</string>
     <string name="current_board">சின்னங்கள் சேர்க்கப்பட்டது</string>
     <string name="place_holder_text">நீங்கள் தேர்வு செய்த சின்னம் இங்கு காண்பிக்கப்படும்</string>
@@ -371,12 +369,9 @@
     <string name="select_all">அனைத்தையும் தேர்ந்தெடு</string>
     <string name="reset">மீட்டு அமை (Reset)</string>
     <string name="select_icon_title">சின்னங்களைத் தேர்ந்தெடு</string>
-    <string name="default_text" >இயல்பு நிலை</string>
     <string name="add_category">வகையினைச் சேர்</string>
     <string name="add_icon">சின்னத்தைச் சேர்</string>
-    <string name="edit_icon">சின்னத்தை மாற்று</string>
     <string name="addicon_title">சின்னங்களைச் சேர்- மாற்று</string>
-    <string name="rep_activity_title">சின்னங்களின் இடத்தை மாற்று</string>
     <string name="i_like">எனக்கு பிடிக்கும்</string>
     <string name="really_like">எனக்கு மிகவும் பிடிக்கும்</string>
     <string name="i_want">எனக்கு வேண்டும்</string>
@@ -393,18 +388,12 @@
     <string name="photos">புகைப்படங்கள்</string>
     <string name="library">ஜெல்லோ நூலகம்</string>
     <string name="icon_name">சின்னத்தின் பெயர்</string>
-    <string name="category_name">வகையின் பெயர்</string>
-    <string name="all_boards">அனைத்து மொழிகளும்</string>
     <string name="add_board">பலகையினைச் சேர்</string>
     <string name="custom_icon">தனிப்பயன் சின்னம்</string>
     <string name="cancel">ரத்து செய் (Cancel)</string>
-    <string name="icon">சின்னம்</string>
-    <string name="category">வகை</string>
     <string name="database_not_created_info">மொழிக்கான தரவுப்புலம் உருவாக்கப்படுகிறது.</string>
     <string name="icon_already_present">சின்னம் ஏற்கனவே தேர்ந்தெடுக்கப்பட்டு விட்டது</string>
-    <string name="add_icon_folder">சின்னத்தைச் சேர்</string>
     <string name="camera_missing">கேமரா புலப்படவில்லை</string>
-    <string name="no_board_created">எந்தப் பலகையும் உருவாக்கப்படவில்லை</string>
     <string name="no_icon_warning">குறைந்தபட்சம் ஒரு சின்னத்தையாவது தேர்ந்தெடுக்கவும்.</string>
     <string name="reposition_text">சின்னத்தின் மீது தொடந்து அமுக்கினால் சின்னத்தை இடம் மாற்றலாம்</string>
     <string name="reposition_complete_msg">சின்னம் புதிய இடத்திற்கு மாற்றப்பட்டது</string>
@@ -424,7 +413,6 @@
     <string name="press_next_to_select_icons">தேர்ந்தெக்கப்பட்ட சின்னங்களை சேர்க்க \'அடுத்து\' ஐ அழுத்தவும்.</string>
     <string name="edit_board">இந்தப் பலகையை மாற்றியமை</string>
     <string name="delete_the_board">இந்தப் பலகையை நீக்கு</string>
-    <string name="menuIconSelect">சின்னங்களைத் தேர்ந்தெடு</string>
     <string name="edit_board_image">பலகையின் சின்னம் மற்றும் பெயரை மாற்று</string>
     <string name="search_board_in_jellow">பலகையைத் தேடு</string>
     <string name="enter_board_name_to_search">தேடுவதற்கு பலகையின் பெயரை உள்ளிடு</string>
@@ -466,7 +454,10 @@
     <string name="my_boards">எனது பலகைகள்</string>
     <string name="board_settings">போர்டு அமைப்புகள்</string>
     <string name="add_expression_here">உங்கள் சொந்த வெளிப்பாட்டு வரியைச் சேர்க்கவும்</string>
-    <string name="about_je_intro42">மேக் மை போர்டை (எனது பலகைகள்) பயன்படுத்துவதன் மூலம், உங்கள் சொந்த தனிப்பயனாக்கப்பட்ட ஐகான்களையும் அவற்றின் வெளிப்படையான உரையையும் சேர்க்கலாம்.</string>
+    <string name="about_je_intro42">மேக் மை போர்டை (எனது பலகைகள்) பயன்படுத்துவதன் மூலம், உங்கள் சொந்த தனிப்பயனாக்கப்பட்ட ஐகான்களையும் அவற்றின் வெளிப்படையான உரையையும் சேர்க்கலாம் அல்லது திருத்தலாம்.</string>
     <string name="about_je_intro43">எல்லை மற்றும் பதவி உயர்வு:</string>
     <string name="about_je_intro44">வித்யா உபாத்யா, ஸ்வேத்தா கௌரிஷ் பத்தரே, சன்னதி ஓசூர்</string>
+    <string name="about_je_more_info">மேலும் தகவலுக்கு, பின்வரும் வீடியோ பொத்தானைத் தட்டவும்:</string>
+    <string name="visual_access_info_video">ஜெல்லோவில் காட்சி அணுகல் குறித்த டெமோவைக் காண, பின்வரும் வீடியோ பொத்தானைத் தட்டவும்:</string>
+    <string name="switch_access_info_video">ஜெல்லோவில் சுவிட்ச் அணுகல் குறித்த டெமோவைக் காண, பின்வரும் வீடியோ பொத்தானைத் தட்டவும்:</string>
 </resources>

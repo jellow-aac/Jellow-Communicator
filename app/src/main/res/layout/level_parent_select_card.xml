@@ -26,7 +26,9 @@
         android:text="Times and weather"
         android:textColor="@color/level_select_text_color"
         android:textSize="@dimen/level_select_pane_text_size"
-        android:layout_alignParentLeft="true"/>
+        android:layout_alignParentLeft="true"
+        android:lineSpacingExtra="1dp"
+        android:lineSpacingMultiplier=".7"/>
     <ImageView
         android:layout_width="38dp"
         android:padding="3dp"

@@ -24,7 +24,6 @@
             android:layout_marginRight="@dimen/lang_sel_parent_margin_right"
             android:layout_marginEnd="@dimen/lang_sel_parent_margin_right">
             <TextView
-                android:id="@+id/txt_title_chgLang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/txtChangeLanguage"

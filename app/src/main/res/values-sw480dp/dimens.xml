@@ -45,13 +45,7 @@
     <dimen name="nineIcon_innerRadius">40.1dp</dimen>
 
     <!--Dimensions related to the Board List activity & Add Board dialog-->
-    <dimen name="side_pane_width">180dp</dimen>
-    <dimen name="add_board_icon_size">100dp</dimen>
-    <dimen name="add_board_icon_padding">8dp</dimen>
-    <dimen name="add_board_text_size">18sp</dimen>
-    <dimen name="left_mar_my_boards">240dp</dimen>
     <dimen name="add_board_dialog_width">360dp</dimen>
-    <dimen name="edit_text_width_add_board">130dp</dimen>
     <dimen name="board_dialog_edit_text">14sp</dimen>
     <dimen name="camera_mar_left">10dp</dimen>
 

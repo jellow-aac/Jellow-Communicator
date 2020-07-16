@@ -350,8 +350,8 @@
     <string name="switch_access_info_five">দুটো সুইচ দিয়ে ব্যবহারযোগ্যতা বদলাতে — সেটিংস খুলুন — অ্যাকসিসিবিলিটিতে যান — সুইচ অ্যসসেস চালু করুন — হয় ইউএসবি অথবা ব্লুটুথের সুইচ নির্বাচন করুন — সেটিংসে গিয়ে দুটো সুইচের নাম্বার নির্বাচন করুন — স্ক্যানিং-এর টাইপ বেছে নিয়ে পরবর্তী ধাপে যেতে ক্লিক করুন এবং দুটো সুইচের কাজগুলি নির্বাচন করে সুইচগুলি পরীক্ষার মাধ্যমে প্রক্রিয়াটি সম্পন্ন করুন।</string>
 
     <!--Language package update strings are here-->
-    <string name="lpu">ভাষা প্যাকেজ আপডেট</string>
-    <string name="lpu_start_update">ভাষা প্যাকেজ আপডেট শুরু হয়েছে</string>
+    <string
+        name="lpu_start_update">ভাষা প্যাকেজ আপডেট শুরু হয়েছে</string>
     <string name="lpu_parse_update">ডাউনলোড করা ডেটা প্রক্রিয়াজাতকরণ</string>
     <string name="lpu_download_icons">আইকন ফাইলগুলি ডাউনলোড করা হচ্ছে</string>
     <string name="lpu_download_verbiage">স্পিচ ফাইলগুলি ডাউনলোড করা হচ্ছে</string>
@@ -368,7 +368,6 @@
 
     <!--String resources for MMB-->
     <string name="delete_board">\"-\" বোর্ড মোছা হবে?</string>
-    <string name="exit_warning">আপনি প্রস্থান করতে চান?</string>
     <string name="icon_select_exit_warning">আপনার নির্বাচনটি হারিয়ে যাবে</string>
     <string name="current_board">যুক্ত আইকন</string>
     <string name="place_holder_text">আপনার দ্বারা নির্বাচিত আইকনটি এখানে উপস্থিত হবে</string>
@@ -376,12 +375,9 @@
     <string name="select_all">সমস্ত নির্বাচন করুন</string>
     <string name="reset">রিসেট (Reset)</string>
     <string name="select_icon_title">আইকন নির্বাচন করুন</string>
-    <string name="default_text">ডিফল্ট</string>
     <string name="add_category">বিভাগ যুক্ত করুন</string>
     <string name="add_icon">আইকন প্রবেশ করান</string>
-    <string name="edit_icon">সম্পাদনা আইকন</string>
     <string name="addicon_title">প্রবেশ করান-সম্পাদনা আইকন</string>
-    <string name="rep_activity_title">প্রতিস্থাপন আইকন</string>
     <string name="i_like">পছন্দ করি</string>
     <string name="really_like">আমি সত্যি পচ্ছ্ন্দ করি</string>
     <string name="i_want">আমি চাই</string>
@@ -398,18 +394,12 @@
     <string name="photos">ফটো</string>
     <string name="library">জেলো লাইব্রেরি</string>
     <string name="icon_name">আইকন নাম</string>
-    <string name="category_name">বিভাগ নাম</string>
-    <string name="all_boards">সকল ভাষা</string>
     <string name="add_board">বোর্ড প্রবেশ করান</string>
     <string name="custom_icon">কাস্টম আইকন</string>
     <string name="cancel">বাতিল (Cancel)</string>
-    <string name="icon">আইকন</string>
-    <string name="category">শ্রেণিগত</string>
     <string name="database_not_created_info">ভাষার জন্য ডাটাবেস তৈরি করা।</string>
     <string name="icon_already_present">আইকন ইতিমধ্যে নির্বাচিত</string>
-    <string name="add_icon_folder">আইকন যোগ করুন</string>
     <string name="camera_missing">ক্যামেরা পাওয়া যায়নি</string>
-    <string name="no_board_created">এখনও কোনও বোর্ড তৈরি হয়নি</string>
     <string name="no_icon_warning">এগিয়ে যেতে দয়া করে কমপক্ষে একটি আইকন যুক্ত করুন।</string>
     <string name="reposition_text">পুনঃস্থাপন করতে যে কোনও আইকনটিতে দীর্ঘক্ষণ চাপুন</string>
     <string name="reposition_complete_msg">আইকনের নতুন অবস্থানটি সংরক্ষণ করা হয়েছে</string>
@@ -429,7 +419,6 @@
     <string name="press_next_to_select_icons">নির্বাচিত আইকন যুক্ত করতে \"পরবর্তী\" টিপুন।</string>
     <string name="edit_board">বর্তমান বোর্ডটি সম্পাদনা করুন</string>
     <string name="delete_the_board">বর্তমান বোর্ড মুছুন</string>
-    <string name="menuIconSelect">আইকন নির্বাচন করুন</string>
     <string name="edit_board_image">বোর্ড আইকন এবং নাম সম্পাদনা করুন</string>
     <string name="search_board_in_jellow">অনুসন্ধান বোর্ড</string>
     <string name="enter_board_name_to_search">অনুসন্ধানের জন্য বোর্ডের নাম প্রবেশ করান</string>
@@ -470,7 +459,10 @@
     <string name="my_boards">আমার বোর্ড</string>
     <string name="board_settings">বোর্ড সেটিংস</string>
     <string name="add_expression_here">আপনার নিজস্ব অভিব্যক্তিপূর্ণ লাইন যুক্ত করুন</string>
-    <string name="about_je_intro42">মেক বোর্ড (আমার বোর্ড) ব্যবহার করে আপনি নিজের কাস্টমাইজড আইকন এবং তাদের অভিব্যক্তিপূর্ণ পাঠ্য যুক্ত করতে পারেন।</string>
+    <string name="about_je_intro42">মাই বোর্ড (আমার বোর্ড) ব্যবহার করে আপনি নিজের নিজস্ব কাস্টমাইজড আইকন এবং তাদের অভিব্যক্তিপূর্ণ পাঠ্য যুক্ত করতে বা সম্পাদনা করতে পারেন।</string>
     <string name="about_je_intro43">প্রচার এবং প্রচার:</string>
     <string name="about_je_intro44">বিদ্যা উপাধ্যা, শ্বেতা গৌরিশ পাঠের, সম্মতি হোসুরে</string>
+    <string name="about_je_more_info">আরও তথ্যের জন্য, নীচের ভিডিও বোতামে ট্যাবঃ</string>
+    <string name="visual_access_info_video">জেলোতে ভিজ্যুয়াল অ্যাক্সেসিবিলিটির ডেমোটি দেখতে, নীচের ভিডিও বোতামে আলতো চাপুনঃ</string>
+    <string name="switch_access_info_video">জেলোতে স্যুইচ অ্যাক্সেসিবিলিটির ডেমোটি দেখতে, নীচের ভিডিও বোতামে আলতো চাপুনঃ</string>
 </resources>

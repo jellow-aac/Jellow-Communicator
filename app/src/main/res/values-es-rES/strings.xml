@@ -343,7 +343,6 @@
     <string name="switch_access_info_five">Para usar la Accesibilidad mediante interruptores con un interruptor - Abre los Ajustes > la Accesibilidad > Activa la Accesibilidad mediante interruptores > Elije interruptores USB o de Bluetooth > En los Ajustes, elije \"Dos interruptores\" el número de interruptores.</string>
 
     <!--Language package update strings are here-->
-    <string name="lpu">La actualización del paquete de idiomas</string>
     <string name="lpu_start_update">Comenzó la actualización del paquete lingüístico</string>
     <string name="lpu_parse_update">Tratamiento de los datos descargados</string>
     <string name="lpu_download_icons">Descarga los archivos del icono</string>
@@ -360,7 +359,6 @@
     <string name="app_update_message">La nueva versión de Jellow está disponible.¿Desea usted actualízalo ahora?</string>
 
     <!--String resources for MMB-->
-    <string name="exit_warning">¿Esta seguro de que quieres salir?</string>
     <string name="icon_select_exit_warning">Su selección se perderá</string>
     <string name="current_board">Los iconos añadidos</string>
     <string name="place_holder_text">El icono que usted seleccionó aparecerá \naquí</string>
@@ -368,12 +366,9 @@
     <string name="select_all">Seleccionar todo</string>
     <string name="reset">Reinicia (Reset)</string>
     <string name="select_icon_title">Seleccionar los íconos</string>
-    <string name="default_text">Por defecto</string>
     <string name="add_category">Añadir categoría</string>
     <string name="add_icon">Añadir icono</string>
-    <string name="edit_icon">Editar icono</string>
     <string name="addicon_title">Añadir / Editar iconos</string>
-    <string name="rep_activity_title">Reposicionar iconos</string>
     <string name="i_like">me gusta</string>
     <string name="really_like">de verdad me gusta</string>
     <string name="i_want">quiero</string>
@@ -390,18 +385,12 @@
     <string name="photos">Fotos</string>
     <string name="library">Biblioteca Jellow</string>
     <string name="icon_name">Nombre del icono</string>
-    <string name="category_name">Nombre de la categoría</string>
-    <string name="all_boards">Todos los idiomas</string>
     <string name="add_board">Añadir tablónes</string>
     <string name="custom_icon">Icono personalizado</string>
     <string name="cancel">Cancelar (Cancel)</string>
-    <string name="icon">El icono</string>
-    <string name="category">La categoría</string>
     <string name="database_not_created_info">Creando una base de datos por el idioma.</string>
     <string name="icon_already_present">El icono está seleccionado.</string>
-    <string name="add_icon_folder">Añada el icono</string>
     <string name="camera_missing">No hemos encontrado la cámara</string>
-    <string name="no_board_created">El tablón no ha creado</string>
     <string name="no_icon_warning">Por favor añada por lo menos un icono para proceder.</string>
     <string name="reposition_text">Una pulsación larga de cualquier icono para reposicionar</string>
     <string name="reposition_complete_msg">La nueva posición del icono se graban</string>
@@ -421,7 +410,6 @@
     <string name="press_next_to_select_icons">Marca \"Siguiente\" para añadir los iconos seleccionados.</string>
     <string name="edit_board">Edite el tablón actual</string>
     <string name="delete_the_board">Eimine el tablón actual</string>
-    <string name="menuIconSelect">Seleccione los iconos</string>
     <string name="edit_board_image">Editar el icono y el nombre del tablón</string>
     <string name="search_board_in_jellow">Busque el tablón</string>
     <string name="enter_board_name_to_search">Entre el nombre del tablón para le buscar</string>
@@ -464,7 +452,10 @@
     <string name="delete_board">¿Se eliminará el tablero de \"-\"?</string>
     <string name="board_settings">Configuraciones de tablero</string>
     <string name="add_expression_here">Agrega tu propia línea expresiva</string>
-    <string name="about_je_intro42">Al usar Make My Board (Mis tablónes), puede agregar sus propios iconos personalizados y su texto expresivo.</string>
+    <string name="about_je_intro42">Al usar Make My Board (Mis tablónes), puede agregar o editar sus propios iconos personalizados y su texto expresivo.</string>
     <string name="about_je_intro43">Alcance y promoción:</string>
     <string name="about_je_intro44">Vidya Upadhya, Shweta Gourish Pathare, Sanmati Hosure</string>
+    <string name="about_je_more_info">Para obtener más información, toque el siguiente botón de video:</string>
+    <string name="visual_access_info_video">Para ver la demostración sobre Accesibilidad visual en Jellow, toque el siguiente botón de video:</string>
+    <string name="switch_access_info_video">Para ver la demostración sobre la accesibilidad del interruptor en Jellow, toque el siguiente botón de video:</string>
 </resources>

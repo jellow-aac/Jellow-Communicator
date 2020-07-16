@@ -28,7 +28,6 @@
             app:rcSecondaryProgressColor="@color/app_background"
             android:contentDescription="@string/language_download_in_process" />
         <TextView
-            android:id="@+id/txtDownloadCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

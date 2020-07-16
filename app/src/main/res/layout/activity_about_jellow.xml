@@ -173,7 +173,6 @@
                             android:gravity="center"
                             android:importantForAccessibility="no"/>
                         <TextView
-                            android:id="@+id/tv42"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/about_je_intro42"
@@ -233,8 +232,32 @@
                             android:layout_marginStart="@dimen/about_tv_margin"
                             android:paddingBottom="@dimen/about_tv_padding_bottom"/>
                     </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black_eighty"
+                            android:text="@string/bullet"
+                            android:scaleX="@dimen/about_bullet_scale"
+                            android:scaleY="@dimen/about_bullet_scale"
+                            android:layout_marginTop="@dimen/about_bullet_margin_top"
+                            android:gravity="center"
+                            android:importantForAccessibility="no"/>
+                        <TextView
+                            android:id="@+id/tv44"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/about_je_more_info"
+                            style="@style/defaultTextViewStyle"
+                            android:layout_marginTop="@dimen/about_tv_margin"
+                            android:layout_marginLeft="@dimen/about_tv_margin"
+                            android:layout_marginStart="@dimen/about_tv_margin"
+                            android:paddingBottom="@dimen/about_tv_padding_bottom"/>
+                    </LinearLayout>
                     <Button
-                        android:id="@+id/btn_access_video_two"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/about_btn_height"
                         android:textSize="@dimen/about_btn_txt_size"
@@ -607,7 +630,6 @@
                                     android:gravity="center"
                                     android:importantForAccessibility="no"/>
                                 <TextView
-                                    android:id="@+id/tv40"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/about_je_intro40"
@@ -617,7 +639,6 @@
                                     style="@style/defaultTextViewStyle"/>
                             </LinearLayout>
                             <TextView
-                                android:id="@+id/tv41"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/about_je_intro41"
@@ -841,7 +862,6 @@
                                     android:gravity="center"
                                     android:importantForAccessibility="no"/>
                                 <TextView
-                                    android:id="@+id/tv43"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/about_je_intro43"
@@ -851,7 +871,6 @@
                                     style="@style/defaultTextViewStyle"/>
                             </LinearLayout>
                             <TextView
-                                android:id="@+id/tv44"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/about_je_intro44"
@@ -880,7 +899,6 @@
                                     android:gravity="center"
                                     android:importantForAccessibility="no"/>
                                 <TextView
-                                    android:id="@+id/tv38"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/about_je_intro38"
@@ -890,7 +908,6 @@
                                     style="@style/defaultTextViewStyle"/>
                             </LinearLayout>
                             <TextView
-                                android:id="@+id/tv39"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/about_je_intro39"

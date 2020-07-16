@@ -385,7 +385,6 @@
     <string name="share_string" translatable="false"> Hi! To get Jellow app follow the link: <a href="www.jellow.org/share">http://jellow.org/share</a></string>
 
   <!--Language package update strings are here-->
-    <string name="lpu">Language Package Update</string>
     <string name="lpu_start_update">Started language package update</string>
     <string name="lpu_parse_update">Processing the downloaded data</string>
     <string name="lpu_download_icons">Downloading icon files</string>
@@ -428,7 +427,6 @@
     </string-array>
 
     <string name="delete_board">\"-\" board will be deleted?</string>
-    <string name="exit_warning">Are you sure you want to exit?</string>
     <string name="icon_select_exit_warning">Your selection will be lost</string>
     <string name="current_board">Added Icons</string>
     <string name="place_holder_text">Icon selected by you will appear here</string>
@@ -436,12 +434,9 @@
     <string name="select_all">Select All</string>
     <string name="reset">Reset</string>
     <string name="select_icon_title">Add icons</string>
-    <string name="default_text">Default</string>
     <string name="add_category">Add Category</string>
     <string name="add_icon">Add Icon</string>
-    <string name="edit_icon">Edit Icon</string>
     <string name="addicon_title">Add-Edit Icons</string>
-    <string name="rep_activity_title">Reposition icons</string>
     <string name="i_like">I like</string>
     <string name="really_like">I really like</string>
     <string name="i_want">I want</string>
@@ -458,25 +453,19 @@
     <string name="photos">Photos</string>
     <string name="library">Jellow Library</string>
     <string name="icon_name">Icon Name</string>
-    <string name="category_name">Category Name</string>
-    <string name="all_boards">All Language</string>
     <string name="add_board">Add Board</string>
     <string name="custom_icon">Custom Icon</string>
     <string name="cancel">Cancel</string>
-    <string name="icon">Icon</string>
-    <string name="category">category</string>
     <string name="database_not_created_info">Creating database for the language.</string>
     <string name="icon_already_present">Icon already selected</string>
-    <string name="add_icon_folder">Add Icon</string>
     <string name="camera_missing">Camera not found</string>
-    <string name="no_board_created">No board created yet</string>
     <string name="no_icon_warning">Please add at least one icon to proceed.</string>
     <string name="reposition_text">Long press on any icon to reposition</string>
     <string name="reposition_complete_msg">New positions of the icon is saved</string>
     <string name="please_select_icon">Please select an image first</string>
     <string name="txtContinue">Continue</string>
     <string name="expressive_heading1">Tap</string>
-    <string name="expressive_heading2">button to select expression</string>
+    <string name="expressive_heading2">button to select/edit expression</string>
     <string name="expressive_heading3">Tap</string>
     <string name="expressive_heading4">button to deselect expression</string>
     <string name="icon_delete_warning">\"-\" icon will be deleted?</string>
@@ -490,7 +479,6 @@
     <string name="limiter" translatable="false"> . . ></string>
     <string name="edit_board">Edit the current board</string>
     <string name="delete_the_board">Delete the current board</string>
-    <string name="menuIconSelect">Select icons</string>
     <string name="edit_board_image">Edit the board icon and name</string>
     <string name="search_board_in_jellow">Search board</string>
     <string name="enter_board_name_to_search">Enter the board name to search</string>
@@ -524,14 +512,33 @@
     <string name="dialog">dialog</string>
     <string name="close_content_download_screen">close content download screen</string>
     <string name="share_jellow_app">Share the Jellow app</string>
-    <string name="rate_jellow_app">Rate the Jellow app on Google Play store</string>
+    <string name="rate_jellow_app">Rate the Jellow app on Google Play Store</string>
     <string name="received_your_feedback">Thank you for your feedback.</string>
     <string name="no_btn">No</string>
     <string name="next_btn">Next</string>
     <string name="my_boards">My Boards</string>
     <string name="board_settings">Board settings</string>
     <string name="add_expression_here">Add your own expressive line</string>
-    <string name="about_je_intro42">By using Make My Board (My Boards), you can add your own customized icons and their expressive text.</string>
+    <string name="about_je_intro42">By using Make My Board (My Boards), you can add or edit your own customized icons and their expressive text.</string>
     <string name="about_je_intro43">Outreach and promotion:</string>
     <string name="about_je_intro44">Vidya Upadhya, Shweta Gourish Pathare, Sanmati Hosure</string>
+    <string name="about_je_more_info">For more information, tap on the following video button:</string>
+    <string name="visual_access_info_video">To view the demo on Visual Accessibility in Jellow, tap on the following video button:</string>
+    <string name="switch_access_info_video">To view the demo on Switch Accessibility in Jellow, tap on the following video button:</string>
+    <string name="my_boards_title">Using Jellow application, a user can create a board. A board can have multiple user  defined icons. User can also add existing Jellow icons to their board. To open the “My Boards” screen tap on a circular plus icon in the main screen. To open the board tap on the icons in the list.</string>
+    <string name="my_boards_title_cd">The image selected depicts the “My Boards” screen. To open the “My Boards” screen, tap on a circular plus icon in the main screen. The image has user’s existing board list and a “Plus” button. To create a new board tap on a “Plus” icon also called as “Add Board” icon. To open the board tap on the icons in the list.</string>
+    <string name="my_boards_info">Tap on “Edit” menu icon on the right top of the screen. This enables the edit and delete features for the boards in the list.</string>
+    <string name="my_boards_info_cd">The image selected depicts the board editing features in “My Boards” screen. Tap on “Edit” menu icon on the right top of the screen. This enables the edit and delete features for the boards in the list. When editing is enabled, swipe through icons in list to find “edit” and “delete” buttons.</string>
+    <string name="my_boards_add_board">Tap on the “Add Board” icon to create a new board. On the “Add Board” screen, you can select an image, type the board name and choose a language for the board.</string>
+    <string name="my_boards_add_board_cd">The image selected depicts the “Add Board” screen. Tap on “Add Board” icon to create a new board. You can select the image for the board using “Select image for the board” button. You can type the name for the board in “Add board name here” box. Then choose a language in which you want to create a board using “Select language for the board” dropdown menu.</string>
+    <string name="my_boards_add_icons">In “Add icons” screen, you can add/select the icons from Jellow library to your board. Search feature is also available to search the icon in the Jellow library.</string>
+    <string name="my_boards_add_icons_cd">The image selected depicts the “Add Icons” screen. The screen is used to add/select Jellow library icons to your board. The screen has list of category and subcategory icons. The expandable list is available to the left of the screen. This list will help you to filter icons in the list with specific category or sub-category. You can also, search for any icon. The search icon is placed at the top right of the screen.</string>
+    <string name="my_boards_add_edit_icons">In “Add-Edit Icons” screen, you can add your own customized icons and edit or delete the icons in the list. To create your own custom icon, tap on “Add icon” button in the list.</string>
+    <string name="my_boards_add_edit_icons_cd">The image selected depicts the “Add-Edit Icons” screen. The screen is used to add your own custom icons. Also, to edit, delete the current icons in the list. To add a custom icon tap on the “Add Icon” button in the list. To edit a icon in the list, tap on the “Edit” button on the icon. To delete a icon, tap on the “Delete” button on the icon. You can also, set “Number of icons per screen” setting for the current board. The “Number of icons per screen” menu icon positioned at right top of the screen.</string>
+    <string name="my_boards_add_icons_window">In “Add Icon” window, you can set name and image to your own custom icon.</string>
+    <string name="my_boards_add_icons_window_cd">The image selected depicts the “Add Icon” window. The window is used to set name and image for your own custom icon. You can choose image from your device camera or from Jellow library.</string>
+    <string name="my_boards_add_edit_expression">In “Add-Edit Verbiage” window, you can enable or disable expressive buttons for the custom icon. To enable any expression, tap on circular green plus button then add associated two expression lines to it. To disable any expression, tap on circular red minus button. Then tap “Save” button.</string>
+    <string name="my_boards_add_edit_expression_cd">The image selected depicts the “Add-Edit Verbiage” window. The screen is used to enable or disable expressive buttons for the custom icon. To enable any expression, tap on circular green plus button then add associated two expression lines to it. To disable any expression, tap on circular red minus button. Then tap “Save” button.</string>
+    <string name="my_boards_board_home_info">In the board home screen, you can use/play your custom board. You can, search for a icon in the current board, change the “Number of Icons per screen” setting for the current board or reposition the icons in the current board. These buttons are available on the right top of the screen.</string>
+    <string name="my_boards_board_home_info_cd">The image selected depicts the boards home screen. In this screen, you can use or play the created board. Also, you can search for a icon in the current board, change the “Number of Icons per screen” setting for the current board or reposition the icons in the current board. These buttons are available on the right top of the screen.</string>
 </resources>

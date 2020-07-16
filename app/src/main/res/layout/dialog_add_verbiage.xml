@@ -15,7 +15,6 @@
         android:background="@drawable/white_rounded_back">
 
     <RelativeLayout
-        android:id="@+id/expressive_verbiage_show"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/button_layout"
@@ -66,7 +65,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/ll_remove_verbiage"
                 android:layout_below="@+id/ll_add_verbiage"
                 android:importantForAccessibility="yes"
                 android:contentDescription="@string/tap_delete_to_delete_expression">

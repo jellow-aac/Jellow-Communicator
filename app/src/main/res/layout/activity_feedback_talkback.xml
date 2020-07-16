@@ -8,7 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ScrollView
-            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fadeScrollbars="false"
@@ -115,7 +114,6 @@
         android:background="@color/menu_screen_bottom_bar"
         android:importantForAccessibility="yes">
         <Button
-            android:id="@+id/bSubmit"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/feedback_btn_size"
             android:text="@string/submit"
@@ -138,7 +136,6 @@
                 style="@style/defaultTextViewStyle"
                 android:text="@string/rate_jellow_app"/>
             <ImageButton
-                android:id="@+id/bRateUS"
                 android:layout_width="@dimen/feedback_btn_size"
                 android:layout_height="@dimen/feedback_btn_size"
                 android:layout_marginStart="2dp"
@@ -152,7 +149,6 @@
                 android:background="@drawable/custom_btn_view"
                 android:contentDescription="@string/rate_jellow_app"/>
             <ImageButton
-                android:id="@+id/bWhatsApp"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/feedback_btn_size"
                 android:layout_marginRight="@dimen/feedback_btn_margin_left"

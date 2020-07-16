@@ -60,7 +60,6 @@
                     android:theme="@style/CustomSeekbar"
                     android:contentDescription="@string/seekbar_pitch_cd"/>
                 <TextView
-                    android:id="@+id/voiceVolume"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/setting_tv_margin_bottom"

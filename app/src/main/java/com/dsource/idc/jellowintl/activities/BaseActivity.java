@@ -72,7 +72,7 @@ public class BaseActivity extends AppCompatActivity{
             return false;
         super.onCreateOptionsMenu(menu);
         MenuCompat.setGroupDividerEnabled(menu, true);
-            getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         if (!getLevelClass().contains(getVisibleAct())
                 && !getVisibleAct().contains(getBoardListClass())){
             menu.findItem(R.id.search).setVisible(false);

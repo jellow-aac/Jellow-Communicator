@@ -52,7 +52,6 @@
                     android:inputType="textPersonName"
                     android:contentDescription="@string/enter_child_s_name"/>
                 <TextView
-                    android:id="@+id/tvCaregiverName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/caregiverName"
@@ -70,7 +69,6 @@
                     android:inputType="textPersonName"
                     android:contentDescription="@string/enter_caregiver_s_name"/>
                 <TextView
-                    android:id="@+id/tvCaregiverNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/careGiverContact"
@@ -105,7 +103,6 @@
                     android:contentDescription="@string/enter_caregiver_s_contact_number" />
             </LinearLayout>
                 <TextView
-                    android:id="@+id/tvHomeAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/homeAddress"
@@ -123,7 +120,6 @@
                     android:inputType="textPostalAddress"
                     android:contentDescription="@string/enter_home_address"/>
                 <TextView
-                    android:id="@+id/tvEmailAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/emailAddress"
@@ -143,7 +139,6 @@
                     android:contentDescription="@string/enter_caregiver_s_email_address"/>
 
                 <TextView
-                    android:id="@+id/tvBloodGrp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/bloodGroup"
@@ -157,7 +152,6 @@
                     android:paddingEnd="@dimen/profile_spinner_right_padding"
                     android:background="@drawable/custom_spinner_view"/>
                 <TextView
-                    android:id="@+id/tv_info"
                     style="@style/defaultTextViewStyle"
                     android:text="@string/txt_data_info"
                     android:layout_marginTop="@dimen/user_reg_btn_margin_top"/>

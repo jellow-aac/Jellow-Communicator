@@ -340,7 +340,6 @@
     <string name="switch_access_info_five">Pour utiliser Contrôle de Séléction avec deux commutateurs- Ouvrir Réglages -> Aller à Accésibilité -> Activer le Contrôle de Séléction -> Choisissez l\'interrupteur un USB ou une liaison Bluetooth -> Allez à Réglages et choissisez le nombre de commutateurs comme deux commutateurs, ensuite choissisez le type de numérisation, cliquez sur Suivant et assignez l\'action aux deux commutateurs et complétez la processus en testant les commutateurs</string>
 
     <!--Language package update strings are here-->
-    <string name="lpu">La mise à jour du paquet linguistique</string>
     <string name="lpu_start_update">Démarrage de la à jour du paquet linguistique</string>
     <string name="lpu_parse_update">Traitement des données téléchargées</string>
     <string name="lpu_download_icons">Téléchargement de fichiers de l\'icône</string>
@@ -358,7 +357,6 @@
 
     <!--String resources for MMB-->
     <string name="delete_board">Le tableau \"-\" sera supprimé?</string>
-    <string name="exit_warning">Vous-êtes sûr que vous voulez quitter?</string>
     <string name="icon_select_exit_warning">Votre choix sera perdu</string>
     <string name="current_board">Les icônes ajoutés</string>
     <string name="place_holder_text">L’icône sélectionné par vous sera disponible ici</string>
@@ -366,12 +364,9 @@
     <string name="select_all">Sélectionnez tous</string>
     <string name="reset">Réinitialisation (Reset)</string>
     <string name="select_icon_title">Choissisez les icônes</string>
-    <string name="default_text" >Par défaut</string>
     <string name="add_category">Ajouter une catégorie</string>
     <string name="add_icon">Ajouter un icône</string>
-    <string name="edit_icon">Modifier l\'icône</string>
     <string name="addicon_title">Ajouter - Modifier les icônes</string>
-    <string name="rep_activity_title">Repositionner les icônes</string>
     <string name="i_like">J\'aime</string>
     <string name="really_like">J\'aime bien</string>
     <string name="i_want">Je veux</string>
@@ -388,18 +383,12 @@
     <string name="photos">Les photos</string>
     <string name="library">Bibliothèque Jellow</string>
     <string name="icon_name">Nom de l\'icône</string>
-    <string name="category_name">Nom de la catégorie</string>
-    <string name="all_boards">Tous les tableaux</string>
     <string name="add_board">Ajouter les tableaux</string>
     <string name="custom_icon">L\'icône personnalisé</string>
     <string name="cancel">Annuler (Cancel)</string>
-    <string name="icon">L\'icône</string>
-    <string name="category">La catégorie</string>
     <string name="database_not_created_info">Création d\'une base de données pour la langue</string>
     <string name="icon_already_present">L\'icône déjà sélectionnée</string>
-    <string name="add_icon_folder">Ajouter l\'icône</string>
     <string name="camera_missing">Appareil photo non trouvé</string>
-    <string name="no_board_created">Aucun conseil n\'a encore été créé</string>
     <string name="no_icon_warning">Veuillez ajouter au moins une icône pour continuer</string>
     <string name="reposition_text">Appuyez longuement sur n\'importe quelle icône pour la repositionner</string>
     <string name="reposition_complete_msg">La nouvelle position de l\'icône est enregistrée</string>
@@ -419,7 +408,6 @@
     <string name="press_next_to_select_icons">Appuyez "Suivant" pour ajouter las icônes sélectionnés.</string>
     <string name="edit_board">Modifiez le tableau actuel</string>
     <string name="delete_the_board">Supprimez le tableau actuel</string>
-    <string name="menuIconSelect">Sélectionnez las icônes</string>
     <string name="edit_board_image">Modifiez l\'icon et le nom du tableau</string>
     <string name="search_board_in_jellow">Recherchez le tableau</string>
     <string name="enter_board_name_to_search">Inscrivez le nom du tableau pour le chercher</string>
@@ -461,7 +449,10 @@
     <string name="my_boards">Mes tableaux</string>
     <string name="board_settings">le tableau paramètres</string>
     <string name="add_expression_here">Ajoutez votre propre ligne expressive</string>
-    <string name="about_je_intro42">En utilisant Make My Board (Mes tableaux), vous pouvez ajouter vos propres icônes personnalisées et leur texte expressif.</string>
+    <string name="about_je_intro42">En utilisant Make My Board (Mes tableaux), vous pouvez ajouter ou modifier vos propres icônes personnalisées et leur texte expressif.</string>
     <string name="about_je_intro43">Sensibilisation et promotion:</string>
     <string name="about_je_intro44">Vidya Upadhya, Shweta Gourish Pathare, Sanmati Hosure</string>
+    <string name="about_je_more_info">Pour plus d\'informations, appuyez sur le bouton vidéo suivant:</string>
+    <string name="visual_access_info_video">Pour voir la démo sur l\'accessibilité visuelle dans Jellow, appuyez sur le bouton vidéo suivant:</string>
+    <string name="switch_access_info_video">Pour voir la démo sur Switch Accessibility dans Jellow, appuyez sur le bouton vidéo suivant:</string>
 </resources>

@@ -184,7 +184,7 @@ public class DialogAddBoard extends BaseActivity implements IAddBoardDialogView,
             @Override
             public void onClick(View v) {
 
-                if (boardName.getText().toString().equals("")) {
+                if (boardName.getText().toString().trim().equals("")) {
                     Toast.makeText(mContext, getResources().getString(R.string.please_enter_name), Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -197,9 +197,9 @@ public class DialogAddBoard extends BaseActivity implements IAddBoardDialogView,
                 //Returns code for each language in board
                 String langCode = languageSelect.getSelectedItem().toString();
                 if (board == null)
-                    saveNewBoard(boardName.getText().toString(), ((BitmapDrawable) boardIcon.getDrawable()).getBitmap(), langCode);
+                    saveNewBoard(boardName.getText().toString().trim(), ((BitmapDrawable) boardIcon.getDrawable()).getBitmap(), langCode);
                 else
-                    updateBoardDetails(board, boardName.getText().toString(), ((BitmapDrawable) boardIcon.getDrawable()).getBitmap());
+                    updateBoardDetails(board, boardName.getText().toString().trim(), ((BitmapDrawable) boardIcon.getDrawable()).getBitmap());
                 finish();
             }
         });

@@ -148,7 +148,6 @@
                 android:layout_marginBottom="@dimen/user_reg_et_bottom"
                 android:background="@drawable/custom_spinner_view"/>
             <TextView
-                android:id="@+id/tv_info"
                 style="@style/defaultTextViewStyle"
                 android:text="@string/txt_data_info"
                 android:layout_marginTop="@dimen/user_reg_btn_margin_top"/>

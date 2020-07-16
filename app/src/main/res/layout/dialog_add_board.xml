@@ -78,7 +78,6 @@
                 android:layout_margin="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/text_container"
                 android:padding="4dp"
                 android:orientation="vertical">
                 <EditText

@@ -50,6 +50,15 @@ public class TutorialActivity extends BaseActivity {
         setImageUsingGlide(getResources().getDrawable(R.drawable.gtts1), ((ImageView)findViewById(R.id.gtts1)));
         setImageUsingGlide(getResources().getDrawable(R.drawable.gtts2), ((ImageView)findViewById(R.id.gtts2)));
         setImageUsingGlide(getResources().getDrawable(R.drawable.gtts3), ((ImageView)findViewById(R.id.gtts3)));
+
+        setImageUsingGlide(getResources().getDrawable(R.drawable.my_boards), ((ImageView)findViewById(R.id.pic11)));
+        setImageUsingGlide(getResources().getDrawable(R.drawable.my_boards_edit), ((ImageView)findViewById(R.id.pic12)));
+        setImageUsingGlide(getResources().getDrawable(R.drawable.add_boards), ((ImageView)findViewById(R.id.pic13)));
+        setImageUsingGlide(getResources().getDrawable(R.drawable.add_icons), ((ImageView)findViewById(R.id.pic14)));
+        setImageUsingGlide(getResources().getDrawable(R.drawable.add_edit_icon), ((ImageView)findViewById(R.id.pic15)));
+        setImageUsingGlide(getResources().getDrawable(R.drawable.edit_icon), ((ImageView)findViewById(R.id.pic16)));
+        setImageUsingGlide(getResources().getDrawable(R.drawable.edit_verbiage), ((ImageView)findViewById(R.id.pic17)));
+        setImageUsingGlide(getResources().getDrawable(R.drawable.board_home), ((ImageView)findViewById(R.id.pic18)));
     }
 
     private void setImageUsingGlide(Drawable image, ImageView imgView) {

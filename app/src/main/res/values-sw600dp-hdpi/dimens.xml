@@ -7,11 +7,8 @@
     <dimen name="search_list_margin">2dp</dimen>
     <dimen name="search_recycler_margin">2dp</dimen>
     <dimen name="search_list_icon_size">60dp</dimen>
-    <dimen name="search_edit_text_top_margin">10dp</dimen>
-    <dimen name="search_edit_margin_left">6dp</dimen>
     <dimen name="searchView_padding">10dp</dimen>
     <dimen name="search_bar_width">452dp</dimen>
-    <dimen name="search_edit_text_margin_bottom">4dp</dimen>
     <dimen name="search_drawable_padding">12dp</dimen>
     <dimen name="search_edit_text_size">16sp</dimen>
     <dimen name="divider_margin">3dp</dimen>

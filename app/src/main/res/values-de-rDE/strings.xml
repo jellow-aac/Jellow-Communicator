@@ -348,7 +348,6 @@
 
 
     <!--Language package update strings are here-->
-    <string name="lpu">Sprachpaket-Update</string>
     <string name="lpu_start_update">Das Sprachpaket wird aktualisiert</string>
     <string name="lpu_parse_update">Die heruntergeladene Datei wird verarbeitet</string>
     <string name="lpu_download_icons">Icon-Dateien werden heruntergeladen</string>
@@ -366,7 +365,6 @@
 
     <!--String resources for MMB-->
     <string name="delete_board">\"-\" Board wird gelöscht?</string>
-    <string name="exit_warning">Möchten Sie die App wirklich verlassen?</string>
     <string name="icon_select_exit_warning">Ihre Auswahl wird gelöscht</string>
     <string name="current_board">Symbole hinzugefügt</string>
     <string name="place_holder_text">Von Ihnen gewähltes Icon wird hier aufgezeigt</string>
@@ -374,12 +372,9 @@
     <string name="select_all">Alles auswählen</string>
     <string name="reset">Zurücksetzen (Reset)</string>
     <string name="select_icon_title">Icons auswählen</string>
-    <string name="default_text" >Standard</string>
     <string name="add_category">Kategorie hinzufügen</string>
     <string name="add_icon">Icon hinzufügen</string>
-    <string name="edit_icon">Icon bearbeiten</string>
     <string name="addicon_title">Icons hinzufügen-bearbeiten</string>
-    <string name="rep_activity_title">Icons umstellen</string>
     <string name="i_like">Ich mag</string>
     <string name="really_like">Ich mag wirklich</string>
     <string name="i_want">Ich möchte</string>
@@ -396,18 +391,12 @@
     <string name="photos">Fotos</string>
     <string name="library">Jellow Bibliothek</string>
     <string name="icon_name">Name des Icons</string>
-    <string name="category_name">Kategorienname</string>
-    <string name="all_boards">Alle Sprachen</string>
     <string name="add_board">Boards hinzufügen</string>
     <string name="custom_icon">Benutzerdefiniertes Icon</string>
     <string name="cancel">Stornieren (Cancel)</string>
-    <string name="icon">Icon</string>
-    <string name="category">Kategorie</string>
     <string name="database_not_created_info">Datenbank für die Sprache wird erstellt.</string>
     <string name="icon_already_present">Icon bereits ausgewählt</string>
-    <string name="add_icon_folder">Icon hinzufügen</string>
     <string name="camera_missing">Kamera nicht gefunden</string>
-    <string name="no_board_created">Es wurde noch kein Board erstellt</string>
     <string name="no_icon_warning">Bitte fügen Sie mindestens ein Icon hinzu, um fortzufahren.</string>
     <string name="reposition_text">Drücken Sie lange auf ein Icon, um es neu zu positionieren</string>
     <string name="reposition_complete_msg">Die neue Position des Icons wird gespeichert</string>
@@ -427,7 +416,6 @@
     <string name="press_next_to_select_icons">Klicken Sie auf \"Weiter\", um ausgewählte Icons hinzuzufügen.</string>
     <string name="edit_board">Bearbeiten Sie das aktuelle Board</string>
     <string name="delete_the_board">Löschen Sie das aktuelle Board</string>
-    <string name="menuIconSelect">Wählen Sie Icons aus</string>
     <string name="edit_board_image">Das Board-Icon und den Board-Namen bearbeiten</string>
     <string name="search_board_in_jellow">Board suchen</string>
     <string name="enter_board_name_to_search">Den Namen der Karte eingeben, um zu suchen</string>
@@ -468,7 +456,10 @@
     <string name="my_boards">Meine Boards</string>
     <string name="board_settings">Board-Einstellungen</string>
     <string name="add_expression_here">Fügen Sie Ihre eigene expressivelinie hinzu</string>
-    <string name="about_je_intro42">Mit Make My Board (Meine Boards) können Sie Ihre eigenen benutzerdefinierten Symbole und deren ausdrucksstarken Text hinzufügen.</string>
+    <string name="about_je_intro42">Mit Make My Board (Meine Boards) können Sie Ihre eigenen benutzerdefinierten Symbole und deren ausdrucksstarken Text hinzufügen oder bearbeiten.</string>
     <string name="about_je_intro43">Reichweite und Förderung:</string>
     <string name="about_je_intro44">Vidya Upadhya, Shweta Gourish Pathare, Sanmati Hosure</string>
+    <string name="about_je_more_info">Für weitere Informationen tippen Sie auf die folgende Video-Schaltfläche:</string>
+    <string name="visual_access_info_video">Tippen Sie auf die folgende Video-Schaltfläche, um die Demo zu Visual Accessibility in Jellow anzuzeigen:</string>
+    <string name="switch_access_info_video">Tippen Sie auf die folgende Video-Schaltfläche, um die Demo zu Switch Accessibility in Jellow anzuzeigen:</string>
 </resources>

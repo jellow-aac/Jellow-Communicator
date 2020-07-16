@@ -43,7 +43,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="32">
             <ImageView
-                android:id="@+id/intro4_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/settings"

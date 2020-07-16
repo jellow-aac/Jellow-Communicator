@@ -7,11 +7,8 @@
     <dimen name="search_list_margin">2dp</dimen>
     <dimen name="search_recycler_margin">2dp</dimen>
     <dimen name="search_list_icon_size">60dp</dimen>
-    <dimen name="search_edit_text_top_margin">10dp</dimen>
-    <dimen name="search_edit_margin_left">6dp</dimen>
     <dimen name="searchView_padding">10dp</dimen>
     <dimen name="search_bar_width">490dp</dimen>
-    <dimen name="search_edit_text_margin_bottom">4dp</dimen>
     <dimen name="search_drawable_padding">12dp</dimen>
     <dimen name="search_edit_text_size">16sp</dimen>
     <dimen name="divider_margin">3dp</dimen>
@@ -290,53 +287,30 @@
 
 	
     <!--Dimensions related to the Icon select Activity-->
-    <dimen name="check_box_size">24dp</dimen>
-    <dimen name="level_select_pain_width">340dp</dimen>
     <dimen name="level_select_pane_text_size">24sp</dimen>
-    <dimen name="level_select_pane_text_padding_left">12dp</dimen>
-    <dimen name="level_select_pain_padding_top_bottom">16dp</dimen>
     <dimen name="nav_mar_right">12dp</dimen>
-    <dimen name="demo_mar">28dp</dimen>
-    <dimen name="extra_mar">40dp</dimen>
-    <dimen name="icon_edit_grid_size">140dp</dimen>
-    <dimen name="icon_edit_icon_size">100dp</dimen>
-    <dimen name="icon_edit_text_size">16sp</dimen>
-    <dimen name="exp_icon_margin_bottom">24dp</dimen>
-    <dimen name="exp_icon_bottom_margin">36dp</dimen>
-    <dimen name="nav_bar_icons_width">90dp</dimen>
-    <dimen name="nav_bar_icon_height">80dp</dimen>
     <dimen name="edit_option_width">200dp</dimen>
     <dimen name="edit_option_text_size">20sp</dimen>
-    <dimen name="icon_select_grid_size">90dp</dimen>
     <dimen name="icon_select_icon_size">70dp</dimen>
-    <dimen name="my_board_button_width">100dp</dimen>
-    <dimen name="my_board_button_height">36dp</dimen>
     <dimen name="level_select_pane_min_width">250dp</dimen>
     <dimen name="drop_down_width">200dp</dimen>
     <dimen name="bottom_nav_bar_padding">12dp</dimen>
-    <dimen name="nav_bar_button_padding">10dp</dimen>
     <dimen name="icon_title_text_size">16sp</dimen>
     <dimen name="dialog_box_text_size">20sp</dimen>
 
     <dimen name="board_add_edit_icon_size">230dp</dimen>
     <dimen name="board_edit_icon_size">210dp</dimen>
     <dimen name="board_edit_dialog_width">280dp</dimen>
-    <dimen name="edit_board_button_margin_top">8dp</dimen>
     <dimen name="edit_board_button_side_margin">10dp</dimen>
-    <dimen name="edit_board_button_width">80dp</dimen>
-    <dimen name="verbiage_button_width">84dp</dimen>
-    <dimen name="edit_board_dialog_button_text_size">16sp</dimen>
     <dimen name="edit_board_dialog_internal_margin_top">16dp</dimen>
-    <dimen name="icon_dialog_button_width">92dp</dimen>
     <dimen name="lang_popup_item_height">40dp</dimen>
     <dimen name="lang_popup_item_divider_top">39dp</dimen>
     <dimen name="header_icon_size">70dp</dimen>
     <dimen name="header_title_size">19sp</dimen>
-    <dimen name="header_title_width">100dp</dimen>
     <dimen name="header_edit_icon_size">32dp</dimen>
 
     <!--Dimensions related to the verbiage item-->
-    <dimen name="verbiage_list_item_width">210dp</dimen>
+    <dimen name="verbiage_list_item_width">250dp</dimen>
     <dimen name="verbiage_list_item_height">60dp</dimen>
     <dimen name="verbiage_list_et_text">18sp</dimen>
     <dimen name="verbiage_item_add_remove">44dp</dimen>
@@ -344,7 +318,6 @@
     <dimen name="vl_exp_icon_height">50dp</dimen>
     <dimen name="vl_padding">14dp</dimen>
     <dimen name="edit_board_dialog_side_margin">24dp</dimen>
-    <dimen name="drop_icon_size">28dp</dimen>
     <dimen name="verbiage_dialog_width">660dp</dimen>
     <dimen name="dialog_heading">18sp</dimen>
     <dimen name="list_item_text_size">18sp</dimen>
@@ -355,9 +328,7 @@
     <dimen name="my_board_text_size">20sp</dimen>
     <dimen name="my_board_dialog_camera_icon_size">48dp</dimen>
     <dimen name="my_board_edit_delete_size">48dp</dimen>
-    <dimen name="board_edit_edittext_size">170dp</dimen>
     <dimen name="list_item_padding">6dp</dimen>
-    <dimen name="dialog_width">400dp</dimen>
     <dimen name="dialog_height">490dp</dimen>
     <dimen name="my_boards_card_margin_horizontal">56dp</dimen>
     <dimen name="my_boards_card_margin_vertical">16dp</dimen>
@@ -375,35 +346,27 @@
     <dimen name="grid_dialog_text_margin">8dp</dimen>
 
 <!--Dimensions related to the Board List activity-->
-    <dimen name="side_pane_width">240dp</dimen>
-    <dimen name="add_board_icon_size">120dp</dimen>
-    <dimen name="add_board_icon_padding">10dp</dimen>
-    <dimen name="add_board_text_size">20sp</dimen>
     <dimen name="list_recycler_margin">16dp</dimen>
-    <dimen name="left_mar_my_boards">280dp</dimen>
     <dimen name="add_board_dialog_width">460dp</dimen>
-    <dimen name="edit_text_width_add_board">130dp</dimen>
     <dimen name="board_dialog_edit_text">18sp</dimen>
     <dimen name="camera_mar_left">4dp</dimen>
     <dimen name="camera_drop_down_width">194dp</dimen>
 
     <!--Dimensions related to Icon Edit/Remove button-->
     <dimen name="oneIcon_remove_btn">44dp</dimen>
-    <dimen name="twoIcon_remove_btn">28dp</dimen>
-    <dimen name="threeIcon_remove_btn">32dp</dimen>
+    <dimen name="twoIcon_remove_btn">32dp</dimen>
+    <dimen name="threeIcon_remove_btn">30dp</dimen>
     <dimen name="fourIcon_remove_btn">28dp</dimen>
     <dimen name="nineIcon_remove_btn">26dp</dimen>
     <dimen name="delete_icon_margin">-44dp</dimen>
     <dimen name="dialog_btn_txt_size">16sp</dimen>
     <dimen name="close_button_width">36dp</dimen>
-    <dimen name="dialog_margin">8dp</dimen>
     <dimen name="ver_dialog_pad">1dp</dimen>
     <dimen name="mmb_btn_pad">4dp</dimen>
     <dimen name="v_dialog_et_mar">16dp</dimen>
     <dimen name="scrollbar_mar">12dp</dimen>
 
     <!--Keyboard utterance dialog -->
-    <dimen name="custom_keyboard_padding_bottom_parent">48dp</dimen>
     <dimen name="custom_keyboard_back_icon_size">48dp</dimen>
     <dimen name="custom_keyboard_back_icon_horizontal_margin">16dp</dimen>
     <dimen name="custom_keyboard_et_width">450dp</dimen>

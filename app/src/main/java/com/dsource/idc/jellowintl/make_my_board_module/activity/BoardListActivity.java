@@ -78,6 +78,8 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
 
     @Override
     public void onItemClick(int position) {
+        if (editMode == EDIT_ENABLED)
+            return;
         if (position == 0){
             startActivity(new Intent(getApplicationContext(), DialogAddBoard.class));
             return;
