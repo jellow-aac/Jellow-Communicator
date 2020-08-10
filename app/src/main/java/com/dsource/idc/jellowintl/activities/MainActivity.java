@@ -1131,7 +1131,7 @@ public class MainActivity extends LevelBaseActivity{
 
         //Retrieve expressive icons text
         String[] expressiveIcons = IconFactory.getExpressiveIconCodes(
-                PathFactory.getIconDirectory(this),
+                PathFactory.getJSONFile(this),
                 LanguageFactory.getCurrentLanguageCode(this)
         );
         //Extract expressive icon text from expressiveIconObjects
@@ -1141,7 +1141,7 @@ public class MainActivity extends LevelBaseActivity{
 
         //Retrieve Navigation icon text
         String[] miscellaneousIcons = IconFactory.getMiscellaneousIconCodes(
-                PathFactory.getIconDirectory(this),
+                PathFactory.getJSONFile(this),
                 LanguageFactory.getCurrentLanguageCode(this)
         );
         MiscellaneousIcon[] miscellaneousIconObjects = TextFactory.getMiscellaneousIconObjects(

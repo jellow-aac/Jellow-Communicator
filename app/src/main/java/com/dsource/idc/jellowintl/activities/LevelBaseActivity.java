@@ -15,8 +15,6 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.dsource.idc.jellowintl.utility.TextToSpeechErrorUtils;
 import com.dsource.idc.jellowintl.utility.interfaces.TextToSpeechCallBacks;
 
-import java.util.Objects;
-
 public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextToSpeechCallBacks {
     private String mErrorMessage, mDialogTitle, mLanguageSetting, mSwitchLang;
 
@@ -25,8 +23,9 @@ public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextT
         super.onCreate(savedInstanceState);
         registerSpeechEngineErrorHandle(this);
         mErrorMessage = getString(R.string.langauge_correction_message);
-        mErrorMessage = mErrorMessage.replace("-", Objects.requireNonNull(SessionManager.
-                LangValueMap.get(getSession().getLanguage())));
+        String lang = SessionManager.LangValueMap.get(getSession().getLanguage()) != null ?
+                SessionManager.LangValueMap.get(getSession().getLanguage()): "";
+        mErrorMessage = mErrorMessage.replace("-", lang);
         mErrorMessage = mErrorMessage.replace("_", getString(R.string.Language));
         mErrorMessage = mErrorMessage.replace("$", getString(R.string.dialog_default_language_option));
         mDialogTitle = getString(R.string.changeLanguage);

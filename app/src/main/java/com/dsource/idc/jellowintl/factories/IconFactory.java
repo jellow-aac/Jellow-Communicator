@@ -154,11 +154,6 @@ public class IconFactory {
     }
 
     public static String[] getMiscellaneousIconCodes(@NonNull File file, String langCode){
-
-        /*if (IconCache.getMiscellaneousIcons() != null && IconCache.getMiscellaneousIcons().length != 0) {
-            return IconCache.getMiscellaneousIcons();
-        }*/
-
         if (JSON == null) {
             try {
                 JSON = new JSONObject(getStringFromFile(file));
@@ -184,10 +179,6 @@ public class IconFactory {
     }
 
     public static String[] getExpressiveIconCodes(@NonNull File file, String langCode){
-
-        /*if (IconCache.getExpressiveIcons() != null && IconCache.getExpressiveIcons().length != 0) {
-            return IconCache.getExpressiveIcons();
-        }*/
         if (JSON == null) {
             try {
                 JSON = new JSONObject(getStringFromFile(file));

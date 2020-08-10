@@ -1243,7 +1243,7 @@ public class SequenceActivity extends LevelBaseActivity{
         //int levelTwo = mLevelTwoItemPos;
 
         mIconCode = IconFactory.getSequenceIconCodes(
-                PathFactory.getIconDirectory(this),
+                PathFactory.getJSONFile(this),
                 LanguageFactory.getCurrentLanguageCode(this),
                 getLevel2_3IconCode(mLevelTwoItemPos)
         );
@@ -1253,7 +1253,7 @@ public class SequenceActivity extends LevelBaseActivity{
 
         //Retrieve expressive icons text
         String[] expressiveIcons = IconFactory.getExpressiveIconCodes(
-                PathFactory.getIconDirectory(this),
+                PathFactory.getJSONFile(this),
                 LanguageFactory.getCurrentLanguageCode(this)
         );
         //Extract expressive icon text from expressiveIconObjects
@@ -1264,7 +1264,7 @@ public class SequenceActivity extends LevelBaseActivity{
 
         //Retrieve Navigation icon text
         String[] miscellaneousIcons = IconFactory.getMiscellaneousIconCodes(
-                PathFactory.getIconDirectory(this),
+                PathFactory.getJSONFile(this),
                 LanguageFactory.getCurrentLanguageCode(this)
         );
         MiscellaneousIcon[] miscellaneousIconObjects = TextFactory.getMiscellaneousIconObjects(
@@ -1279,7 +1279,7 @@ public class SequenceActivity extends LevelBaseActivity{
                 // /audio folder.Only non tts language will load this variable from
                 // folder.
                 categoryNavButton = IconFactory.getMiscellaneousNavigationIconCodes(
-                        PathFactory.getIconDirectory(this),
+                        PathFactory.getJSONFile(this),
                         LanguageFactory.getCurrentLanguageCode(this)
                 );
             } catch (Exception e) {

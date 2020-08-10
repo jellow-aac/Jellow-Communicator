@@ -49,6 +49,13 @@
             android:title="@string/menuTutorials"
             app:showAsAction="never"/>
     </group>
+    <group android:id="@+id/menuGroupMyBoards">
+        <item
+            android:id="@+id/my_boards"
+            android:visible="true"
+            android:title="@string/menuMyBoards"
+            app:showAsAction="never"/>
+    </group>
     <group android:id="@+id/menuGroupSettings">
         <item
             android:id="@+id/keyboardInput"
@@ -69,13 +76,6 @@
         <item
             android:id="@+id/resetPreferences"
             android:title="@string/menuResetPref"
-            app:showAsAction="never"/>
-    </group>
-    <group android:id="@+id/menuGroupMyBoards">
-        <item
-            android:id="@+id/my_boards"
-            android:visible="true"
-            android:title="@string/menuMyBoards"
             app:showAsAction="never"/>
     </group>
     <group android:id="@+id/menuFeedback">

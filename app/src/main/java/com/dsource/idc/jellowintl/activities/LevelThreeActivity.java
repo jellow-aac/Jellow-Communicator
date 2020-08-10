@@ -1147,7 +1147,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
 
         //Retrieve expressive icons text
         String[] expressiveIcons = IconFactory.getExpressiveIconCodes(
-                PathFactory.getIconDirectory(this),
+                PathFactory.getJSONFile(this),
                 LanguageFactory.getCurrentLanguageCode(this)
         );
         //Extract expressive icon text from expressiveIconObjects
@@ -1158,7 +1158,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
 
         //Retrieve Navigation icon text
         String[] miscellaneousIcons = IconFactory.getMiscellaneousIconCodes(
-                PathFactory.getIconDirectory(this),
+                PathFactory.getJSONFile(this),
                 LanguageFactory.getCurrentLanguageCode(this)
         );
         MiscellaneousIcon[] miscellaneousIconObjects = TextFactory.getMiscellaneousIconObjects(
@@ -1356,7 +1356,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
 
         //Retrieve icon names from json file for Level 1
         mIconCode = IconFactory.getL3IconCodes(
-                PathFactory.getIconDirectory(this),
+                PathFactory.getJSONFile(this),
                 LanguageFactory.getCurrentLanguageCode(this),
                 getLevel2_3IconCode(levelOneItemPos),
                 getLevel2_3IconCode(levelTwoItemPos)

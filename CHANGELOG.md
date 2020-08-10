@@ -1,10 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-##[3.0.1]
+##[3.0.2]
 - Added the Telugu language.
 
-##[3.0.0] - Yet to release
+
+##[3.0.1] - 10 Aug, 2020 (yet to get live)
+- Fixed the immediate issue reported on Firebase Crashlytics.
+- Moved the menu item "My boards" above "Keyboard Control"
+
+##[3.0.0] - 16 July, 2020(live on Play Store 20 July, 2020)
 ### Added
 - Make My Board
 - User can search in using english text for any icon in any language.

@@ -145,8 +145,12 @@ public class SplashActivity extends BaseActivity implements CheckNetworkStatus, 
     }
 
     public void continueLoadingTheApp() {
-        startActivity(new Intent(SplashActivity.this, MainActivity.class));
-        finishAffinity();
+        try {
+            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+            finishAffinity();
+        }catch(Exception e){
+            finish();
+        }
     }
 
     private void restartTheAppAfterUpdate() {

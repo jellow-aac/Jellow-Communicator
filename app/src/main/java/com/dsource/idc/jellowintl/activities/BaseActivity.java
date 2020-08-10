@@ -20,6 +20,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuCompat;
 import androidx.room.Room;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.make_my_board_module.activity.BoardListActivity;
@@ -43,6 +45,18 @@ public class BaseActivity extends AppCompatActivity{
     private static String sVisibleAct ="";
     private static AppDatabase sAppDatabase;
 
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS `BoardModel` (`board_id` TEXT NOT NULL, `board_name` TEXT, `board_icon_list` TEXT, `setup_status` INTEGER NOT NULL, `grid_sized` INTEGER NOT NULL, `language_code` TEXT, `timestamp` INTEGER NOT NULL, `custom_icons` TEXT, PRIMARY KEY(`board_id`))");
+            try{
+                database.execSQL("ALTER TABLE `VerbiageModel` ADD COLUMN `Search_Tag` TEXT");
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    };
+
     @Override
     protected void attachBaseContext(Context newBase) {
        SessionManager s = new SessionManager(newBase);
@@ -63,6 +77,7 @@ public class BaseActivity extends AppCompatActivity{
         if(sAppDatabase == null)
             sAppDatabase = Room.databaseBuilder(this, AppDatabase.class, APP_DB_NAME)
                     .allowMainThreadQueries()
+                    .addMigrations(MIGRATION_1_2)
                     .build();
     }
 

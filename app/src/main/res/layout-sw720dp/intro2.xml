@@ -46,7 +46,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/speakingwithjellowimage2"
-                tools:ignore="ContentDescription"
                 android:contentDescription="@string/intro2_cd"/>
         </LinearLayout>
         <LinearLayout

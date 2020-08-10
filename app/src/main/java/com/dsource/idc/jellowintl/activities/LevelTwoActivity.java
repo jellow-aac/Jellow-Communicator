@@ -1442,7 +1442,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
         // fill speech and adapter text arrays
 
         mIconCode = IconFactory.getL2IconCodes(
-                PathFactory.getIconDirectory(this),
+                PathFactory.getJSONFile(this),
                 LanguageFactory.getCurrentLanguageCode(this),
                 getLevel2IconCode(mLevelOneItemPos)
         );
@@ -1457,7 +1457,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
 
         //Retrieve expressive icons text
         String[] expressiveIcons = IconFactory.getExpressiveIconCodes(
-                PathFactory.getIconDirectory(this),
+                PathFactory.getJSONFile(this),
                 LanguageFactory.getCurrentLanguageCode(this)
         );
         //Extract expressive icon text from expressiveIconObjects
@@ -1467,7 +1467,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
 
         //Retrieve Navigation icon text
         String[] miscellaneousIcons = IconFactory.getMiscellaneousIconCodes(
-                PathFactory.getIconDirectory(this),
+                PathFactory.getJSONFile(this),
                 LanguageFactory.getCurrentLanguageCode(this)
         );
         MiscellaneousIcon[] miscellaneousIconObjects = TextFactory.getMiscellaneousIconObjects(

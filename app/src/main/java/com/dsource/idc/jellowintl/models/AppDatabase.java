@@ -11,7 +11,7 @@ import com.dsource.idc.jellowintl.make_my_board_module.dataproviders.data_models
 import com.dsource.idc.jellowintl.make_my_board_module.dataproviders.data_models.VerbiageModel;
 import com.dsource.idc.jellowintl.make_my_board_module.dataproviders.helper_classes.CustomTypeConverter;
 
-@Database(entities = {CategoryPreference.class, BoardModel.class, VerbiageModel.class}, version = 1, exportSchema = false)
+@Database(entities = {CategoryPreference.class, BoardModel.class, VerbiageModel.class}, version = 2, exportSchema = false)
 @TypeConverters(CustomTypeConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract CategoryPreferencesDao categoryPreferenceDao();

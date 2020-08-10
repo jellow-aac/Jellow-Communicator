@@ -26,45 +26,6 @@ public class TextFactory {
         JSON = null;
     }
 
-    /**
-     *
-     * @param file - the JSON file location
-     * @param iconNames - iconNames without extension
-     * @return
-     *
-     *  Returns the JSON text from disk
-     */
-
-    public static Icon[] getIconObjects(@NonNull File file, @NonNull String[] iconNames) {
-        if (JSON == null) {
-            try {
-                JSON = new JSONObject(getStringFromFile(file));
-            } catch (Exception e) {
-                Log.d("JSON", e.getMessage());
-            }
-        }
-
-        ArrayList<Icon> iconObjects = new ArrayList<>();
-
-        for (String iconName : iconNames) {
-            try {
-                String jsonString = JSON.getJSONObject(iconName).toString();
-                Gson gson = new Gson();
-                Icon icon = gson.fromJson(jsonString, Icon.class);
-                iconObjects.add(icon);
-            } catch (Exception e) {
-                Log.d("JSON", e.getMessage());
-            }
-        }
-
-        Icon[] generalIconObjects = new Icon[iconObjects.size()];
-
-        iconObjects.toArray(generalIconObjects);
-
-        return generalIconObjects;
-    }
-
-
     public static String getStringFromFile(@NonNull File file) {
 
         StringBuilder text = new StringBuilder();
