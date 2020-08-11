@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:orientation="horizontal">
+    <ImageView
+        android:id="@+id/iv_action_bar_back"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_action_navigation_arrow_back"
+        android:onClick="finishCurrentActivity"
+        android:contentDescription="@string/back"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvActionbarTitle"
+        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/iv_action_bar_back"
+        android:layout_centerVertical="true"
+        android:maxLines="1"
+        android:textColor="@color/color_app_bar_title"/>
+</RelativeLayout>

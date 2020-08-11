@@ -1,30 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="match_parent"
+<RelativeLayout
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
     android:background="#f9f5d9"
     android:layout_height="wrap_content"
     android:layout_marginLeft="1dp"
     android:layout_marginRight="1dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/icon_wrapper"
+        android:layout_centerHorizontal="true"
+        >
     <ImageView
         android:layout_marginTop="6dp"
         android:layout_centerHorizontal="true"
         android:padding="1dp"
+        android:src="@drawable/person_circular"
         android:layout_width="@dimen/icon_select_icon_size"
         android:layout_height="@dimen/icon_select_icon_size"
         android:id="@+id/icon_image_view"
         />
+
+    <View
+        android:layout_marginTop="6dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/borderView"
+        android:layout_width="@dimen/icon_select_icon_size"
+        android:layout_height="@dimen/icon_select_icon_size"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/border_drawable_nocolor_4_icons"/>
+    </FrameLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Speech_Label"
         android:id="@+id/icon_title"
-        android:textAlignment="center"
+        android:gravity="center"
         android:textColor="@color/black_80"
         android:textSize="@dimen/icon_title_text_size"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/icon_image_view"
-        />
+        android:layout_below="@id/icon_wrapper"
+        android:lineSpacingExtra="1dp"
+        android:lineSpacingMultiplier=".8"/>
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,7 +53,7 @@
         android:layout_alignParentTop="true"
         android:buttonTint="@color/light_grey"
         android:gravity="top"
-        />
+        android:importantForAccessibility="no"/>
     <ImageView
         android:layout_width="@dimen/add_edit_screen_edit_icon_size"
         android:layout_height="@dimen/add_edit_screen_edit_icon_size"

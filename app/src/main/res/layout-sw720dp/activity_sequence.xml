@@ -17,7 +17,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
-                    android:id="@+id/expressiveOne"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -46,7 +45,6 @@
                         android:contentDescription="@string/more"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/expressiveTwo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -77,8 +75,8 @@
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/relativeLayout"
-                android:layout_width="836dp"
-                android:layout_height="450dp"
+                android:layout_width="890dp"
+                android:layout_height="475dp"
                 android:layout_centerInParent="true"
                 android:padding="@dimen/activity_vertical_margin">
                 <TextView
@@ -93,7 +91,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true">
+                    android:layout_centerInParent="true"
+                    android:gravity="center_horizontal">
                     <LinearLayout
                         android:id="@+id/linearLayoutOne"
                         android:layout_width="wrap_content"
@@ -104,22 +103,22 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <FrameLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                            <ImageView
-                                android:id="@+id/image1"
-                                android:layout_width="195dp"
-                                android:layout_height="195dp"
-                                android:layout_gravity="center_horizontal"
-                                android:background="@android:color/transparent"
-                                android:scaleType="centerInside" />
-                            <View
-                                android:id="@+id/borderView1"
-                                android:layout_width="195dp"
-                                android:layout_height="195dp"
-                                android:layout_gravity="center_horizontal"
-                                android:background="@drawable/border_drawable_nocolor_2_3_4_icon"/>
-                        </FrameLayout>
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <ImageView
+                                    android:id="@+id/image1"
+                                    android:layout_width="215dp"
+                                    android:layout_height="215dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:background="@android:color/transparent"
+                                    android:scaleType="centerInside"/>
+                                <View
+                                    android:id="@+id/borderView1"
+                                    android:layout_width="215dp"
+                                    android:layout_height="215dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:background="@drawable/border_drawable_nocolor_3_icons"/>
+                            </FrameLayout>
                             <ImageButton
                                 android:id="@+id/arrow1"
                                 android:layout_width="100dp"
@@ -131,7 +130,7 @@
                         </LinearLayout>
                         <TextView
                             android:id="@+id/bt1"
-                            android:layout_width="195dp"
+                            android:layout_width="205dp"
                             android:layout_height="wrap_content"
                             android:minLines="2"
                             android:textAlignment="center"
@@ -144,8 +143,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_toRightOf="@+id/linearLayoutOne"
                         android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/linearLayoutOne"
                         android:layout_toEndOf="@+id/linearLayoutOne">
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -155,17 +154,17 @@
                                 android:layout_height="wrap_content">
                                 <ImageView
                                     android:id="@+id/image2"
-                                    android:layout_width="195dp"
-                                    android:layout_height="195dp"
+                                    android:layout_width="215dp"
+                                    android:layout_height="215dp"
                                     android:layout_gravity="center_horizontal"
                                     android:background="@android:color/transparent"
                                     android:scaleType="centerInside" />
                                 <View
                                     android:id="@+id/borderView2"
-                                    android:layout_width="195dp"
-                                    android:layout_height="195dp"
+                                    android:layout_width="215dp"
+                                    android:layout_height="215dp"
                                     android:layout_gravity="center_horizontal"
-                                    android:background="@drawable/border_drawable_nocolor_2_3_4_icon"/>
+                                    android:background="@drawable/border_drawable_nocolor_3_icons"/>
                             </FrameLayout>
                             <ImageButton
                                 android:id="@+id/arrow2"
@@ -178,7 +177,7 @@
                         </LinearLayout>
                         <TextView
                             android:id="@+id/bt2"
-                            android:layout_width="195dp"
+                            android:layout_width="205dp"
                             android:layout_height="wrap_content"
                             android:minLines="2"
                             android:textAlignment="center"
@@ -186,39 +185,37 @@
                             android:textSize="22sp"
                             android:importantForAccessibility="no"/>
                     </LinearLayout>
-
                     <LinearLayout
-                        android:id="@+id/linearLayoutThree"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@+id/linearLayoutTwo"
-                        android:layout_toRightOf="@+id/linearLayoutTwo"
-                        android:orientation="vertical">
-
-                        <FrameLayout
+                        android:layout_toRightOf="@+id/linearLayoutTwo">
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:id="@+id/image3"
-                                android:layout_width="195dp"
-                                android:layout_height="195dp"
-                                android:layout_gravity="center_horizontal"
-                                android:background="@android:color/transparent"
-                                android:scaleType="centerInside" />
-
-                            <View
-                                android:id="@+id/borderView3"
-                                android:layout_width="195dp"
-                                android:layout_height="195dp"
-                                android:layout_gravity="center_horizontal"
-                                android:background="@drawable/border_drawable_nocolor_2_3_4_icon" />
-                        </FrameLayout>
-
+                            <FrameLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <ImageView
+                                    android:id="@+id/image3"
+                                    android:layout_width="215dp"
+                                    android:layout_height="215dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:background="@android:color/transparent"
+                                    android:scaleType="centerInside" />
+                                <View
+                                    android:id="@+id/borderView3"
+                                    android:layout_width="215dp"
+                                    android:layout_height="215dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:background="@drawable/border_drawable_nocolor_3_icons" />
+                            </FrameLayout>
+                        </LinearLayout>
                         <TextView
                             android:id="@+id/bt3"
-                            android:layout_width="195dp"
+                            android:layout_width="205dp"
                             android:layout_height="wrap_content"
                             android:baselineAligned="false"
                             android:minLines="2"
@@ -261,7 +258,6 @@
         </RelativeLayout>
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/relativeLayoutNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -288,27 +284,6 @@
             android:layout_toLeftOf="@+id/ivhome"
             android:contentDescription="@string/back"/>
     </RelativeLayout>
-    <LinearLayout
-        android:layout_width="836dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal"
-        android:layout_marginTop="?attr/actionBarSize">
-        <EditText
-            android:id="@+id/et"
-            android:layout_width="736dp"
-            android:layout_height="80dp"
-            android:textSize="20sp"
-            android:imeOptions="actionDone|flagNoExtractUi"
-            android:contentDescription="@string/edttxt_msg"/>
-        <ImageView
-            android:id="@+id/ttsbutton"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:src="@drawable/ic_search_list_speaker"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="@string/speak"/>
-    </LinearLayout>
     <ImageView
         android:layout_width="168dp"
         android:layout_height="112dp"

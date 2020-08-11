@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ll"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background">
@@ -19,9 +19,11 @@
             android:fillViewport="true"
             android:fadeScrollbars="false">
             <LinearLayout
-                android:layout_width="@dimen/about_scroll_width"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginRight="@dimen/about_ll_margin_right"
+                android:layout_marginEnd="@dimen/about_ll_margin_right">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -171,6 +173,30 @@
                             android:gravity="center"
                             android:importantForAccessibility="no"/>
                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/about_je_intro42"
+                            style="@style/defaultTextViewStyle"
+                            android:layout_marginTop="@dimen/about_tv_margin"
+                            android:layout_marginLeft="@dimen/about_tv_margin"
+                            android:layout_marginStart="@dimen/about_tv_margin"
+                            android:paddingBottom="@dimen/about_tv_padding_bottom"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black_eighty"
+                            android:text="@string/bullet"
+                            android:scaleX="@dimen/about_bullet_scale"
+                            android:scaleY="@dimen/about_bullet_scale"
+                            android:layout_marginTop="@dimen/about_bullet_margin_top"
+                            android:gravity="center"
+                            android:importantForAccessibility="no"/>
+                        <TextView
                             android:id="@+id/tv35"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -206,14 +232,39 @@
                             android:layout_marginStart="@dimen/about_tv_margin"
                             android:paddingBottom="@dimen/about_tv_padding_bottom"/>
                     </LinearLayout>
-                    <com.google.android.youtube.player.YouTubeThumbnailView
-                        android:id="@+id/thumbnailJellowInfo"
-                        android:layout_width="@dimen/access_yt_thumbnail_width"
-                        android:layout_height="@dimen/access_yt_thumbnail_height"
-                        android:src="@drawable/no_thumbnail"
-                        android:layout_marginTop="@dimen/access_tv_margin_top"
-                        android:paddingBottom="@dimen/access_tv_margin_bottom"
-                        android:onClick="startVideoIntent"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black_eighty"
+                            android:text="@string/bullet"
+                            android:scaleX="@dimen/about_bullet_scale"
+                            android:scaleY="@dimen/about_bullet_scale"
+                            android:layout_marginTop="@dimen/about_bullet_margin_top"
+                            android:gravity="center"
+                            android:importantForAccessibility="no"/>
+                        <TextView
+                            android:id="@+id/tv44"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/about_je_more_info"
+                            style="@style/defaultTextViewStyle"
+                            android:layout_marginTop="@dimen/about_tv_margin"
+                            android:layout_marginLeft="@dimen/about_tv_margin"
+                            android:layout_marginStart="@dimen/about_tv_margin"
+                            android:paddingBottom="@dimen/about_tv_padding_bottom"/>
+                    </LinearLayout>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/about_btn_height"
+                        android:textSize="@dimen/about_btn_txt_size"
+                        android:text="@string/play_video"
+                        android:paddingLeft="@dimen/about_btn_padding_left"
+                        android:paddingRight="@dimen/about_btn_padding_left"
+                        android:onClick="playInfoVideo"/>
 
                 </LinearLayout>
                 <LinearLayout
@@ -396,18 +447,6 @@
                                     android:layout_marginStart="@dimen/about_tv_margin"
                                     android:paddingBottom="@dimen/about_tv_padding_bottom"
                                     android:importantForAccessibility="yes"/>
-                                <TextView
-                                    android:id="@+id/tv34"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:autoLink="web"
-                                    android:text="@string/about_je_link"
-                                    style="@style/defaultTextViewStyle"
-                                    android:layout_marginTop="@dimen/about_tv_margin"
-                                    android:layout_marginLeft="@dimen/about_tv_margin"
-                                    android:layout_marginStart="@dimen/about_tv_margin"
-                                    android:paddingBottom="@dimen/about_tv_padding_bottom"
-                                    android:importantForAccessibility="no"/>
                             </LinearLayout>
                         </LinearLayout>
                         <LinearLayout
@@ -566,6 +605,43 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/about_je_intro20"
+                                style="@style/defaultTextViewStyle"
+                                android:layout_marginLeft="@dimen/about_credit_name_margin_left"
+                                android:layout_marginStart="@dimen/about_credit_name_margin_left"
+                                android:paddingBottom="@dimen/about_tv_padding_bottom"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="@dimen/about_credit_title_ll_margin_bottom">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black_eighty"
+                                    android:text="@string/bullet"
+                                    android:scaleX="@dimen/about_bullet_scale"
+                                    android:scaleY="@dimen/about_bullet_scale"
+                                    android:layout_gravity="center_vertical"
+                                    android:gravity="center"
+                                    android:importantForAccessibility="no"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/about_je_intro40"
+                                    android:layout_marginLeft="@dimen/about_credit_tv_margin_left"
+                                    android:layout_marginStart="@dimen/about_credit_tv_margin_left"
+                                    android:fontFamily="@font/mukta_semibold"
+                                    style="@style/defaultTextViewStyle"/>
+                            </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/about_je_intro41"
                                 style="@style/defaultTextViewStyle"
                                 android:layout_marginLeft="@dimen/about_credit_name_margin_left"
                                 android:layout_marginStart="@dimen/about_credit_name_margin_left"
@@ -786,7 +862,43 @@
                                     android:gravity="center"
                                     android:importantForAccessibility="no"/>
                                 <TextView
-                                    android:id="@+id/tv38"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/about_je_intro43"
+                                    android:layout_marginLeft="@dimen/about_credit_tv_margin_left"
+                                    android:layout_marginStart="@dimen/about_credit_tv_margin_left"
+                                    android:fontFamily="@font/mukta_semibold"
+                                    style="@style/defaultTextViewStyle"/>
+                            </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/about_je_intro44"
+                                style="@style/defaultTextViewStyle"
+                                android:layout_marginLeft="@dimen/about_credit_name_margin_left"
+                                android:layout_marginStart="@dimen/about_credit_name_margin_left"
+                                android:paddingBottom="@dimen/about_tv_padding_bottom"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="@dimen/about_credit_title_ll_margin_bottom">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black_eighty"
+                                    android:text="@string/bullet"
+                                    android:scaleX="@dimen/about_bullet_scale"
+                                    android:scaleY="@dimen/about_bullet_scale"
+                                    android:layout_gravity="center_vertical"
+                                    android:gravity="center"
+                                    android:importantForAccessibility="no"/>
+                                <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/about_je_intro38"
@@ -796,7 +908,6 @@
                                     style="@style/defaultTextViewStyle"/>
                             </LinearLayout>
                             <TextView
-                                android:id="@+id/tv39"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/about_je_intro39"
@@ -862,6 +973,8 @@
             android:textSize="@dimen/about_btn_txt_size"
             android:text="@string/speak"
             android:layout_gravity="center_vertical"
+            android:paddingLeft="@dimen/about_btn_padding_left"
+            android:paddingRight="@dimen/about_btn_padding_left"
             android:layout_marginLeft="@dimen/about_btn_margin_left"
             android:layout_marginStart="@dimen/about_btn_margin_left"/>
         <Button
@@ -871,6 +984,8 @@
             android:textSize="@dimen/about_btn_txt_size"
             android:text="@string/stop"
             android:layout_gravity="center_vertical"
+            android:paddingLeft="@dimen/about_btn_padding_left"
+            android:paddingRight="@dimen/about_btn_padding_left"
             android:layout_marginLeft="@dimen/about_btn_margin_left"
             android:layout_marginStart="@dimen/about_btn_margin_left"/>
     </LinearLayout>

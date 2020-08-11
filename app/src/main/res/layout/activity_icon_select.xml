@@ -1,42 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dsource.idc.jellowintl.makemyboard.IconSelectActivity">
+    tools:context="com.dsource.idc.jellowintl.make_my_board_module.activity.IconSelectActivity">
 
     <RelativeLayout
         android:id="@+id/left_level_select_pane"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@color/app_background"
-        android:layout_alignParentLeft="true">
-
-        <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/level_select_pane_recycler"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <RelativeLayout
+            android:id="@+id/ll_header"
+            android:layout_width="@dimen/level_select_pane_min_width"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/board_icon"
+                android:layout_width="@dimen/header_icon_size"
+                android:layout_height="@dimen/header_icon_size"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginVertical="8dp"/>
+            <TextView
+                android:id="@+id/board_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/board_icon"
+                style="@style/defaultTextViewStyle"
+                android:textSize="@dimen/header_title_size"
+                android:text="Greetings Board"
+                android:textColor="@color/colorPrimary"
+                android:lineSpacingExtra="1dp"
+                android:lineSpacingMultiplier=".7"/>
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/board_name"
+                android:layout_toLeftOf="@+id/board_name">
+                <ImageView
+                    android:layout_width="@dimen/header_edit_icon_size"
+                    android:layout_height="@dimen/header_edit_icon_size"
+                    android:src="@drawable/ic_edit_icon_red_back"
+                    android:layout_gravity="right"
+                    android:importantForAccessibility="yes"
+                    android:focusable="true"
+                    android:contentDescription="@string/edit_board_image" />
+            </FrameLayout>
+        </RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_level_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_header"
             android:clipToPadding="false"
             android:minWidth="@dimen/level_select_pane_min_width"
-            android:scrollbars="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:scrollbars="vertical"/>
 
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/right_icon_select_pane"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:background="#f9f5d9"
-        android:layout_marginRight="2dp"
+        android:background="@color/light_base"
         android:layout_toEndOf="@+id/left_level_select_pane"
         android:layout_toRightOf="@+id/left_level_select_pane">
 
         <TextView
-            android:id="@+id/no_sub_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -44,9 +81,18 @@
             android:textSize="18sp"
             android:visibility="gone"
             />
-        <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/icon_select_pane_recycler"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/place_holder_text"
+            android:textSize="24sp"
+            android:visibility="gone"
+            android:text="@string/place_holder_text"
+            android:textColor="@color/light_grey"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -57,21 +103,7 @@
             android:fadeScrollbars="false"
             android:scrollbarSize="2dp"
             android:scrollbarThumbVertical="@android:color/darker_gray"
-            android:scrollbars="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-        <ListView
-            android:id="@+id/filter_menu"
-            android:layout_width="@dimen/drop_down_width"
-            android:background="@color/app_background"
-            android:paddingRight="4dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:foregroundGravity="top"
-            android:visibility="gone"
-            android:layout_alignParentTop="true"
-            />
-
+            android:scrollbars="vertical"/>
 
         <RelativeLayout
             android:id="@+id/bottom_navigation_pane"
@@ -81,12 +113,14 @@
             android:background="@color/dark_base"
             android:padding="@dimen/bottom_nav_bar_padding">
             <Button
-                android:id="@+id/reset_selection"
+                android:id="@+id/btn_reset_selection"
                 android:layout_width="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/next_step"
-                android:text="Reset"
-                android:textAllCaps="false"
+                android:paddingLeft="@dimen/mmb_btn_pad"
+                android:paddingRight="@dimen/mmb_btn_pad"
+                android:layout_toLeftOf="@id/btn_next_step"
+                android:text="@string/reset"
+                android:textAllCaps="true"
                 android:layout_gravity="center_vertical"
                 android:layout_height="@dimen/profile_save_btn_height"
                 android:textSize="@dimen/profile_save_btn_txt_size"
@@ -95,13 +129,15 @@
                 />
 
             <Button
-                android:id="@+id/next_step"
+                android:id="@+id/btn_next_step"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
-                android:layout_toLeftOf="@id/next_step"
-                android:textAllCaps="false"
-                android:text="Next"
+                android:paddingLeft="@dimen/mmb_btn_pad"
+                android:paddingRight="@dimen/mmb_btn_pad"
+                android:layout_toLeftOf="@id/btn_next_step"
+                android:textAllCaps="true"
+                android:text="@string/next_btn"
                 android:layout_gravity="center_vertical"
                 android:layout_height="@dimen/profile_save_btn_height"
                 android:textSize="@dimen/profile_save_btn_txt_size"
@@ -109,33 +145,28 @@
                 />
 
             <CheckBox
-                android:id="@+id/select_deselect_check_box"
+                android:id="@+id/cb_selectAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="4dp"
-                android:buttonTint="@color/light_grey"
-                android:text="Select All"
+                android:text="@string/select_all"
+                android:layout_toLeftOf="@id/icon_count"
                 android:textSize="@dimen/select_text_size"
-                android:textColor="@color/light_black"
+                android:textColor="@color/black_80"
                 android:visibility="visible" />
-
-
-
                 <TextView
                     android:id="@+id/icon_count"
+                    android:layout_toLeftOf="@id/btn_reset_selection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="8dp"
-                    android:layout_toRightOf="@id/select_deselect_check_box"
-                    android:alpha=".8"
+                    android:layout_marginEnd="12sp"
                     android:text="(0)"
-                    android:textAlignment="center"
-                    android:textColor="@color/light_black"
+                    android:gravity="center"
+                    android:textColor="@color/black_80"
                     android:textSize="@dimen/select_text_size"
-                    android:textStyle="bold" />
+                    android:layout_marginRight="12sp" />
 
         </RelativeLayout>
 
@@ -144,14 +175,22 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/touch_area"
+        android:background="@color/fourty_percent_translucent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        >
+        android:visibility="gone">
+
+        <ListView
+            android:layout_width="@dimen/drop_down_width"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:background="@color/app_background"
+            android:foregroundGravity="top"
+            android:layout_marginRight="12dp"
+            android:visibility="gone" />
 
         <LinearLayout
-            android:id="@+id/add_edit_icon_option"
             android:layout_width="@dimen/edit_option_width"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -160,11 +199,9 @@
             android:background="@color/white"
             android:foregroundGravity="top"
             android:orientation="vertical"
-            android:visibility="gone"
-            >
+            android:visibility="gone">
 
             <RelativeLayout
-                android:id="@+id/add_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/list_border_background"
@@ -183,21 +220,20 @@
                     android:src="@drawable/ic_add_icon" />
 
                 <TextView
-                    android:id="@+id/list_item_title1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@id/list_item_icon1"
                     android:clickable="false"
-                    android:text="Add Category"
+                    android:text="@string/add_category"
                     android:textAlignment="center"
+                    android:gravity="center"
                     android:textColor="@color/light_grey"
                     android:textSize="@dimen/edit_option_text_size" />
 
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/add_icon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/list_border_background"
@@ -216,48 +252,16 @@
                     android:src="@drawable/ic_add_icon" />
 
                 <TextView
-                    android:id="@+id/list_item_title2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@id/list_item_icon2"
                     android:clickable="false"
-                    android:text="Add Icon"
+                    android:text="@string/add_icon"
                     android:textAlignment="center"
+                    android:gravity="center"
                     android:textColor="@color/light_grey"
                     android:textSize="@dimen/edit_option_text_size" />
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/edit_icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/list_item_padding">
-
-                <ImageView
-                    android:id="@+id/list_item_icon3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:clickable="false"
-                    android:src="@drawable/edit_icon" />
-
-                <TextView
-                    android:id="@+id/list_item_title3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/list_item_icon3"
-                    android:clickable="false"
-                    android:text="Edit Icon"
-                    android:textAlignment="center"
-                    android:textColor="@color/light_grey"
-                    android:textSize="@dimen/edit_option_text_size" />
-
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>

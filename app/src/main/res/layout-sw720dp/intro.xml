@@ -31,8 +31,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="32">
              <ImageView
-                 android:id="@+id/intro_img"
-                android:layout_width="wrap_content"
+                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/categorybuttons"
                 android:contentDescription="@string/intro_cd"/>

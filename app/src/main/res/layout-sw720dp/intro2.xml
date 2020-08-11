@@ -43,11 +43,9 @@
             android:gravity="center_horizontal"
             android:layout_weight="32">
             <ImageView
-                android:id="@+id/intro2_img"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/speakingwithjellowimage2"
-                tools:ignore="ContentDescription"
                 android:contentDescription="@string/intro2_cd"/>
         </LinearLayout>
         <LinearLayout

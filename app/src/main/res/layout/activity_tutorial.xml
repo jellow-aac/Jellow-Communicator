@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ll"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/app_background">
     <ScrollView
-        android:id="@+id/sv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true"
@@ -22,7 +21,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginRight="@dimen/tutorial_parent_margin_right"
-            android:layout_marginEnd="@dimen/tutorial_parent_margin_right">
+            android:layout_marginEnd="@dimen/tutorial_parent_margin_right"
+            android:paddingEnd="@dimen/tutorial_ll_padding_right"
+            android:paddingRight="@dimen/tutorial_ll_padding_right">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -332,6 +333,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:layout_marginTop="@dimen/tutorial_tv_text_margin_vertical"
                     android:layout_marginBottom="@dimen/tutorial_tv_text_margin_vertical">
                     <TextView
                         android:id="@+id/bullet6"
@@ -352,7 +354,6 @@
                         android:layout_toEndOf="@+id/bullet6"
                         android:layout_toRightOf="@+id/bullet6"
                         android:layout_marginBottom="@dimen/tutorial_tv_text_margin_vertical"
-                        android:layout_marginTop="@dimen/tutorial_tv_text_margin_vertical"
                         android:paddingBottom="@dimen/tutorial_tv_text_padding_bottom"
                         android:text="@string/ttsDesc"
                         style="@style/defaultTextViewStyle"/>
@@ -387,6 +388,326 @@
                             android:contentDescription="@string/gtts3"/>
                     </LinearLayout>
 
+                </RelativeLayout>
+            </LinearLayout>
+<!--MMB-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/tutorial_parent_ll_margin_bottom">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/bullet7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginRight="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginTop="@dimen/tutorial_bullet_margin_top"
+                        android:textColor="@color/black_eighty"
+                        android:scaleX="@dimen/tutorial_bullet_scale"
+                        android:scaleY="@dimen/tutorial_bullet_scale"
+                        android:text="@string/bullet"
+                        android:importantForAccessibility="no"/>
+                    <TextView
+                        android:id="@+id/tv22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/tutorial_tv_margin_bottom"
+                        android:layout_toRightOf="@+id/bullet7"
+                        android:paddingBottom="@dimen/tutorial_tv_padding_bottom"
+                        android:text="@string/my_boards_title"
+                        style="@style/defaultTextViewStyle"/>
+                    <ImageView
+                        android:id="@+id/pic11"
+                        android:layout_width="wrap_content"
+                        android:layout_below="@+id/tv22"
+                        android:layout_height="@dimen/tutorial_pic_height"
+                        android:layout_marginTop="@dimen/tutorial_pic_margin_top"
+                        android:contentDescription="@string/my_boards_title_cd"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/tutorial_parent_ll_margin_bottom">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/bullet8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginRight="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginTop="@dimen/tutorial_bullet_margin_top"
+                        android:textColor="@color/black_eighty"
+                        android:scaleX="@dimen/tutorial_bullet_scale"
+                        android:scaleY="@dimen/tutorial_bullet_scale"
+                        android:text="@string/bullet"
+                        android:importantForAccessibility="no"/>
+                    <TextView
+                        android:id="@+id/tv23"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/bullet8"
+                        android:layout_marginBottom="@dimen/tutorial_tv_margin_bottom"
+                        android:paddingBottom="@dimen/tutorial_tv_padding_bottom"
+                        android:text="@string/my_boards_info"
+                        style="@style/defaultTextViewStyle"/>
+                    <ImageView
+                        android:id="@+id/pic12"
+                        android:layout_width="wrap_content"
+                        android:layout_below="@+id/tv23"
+                        android:layout_height="@dimen/tutorial_pic_height"
+                        android:layout_marginTop="@dimen/tutorial_pic_margin_top"
+                        android:contentDescription="@string/my_boards_info_cd"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/tutorial_parent_ll_margin_bottom">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/bullet9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginRight="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginTop="@dimen/tutorial_bullet_margin_top"
+                        android:textColor="@color/black_eighty"
+                        android:scaleX="@dimen/tutorial_bullet_scale"
+                        android:scaleY="@dimen/tutorial_bullet_scale"
+                        android:text="@string/bullet"
+                        android:importantForAccessibility="no"/>
+                    <TextView
+                        android:id="@+id/tv24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/bullet9"
+                        android:layout_marginBottom="@dimen/tutorial_tv_margin_bottom"
+                        android:paddingBottom="@dimen/tutorial_tv_padding_bottom"
+                        android:text="@string/my_boards_add_board"
+                        style="@style/defaultTextViewStyle"/>
+                    <ImageView
+                        android:id="@+id/pic13"
+                        android:layout_width="wrap_content"
+                        android:layout_below="@+id/tv24"
+                        android:layout_height="@dimen/tutorial_pic_height"
+                        android:layout_marginTop="@dimen/tutorial_pic_margin_top"
+                        android:contentDescription="@string/my_boards_add_board_cd"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/tutorial_parent_ll_margin_bottom">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/bullet10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginRight="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginTop="@dimen/tutorial_bullet_margin_top"
+                        android:textColor="@color/black_eighty"
+                        android:scaleX="@dimen/tutorial_bullet_scale"
+                        android:scaleY="@dimen/tutorial_bullet_scale"
+                        android:text="@string/bullet"
+                        android:importantForAccessibility="no"/>
+                    <TextView
+                        android:id="@+id/tv25"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/bullet10"
+                        android:layout_marginBottom="@dimen/tutorial_tv_margin_bottom"
+                        android:paddingBottom="@dimen/tutorial_tv_padding_bottom"
+                        android:text="@string/my_boards_add_icons"
+                        style="@style/defaultTextViewStyle"/>
+                    <ImageView
+                        android:id="@+id/pic14"
+                        android:layout_width="wrap_content"
+                        android:layout_below="@+id/tv25"
+                        android:layout_height="@dimen/tutorial_pic_height"
+                        android:layout_marginTop="@dimen/tutorial_pic_margin_top"
+                        android:contentDescription="@string/my_boards_add_icons_cd"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/tutorial_parent_ll_margin_bottom">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/bullet11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginRight="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginTop="@dimen/tutorial_bullet_margin_top"
+                        android:textColor="@color/black_eighty"
+                        android:scaleX="@dimen/tutorial_bullet_scale"
+                        android:scaleY="@dimen/tutorial_bullet_scale"
+                        android:text="@string/bullet"
+                        android:importantForAccessibility="no"/>
+                    <TextView
+                        android:id="@+id/tv26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/bullet11"
+                        android:layout_marginBottom="@dimen/tutorial_tv_margin_bottom"
+                        android:paddingBottom="@dimen/tutorial_tv_padding_bottom"
+                        android:text="@string/my_boards_add_edit_icons"
+                        style="@style/defaultTextViewStyle"/>
+                    <ImageView
+                        android:id="@+id/pic15"
+                        android:layout_width="wrap_content"
+                        android:layout_below="@+id/tv26"
+                        android:layout_height="@dimen/tutorial_pic_height"
+                        android:layout_marginTop="@dimen/tutorial_pic_margin_top"
+                        android:contentDescription="@string/my_boards_add_edit_icons_cd"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/tutorial_parent_ll_margin_bottom">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/bullet12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginRight="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginTop="@dimen/tutorial_bullet_margin_top"
+                        android:textColor="@color/black_eighty"
+                        android:scaleX="@dimen/tutorial_bullet_scale"
+                        android:scaleY="@dimen/tutorial_bullet_scale"
+                        android:text="@string/bullet"
+                        android:importantForAccessibility="no"/>
+                    <TextView
+                        android:id="@+id/tv27"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/bullet12"
+                        android:layout_marginBottom="@dimen/tutorial_tv_margin_bottom"
+                        android:paddingBottom="@dimen/tutorial_tv_padding_bottom"
+                        android:text="@string/my_boards_add_icons_window"
+                        style="@style/defaultTextViewStyle"/>
+                    <ImageView
+                        android:id="@+id/pic16"
+                        android:layout_width="wrap_content"
+                        android:layout_below="@+id/tv27"
+                        android:layout_height="@dimen/tutorial_pic_height"
+                        android:layout_marginTop="@dimen/tutorial_pic_margin_top"
+                        android:contentDescription="@string/my_boards_add_icons_window_cd"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/tutorial_parent_ll_margin_bottom">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/bullet13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginRight="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginTop="@dimen/tutorial_bullet_margin_top"
+                        android:textColor="@color/black_eighty"
+                        android:scaleX="@dimen/tutorial_bullet_scale"
+                        android:scaleY="@dimen/tutorial_bullet_scale"
+                        android:text="@string/bullet"
+                        android:importantForAccessibility="no"/>
+                    <TextView
+                        android:id="@+id/tv28"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/bullet13"
+                        android:layout_marginBottom="@dimen/tutorial_tv_margin_bottom"
+                        android:paddingBottom="@dimen/tutorial_tv_padding_bottom"
+                        android:text="@string/my_boards_add_edit_expression"
+                        style="@style/defaultTextViewStyle"/>
+                    <ImageView
+                        android:id="@+id/pic17"
+                        android:layout_width="wrap_content"
+                        android:layout_below="@+id/tv28"
+                        android:layout_height="@dimen/tutorial_pic_height"
+                        android:layout_marginTop="@dimen/tutorial_pic_margin_top"
+                        android:contentDescription="@string/my_boards_add_edit_expression_cd"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/tutorial_parent_ll_margin_bottom">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/bullet14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginRight="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginTop="@dimen/tutorial_bullet_margin_top"
+                        android:textColor="@color/black_eighty"
+                        android:scaleX="@dimen/tutorial_bullet_scale"
+                        android:scaleY="@dimen/tutorial_bullet_scale"
+                        android:text="@string/bullet"
+                        android:importantForAccessibility="no"/>
+                    <TextView
+                        android:id="@+id/tv29"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/bullet14"
+                        android:layout_marginBottom="@dimen/tutorial_tv_margin_bottom"
+                        android:paddingBottom="@dimen/tutorial_tv_padding_bottom"
+                        android:text="@string/my_boards_board_home_info"
+                        style="@style/defaultTextViewStyle"/>
+                    <ImageView
+                        android:id="@+id/pic18"
+                        android:layout_width="wrap_content"
+                        android:layout_below="@+id/tv29"
+                        android:layout_height="@dimen/tutorial_pic_height"
+                        android:layout_marginTop="@dimen/tutorial_pic_margin_top"
+                        android:contentDescription="@string/my_boards_board_home_info_cd"/>
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

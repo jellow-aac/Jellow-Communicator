@@ -17,7 +17,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
-                    android:id="@+id/expressiveOne"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -45,7 +44,6 @@
                         android:src="@drawable/more"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/expressiveTwo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -117,7 +115,7 @@
                                     android:layout_width="156dp"
                                     android:layout_height="156dp"
                                     android:layout_gravity="center_horizontal"
-                                    android:background="@drawable/border_drawable_nocolor_2_3_4_icon"/>
+                                    android:background="@drawable/border_drawable_nocolor_3_icons"/>
                             </FrameLayout>
                             <ImageButton
                                 android:id="@+id/arrow1"
@@ -164,7 +162,7 @@
                                     android:layout_width="156dp"
                                     android:layout_height="156dp"
                                     android:layout_gravity="center_horizontal"
-                                    android:background="@drawable/border_drawable_nocolor_2_3_4_icon"/>
+                                    android:background="@drawable/border_drawable_nocolor_3_icons"/>
                             </FrameLayout>
                             <ImageButton
                                 android:id="@+id/arrow2"
@@ -186,7 +184,6 @@
                             android:textSize="18sp"/>
                     </LinearLayout>
                     <LinearLayout
-                        android:id="@+id/linearLayoutThree"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -208,7 +205,7 @@
                                 android:layout_width="156dp"
                                 android:layout_height="156dp"
                                 android:layout_gravity="center_horizontal"
-                                android:background="@drawable/border_drawable_nocolor_2_3_4_icon"/>
+                                android:background="@drawable/border_drawable_nocolor_3_icons"/>
                         </FrameLayout>
                         <TextView
                             android:id="@+id/bt3"
@@ -254,7 +251,6 @@
         </RelativeLayout>
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/relativeLayoutNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -281,27 +277,6 @@
             android:layout_toLeftOf="@+id/ivhome"
             android:contentDescription="@string/back"/>
     </RelativeLayout>
-    <LinearLayout
-        android:layout_width="650dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal"
-        android:layout_marginTop="?attr/actionBarSize">
-        <EditText
-            android:id="@+id/et"
-            android:layout_width="525dp"
-            android:layout_height="80dp"
-            android:imeOptions="actionDone|flagNoExtractUi"
-            android:textSize="20sp"
-            android:contentDescription="@string/edttxt_msg"/>
-        <ImageView
-            android:id="@+id/ttsbutton"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:src="@drawable/ic_search_list_speaker"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="@string/speak"/>
-    </LinearLayout>
     <ImageView
         android:layout_width="150dp"
         android:layout_height="100dp"

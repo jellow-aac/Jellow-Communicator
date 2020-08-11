@@ -9,28 +9,13 @@
     android:layout_marginBottom="@dimen/oneIcon_parentVertical"
     android:layout_marginLeft="@dimen/oneIcon_parentHorizontal"
     android:layout_marginRight="@dimen/oneIcon_parentHorizontal"
-    android:padding="@dimen/oneIcon_parentPadding">
+    android:padding="@dimen/oneIcon_parentPadding"
+    android:focusable="true">
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/frame_layout">
-        <ImageView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:id="@+id/delete_icons"
-            android:src="@drawable/ic_delete_icon_red_back"
-            android:layout_gravity="end"
-            android:visibility="gone"
-            android:layout_marginRight="@dimen/def_margin_flt"
-            />
-        <ImageView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:id="@+id/edit_icons"
-            android:src="@drawable/ic_edit_icon_red_back"
-            android:visibility="gone"
-            android:layout_marginLeft="@dimen/def_margin_flt"
-            />
+
         <ImageView
             android:id="@+id/icon1"
             android:layout_width="@dimen/oneIcon_width"
@@ -43,6 +28,30 @@
             android:layout_height="@dimen/oneIcon_width"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/border_drawable_nocolor_one_icon"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:id= "@+id/edit_remove_container"
+            android:layout_height="@dimen/oneIcon_width">
+
+            <ImageView
+                android:id="@+id/delete_icons"
+                android:layout_width="@dimen/oneIcon_remove_btn"
+                android:layout_height="@dimen/oneIcon_remove_btn"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/oneIcon_width"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_delete_icon_red_back" />
+
+            <ImageView
+                android:layout_marginRight="-12dp"
+                android:layout_width="@dimen/oneIcon_remove_btn"
+                android:layout_height="@dimen/oneIcon_remove_btn"
+                android:id="@+id/edit_icons"
+                android:src="@drawable/ic_edit_icon_red_back"
+                android:layout_marginLeft="@dimen/def_margin_flt"
+                />
+        </RelativeLayout>
     </FrameLayout>
     <TextView
         android:id="@+id/te1"
@@ -51,5 +60,7 @@
         android:text="TIME AND WEATHER"
         android:gravity="center"
         android:textSize="@dimen/oneIcon_textSize"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:lineSpacingExtra="1dp"
+        android:lineSpacingMultiplier=".8"/>
 </LinearLayout>

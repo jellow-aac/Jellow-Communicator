@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parent"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:background="@color/app_background"
@@ -28,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/profile_parent_ll_margin_right"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="@dimen/profile_parent_ll_margin_right"
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/tvName"
@@ -51,7 +52,6 @@
                     android:inputType="textPersonName"
                     android:contentDescription="@string/enter_child_s_name"/>
                 <TextView
-                    android:id="@+id/tvCaregiverName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/caregiverName"
@@ -69,7 +69,6 @@
                     android:inputType="textPersonName"
                     android:contentDescription="@string/enter_caregiver_s_name"/>
                 <TextView
-                    android:id="@+id/tvCaregiverNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/careGiverContact"
@@ -104,7 +103,6 @@
                     android:contentDescription="@string/enter_caregiver_s_contact_number" />
             </LinearLayout>
                 <TextView
-                    android:id="@+id/tvHomeAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/homeAddress"
@@ -122,15 +120,14 @@
                     android:inputType="textPostalAddress"
                     android:contentDescription="@string/enter_home_address"/>
                 <TextView
-                    android:id="@+id/tvEmailAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/emailAddress"
                     android:fontFamily="@font/mukta_semibold"
                     style="@style/defaultTextViewStyle"
-                    android:contentDescription="@string/email_address"/>
+                    android:contentDescription="@string/caregiver_s_email_address"/>
                 <EditText
-                    android:id="@+id/etEmailId"
+                    android:id="@+id/etEmailAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/profile_view_margin_bottom"
@@ -140,43 +137,8 @@
                     android:imeOptions="actionDone"
                     android:inputType="textEmailAddress"
                     android:contentDescription="@string/enter_caregiver_s_email_address"/>
-                <TextView
-                    android:id="@+id/tvUserGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/userGroup"
-                    android:fontFamily="@font/mukta_semibold"
-                    style="@style/defaultTextViewStyle"
-                    android:contentDescription="@string/user_s_group"/>
-                <RadioGroup
-                    android:id="@+id/radioUserGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/profile_view_margin_bottom"
-                    android:importantForAccessibility="no">
-                    <RadioButton
-                        android:id="@+id/radioTherapist"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/defaultTextViewStyle"
-                        android:textSize="@dimen/profile_radio_btn_txt_size"
-                        android:text="@string/groupTeacher"
-                        android:contentDescription="@string/therapist_or_teacher_cd"
-                        android:importantForAccessibility="yes"/>
-                    <RadioButton
-                        android:id="@+id/radioParent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/defaultTextViewStyle"
-                        android:textSize="@dimen/profile_radio_btn_txt_size"
-                        android:layout_marginBottom="@dimen/profile_radio_btn_margin_bottom"
-                        android:text="@string/groupParent"
-                        android:contentDescription="@string/parent_or_caregiver_cd"
-                        android:importantForAccessibility="yes"/>
-                </RadioGroup>
 
                 <TextView
-                    android:id="@+id/tvBloodGrp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/bloodGroup"
@@ -184,9 +146,21 @@
                     style="@style/defaultTextViewStyle"/>
                 <Spinner
                     android:id="@+id/bloodgroup"
-                    android:layout_width="@dimen/profile_spinner_width"
+                    android:layout_width="wrap_content"
                     android:layout_height="@dimen/profile_spinner_height"
+                    android:paddingRight="@dimen/profile_spinner_right_padding"
+                    android:paddingEnd="@dimen/profile_spinner_right_padding"
                     android:background="@drawable/custom_spinner_view"/>
+                <TextView
+                    style="@style/defaultTextViewStyle"
+                    android:text="@string/txt_data_info"
+                    android:layout_marginTop="@dimen/user_reg_btn_margin_top"/>
+                <TextView
+                    android:id="@+id/view_privacy_policy"
+                    style="@style/defaultTextViewStyle"
+                    android:text="@string/txt_view_privacy_policy"
+                    android:onClick="openPrivacyPolicyPage"
+                    android:layout_marginBottom="@dimen/profile_view_margin_bottom"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/profile_view_height" />
@@ -194,7 +168,6 @@
         </ScrollView>
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="@dimen/profile_view_height"
         android:background="@color/menu_screen_bottom_bar"
@@ -207,6 +180,8 @@
             android:textSize="@dimen/profile_save_btn_txt_size"
             android:text="@string/txtSave"
             android:layout_gravity="center_vertical"
+            android:paddingLeft="@dimen/profile_save_btn_padding_left"
+            android:paddingRight="@dimen/profile_save_btn_padding_left"
             android:layout_marginLeft="@dimen/profile_btn_save_margin_left"
             android:layout_marginStart="@dimen/profile_btn_save_margin_left"/>
     </LinearLayout>

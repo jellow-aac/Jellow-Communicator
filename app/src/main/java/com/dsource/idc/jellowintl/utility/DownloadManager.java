@@ -2,13 +2,14 @@ package com.dsource.idc.jellowintl.utility;
 
 import android.content.Context;
 import android.net.Uri;
-import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.dsource.idc.jellowintl.BuildConfig;
+import com.dsource.idc.jellowintl.factories.PathFactory;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.liulishuo.filedownloader.BaseDownloadTask;
@@ -17,10 +18,7 @@ import com.liulishuo.filedownloader.FileDownloader;
 
 import java.io.File;
 
-import androidx.annotation.NonNull;
 import ir.mahdi.mzip.zip.ZipArchive;
-
-import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 
 /**
  * Created by ravipoovaiah on 14/12/17.
@@ -32,25 +30,22 @@ public class DownloadManager {
     int id;
     String localeCode;
     Context context;
-    ProgressReciever progressReciever;
-    FirebaseAuth mAuth;
+    ProgressReceiver progressReceiver;
 
 
-
-
-
-
-
-    public DownloadManager(String localeCode, Context context, ProgressReciever progressReciever) {
+    public DownloadManager(String localeCode, Context context, ProgressReceiver progressReceiver) {
         this.localeCode = localeCode;
         this.context = context;
-        this.progressReciever = progressReciever;
-        //FirebaseApp.initializeApp(context);
+        this.progressReceiver = progressReceiver;
 
     }
 
-    // any class using DownloadManager should implement this ProgressReciever for getting callbacks
-    public interface ProgressReciever{
+    public void setLanguage(String localeCode){
+        this.localeCode = localeCode;
+    }
+
+    // any class using DownloadManager should implement this ProgressReceiver for getting callbacks
+    public interface ProgressReceiver {
         void onprogress(int soFarBytes, int totalBytes);
 
         void onComplete();
@@ -90,8 +85,7 @@ public class DownloadManager {
     private void startDownload(Uri url)
     {
         // get a reference to internal directory
-        File en_dir = context.getDir(localeCode, Context.MODE_PRIVATE);
-
+        File en_dir = context.getDir(PathFactory.UNIVERSAL_FOLDER, Context.MODE_PRIVATE);
         // setup file downloader
         FileDownloader.setup(context);
         // add listener for callbacks
@@ -111,7 +105,7 @@ public class DownloadManager {
             @Override
             protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
 
-                progressReciever.onprogress(soFarBytes,totalBytes);
+                progressReceiver.onprogress(soFarBytes,totalBytes);
 
             }
 
@@ -126,9 +120,9 @@ public class DownloadManager {
             @Override
             protected void completed(BaseDownloadTask task) {
 
-                progressReciever.onprogress(1,1);
+                progressReceiver.onprogress(1,1);
                 extractZip();
-                progressReciever.onComplete();
+                progressReceiver.onComplete();
             }
 
             @Override
@@ -156,22 +150,10 @@ public class DownloadManager {
     }
 
     private void extractZip() {
-        File en_dir = context.getDir(localeCode, Context.MODE_PRIVATE);
+        File en_dir = context.getDir(PathFactory.UNIVERSAL_FOLDER, Context.MODE_PRIVATE);
         ZipArchive.unzip(en_dir.getPath()+"/"+localeCode+".zip",en_dir.getPath(),"");
         File zip = new File(en_dir.getPath(),localeCode+".zip");
         if(zip.exists()) zip.delete();
-
-        //registerEvent();
-
-
-    }
-
-    // for Analytics Purpose
-    private void registerEvent() {
-
-        Bundle bundle = new Bundle();
-        bundle.putString("Downloaded Language",localeCode);
-        bundleEvent("Language",bundle);
     }
 
 
@@ -191,5 +173,4 @@ public class DownloadManager {
             }
         }
     }
-
 }

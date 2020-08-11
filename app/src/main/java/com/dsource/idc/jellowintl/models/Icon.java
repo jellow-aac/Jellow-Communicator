@@ -24,6 +24,8 @@ public class Icon {
     private String Speech_Label;
     @SerializedName("Event_Tag")
     private String Event_Tag;
+    @SerializedName("Search_Tag")
+    private String Search_Tag;
     @SerializedName("L")
     private String L;
     @SerializedName("LL")
@@ -71,6 +73,14 @@ public class Icon {
 
     public void setEvent_Tag(String event_Tag) {
         Event_Tag = event_Tag;
+    }
+
+    public String getSearchTag() {
+        return Search_Tag;
+    }
+
+    public void setSearchTag(String searchTag) {
+        Search_Tag = searchTag;
     }
 
     public String getL() {

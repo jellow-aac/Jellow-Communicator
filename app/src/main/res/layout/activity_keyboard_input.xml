@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background">
@@ -16,13 +17,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginRight="@dimen/key_ll_margin_right"
+            android:layout_marginEnd="@dimen/key_ll_margin_right">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/tvTitleSerialKeyboard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/serial_keyboard_title"
@@ -43,7 +45,6 @@
                         android:gravity="center"
                         android:importantForAccessibility="no"/>
                     <TextView
-                        android:id="@+id/tvInfoSerialKeyboard"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/serial_keyboard_info"
@@ -68,7 +69,6 @@
                     android:text="@string/bullet"
                     android:importantForAccessibility="no"/>
                 <TextView
-                    android:id="@+id/t1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/keyboardControlTxt"

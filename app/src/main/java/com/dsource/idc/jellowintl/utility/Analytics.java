@@ -12,32 +12,26 @@ import com.google.firebase.database.ServerValue;
 
 import java.util.Date;
 
-import androidx.annotation.NonNull;
-
 /**
  * Created by ekalpa on 6/14/2017.
  */
 
 public class Analytics {
-    private final static String TAG = "com.dsource.idc.jellowintl";
-    static FirebaseAnalytics mFirebaseAnalytics;
-    static FirebaseDatabase mDb;
-    static DatabaseReference mRef;
-    static long start, finish;
-    static String pushId;
-    static String randomKey;
-    static Bundle bundle;
-
-
-
+    private static FirebaseAnalytics mFirebaseAnalytics;
+    private static FirebaseDatabase mDb;
+    private static DatabaseReference mRef;
+    private static long start, finish;
+    private static String pushId;
+    private static String randomKey;
+    private static Bundle bundle;
 
     // should be called only once at the start of the app
-    public static void getAnalytics(Context context,String contact) {
+    public static void getAnalytics(Context context, String userId) {
 
         mDb = FirebaseDatabase.getInstance();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
         mFirebaseAnalytics.setMinimumSessionDuration(5*60*1000);
-        mRef = mDb.getReference(BuildConfig.DB_TYPE+"/users/"+maskNumber(contact)+"/sessions");
+        mRef = mDb.getReference(BuildConfig.DB_TYPE+"/users/"+userId+"/sessions");
         pushId = mRef.push().getKey();
         bundle = new Bundle();
     }
@@ -50,21 +44,17 @@ public class Analytics {
 
 
     // should be called on onPause() of any Activity
-    public static void stopMeasuring(String Activity)
+    public static void stopMeasuring(String screenName)
     {
         finish = System.currentTimeMillis();
         randomKey = mRef.push().getKey();
         long duration = (finish - start)/1000;
         if(duration != 0)
         {
-            mRef.child(pushId).child(Activity).child(randomKey).child("identifier").setValue(ServerValue.TIMESTAMP);
-            mRef.child(pushId).child(Activity).child(randomKey).child("duration").setValue(duration);
+            mRef.child(pushId).child(screenName).child(randomKey).child("identifier").setValue(ServerValue.TIMESTAMP);
+            mRef.child(pushId).child(screenName).child(randomKey).child("duration").setValue(duration);
         }
-
     }
-
-
-
 
 
     public static void bundleEvent(String itemName, Bundle bundle)
@@ -97,16 +87,6 @@ public class Analytics {
         return previousTimeStamp;
     }
 
-    public static String maskNumber(@NonNull String number) {
-        Long maskedNumber = Long.valueOf(number);
-        return Long.toOctalString(maskedNumber);
-        // decrypt = Long.valueOf(maskedNumber,8)
-    }
-
-    public static void updateSessionRef(String contact){
-        mRef = mDb.getReference(BuildConfig.DB_TYPE+"/users/"+maskNumber(contact)+"/sessions");
-    }
-
     public static boolean isAnalyticsActive(){
         return mFirebaseAnalytics != null && mDb != null &&
                 mRef != null && bundle != null;
@@ -116,16 +96,11 @@ public class Analytics {
         Crashlytics.setString(key, value);
     }
 
-    public static void resetAnalytics(Context context, String contact){
+    public static void resetAnalytics(Context context, String userId){
         mFirebaseAnalytics = null;
         mDb = null;
         mRef = null;
         bundle = null;
-        mDb = FirebaseDatabase.getInstance();
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
-        mFirebaseAnalytics.setMinimumSessionDuration(5*60*1000);
-        mRef = mDb.getReference(BuildConfig.DB_TYPE+"/users/"+maskNumber(contact)+"/sessions");
-        pushId = mRef.push().getKey();
-        bundle = new Bundle();
+        getAnalytics(context, userId);
     }
 }

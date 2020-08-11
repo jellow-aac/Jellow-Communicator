@@ -13,7 +13,6 @@
         <item name="buttonStyle">@style/customButtonStyle</item>
         <item name="android:fontFamily">@font/mukta_regular</item>
         <item name="android:textAppearanceLargePopupMenu">@style/defaultTextViewStyle</item>
-        <item name="materialAlertDialogTheme">@style/materialDialogStyle</item>
     </style>
 
     <style name="CustomSeekbar" parent="Widget.AppCompat.SeekBar">
@@ -38,10 +37,8 @@
     </style>
 
     <style name="ActionBar.Solid.MyAppTheme" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
-        <item name="android:background">@drawable/red_bg</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="elevation">0dp</item>
-        <item name="titleTextStyle">@style/MyTitleTextStyle</item>
     </style>
 
     <style name="MyTitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
@@ -79,6 +76,10 @@
 
     <style name="Material.Widget.Slider.Discrete" parent="Material.Widget.Slider">
         <item name="sl_discreteMode">true</item>
+    </style>
+
+    <style name="mmb_spinner_text_size">
+        <item name="android:textSize">18sp</item>
     </style>
 
 </resources>

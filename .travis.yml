@@ -14,6 +14,9 @@ android:
     - extra-android-m2repository
 
 before_script:
+  # Copy licenses on vm
+  - mkdir "$ANDROID_HOME/licenses" || true
+  - echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > "$ANDROID_HOME/licenses/android-sdk-license"
   # Create and start emulator
   - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &

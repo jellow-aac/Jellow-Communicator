@@ -45,7 +45,6 @@
             android:gravity="center"
             android:layout_weight="21">
             <ImageView
-                android:id="@+id/intro4_img"
                 android:layout_width="wrap_content"
                 android:layout_height="190dp"
                 android:layout_gravity="center"
@@ -65,7 +64,7 @@
                 style="@style/defaultTextViewStyle"
                 android:paddingLeft="64dp"
                 android:paddingRight="64dp"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:text="@string/txt_intro4_customizeJellow"
                 android:importantForAccessibility="no"/>
         </LinearLayout>

@@ -3,10 +3,10 @@ package com.dsource.idc.jellowintl.TalkBack;
 import android.view.View;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.dsource.idc.jellowintl.R;
-
 import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+
+import com.dsource.idc.jellowintl.R;
 
 public class TalkbackHints_DropDownMenu extends AccessibilityDelegateCompat {
     @Override

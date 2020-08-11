@@ -9,17 +9,16 @@
     android:tag="large">
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
-                android:id="@+id/expressiveOne"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/ivlike"
@@ -43,12 +42,10 @@
                     android:contentDescription="@string/more"/>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/expressiveTwo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/ivdislike"
@@ -74,19 +71,18 @@
         </RelativeLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:layout_width="728dp"
+            android:layout_width="800dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:scrollbars="vertical"
             android:scrollbarFadeDuration="0"
-            android:layout_marginBottom="165dp"/>
+            android:layout_marginBottom="138dp"/>
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/relativeLayoutNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="-16dp">
+        android:layout_marginBottom="-32dp">
         <ImageView
             android:id="@+id/ivhome"
             android:layout_width="160dp"
@@ -109,27 +105,6 @@
             android:layout_toLeftOf="@+id/ivhome"
             android:contentDescription="@string/back"/>
     </RelativeLayout>
-    <LinearLayout
-        android:layout_width="728dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal"
-        android:layout_marginTop="?attr/actionBarSize">
-        <EditText
-            android:id="@+id/et"
-            android:layout_width="628dp"
-            android:layout_height="80dp"
-            android:textSize="20sp"
-            android:imeOptions="actionDone"
-            android:contentDescription="@string/edttxt_msg"/>
-        <ImageView
-            android:id="@+id/ttsbutton"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:src="@drawable/ic_search_list_speaker"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="@string/speak"/>
-    </LinearLayout>
     <ImageView
         android:layout_width="168dp"
         android:layout_height="112dp"
@@ -144,17 +119,18 @@
         android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/profile_save_btn_height"
+        android:paddingLeft="@dimen/mmb_btn_pad"
+        android:paddingRight="@dimen/mmb_btn_pad"
         android:layout_gravity="center_vertical"
         android:textSize="@dimen/profile_save_btn_txt_size"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="16dp"
-        android:textAlignment="center"
         android:background="@drawable/edit_board_dialog_edit_text"
         android:layout_marginLeft="8dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:textAllCaps="false"
-        android:text="Save"
+        android:text="@string/txtSave"
         android:visibility="gone"
         android:textColor="@color/colorPrimary"
         android:layout_marginStart="8dp"

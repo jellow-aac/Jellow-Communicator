@@ -3,11 +3,11 @@ package com.dsource.idc.jellowintl.app;
 import android.app.Application;
 import android.content.Context;
 
+import androidx.multidex.MultiDex;
+
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
-
-import androidx.multidex.MultiDex;
 
 /**.
  * Created by ekalpa on 8/19/2016.

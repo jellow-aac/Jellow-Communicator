@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
-import com.dsource.idc.jellowintl.UserRegistrationActivity;
+import com.dsource.idc.jellowintl.activities.UserRegistrationActivity;
 
 import java.util.Date;
 
