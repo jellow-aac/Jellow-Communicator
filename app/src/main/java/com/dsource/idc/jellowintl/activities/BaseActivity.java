@@ -157,13 +157,13 @@ public class BaseActivity extends AppCompatActivity{
                 if (!getLevelClass().contains(getVisibleAct()))
                     finish();
                 break;
-            case R.id.keyboardInput:
+            /*case R.id.keyboardInput:
                 if(getVisibleAct().equals(KeyboardInputActivity.class.getSimpleName()))
                     break;
                 startActivity(new Intent(this, KeyboardInputActivity.class));
                 if (!getLevelClass().contains(getVisibleAct()))
                     finish();
-                break;
+                break;*/
             case R.id.languageSelect:
                 if(getVisibleAct().equals(LanguageSelectActivity.class.getSimpleName()) )
                     break;

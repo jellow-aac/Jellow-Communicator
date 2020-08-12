@@ -57,10 +57,10 @@
             app:showAsAction="never"/>
     </group>
     <group android:id="@+id/menuGroupSettings">
-        <item
+        <!--<item
             android:id="@+id/keyboardInput"
             android:title="@string/menuKeyboardInput"
-            app:showAsAction="never"/>
+            app:showAsAction="never"/>-->
         <item
             android:id="@+id/languageSelect"
             android:title="@string/Language"
