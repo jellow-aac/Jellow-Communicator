@@ -69,7 +69,7 @@ public class UpdateManager implements UpdateContract {
     private int failedIconsDownloadsRetryCount, failedVerbiageDownloadsRetryCount;
     private boolean isIconsUpdated = false, isVerbiageUpdated = false;
 
-    public UpdateManager(Context context,ProgressReceiver progressReceiver) {
+    public UpdateManager(Context context) {
         this.iconDownloadQueue = new LinkedList<>();
         this.verbiageDownloadQueue = new LinkedList<>();
         this.failedIconDownloadsQueue = new LinkedList<>();
@@ -80,7 +80,7 @@ public class UpdateManager implements UpdateContract {
         this.mapOldVerbiageSHA256 = new HashMap<>();
         this.downloadedIcons = new HashSet<>();
         this.downloadedVerbiage = new HashSet<>();
-        this.progressReceiver = progressReceiver;
+        this.progressReceiver = (ProgressReceiver) context;
         this.context = context;
     }
 

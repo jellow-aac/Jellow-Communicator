@@ -68,7 +68,7 @@
         <item>নয়</item>
     </string-array>
 
-    <string name="change_language_line2">প্রথম ধাপঃ নিচের ড্রপডাউন থেকে যেকোনো একটি ভাষা সিলেক্ট করুন</string>
+    <string name="change_language_line2">নিচের ড্রপডাউন থেকে যেকোনো একটি ভাষা সিলেক্ট করুন</string>
     <string name="simple_ime">জেলো কীবোর্ড</string>
     <string name="subtype_en_US">সিরিয়াল এবিসি</string>
     <string name="action_bar_title">হোম</string>
@@ -165,9 +165,7 @@
     <string name="txt_registration_selectLangDesc_contentDesc">জেলো-র জন্য একটি ভাষা বেছে নিন। প্রয়োজনীয় ক্ষেত্র। **</string>
     <string name="txt_registration_registerBtn">নথিভুক্ত করুন</string>
     <string name="enternonemptycontact">কার্যকরী যোগাযোগের নাম্বার দিন</string>
-    <string name="change_language_line5">তৃতীয় ধাপঃ যাচাই করে দেখুন _-র জন্য ভয়েস ডেটা আপনার যন্ত্রে মজুত আছে কি না। ইন্টারনেটে তীর্থযাত্রী চালু করুন এবং নির্বাচিত ভাষাতে ভয়েস ডেটা ডাউনলোড করুন। প্রক্রিয়াটি স্থগিত হলে দয়া করে আপনার ইন্টারনেট সংযোগ চেক করুন এবং পুনরায় চেষ্টা করুন।</string>
-    <string name="txtChangeLanguage">মূল ভাষা বদল করুনঃ</string>
-    <string name="txtApplyChanges">চতুর্থ ধাপঃ নতুন ভাষাকে মূল ভাষা হিসেবে প্রয়োগ করতে \'বদলগুলি প্রয়োগ করুন\' বাটনটি ক্লিক করুন।</string>
+    <string name="change_language_line5">দ্বিতীয় ধাপঃ যাচাই করে দেখুন _-র জন্য ভয়েস ডেটা আপনার যন্ত্রে মজুত আছে কি না। ইন্টারনেটে তীর্থযাত্রী চালু করুন এবং নির্বাচিত ভাষাতে ভয়েস ডেটা ডাউনলোড করুন। প্রক্রিয়াটি স্থগিত হলে দয়া করে আপনার ইন্টারনেট সংযোগ চেক করুন এবং পুনরায় চেষ্টা করুন।</string>
     <string name="txt_actLangSel_downloadDat">ভয়েস ডেটা পরীক্ষা করুন। (Check voice data)</string>
     <string name="language_downloaded">_ ভাষা ডাউনলোড করা হল</string>
     <string name="language_downloading">_  ভাষা ডাউনলোড করা হচ্ছে</string>
@@ -304,8 +302,7 @@
     <!--end content description-->
 
     <string name="txt_tts_stting">টেক্সট-টু-স্পীচ সেটিংস (TTS SETTINGS)</string>
-    <string name="change_language_tts_wifi">দ্বিতীয় ধাপঃ গুগলের টিটিএসের সেটংস-এ গিয়ে \' টিটিএস সেটিংস \' বোতামটি স্পর্শ করে \' শুধু ওয়াই-ফাই \' অপশনটি চালু করুন। যদি অপশনটি ইতিমধ্যে নিস্ক্রিয় হয়ে গিয়ে থাকে, তাহলে এই পর্যায়টি এড়িয়ে যান।</string>
-    <string name="txtStep2">দ্বিতীয় ধাপঃ</string>
+    <string name="change_language_tts_wifi">প্রথম ধাপঃ গুগলের টিটিএসের সেটংস-এ গিয়ে \' টিটিএস সেটিংস \' বোতামটি স্পর্শ করে \' শুধু ওয়াই-ফাই \' অপশনটি চালু করুন। যদি অপশনটি ইতিমধ্যে নিস্ক্রিয় হয়ে গিয়ে থাকে, তাহলে এই পর্যায়টি এড়িয়ে যান।</string>
     <string name="close">বন্ধ ডায়ালগ</string>
     <string name="access_dialog_title">অপশন সঙ্গে ডায়ালগ</string>
 
@@ -370,7 +367,7 @@
     <string name="delete_board">\"-\" বোর্ড মোছা হবে?</string>
     <string name="icon_select_exit_warning">আপনার নির্বাচনটি হারিয়ে যাবে</string>
     <string name="current_board">যুক্ত আইকন</string>
-    <string name="place_holder_text">আপনার দ্বারা নির্বাচিত আইকনটি এখানে উপস্থিত হবে</string>
+    <string name="place_holder_text">নির্বাচিত আইকনগুলি এখানে উপস্থিত হবে। আপনি এখনও কোনও আইকন নির্বাচন করেন নি !!</string>
     <string name="board_name">বোর্ড নাম</string>
     <string name="select_all">সমস্ত নির্বাচন করুন</string>
     <string name="reset">রিসেট (Reset)</string>
@@ -465,4 +462,9 @@
     <string name="about_je_more_info">আরও তথ্যের জন্য, নীচের ভিডিও বোতামে ট্যাবঃ</string>
     <string name="visual_access_info_video">জেলোতে ভিজ্যুয়াল অ্যাক্সেসিবিলিটির ডেমোটি দেখতে, নীচের ভিডিও বোতামে আলতো চাপুনঃ</string>
     <string name="switch_access_info_video">জেলোতে স্যুইচ অ্যাক্সেসিবিলিটির ডেমোটি দেখতে, নীচের ভিডিও বোতামে আলতো চাপুনঃ</string>
+    <string name="txtChangeLanguage">অ্যাপ্লিকেশন ভাষা পরিবর্তন করুনঃ</string>
+    <string name="txtApplyChanges">নির্বাচিত ভাষা সংরক্ষণ করতে \'বদলগুলি প্রয়োগ করুন\' এ ক্লিক করুন</string>
+    <string name="language_not_working">অ্যাপ্লিকেশন যদি নির্বাচিত ভাষার জন্য কোনও ভয়েস আউটপুট তৈরি না করে তবে দয়া করে নিম্নলিখিত পদক্ষেপগুলি সম্পাদন করুনঃ</string>
+    <string name="txtMoreLangSetting">আরও ভাষা নির্ধারণঃ</string>
+    <string name="board_place_holder_text">আপনি এখনও কোনও বোর্ড যোগ করেন নি।</string>
 </resources>

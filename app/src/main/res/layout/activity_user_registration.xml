@@ -138,15 +138,17 @@
                 android:text="@string/txt_registration_selectLangDesc"
                 android:contentDescription="@string/txt_registration_selectLangDesc_contentDesc"/>
 
-            <Spinner
-                android:id="@+id/langSelectSpinner"
+            <Button
+                android:id="@+id/btn_lang_select"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/user_reg_spinner_height"
-                android:minWidth="@dimen/user_reg_spinner_min_width"
-                android:paddingRight="@dimen/user_reg_spinner_right_padding"
-                android:paddingEnd="@dimen/user_reg_spinner_right_padding"
-                android:layout_marginBottom="@dimen/user_reg_et_bottom"
-                android:background="@drawable/custom_spinner_view"/>
+                android:layout_height="@dimen/lang_sel_spinner_height"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
+                android:textSize="@dimen/lang_sel_btn_txt_size"
+                android:onClick="showAvailableLanguageDialog"
+                android:drawableEnd="@drawable/sharp_arrow_drop_down_black_18dp"
+                android:drawableRight="@drawable/sharp_arrow_drop_down_black_18dp" />
             <TextView
                 style="@style/defaultTextViewStyle"
                 android:text="@string/txt_data_info"

@@ -23,7 +23,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="Language">Language</string>
-    <string name="saveLanguage">Apply Changes</string>
+    <string name="saveLanguage">Apply Change</string>
 
     <string-array name="bloodgroup">
         <item>not selected</item>
@@ -70,7 +70,7 @@
         <item>Nine</item>
     </string-array>
 
-    <string name="change_language_line2">Step 1: Select any language from the dropdown below:</string>
+    <string name="change_language_line2">Select any language from the dropdown below:</string>
     <string name="simple_ime">Jellow Keyboard</string>
     <string name="subtype_en_US">Serial ABC</string>
     <string name="perform_db_update" translatable="false">com.dsource.idc.jellow.perform_db_update</string>
@@ -187,9 +187,9 @@
     <string name="txt_registration_selectLangDesc_contentDesc">Select a Language for Jellow. Required field. **</string>
     <string name="txt_registration_registerBtn">REGISTER</string>
     <string name="enternonemptycontact">Please enter valid contact number</string>
-    <string name="change_language_line5">Step 3: Check if voice data for _ is available on your device. If not please turn on internet and download voice data for selected language. In case process is stalled please check your internet connection and retry</string>
-    <string name="txtChangeLanguage">Change Default Language:</string>
-    <string name="txtApplyChanges">Step 4: Click \'Apply changes\' to set new language as default</string>
+    <string name="change_language_line5">Step 2: Check if voice data for _ is available on your device. If not please turn on internet and download voice data for selected language. In case process is stalled please check your internet connection and retry</string>
+    <string name="txtChangeLanguage">Change the app Language:</string>
+    <string name="txtApplyChanges">Click \'Apply change\' to save the selected language</string>
     <string name="txt_actLangSel_downloadDat">Check voice data</string>
     <string name="language_downloaded">_ language downloaded</string>
     <string name="language_downloading">Downloading _ language</string>
@@ -333,9 +333,8 @@
     <!--end content description-->
 
     <string name="txt_tts_stting">TTS SETTINGS</string>
-    <string name="change_language_tts_wifi">Step 2: Go to settings of Google TTS and turn off \'Use Wi-Fi only\' by tapping below \'TTS SETTINGS\' button. If option is already disabled, please skip this step.</string>
+    <string name="change_language_tts_wifi">Step 1: Go to settings of Google TTS and turn off \'Use Wi-Fi only\' by tapping below \'TTS SETTINGS\' button. If option is already disabled, please skip this step.</string>
     <string name="error_in_registration" translatable="false">Registration process is failed, please retry.</string>
-    <string name="txtStep2">Step 2:</string>
     <string name="lang_setting_option1_cd">“The image below shows the 3 steps involved in setting up the Google text-to-speech engine that is used by Jellow. The image is made up of 3 screenshots of the, “Text to speech output” and “Google TTS settings” within a user’s device. In the first image corresponding to “Text-to-speech output”, there are 2 preferred engines visible, first, the, “Samsung Text-to-Speech engine” and second, the, “Google Text-to-Speech engine”. The user is seen to select the, “Google Text-to-Speech engine” as the first step.</string>
     <string name="lang_setting_option2_cd">The second image corresponds to the second step in this process where the user is seen to now click on the, “Gear” symbol corresponding to the, “Settings” of the, “Google Text-to-Speech engine”</string>
     <string name="lang_setting_option3_cd">The third image is the third step in this process where now the user is at the, “Google TTS options” screen. The second item on this screen which is a toggle switch for “Use Wi-Fi only” has been highlighted in this image. The user is asked to turn off or disable this switch in this step.”</string>
@@ -429,7 +428,7 @@
     <string name="delete_board">\"-\" board will be deleted?</string>
     <string name="icon_select_exit_warning">Your selection will be lost</string>
     <string name="current_board">Added Icons</string>
-    <string name="place_holder_text">Icon selected by you will appear here</string>
+    <string name="place_holder_text">Selected icons will appear here. You have not selected any icons yet !!</string>
     <string name="board_name">Add board name here</string>
     <string name="select_all">Select All</string>
     <string name="reset">Reset</string>
@@ -541,4 +540,7 @@
     <string name="my_boards_add_edit_expression_cd">The image selected depicts the “Add-Edit Verbiage” window. The screen is used to enable or disable expressive buttons for the custom icon. To enable any expression, tap on circular green plus button then add associated two expression lines to it. To disable any expression, tap on circular red minus button. Then tap “Save” button.</string>
     <string name="my_boards_board_home_info">In the board home screen, you can use/play your custom board. You can, search for a icon in the current board, change the “Number of Icons per screen” setting for the current board or reposition the icons in the current board. These buttons are available on the right top of the screen.</string>
     <string name="my_boards_board_home_info_cd">The image selected depicts the boards home screen. In this screen, you can use or play the created board. Also, you can search for a icon in the current board, change the “Number of Icons per screen” setting for the current board or reposition the icons in the current board. These buttons are available on the right top of the screen.</string>
+    <string name="language_not_working">If the app does not produce any voice output for the selected language, please perform the following steps:</string>
+    <string name="txtMoreLangSetting">More Language Setting:</string>
+    <string name="board_place_holder_text">You have not added any boards yet.</string>
 </resources>

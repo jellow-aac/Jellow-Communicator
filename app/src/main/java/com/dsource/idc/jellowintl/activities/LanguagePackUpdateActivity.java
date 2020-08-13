@@ -34,7 +34,7 @@ public class LanguagePackUpdateActivity extends BaseActivity implements Progress
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language_pack_update_activity);
         setNavigationUiConditionally();
-        updateManager = new UpdateManager(getApplicationContext(),this);
+        updateManager = new UpdateManager(this);
         statusText = findViewById(R.id.status);
         progressBar = findViewById(R.id.pg);
         progressBar.setMax(1);

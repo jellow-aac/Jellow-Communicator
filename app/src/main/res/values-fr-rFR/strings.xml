@@ -22,7 +22,7 @@
     <string name="app_name">Jellow</string>
     <string name="action_settings">Réglage (Settings)</string>
     <string name="Language">Langue (Language)</string>
-    <string name="saveLanguage">Apply Appliquer les changements (Apply Changes)</string>
+    <string name="saveLanguage">Appliquer les changements (Apply Changes)</string>
 
     <string-array name="bloodgroup">
         <item>N\'est pas sélectionné</item>
@@ -69,7 +69,7 @@
         <item>Neuf</item>
     </string-array>
 
-    <string name="change_language_line2">Étape 1: Seléctionnez une langue dans la liste ci-dessous:</string>
+    <string name="change_language_line2">Seléctionnez une langue dans la liste ci-dessous:</string>
     <string name="simple_ime">Clavier de Jellow</string>
     <string name="subtype_en_US">La série ABC</string>
 
@@ -164,9 +164,9 @@
     <string name="txt_registration_selectLangDesc_contentDesc">Sélectionner la langue pour Jellow. Le champ requis. **</string>
     <string name="txt_registration_registerBtn">Inscrivez-vous</string>
     <string name="enternonemptycontact">Veuillez entrez votre numèro de téléphone</string>
-    <string name="change_language_line5">Étape 3: Assurez-vous que la donnée vocale d\'_ est disponibles sur votre terminal. Si non, veuillez télécharger la donnée vocale  pour la langue choisie. Au cas où la processus aurait retardé, veuillez vérifier votre connexion Internet et réessayez</string>
-    <string name="txtChangeLanguage">Modification de la langue par défaut:</string>
-    <string name="txtApplyChanges">Étape 4: Cliquez sur \'Appliquer les changements\' pour définir la nouvelle langue par défaut</string>
+    <string name="change_language_line5">Étape 2: Assurez-vous que la donnée vocale d\'_ est disponibles sur votre terminal. Si non, veuillez télécharger la donnée vocale  pour la langue choisie. Au cas où la processus aurait retardé, veuillez vérifier votre connexion Internet et réessayez</string>
+    <string name="txtChangeLanguage">Changer la langue de l\'application:</string>
+    <string name="txtApplyChanges">Cliquez sur \"Appliquer les changements\" pour enregistrer la langue sélectionnée</string>
     <string name="txt_actLangSel_downloadDat">Vérifier la donnée vocale (Check voice data)</string>
     <string name="language_downloaded">_ La langue est télécharger</string>
     <string name="language_downloading">Téléchargement de la Langue _</string>
@@ -298,8 +298,7 @@
     <!--end content description-->
 
     <string name="txt_tts_stting">Réglages du TTS (TTS SETTINGS)</string>
-    <string name="change_language_tts_wifi">Étape 2: Allez aux Réglages de la Données vocales et désactiver \"l\'utilisation uniquement WiFi\". Si, l\'option est déjà désactivée, passez à l\'étape suivante.</string>
-    <string name="txtStep2">Étape 2:</string>
+    <string name="change_language_tts_wifi">Étape 1: Allez aux Réglages de la Données vocales et désactiver \"l\'utilisation uniquement WiFi\". Si, l\'option est déjà désactivée, passez à l\'étape suivante.</string>
     <string name="close">Fermer la boîte de dialogue</string>
     <string name="access_dialog_title">Les icônes du niveau 3:</string>
     <string name="acc_lang_marathi">Marathi (Inde)</string>
@@ -359,7 +358,7 @@
     <string name="delete_board">Le tableau \"-\" sera supprimé?</string>
     <string name="icon_select_exit_warning">Votre choix sera perdu</string>
     <string name="current_board">Les icônes ajoutés</string>
-    <string name="place_holder_text">L’icône sélectionné par vous sera disponible ici</string>
+    <string name="place_holder_text">Les icônes sélectionnées apparaîtront ici. Vous n\'avez pas encore sélectionné d\'icônes !!</string>
     <string name="board_name">Nom du tableau</string>
     <string name="select_all">Sélectionnez tous</string>
     <string name="reset">Réinitialisation (Reset)</string>
@@ -455,4 +454,7 @@
     <string name="about_je_more_info">Pour plus d\'informations, appuyez sur le bouton vidéo suivant:</string>
     <string name="visual_access_info_video">Pour voir la démo sur l\'accessibilité visuelle dans Jellow, appuyez sur le bouton vidéo suivant:</string>
     <string name="switch_access_info_video">Pour voir la démo sur Switch Accessibility dans Jellow, appuyez sur le bouton vidéo suivant:</string>
+    <string name="language_not_working">Si l\'application ne produit aucune sortie vocale pour la langue sélectionnée, veuillez suivre les étapes suivantes:</string>
+    <string name="txtMoreLangSetting">Plus de paramètres de langue:</string>
+    <string name="board_place_holder_text">Vous n\'avez pas encore ajouté de tableaux.</string>
 </resources>

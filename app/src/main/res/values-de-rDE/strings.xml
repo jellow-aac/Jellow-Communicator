@@ -70,7 +70,7 @@
         <item>neun</item>
     </string-array>
 
-    <string name="change_language_line2">Schritt 1: Wählen Sie eine heruntergeladene Sprache im Dropdownmenü:</string>
+    <string name="change_language_line2">Wählen Sie eine heruntergeladene Sprache im Dropdownmenü:</string>
     <string name="simple_ime">Jellow Tastatur</string>
     <string name="subtype_en_US">Serie ABC</string>
 
@@ -167,9 +167,9 @@
     <string name="txt_registration_selectLangDesc_contentDesc">Sprache für Jellow setzen. Pflichtfeld. **</string>
     <string name="txt_registration_registerBtn">Registrieren</string>
     <string name="enternonemptycontact">Eine gültige Handynummer eingeben</string>
-    <string name="change_language_line5">Schritt 3: Die Verfügbarkeit der Stimme für _ prüfen. Wenn nicht vorhanden, dann herunterladen. Falls der Download-Vorgang angehalten wird, wiederholen.</string>
-    <string name="txtChangeLanguage">Standard-Sprache ändern:</string>
-    <string name="txtApplyChanges">Schritt 4:\"Einstellungen ändern\" klicken, um die neue Sprache als Standard zu setzen</string>
+    <string name="change_language_line5">Schritt 2: Die Verfügbarkeit der Stimme für _ prüfen. Wenn nicht vorhanden, dann herunterladen. Falls der Download-Vorgang angehalten wird, wiederholen.</string>
+    <string name="txtChangeLanguage">Ändern Sie die Anwendungssprache:</string>
+    <string name="txtApplyChanges">Klicken Sie auf \"Änderungen speichern\", um die ausgewählte Sprache zu speichern</string>
     <string name="txt_actLangSel_downloadDat">Sprachdaten prüfen (Check voice data)</string>
     <string name="language_downloaded">_ Sprachdaten heruntergeladen</string>
     <string name="language_downloading">_ wird heruntergeladen</string>
@@ -303,8 +303,7 @@
     <!--end content description-->
 
     <string name="txt_tts_stting">TTS-Einstellungen (TTS SETTINGS)</string>
-    <string name="change_language_tts_wifi">Schritt 2: Google TTS-Einstellungen öffnen und \"Nur WLAN nutzen\" ausschalten. Falls schon ausgeschaltet, diesen Schritt überspringen</string>
-    <string name="txtStep2">Schritt 2:</string>
+    <string name="change_language_tts_wifi">Schritt 1: Google TTS-Einstellungen öffnen und \"Nur WLAN nutzen\" ausschalten. Falls schon ausgeschaltet, diesen Schritt überspringen</string>
     <string name="close">Gespräch beenden</string>
     <string name="access_dialog_title">Dialoge mit Optionen</string>
 
@@ -367,7 +366,7 @@
     <string name="delete_board">\"-\" Board wird gelöscht?</string>
     <string name="icon_select_exit_warning">Ihre Auswahl wird gelöscht</string>
     <string name="current_board">Symbole hinzugefügt</string>
-    <string name="place_holder_text">Von Ihnen gewähltes Icon wird hier aufgezeigt</string>
+    <string name="place_holder_text">Gewähltes Icon werden hier angezeigt. Sie haben noch keine Icon ausgewählt !!</string>
     <string name="board_name">Name des Boards</string>
     <string name="select_all">Alles auswählen</string>
     <string name="reset">Zurücksetzen (Reset)</string>
@@ -462,4 +461,7 @@
     <string name="about_je_more_info">Für weitere Informationen tippen Sie auf die folgende Video-Schaltfläche:</string>
     <string name="visual_access_info_video">Tippen Sie auf die folgende Video-Schaltfläche, um die Demo zu Visual Accessibility in Jellow anzuzeigen:</string>
     <string name="switch_access_info_video">Tippen Sie auf die folgende Video-Schaltfläche, um die Demo zu Switch Accessibility in Jellow anzuzeigen:</string>
+    <string name="language_not_working">Wenn die App keine Sprachausgabe für die ausgewählte Sprache erzeugt, führen Sie bitte die folgenden Schritte aus:</string>
+    <string name="txtMoreLangSetting">Weitere Spracheinstellungen:</string>
+    <string name="board_place_holder_text">Sie haben noch keine Boards hinzugefügt.</string>
 </resources>

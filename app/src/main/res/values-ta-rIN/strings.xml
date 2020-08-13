@@ -70,7 +70,7 @@
         <item>ஒன்பது</item>
     </string-array>
 
-    <string name="change_language_line2">நிலை 1: பதிவிறக்கம் செய்யப்பட கீழிறங்கும் மொழிகளில் ஏதேனும் ஒன்றைத்  தேர்ந்தெடுக்க</string>
+    <string name="change_language_line2">பதிவிறக்கம் செய்யப்பட கீழிறங்கும் மொழிகளில் ஏதேனும் ஒன்றைத்  தேர்ந்தெடுக்க</string>
     <string name="simple_ime">ஜெல்லோ விசைப்பலகை</string>
     <string name="subtype_en_US">அகரவரிசை</string>
     <string name="action_bar_title">முகப்பு</string>
@@ -166,10 +166,10 @@
     <string name="txt_registration_selectLangDesc_contentDesc">ஜெல்லோவிற்கான மொழியை தேர்ந்தெடுக்கவும். தேவையான பகுதி. **</string>
     <string name="txt_registration_registerBtn">பதிவுசெய்யவும்</string>
     <string name="enternonemptycontact">சரியான தொடர்பு எண்ணை உள்ளிடவும்</string>
-    <string name="change_language_line5">படி 3: உங்கள் சாதனத்தில் _ மொழிக்கான குரல் தரவு உள்ளதா எனக் காண்க. இல்லையெனில் தேர்ந்தெடுத்த மொழிக்கான குரல் தரவினை பதிவிறக்கம் செய்க.</string>
-    <string name="txtChangeLanguage">முதன்மை மொழியை மாற்று</string>
+    <string name="change_language_line5">படி 2: உங்கள் சாதனத்தில் _ மொழிக்கான குரல் தரவு உள்ளதா எனக் காண்க. இல்லையெனில் தேர்ந்தெடுத்த மொழிக்கான குரல் தரவினை பதிவிறக்கம் செய்க.</string>
+    <string name="txtChangeLanguage">பயன்பாட்டு மொழியை மாற்றவும்:</string>
 
-    <string name="txtApplyChanges">படி 4: புதிய மொழியை இயல்பான மொழியாக மாற்ற \'மாற்றங்களை பயன்படுத்தவும்\' வில் சொடுக்கவும்</string>
+    <string name="txtApplyChanges">தேர்ந்தெடுக்கப்பட்ட மொழியைச் சேமிக்க \'மாற்றங்களை செயல்படுத்தவும் என்பதைக் கிளிக் செய்க</string>
     <string name="txt_actLangSel_downloadDat">குரல் தரவினை சரிபார்க்கவும் (Check voice data)</string>
     <string name="language_downloaded">_ மொழி பதிவிறக்கப்பட்டது</string>
     <string name="language_downloading">_ மொழி பதிவிறக்கப்படுகிறது</string>
@@ -301,8 +301,7 @@
     <string name="lang_setting_option3_cd">மூன்றாவது படம் மூன்றாவது படிநிலையைக் காட்டுகிறது. இப்படத்தில் பயனர், “Google TTS options” திரையில் உள்ளார். இப்படத்தில் இரண்டாவதாக “Use Wi-Fi only” ஐ மாற்றுவதரற்க்கான பொத்தான் உயர்த்திக் கட்டப்பட்டுள்ளது.பயனர் இப்படிநிலையில் இந்த பொத்தானை turn off or disable செய்யுமாறு கேட்டுக்கொள்ளப்படுகிறீர்கள்.</string>
 
     <string name="txt_tts_stting">டிஎஸ்எஸ் அமைப்புகள் (TTS SETTINGS)</string>
-    <string name="change_language_tts_wifi">படி 2: கூகுள் டிஎஸ்எஸ் இயக்கியின் அமைப்பிற்க்குச் சென்று "யூஸ் வை-பை ஒன்லி" ஐ அணை. ஏற்க்கனவே இது செய்யப்பட்டிருப்பின் இந்த நிலையைக் கைவிடவும்.</string>
-    <string name="txtStep2">படிநிலை 2:</string>
+    <string name="change_language_tts_wifi">நிலை 1: கூகுள் டிஎஸ்எஸ் இயக்கியின் அமைப்பிற்க்குச் சென்று "யூஸ் வை-பை ஒன்லி" ஐ அணை. ஏற்க்கனவே இது செய்யப்பட்டிருப்பின் இந்த நிலையைக் கைவிடவும்.</string>
     <string name="close">உரையாடலை மூடவும்</string>
     <string name="access_dialog_title">விருப்பங்களோடு கூடிய உரையாடல்</string>
 
@@ -364,7 +363,7 @@
     <string name="delete_board">\"-\" பலகை நீக்கப்படுமா?</string>
     <string name="icon_select_exit_warning">தேர்ந்தேடுத்தவைகள் இழக்கப்படும்!</string>
     <string name="current_board">சின்னங்கள் சேர்க்கப்பட்டது</string>
-    <string name="place_holder_text">நீங்கள் தேர்வு செய்த சின்னம் இங்கு காண்பிக்கப்படும்</string>
+    <string name="place_holder_text">தேர்ந்தெடுக்கப்பட்ட சின்னங்கள் இங்கே தோன்றும். நீங்கள் இதுவரை எந்த சின்னங்களையும் தேர்ந்தெடுக்கவில்லை !!</string>
     <string name="board_name">பலகையின் பெயர்</string>
     <string name="select_all">அனைத்தையும் தேர்ந்தெடு</string>
     <string name="reset">மீட்டு அமை (Reset)</string>
@@ -460,4 +459,7 @@
     <string name="about_je_more_info">மேலும் தகவலுக்கு, பின்வரும் வீடியோ பொத்தானைத் தட்டவும்:</string>
     <string name="visual_access_info_video">ஜெல்லோவில் காட்சி அணுகல் குறித்த டெமோவைக் காண, பின்வரும் வீடியோ பொத்தானைத் தட்டவும்:</string>
     <string name="switch_access_info_video">ஜெல்லோவில் சுவிட்ச் அணுகல் குறித்த டெமோவைக் காண, பின்வரும் வீடியோ பொத்தானைத் தட்டவும்:</string>
+    <string name="language_not_working">தேர்ந்தெடுக்கப்பட்ட மொழிக்கான பயன்பாடு எந்த குரல் வெளியீட்டையும் உருவாக்கவில்லை என்றால், பின்வரும் படிகளைச் செய்யவும்:</string>
+    <string name="txtMoreLangSetting">மேலும் மொழி அமைப்பு:</string>
+    <string name="board_place_holder_text">நீங்கள் இதுவரை எந்த பலகைகளையும் சேர்க்கவில்லை.</string>
 </resources>

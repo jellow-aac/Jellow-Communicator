@@ -1,8 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-##[3.0.2]
+##[3.0.3]
 - Added the Telugu language.
+
+##[3.0.2]
+- Removed the serial keyboard.
+- Improved the language selection at User registration screen.
+- Simplified the language selection steps for users. Now, user chose language and then set language.
+  If app does not generates the voice output, then user will see a dialog and redirected to Language setting more options.
+
 
 
 ##[3.0.1] - 10 Aug, 2020 (yet to get live)

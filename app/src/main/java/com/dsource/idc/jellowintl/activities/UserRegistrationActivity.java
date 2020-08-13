@@ -1,19 +1,18 @@
 package com.dsource.idc.jellowintl.activities;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.view.Window;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -127,7 +126,6 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
         setNavigationUiConditionally();
         findViewById(R.id.iv_action_bar_back).setVisibility(View.GONE);
         languagesCodes = LanguageFactory.getAvailableLanguages();
-        String[] languageNames = LanguageFactory.getAvailableLanguages();
         etName = findViewById(R.id.etName);
         ((TextView)findViewById(R.id.tv_pivacy_link)).setText(Html.fromHtml(getString(R.string.privacy_link_info)));
         etEmergencyContact = findViewById(R.id.etEmergencyContact);
@@ -152,22 +150,8 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
         findViewById(R.id.childName).setFocusable(true);
         findViewById(R.id.cb_privacy_consent).setContentDescription(
                 ((TextView)findViewById(R.id.tv_pivacy_link)).getText().toString());
-        Spinner languageSelect = findViewById(R.id.langSelectSpinner);
-        ArrayAdapter<String> adapter_lan = new ArrayAdapter<>(this,
-                R.layout.simple_spinner_item, populateCountryNameByUserType(languageNames));
-        adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        languageSelect.setAdapter(adapter_lan);
-        languageSelect.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedLanguage = languagesCodes[i];
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                selectedLanguage = null;
-            }
-        });
+        ((Button)findViewById(R.id.btn_lang_select)).setText(languagesCodes[1]);
+        selectedLanguage = languagesCodes[1];
 
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,82 +200,6 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
             etEmergencyContact.setText(getSession().getCaregiverNumber());
             etAddress.setText(getSession().getAddress());
         }
-    }
-
-    private String[] populateCountryNameByUserType(String[] langNameToBeShorten) {
-        String[] shortenLanguageNames = new String[langNameToBeShorten.length];
-        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-            for (int i = 0; i < langNameToBeShorten.length; i++) {
-                switch (langNameToBeShorten[i]) {
-                    case "मराठी (Marathi)":
-                        shortenLanguageNames[i] = getString(R.string.acc_lang_marathi);
-                        break;
-                    case "हिंदी (Hindi)":
-                        shortenLanguageNames[i] = getString(R.string.acc_lang_hindi);
-                        break;
-                    case "বাংলা (Bengali)":
-                        shortenLanguageNames[i] = getString(R.string.acc_lang_bengali);
-                        break;
-                    case "English (India)":
-                        shortenLanguageNames[i] = getString(R.string.acc_lang_eng_in);
-                        break;
-                    case "English (United Kingdom)":
-                        shortenLanguageNames[i] = getString(R.string.acc_lang_eng_gb);
-                        break;
-                    case "English (United States)":
-                        shortenLanguageNames[i] = getString(R.string.acc_lang_eng_us);
-                        break;
-                    case "English (Australia)":
-                        shortenLanguageNames[i] = getString(R.string.acc_lang_eng_au);
-                        break;
-                    case "Spanish (Spain)":
-                        shortenLanguageNames[i] = getString(R.string.acc_lang_span_span);
-                        break;
-                    case "தமிழ் (Tamil)":
-                        shortenLanguageNames[i] = getString(R.string.acc_lang_tamil_in);
-                        break;
-                    case "German (Deutschland)":
-                        shortenLanguageNames[i] = getString(R.string.acc_lang_german_ger);
-                        break;
-                    default:
-                        shortenLanguageNames[i] = langNameToBeShorten[i];
-                        break;
-                }
-            }
-        }else{
-            for (int i = 0; i < langNameToBeShorten.length; i++) {
-                switch (langNameToBeShorten[i]) {
-                    case "English (India)":
-                        shortenLanguageNames[i] = "English (IN)";
-                        break;
-                    case "English (United Kingdom)":
-                        shortenLanguageNames[i] = "English (UK)";
-                        break;
-                    case "English (United States)":
-                        shortenLanguageNames[i] = "English (US)";
-                        break;
-                    case "English (Australia)":
-                        shortenLanguageNames[i] = "English (AU)";
-                        break;
-                    case "Spanish (Spain)":
-                        shortenLanguageNames[i] = "Spanish (ES)";
-                        break;
-                    case "Tamil (India)":
-                        shortenLanguageNames[i] = "Tamil (IN)";
-                        break;
-                    case "German (Deutschland)":
-                        shortenLanguageNames[i] = "German (DE)";
-                        break;
-                    case "French (France)":
-                        shortenLanguageNames[i] = "French (FR)";
-                        break;
-                    default:
-                        shortenLanguageNames[i] = langNameToBeShorten[i];
-                        break;
-                }
-            }
-        }
-        return shortenLanguageNames;
     }
 
     private void autoLoginAndSetupUser() {
@@ -371,5 +279,20 @@ public class UserRegistrationActivity extends BaseActivity implements CheckNetwo
                 bRegister.setEnabled(true);
             }
         });
+    }
+
+    public void showAvailableLanguageDialog(View view) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setSingleChoiceItems(LanguageFactory.getAvailableLanguages(), 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                selectedLanguage = languagesCodes[which];
+                ((Button)findViewById(R.id.btn_lang_select)).setText(languagesCodes[which]);
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.show();
     }
 }

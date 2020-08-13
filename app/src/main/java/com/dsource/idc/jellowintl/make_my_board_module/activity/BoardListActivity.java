@@ -34,6 +34,7 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
     public static final boolean EDIT_ENABLED = true;
     public static final boolean EDIT_DISABLED = false;
     private boolean editMode = EDIT_DISABLED;
+    private MenuItem editMenu;
 
     @Override
     public int getLayoutId() {
@@ -73,6 +74,8 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
 
     @Override
     public void boardLoaded(ArrayList<BoardModel> boardList) {
+        if(boardList.size() > 1)
+            findViewById(R.id.place_holder_text).setVisibility(View.GONE);
         mAdapter.update(boardList);
     }
 
@@ -109,6 +112,12 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
                                 replace("_", mAdapter.getItem(position).getBoardName()),
                         Toast.LENGTH_SHORT).show();
                 mAdapter.remove(position);
+                if(mAdapter.getItemCount()==1) {
+                    findViewById(R.id.place_holder_text).setVisibility(View.VISIBLE);
+                    mAdapter.setEditMode(EDIT_DISABLED);
+                    editMode = EDIT_DISABLED;
+                    editMenu.setIcon(R.drawable.ic_edit_icon_disabled);
+                }
                 dialog.dismiss();
             }
         });
@@ -185,6 +194,7 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.enable_edit){
+            this.editMenu = item;
             if(editMode==EDIT_DISABLED){
                 item.setTitle("Enabled board edit");
                 mAdapter.setEditMode(EDIT_ENABLED);

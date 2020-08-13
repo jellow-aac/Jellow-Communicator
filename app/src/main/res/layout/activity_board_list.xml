@@ -16,5 +16,14 @@
             android:scrollbarSize="4dp"
             android:scrollbars="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/place_holder_text"
+            android:textSize="24sp"
+            android:text="@string/board_place_holder_text"
+            android:textColor="@color/light_grey"
+            />
 </RelativeLayout>
 

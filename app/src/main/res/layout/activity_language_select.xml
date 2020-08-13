@@ -27,7 +27,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/txtChangeLanguage"
-                android:layout_marginBottom="@dimen/lang_sel_head_margin_bottom"
                 style="@style/defaultTextViewStyle"
                 android:fontFamily="@font/mukta_semibold"/>
             <TextView
@@ -49,84 +48,6 @@
                 android:drawableEnd="@drawable/sharp_arrow_drop_down_black_18dp"
                 android:drawableRight="@drawable/sharp_arrow_drop_down_black_18dp" />
             <TextView
-                android:id="@+id/tv_step2_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/change_language_tts_wifi"
-                style="@style/defaultTextViewStyle"/>
-            <LinearLayout
-                android:id="@+id/ll_wifi_only_setting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/lang_sel_ll_margin_top">
-                <ImageView
-                    android:id="@+id/ivAddLang1"
-                    android:layout_width="@dimen/lang_sel_img_width"
-                    android:layout_height="@dimen/lang_sel_img_height"
-                    android:contentDescription="@string/lang_setting_option1_cd"/>
-                <ImageView
-                    android:id="@+id/ivArrow1"
-                    android:layout_width="@dimen/lang_sel_img_ar_width"
-                    android:layout_height="@dimen/lang_sel_img_ar_height"
-                    android:layout_gravity="center_vertical"
-                    android:importantForAccessibility="no"/>
-                <ImageView
-                    android:id="@+id/ivAddLang2"
-                    android:layout_width="@dimen/lang_sel_img_width"
-                    android:layout_height="@dimen/lang_sel_img_height"
-                    android:contentDescription="@string/lang_setting_option2_cd"/>
-                <ImageView
-                    android:id="@+id/ivArrow2"
-                    android:layout_width="@dimen/lang_sel_img_ar_width"
-                    android:layout_height="@dimen/lang_sel_img_ar_height"
-                    android:layout_gravity="center_vertical"
-                    android:importantForAccessibility="no"/>
-                <ImageView
-                    android:id="@+id/ivAddLang3"
-                    android:layout_width="@dimen/lang_sel_img_width"
-                    android:layout_height="@dimen/lang_sel_img_height"
-                    android:contentDescription="@string/lang_setting_option3_cd"/>
-            </LinearLayout>
-            <Button
-                android:id="@+id/btnTTsSetting"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/lang_sel_btn_height"
-                android:textSize="@dimen/lang_sel_btn_txt_size"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="@dimen/lang_sel_ll_margin_top"
-                android:layout_marginBottom="@dimen/lang_sel_btn_margin_bottom"
-                android:paddingLeft="@dimen/lang_sel_btn_padding_horizontal"
-                android:paddingRight="@dimen/lang_sel_btn_padding_horizontal"
-                android:text="@string/txt_tts_stting"
-                android:onClick="openSpeechSetting"/>
-            <TextView
-                android:id="@+id/tv_step3_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/change_language_line5"
-                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
-                style="@style/defaultTextViewStyle"/>
-            <ImageView
-                android:id="@+id/ivTtsVoiceDat"
-                android:layout_width="@dimen/lang_sel_voice_img_width"
-                android:layout_height="@dimen/lang_sel_voice_img_height"
-                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
-                android:layout_marginLeft="@dimen/lang_sel_voice_img_margin_left"
-                android:layout_marginStart="@dimen/lang_sel_voice_img_margin_left"
-                android:contentDescription="@string/gtts3" />
-            <Button
-                android:id="@+id/btnDownloadVoiceData"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/lang_sel_btn_height"
-                android:textSize="@dimen/lang_sel_btn_txt_size"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="@dimen/lang_sel_btn_voice_margin_top"
-                android:layout_marginBottom="@dimen/lang_sel_btn_voice_margin_bottom"
-                android:paddingLeft="@dimen/lang_sel_btn_padding_horizontal"
-                android:paddingRight="@dimen/lang_sel_btn_padding_horizontal"
-                android:text="@string/txt_actLangSel_downloadDat"
-                android:onClick="openSpeechDataSetting"/>
-            <TextView
                 android:id="@+id/tv_step4_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -138,10 +59,106 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/lang_sel_btn_height"
                 android:textSize="@dimen/lang_sel_btn_txt_size"
-                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
+                android:layout_marginBottom="48dp"
                 android:paddingLeft="@dimen/lang_sel_btn_padding_horizontal"
                 android:paddingRight="@dimen/lang_sel_btn_padding_horizontal"
                 android:text="@string/saveLanguage" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txtMoreLangSetting"
+                style="@style/defaultTextViewStyle"
+                android:fontFamily="@font/mukta_semibold"/>
+            <TextView
+                android:id="@+id/tv_language_not_working_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/language_not_working"
+                style="@style/defaultTextViewStyle"/>
+            <LinearLayout
+                android:id="@+id/ll_hidden_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_step2_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change_language_tts_wifi"
+                    style="@style/defaultTextViewStyle"/>
+                    <LinearLayout
+                        android:id="@+id/ll_wifi_only_setting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/lang_sel_ll_margin_top">
+                        <ImageView
+                            android:id="@+id/ivAddLang1"
+                            android:layout_width="@dimen/lang_sel_img_width"
+                            android:layout_height="@dimen/lang_sel_img_height"
+                            android:contentDescription="@string/lang_setting_option1_cd"/>
+                        <ImageView
+                            android:id="@+id/ivArrow1"
+                            android:layout_width="@dimen/lang_sel_img_ar_width"
+                            android:layout_height="@dimen/lang_sel_img_ar_height"
+                            android:layout_gravity="center_vertical"
+                            android:importantForAccessibility="no"/>
+                        <ImageView
+                            android:id="@+id/ivAddLang2"
+                            android:layout_width="@dimen/lang_sel_img_width"
+                            android:layout_height="@dimen/lang_sel_img_height"
+                            android:contentDescription="@string/lang_setting_option2_cd"/>
+                        <ImageView
+                            android:id="@+id/ivArrow2"
+                            android:layout_width="@dimen/lang_sel_img_ar_width"
+                            android:layout_height="@dimen/lang_sel_img_ar_height"
+                            android:layout_gravity="center_vertical"
+                            android:importantForAccessibility="no"/>
+                        <ImageView
+                            android:id="@+id/ivAddLang3"
+                            android:layout_width="@dimen/lang_sel_img_width"
+                            android:layout_height="@dimen/lang_sel_img_height"
+                            android:contentDescription="@string/lang_setting_option3_cd"/>
+                    </LinearLayout>
+                    <Button
+                        android:id="@+id/btnTTsSetting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/lang_sel_btn_height"
+                        android:textSize="@dimen/lang_sel_btn_txt_size"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/lang_sel_ll_margin_top"
+                        android:layout_marginBottom="@dimen/lang_sel_btn_margin_bottom"
+                        android:paddingLeft="@dimen/lang_sel_btn_padding_horizontal"
+                        android:paddingRight="@dimen/lang_sel_btn_padding_horizontal"
+                        android:text="@string/txt_tts_stting"
+                        android:onClick="openSpeechSetting"/>
+                    <TextView
+                        android:id="@+id/tv_step3_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/change_language_line5"
+                        android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
+                        style="@style/defaultTextViewStyle"/>
+                    <ImageView
+                        android:id="@+id/ivTtsVoiceDat"
+                        android:layout_width="@dimen/lang_sel_voice_img_width"
+                        android:layout_height="@dimen/lang_sel_voice_img_height"
+                        android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
+                        android:layout_marginLeft="@dimen/lang_sel_voice_img_margin_left"
+                        android:layout_marginStart="@dimen/lang_sel_voice_img_margin_left"
+                        android:contentDescription="@string/gtts3" />
+                    <Button
+                        android:id="@+id/btnDownloadVoiceData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/lang_sel_btn_height"
+                        android:textSize="@dimen/lang_sel_btn_txt_size"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/lang_sel_btn_voice_margin_top"
+                        android:layout_marginBottom="@dimen/lang_sel_btn_voice_margin_bottom"
+                        android:paddingLeft="@dimen/lang_sel_btn_padding_horizontal"
+                        android:paddingRight="@dimen/lang_sel_btn_padding_horizontal"
+                        android:text="@string/txt_actLangSel_downloadDat"
+                        android:onClick="openSpeechDataSetting"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

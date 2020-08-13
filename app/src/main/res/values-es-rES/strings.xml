@@ -69,7 +69,7 @@
         <item>cuatro</item>
         <item>nueve</item>
     </string-array>
-    <string name="change_language_line2">1er Paso: Seleccione el idoma de la lista desplegable </string>
+    <string name="change_language_line2">Seleccione el idoma de la lista desplegable </string>
     <string name="simple_ime">Teclado de Jellow</string>
     <string name="subtype_en_US">Teclado en orden alfabético</string>
 
@@ -167,9 +167,9 @@
     <string name="txt_registration_selectLangDesc_contentDesc">Selecciona un idioma para Jellow. Campo obligatorio. **</string>
     <string name="txt_registration_registerBtn">REGISTRARSE</string>
     <string name="enternonemptycontact">Por favor, escribe un número de contacto válido</string>
-    <string name="change_language_line5">3er Paso: Comprueba si los datos de voz para _ están disponibles en tu dispositivo. Si no, por favor, descarga los datos de voz para el idioma seleccionado. En caso de que la barra de progreso se atasque, por favor reinica la aplicación o inténtalo de nuevo.</string>
-    <string name="txtChangeLanguage">Cambiar idioma predeterminado:</string>
-    <string name="txtApplyChanges">4to paso: Haz clic en \"Guardar cambios\" para establecer el nuevo idioma predeterminado.</string>
+    <string name="change_language_line5">2da Paso: Comprueba si los datos de voz para _ están disponibles en tu dispositivo. Si no, por favor, descarga los datos de voz para el idioma seleccionado. En caso de que la barra de progreso se atasque, por favor reinica la aplicación o inténtalo de nuevo.</string>
+    <string name="txtChangeLanguage">Cambiar el idioma de la aplicación:</string>
+    <string name="txtApplyChanges">Haga clic en \'Guardar cambios\' para guardar el idioma seleccionado</string>
     <string name="txt_actLangSel_downloadDat">Comprueba los datos de voz (Check voice data)</string>
     <string name="language_downloaded">_ Idioma descargado</string>
     <string name="language_downloading">Descargando _</string>
@@ -301,8 +301,7 @@
     <string name="lang_setting_option3_cd">La tercera imagen es el tercer paso en este proceso donde el usuario está en la pantalla de las "Opciones de Texto a voz de Google". El conmutador de "Solo Wi-Fi" está resaltado en esta imagen. Se pide al usuario que apague o desactive este conmutador este paso.</string>
 
     <string name="txt_tts_stting">Ajustes de Texto a voz (TTS SETTINGS)</string>
-    <string name="change_language_tts_wifi">2da Paso: Ve a "Ajustes" de Texto a voz de Google y apaga "Solo Wi-Fi" tocando debajo el boton de "Texto a voz de Google". Si esta opción ya está desactivada, salta este paso.</string>
-    <string name="txtStep2">2da paso:</string>
+    <string name="change_language_tts_wifi">1er Paso: Ve a "Ajustes" de Texto a voz de Google y apaga "Solo Wi-Fi" tocando debajo el boton de "Texto a voz de Google". Si esta opción ya está desactivada, salta este paso.</string>
     <string name="close">Cerrar diálogo</string>
     <string name="access_dialog_title">Diálogo con opciones</string>
 
@@ -361,7 +360,7 @@
     <!--String resources for MMB-->
     <string name="icon_select_exit_warning">Su selección se perderá</string>
     <string name="current_board">Los iconos añadidos</string>
-    <string name="place_holder_text">El icono que usted seleccionó aparecerá \naquí</string>
+    <string name="place_holder_text">Los iconos seleccionados aparecerán aquí. ¡¡Aún no has seleccionado ningún ícono !!</string>
     <string name="board_name">El nombre del tablón</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="reset">Reinicia (Reset)</string>
@@ -458,4 +457,7 @@
     <string name="about_je_more_info">Para obtener más información, toque el siguiente botón de video:</string>
     <string name="visual_access_info_video">Para ver la demostración sobre Accesibilidad visual en Jellow, toque el siguiente botón de video:</string>
     <string name="switch_access_info_video">Para ver la demostración sobre la accesibilidad del interruptor en Jellow, toque el siguiente botón de video:</string>
+    <string name="language_not_working">Si la aplicación no produce ninguna salida de voz para el idioma seleccionado, realice los siguientes pasos:</string>
+    <string name="txtMoreLangSetting">Más configuración de idioma:</string>
+    <string name="board_place_holder_text">Aún no ha agregado ningún tablero.</string>
 </resources>
