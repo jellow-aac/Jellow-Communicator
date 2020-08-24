@@ -8,7 +8,7 @@ Jellow has a simple, visually appealing and easy-to-learn interface consisting c
                                                           
 Jellow has over 1000 icons and over 10000 lines of pre-programmed text. In addition, using the 'keyboard' feature, the user can also generate new sentences and use the app to speak them out aloud. The current version of the app allows the user to choose from 3 languages  (English, Hindi, Bengali and Marathi) and multiple accents (Indian, American, British). 
                                                           
-Jellow is developed at the IDC School of Design at the Indian Institute of Technology Bombay (IIT-B) located in Mumbai. The application is still under development. If you have any suggestions for improvement, please submit your feedback/comments via email at jellowcommunicator@gmail.com or dsource.in@gmail.com. 
+Jellow is developed at the IDC School of Design at the Indian Institute of Technology Bombay (IIT-B) located in Mumbai. The application is still under development. If you have any suggestions for improvement, please submit your feedback/comments via email at jellowcommunicator@gmail.com. 
                                                           
 For further information on Jellow and FAQs, please visit www.jellow.org/
 
@@ -37,7 +37,7 @@ There are many ways to contribute to Jellow, and only a few of them involve writ
 - Want to contribute to Jellow app development check [Contributing Guide](https://github.com/jellow-aac/Jellow-Communicator/blob/master/CONTRIBUTING.md)
 
 License
-----
+---
 
 Copyright (c) NINAAD DIGITAL TECHNOLOGY PRIVATE LIMITED. All rights reserved.
 
@@ -46,3 +46,11 @@ The Jellow Communicator application's code is licensed under the [BSD](LICENSE.t
 The Jellow Communicator application's contents including its interface, visual identity, icons and their associated vocabulary are licensed under a [Creative Commons Attribution-Non-Commercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/)  License.
 
 See our [Privacy Policy](http://jellow.org/privacypolicy/index.html).
+
+
+
+Importaint message
+---
+
+
+The current repository is now archieved. However, the work on Jellow project is ongoing. If you wated to contribute to the Jellow project, contact us at the e-mail address given in the [Contributing to Jellow](#contributing-to-jellow) section.
