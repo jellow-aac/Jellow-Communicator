@@ -2,26 +2,19 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="text_size">10dp</dimen>
     <dimen name="bar_height">30dp</dimen>
-
 
     <dimen name="search_list_margin">2dp</dimen>
     <dimen name="search_recycler_margin">2dp</dimen>
     <dimen name="search_list_icon_size">40dp</dimen>
-    <dimen name="search_layout_padding">4dp</dimen>
-    <dimen name="search_edit_text_top_margin">5dp</dimen>
-    <dimen name="search_edit_margin_left">3dp</dimen>
     <dimen name="searchView_padding">4dp</dimen>
-    <dimen name="search_bar_width">250dp</dimen>
-    <dimen name="search_edit_text_margin_bottom">2dp</dimen>
-    <dimen name="search_edit_text_size">16sp</dimen>
+    <dimen name="search_bar_width">415dp</dimen>
+    <dimen name="search_edit_text_size">14sp</dimen>
     <dimen name="search_drawable_padding">6dp</dimen>
 
     <dimen name="search_list_dir_text_size">10sp</dimen>
     <dimen name="search_list_title_text_size">14sp</dimen>
     <dimen name="divider_margin">1.5dp</dimen>
-    <dimen name="recycler_margin_right">4dp</dimen>
     <dimen name="search_dir_width">120dp</dimen>
     <dimen name="divider_height">1dp</dimen>
 
@@ -42,16 +35,21 @@
     <dimen name="twoIcon_parentPaddingVertical">32dp</dimen>
     <dimen name="twoIcon_width">94dp</dimen>
     <dimen name="twoIcon_textSize">14sp</dimen>
+    <dimen name="twoIcon_borderThickness">5dp</dimen>
+    <dimen name="twoIcon_innerRadius">42dp</dimen>
 
     <!--3 icons configuration-->
     <dimen name="threeIcon_parentVertical">32dp</dimen>
     <dimen name="threeIcon_parentPaddingVertical">32dp</dimen>
+    <dimen name="threeIcon_flHorizontal">10dp</dimen>
     <dimen name="threeIcon_width">94dp</dimen>
     <dimen name="threeIcon_textWidth">112dp</dimen>
     <dimen name="threeIcon_textSize">12sp</dimen>
+    <dimen name="threeIcon_borderThickness">5dp</dimen>
+    <dimen name="threeIcon_innerRadius">43dp</dimen>
 
     <!--4 icons configuration-->
-    <!--Below custom_wrap_content property will ge used only for 720dp resources-->
+    <!--Below custom_wrap_content property will be used only for 720dp resources-->
     <item name="custom_wrap_content" format="integer" type="dimen">-2</item>
     <item name="custom_match_parent" format="integer" type="dimen">-1</item>
 
@@ -62,110 +60,14 @@
     <dimen name="fourIcon_borderThickness">5dp</dimen>
     <dimen name="fourIcon_innerRadius">42dp</dimen>
 
-    <!--Common resources for 2 icon, 3 icon & 4 icon layout-->
-    <dimen name="twoIcon_borderThickness">5dp</dimen>
-    <dimen name="twoIcon_innerRadius">42dp</dimen>
-    <!---->
-
     <!--9 icons configuration-->
     <dimen name="nineIcon_parentHorizontal">0dp</dimen>
-    <dimen name="nineIcon_width">64dp</dimen>
+    <dimen name="nineIcon_width">60dp</dimen>
     <dimen name="nineIcon_textWidth">168dp</dimen>
     <dimen name="nineIcon_textSize">10sp</dimen>
     <dimen name="nineIcon_borderThickness">5dp</dimen>
-    <dimen name="nineIcon_innerRadius">27dp</dimen>
+    <dimen name="nineIcon_innerRadius">60dp</dimen>
     
-    <!--Dimensions related to the icon select in my board-->
-    <dimen name="icon_select_grid_size">70dp</dimen>
-    <dimen name="icon_select_icon_size">60dp</dimen>
-    <dimen name="my_board_button_width">70dp</dimen>
-    <dimen name="my_board_button_height">28dp</dimen>
-    <dimen name="level_select_pane_min_width">160dp</dimen>
-    <dimen name="drop_down_width">160dp</dimen>
-    <dimen name="bottom_nav_bar_padding">6dp</dimen>
-    <dimen name="nav_bar_button_padding">4dp</dimen>
-    <dimen name="icon_title_text_size">11sp</dimen>
-
-    <!--Dimensions related to the Icon select Activity-->
-    <dimen name="check_box_size">16dp</dimen>
-    <dimen name="level_select_pain_width">150dp</dimen>
-    <dimen name="level_select_pane_text_padding_left">8dp</dimen>
-    <dimen name="level_select_pain_padding_top_bottom">7dp</dimen>
-    <dimen name="level_select_pane_text_size">14sp</dimen>
-    <dimen name="demo_mar">28dp</dimen>
-    <dimen name="extra_mar">40dp</dimen>
-    <dimen name="icon_edit_grid_size">140dp</dimen>
-    <dimen name="icon_edit_icon_size">100dp</dimen>
-    <dimen name="icon_edit_text_size">16sp</dimen>
-    <dimen name="exp_icon_margin_bottom">24dp</dimen>
-    <dimen name="exp_icon_bottom_margin">36dp</dimen>
-    <dimen name="nav_bar_icons_width">90dp</dimen>
-    <dimen name="nav_bar_icon_height">80dp</dimen>
-
-
-
-    <!--Edit board dialog dimensions-->
-    <dimen name="board_edit_icon_size">160dp</dimen>
-    <dimen name="board_edit_dialog_width">180dp</dimen>
-    <dimen name="edit_baord_dialog_side_margin">16dp</dimen>
-    <dimen name="edit_board_button_margin_top">4dp</dimen>
-    <dimen name="edit_board_button_side_margin">4dp</dimen>
-    <dimen name="edit_board_button_width">76dp</dimen>
-    <dimen name="edit_board_dialog_button_text_size">12sp</dimen>
-    <dimen name="edit_board_dialog_internal_margin_top">10dp</dimen>
-
-
-    <!--Dimensions related to the Custom Dialog-->
-    <dimen name="custom_dialog_button_width">80dp</dimen>
-    <dimen name="dialog_box_text_size">16sp</dimen>
-    <dimen name="drop_icon_size">24dp</dimen>
-    <dimen name="custom_dialog_width">300dp</dimen>
-
-
-    <!--Dimensions related to the My Board Card-->
-    <dimen name="my_board_four_grid_icon_size">160dp</dimen>
-    <dimen name="my_board_text_size">16sp</dimen>
-    <dimen name="my_board_edit_icon_size">36dp</dimen>
-    <dimen name="board_edit_edittext_size">170dp</dimen>
-    <dimen name="list_item_padding">6dp</dimen>
-    <dimen name="dialog_width">400dp</dimen>
-    <dimen name="dialog_height">500dp</dimen>
-    <dimen name="my_boards_card_margin">10dp</dimen>
-    <dimen name="my_board_title_top_margin">8dp</dimen>
-
-    <!--Dimensions Related to the Grid DialogBox-->
-    <dimen name="grid_dialog_padding">4dp</dimen>
-    <dimen name="grid_dialog_title_textsize">18sp</dimen>
-    <dimen name="grid_dialog_title_bottom_margin">8dp</dimen>
-    <dimen name="grid_dialog_icon_size">70dp</dimen>
-    <dimen name="grid_dialog_width">600dp</dimen>
-    <dimen name="grid_dialog_icon_margin">12dp</dimen>
-    <dimen name="grid_dialog_text_margin">4dp</dimen>
-
-
-    <dimen name="edit_option_text_size">16sp</dimen>
-    <dimen name="edit_option_width">180dp</dimen>
-
-    <!--Add Edit Screen dimensions-->
-    <dimen name="add_edit_screen_edit_icon_size">28dp</dimen>
-    <dimen name="two_by_two_rec_width">600</dimen>
-    <dimen name="list_item_text_size">18sp</dimen>
-    <dimen name="camera_drop_down_width">160dp</dimen>
-    <dimen name="dialog_width_verbiage">220dp</dimen>
-    <dimen name="dialog_edit_text">12sp</dimen>
-    <dimen name="reg_button_height">38dp</dimen>
-    <dimen name="def_margin_flt">-3dp</dimen>
-
-    <!--Dimensions related to the verbiage item-->
-    <dimen name="verbiage_list_item_width">130dp</dimen>
-    <dimen name="verbiage_list_item_height">42dp</dimen>
-    <dimen name="verbiage_list_et_text">14sp</dimen>
-    <dimen name="verbiage_item_add_remove">32dp</dimen>
-    <dimen name="vl_exp_icon_width">52dp</dimen>
-    <dimen name="vl_exp_icon_height">40dp</dimen>
-    <dimen name="vl_padding">10dp</dimen>
-
-
     <!--activity_user_registration.xml dimensions-->
     <dimen name="user_reg_parent_padding">10dp</dimen>
     <dimen name="user_reg_scroll_margin_left">9dp</dimen>
@@ -176,7 +78,6 @@
     <dimen name="user_reg_scroll_padding_right">0dp</dimen>
     <dimen name="user_reg_scroll_padding_top">12dp</dimen>
     <dimen name="user_reg_scroll_padding_bottom">12dp</dimen>
-    <dimen name="user_reg_scroll_parent_padding_left">0dp</dimen>
     <dimen name="user_reg_subhead">14sp</dimen>
     <dimen name="user_reg_etName">10dp</dimen>
     <dimen name="user_reg_ccp">14sp</dimen>
@@ -214,21 +115,20 @@
     <dimen name="profile_view_margin_bottom">10dp</dimen>
     <dimen name="profile_et_margin_left">-4dp</dimen>
     <dimen name="profile_ccp_txt_size">14sp</dimen>
-    <dimen name="profile_radio_btn_txt_size">14sp</dimen>
-    <dimen name="profile_radio_btn_margin_bottom">10dp</dimen>
-    <dimen name="profile_spinner_width">115dp</dimen>
     <dimen name="profile_spinner_height">30dp</dimen>
-    <dimen name="profile_view_height">48dp</dimen>
+    <dimen name="profile_spinner_right_padding">24dp</dimen>
+    <dimen name="profile_view_height">56dp</dimen>
+    <dimen name="profile_save_btn_padding_left">8dp</dimen>
     <dimen name="profile_save_btn_height">30dp</dimen>
+    <dimen name="profile_btn_save_margin_left">8dp</dimen>
     <dimen name="profile_save_btn_txt_size">14sp</dimen>
-    <dimen name="profile_btn_save_margin_left">20dp</dimen>
 
     <!--activity_about_jellow.xml dimensions-->
     <dimen name="about_parent_margin_left">19dp</dimen>
     <dimen name="about_parent_margin_right">8dp</dimen>
     <dimen name="about_parent_margin_top">19dp</dimen>
     <dimen name="about_parent_margin_bottom">19dp</dimen>
-    <dimen name="about_scroll_width">@dimen/custom_match_parent</dimen>
+    <dimen name="about_ll_margin_right">12dp</dimen>
     <dimen name="about_bullet_margin_top">8dp</dimen>
     <dimen name="about_bullet_scale">.7</dimen>
     <dimen name="about_tv_margin">8dp</dimen>
@@ -241,6 +141,7 @@
     <dimen name="about_extra_margin_bottom">32dp</dimen>
     <dimen name="about_bottom_bar_height">48dp</dimen>
     <dimen name="about_btn_height">30dp</dimen>
+    <dimen name="about_btn_padding_left">8dp</dimen>
     <dimen name="about_btn_txt_size">14sp</dimen>
     <dimen name="about_btn_margin_left">20dp</dimen>
 
@@ -250,6 +151,7 @@
     <dimen name="tutorial_scroll_margin_top">19dp</dimen>
     <dimen name="tutorial_scroll_margin_bottom">19dp</dimen>
     <dimen name="tutorial_parent_margin_right">0dp</dimen>
+    <dimen name="tutorial_ll_padding_right">12dp</dimen>
     <dimen name="tutorial_parent_ll_margin_bottom">19dp</dimen>
     <dimen name="tutorial_bullet_margin_right">4dp</dimen>
     <dimen name="tutorial_bullet_margin_top">0dp</dimen>
@@ -267,6 +169,7 @@
     <dimen name="key_set_scroll_margin_left">19dp</dimen>
     <dimen name="key_set_scroll_margin_right">8dp</dimen>
     <dimen name="key_set_scroll_margin_vertical">19dp</dimen>
+    <dimen name="key_ll_margin_right">12dp</dimen>
     <dimen name="key_set_bullet_scale">.7</dimen>
     <dimen name="key_set_bullet_margin_top">8dp</dimen>
     <dimen name="key_set_tv_margin_top">8dp</dimen>
@@ -295,24 +198,15 @@
     <dimen name="lang_sel_img_ar_height">80dp</dimen>
     <dimen name="lang_sel_btn_height">30dp</dimen>
     <dimen name="lang_sel_btn_txt_size">14sp</dimen>
-    <dimen name="lang_sel_btn_margin_top">8dp</dimen>
     <dimen name="lang_sel_btn_margin_bottom">10dp</dimen>
     <dimen name="lang_sel_btn_padding_horizontal">8dp</dimen>
-    <dimen name="lang_sel_btn_margin_right">8dp</dimen>
-    <dimen name="lang_sel_head_margin_top">28dp</dimen>
     <dimen name="lang_sel_head_margin_bottom">10dp</dimen>
-    <dimen name="lang_sel_tv_margin_vertical_top">10dp</dimen>
-    <dimen name="lang_sel_tv_step_margin_bottom">10dp</dimen>
-    <dimen name="lang_sel_spiner_height">30dp</dimen>
-    <dimen name="lang_sel_spiner_min_width">98dp</dimen>
-    <dimen name="lang_sel_spiner_padding_right">28dp</dimen>
+    <dimen name="lang_sel_spinner_height">30dp</dimen>
     <dimen name="lang_sel_voice_img_width">120dp</dimen>
     <dimen name="lang_sel_voice_img_height">150dp</dimen>
-    <dimen name="lang_sel_voice_img_margin_left">0dp</dimen>
+    <dimen name="lang_sel_voice_img_margin_left">-14dp</dimen>
     <dimen name="lang_sel_btn_voice_margin_top">8dp</dimen>
     <dimen name="lang_sel_btn_voice_margin_bottom">10dp</dimen>
-    <dimen name="lang_sel_ll_margin_left">-14dp</dimen>
-    <dimen name="lang_sel_btn_tts_margin_top">8dp</dimen>
 
     <!--activity_settings.xml dimensions-->
     <dimen name="setting_scroll_margin_top">19dp</dimen>
@@ -321,16 +215,18 @@
     <dimen name="setting_tv_margin_bottom">0dp</dimen>
     <dimen name="setting_seekbar_width">370dp</dimen>
     <dimen name="setting_seekbar_margin_bottom">8dp</dimen>
-    <dimen name="setting_spinner_width">140dp</dimen>
+    <dimen name="setting_spinner_width">210dp</dimen>
     <dimen name="setting_spinner_height">30dp</dimen>
     <dimen name="setting_spinner_margin_bottom">8dp</dimen>
     <dimen name="setting_spinner_min_width">0dp</dimen>
     <dimen name="setting_spinner_padding_right">0dp</dimen>
     <dimen name="setting_spinner_icon_width">90dp</dimen>
     <dimen name="setting_spinner_icon_height">30dp</dimen>
+    <dimen name="setting_bottom_bar_height">48dp</dimen>
     <dimen name="setting_extra_space_height">48dp</dimen>
     <dimen name="setting_btn_height">30dp</dimen>
     <dimen name="setting_btn_txt_size">14sp</dimen>
+    <dimen name="setting_btn_margin_bottom">16dp</dimen>
     <dimen name="setting_btn_padding_horizontal">8dp</dimen>
     <dimen name="setting_btn_margin_left">20dp</dimen>
 
@@ -338,7 +234,7 @@
     <dimen name="access_parent_margin_left">19dp</dimen>
     <dimen name="access_parent_margin_right">8dp</dimen>
     <dimen name="access_parent_margin_vertical">19dp</dimen>
-    <dimen name="access_scroll_margin_end">@dimen/custom_match_parent</dimen>
+    <dimen name="access_ll_margin_right">12dp</dimen>
     <dimen name="access_bullet_scale">.7</dimen>
     <dimen name="access_bullet_margin_top">8dp</dimen>
     <dimen name="access_tv_margin_top">8dp</dimen>
@@ -350,8 +246,6 @@
     <dimen name="access_btn_height">30dp</dimen>
     <dimen name="access_btn_margin_left">20dp</dimen>
     <dimen name="access_btn_padding_horizontal">8dp</dimen>
-    <dimen name="access_yt_thumbnail_width">190dp</dimen>
-    <dimen name="access_yt_thumbnail_height">90dp</dimen>
 
     <!--activity_accessibility_settings.xml dimensions-->
     <dimen name="access_setting_extra_space">48dp</dimen>
@@ -374,6 +268,7 @@
     <dimen name="feedback_scroll_margin_left">19dp</dimen>
     <dimen name="feedback_scroll_margin_right">8dp</dimen>
     <dimen name="feedback_parent_margin_right">16dp</dimen>
+    <dimen name="feedback_scroll_width">@dimen/custom_match_parent</dimen>
     <dimen name="feedback_tv_height">22dp</dimen>
     <item name="feedback_rb_scale_size" type="dimen" format="float">0.6</item>
     <dimen name="feedback_rb_margin_left">-50dp</dimen>
@@ -382,10 +277,12 @@
     <dimen name="feedback_et_height">120dp</dimen>
     <dimen name="feedback_et_text_padding">8dp</dimen>
     <dimen name="feedback_bottom_bar_height">48dp</dimen>
-    <dimen name="feedback_btn_height">30dp</dimen>
+    <dimen name="feedback_btn_size">30dp</dimen>
     <dimen name="feedback_btn_txt_size">14sp</dimen>
     <dimen name="feedback_btn_padding_left">8dp</dimen>
     <dimen name="feedback_btn_margin_left">20dp</dimen>
+    <dimen name="feedback_btn_share_margin_horizontal">2dp</dimen>
+    <dimen name="feedback_tv_commentMargin_bottom">4dp</dimen>
 
     <!--activity_feedback_talkback.xml dimensions-->
     <dimen name="fb_tb_margin_bottom">8dp</dimen>
@@ -393,6 +290,114 @@
     <dimen name="fb_tb_spinner_width">90dp</dimen>
     <dimen name="fb_tb_et_margin_left">-2dp</dimen>
     <dimen name="select_text_size" >14sp</dimen>
-    <dimen name="nav_mar_right">8dp</dimen>
+
+    <!--Dimensions related to the Board List activity-->
+    <dimen name="list_recycler_margin">4dp</dimen>
+    <dimen name="add_board_dialog_width">400dp</dimen>
+    <dimen name="board_dialog_edit_text">14sp</dimen>
+
+<!--Dimensions related to the icon select in my board-->
+    <dimen name="icon_select_icon_size">60dp</dimen>
+    <dimen name="level_select_pane_min_width">190dp</dimen>
+    <dimen name="drop_down_width">160dp</dimen>
+    <dimen name="bottom_nav_bar_padding">6dp</dimen>
+    <dimen name="icon_title_text_size">11sp</dimen>
+
+    <!--Dimensions related to the Icon select Activity-->
+    <dimen name="level_select_pane_text_size">14sp</dimen>
+    <dimen name="nav_mar_right">12dp</dimen>
+    <dimen name="header_icon_size">60dp</dimen>
+    <dimen name="header_title_size">14sp</dimen>
+    <dimen name="header_edit_icon_size">20dp</dimen>
+
+    <!--Edit board dialog dimensions-->
+    <dimen name="board_add_edit_icon_size">196dp</dimen>
+    <dimen name="board_edit_icon_size">122dp</dimen>
+    <dimen name="board_edit_dialog_width">240dp</dimen>
+    <dimen name="edit_board_dialog_side_margin">16dp</dimen>
+    <dimen name="edit_board_button_side_margin">4dp</dimen>
+    <dimen name="spinner_horizontal_padding">0dp</dimen>
+    <dimen name="spinner_vertical_padding">8dp</dimen>
+    <dimen name="edit_board_dialog_internal_margin_top">10dp</dimen>
+    <dimen name="lang_popup_item_height">35dp</dimen>
+    <dimen name="lang_popup_item_divider_top">34dp</dimen>
+
+    <!--Dimensions related to the Custom Dialog-->
+    <dimen name="dialog_box_text_size">16sp</dimen>
+    <dimen name="custom_dialog_width">300dp</dimen>
+
+
+    <!--Dimensions related to the My Board Card-->
+    <dimen name="my_board_grid_icon_size">72dp</dimen>
+    <dimen name="my_board_grid_text_width">204dp</dimen>
+    <dimen name="my_board_text_size">13sp</dimen>
+    <dimen name="my_board_dialog_camera_icon_size">40dp</dimen>
+    <dimen name="my_board_edit_delete_size">24dp</dimen>
+    <dimen name="list_item_padding">5dp</dimen>
+    <dimen name="dialog_height">500dp</dimen>
+    <dimen name="my_boards_card_margin_horizontal">16dp</dimen>
+    <dimen name="my_boards_card_margin_vertical">4dp</dimen>
+    <dimen name="my_board_title_top_margin">4dp</dimen>
+    <!--Board Icon Config-->
+    <dimen name="board_icon_thickness">5dp</dimen>
+    <dimen name="board_icon_radius">31dp</dimen>
+
+
+    <!--Dimensions Related to the Grid DialogNoOfIconPerScreen-->
+    <dimen name="grid_dialog_padding">4dp</dimen>
+    <dimen name="grid_dialog_title_textsize">18sp</dimen>
+    <dimen name="grid_dialog_title_bottom_margin">8dp</dimen>
+    <dimen name="grid_dialog_icon_size">70dp</dimen>
+    <dimen name="grid_dialog_icon_margin">12dp</dimen>
+    <dimen name="grid_dialog_text_margin">4dp</dimen>
+
+
+    <dimen name="edit_option_text_size">16sp</dimen>
+    <dimen name="edit_option_width">180dp</dimen>
+
+    <!--Add Edit Screen dimensions-->
+    <dimen name="add_edit_screen_edit_icon_size">28dp</dimen>
+    <dimen name="list_item_text_size">14sp</dimen>
+    <dimen name="camera_drop_down_width">154dp</dimen>
+    <dimen name="def_margin_flt">-3dp</dimen>
+
+    <!--Dimensions related to the verbiage item-->
+    <dimen name="verbiage_list_item_width">240dp</dimen>
+    <dimen name="verbiage_list_item_height">42dp</dimen>
+    <dimen name="verbiage_list_et_text">14sp</dimen>
+    <dimen name="verbiage_item_add_remove">32dp</dimen>
+    <dimen name="vl_exp_icon_width">52dp</dimen>
+    <dimen name="vl_exp_icon_height">40dp</dimen>
+    <dimen name="vl_padding">10dp</dimen>
+
+    <!--Dimensions related to Icon Edit/Remove button-->
+    <dimen name="oneIcon_remove_btn">26dp</dimen>
+    <dimen name="twoIcon_remove_btn">24dp</dimen>
+    <dimen name="threeIcon_remove_btn">22dp</dimen>
+    <dimen name="fourIcon_remove_btn">20dp</dimen>
+    <dimen name="nineIcon_remove_btn">18dp</dimen>
+    <dimen name="camera_mar_left">10dp</dimen>
+    <dimen name="camera_mar_right">2dp</dimen>
+    <dimen name="verbiage_dialog_width">620dp</dimen>
+    <dimen name="dialog_heading">14sp</dimen>
+    <dimen name="delete_icon_margin">-22dp</dimen>
+    <dimen name="dialog_btn_txt_size">14sp</dimen>
+    <dimen name="close_button_width">32dp</dimen>
+    <dimen name="ver_dialog_pad">1dp</dimen>
+    <dimen name="mmb_btn_pad">2dp</dimen>
+    <dimen name="v_dialog_et_mar">8dp</dimen>
+    <dimen name="scrollbar_mar">8dp</dimen>
+
+    <!--Keyboard utterance dialog -->
+    <dimen name="custom_keyboard_back_icon_size">28dp</dimen>
+    <dimen name="custom_keyboard_back_icon_horizontal_margin">16dp</dimen>
+    <dimen name="custom_keyboard_et_width">420dp</dimen>
+    <dimen name="custom_keyboard_et_height">80dp</dimen>
+    <dimen name="custom_keyboard_et_horizontal_margin">8dp</dimen>
+    <dimen name="custom_keyboard_et_horizontal_margin_top">8dp</dimen>
+    <dimen name="custom_keyboard_et_text_size">18sp</dimen>
+    <dimen name="custom_keyboard_iv_speak_size">48dp</dimen>
+    <dimen name="custom_keyboard_layout_margin_top">2dp</dimen>
+    <dimen name="custom_keyboard_toolbar_height">30dp</dimen>
 
 </resources>

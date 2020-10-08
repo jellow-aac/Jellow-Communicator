@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background">
     <ScrollView
-        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fadeScrollbars="false"
@@ -35,10 +35,10 @@
                 android:numStars="5"
                 style="?android:attr/ratingBarStyle"
                 android:theme="@style/RatingBar"
-                android:scaleX="0.6"
-                android:scaleY="0.6"
-                android:layout_marginLeft="-50dp"
-                android:layout_marginStart="-50dp"/>
+                android:scaleX="@dimen/feedback_rb_scale_size"
+                android:scaleY="@dimen/feedback_rb_scale_size"
+                android:layout_marginLeft="@dimen/feedback_rb_margin_left"
+                android:layout_marginStart="@dimen/feedback_rb_margin_left"/>
             <TextView
                 android:id="@+id/tv2"
                 android:layout_width="wrap_content"
@@ -95,7 +95,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/feedback_tv_height"
                 android:text="@string/commentSuggestions"
-                style="@style/defaultTextViewStyle"/>
+                style="@style/defaultTextViewStyle"
+                android:layout_marginBottom="@dimen/feedback_tv_commentMargin_bottom"/>
             <EditText
                 android:id="@+id/comments"
                 android:layout_width="match_parent"
@@ -113,21 +114,55 @@
                 android:layout_height="@dimen/feedback_extra_space_height"/>
         </LinearLayout>
     </ScrollView>
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/feedback_bottom_bar_height"
         android:background="@color/menu_screen_bottom_bar"
         android:layout_alignParentBottom="true">
         <Button
-            android:id="@+id/bSubmit"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/feedback_btn_height"
+            android:layout_height="@dimen/feedback_btn_size"
             android:text="@string/submit"
             android:textSize="@dimen/feedback_btn_txt_size"
             android:paddingLeft="@dimen/feedback_btn_padding_left"
             android:paddingRight="@dimen/feedback_btn_padding_left"
+            android:onClick="sendFeedbackToDevelopers"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/feedback_btn_margin_left"
             android:layout_marginStart="@dimen/feedback_btn_margin_left" />
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="6dp"
+                style="@style/defaultTextViewStyle"
+                android:text="@string/rate_jellow_app"/>
+            <ImageButton
+                android:layout_width="@dimen/feedback_btn_size"
+                android:layout_height="@dimen/feedback_btn_size"
+                android:layout_marginRight="@dimen/feedback_btn_margin_left"
+                android:layout_marginEnd="@dimen/feedback_btn_margin_left"
+                android:src="@drawable/ic_rate_us"
+                android:paddingLeft="@dimen/feedback_btn_share_margin_horizontal"
+                android:paddingRight="@dimen/feedback_btn_share_margin_horizontal"
+                android:onClick="rateTheJellowApp"
+                android:background="@drawable/custom_btn_view"/>
+            <ImageButton
+                android:layout_width="@dimen/feedback_btn_size"
+                android:layout_height="@dimen/feedback_btn_size"
+                android:layout_marginRight="@dimen/feedback_btn_margin_left"
+                android:layout_marginEnd="@dimen/feedback_btn_margin_left"
+                android:src="@drawable/ic_share"
+                android:paddingLeft="@dimen/feedback_btn_share_margin_horizontal"
+                android:paddingRight="@dimen/feedback_btn_share_margin_horizontal"
+                android:onClick="shareJellowApp"
+                android:background="@drawable/custom_btn_view"/>
+        </LinearLayout>
+    </FrameLayout>
 </RelativeLayout>

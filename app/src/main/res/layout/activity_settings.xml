@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -59,7 +60,6 @@
                     android:theme="@style/CustomSeekbar"
                     android:contentDescription="@string/seekbar_pitch_cd"/>
                 <TextView
-                    android:id="@+id/voiceVolume"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/setting_tv_margin_bottom"
@@ -75,6 +75,15 @@
                     android:max="15"
                     android:theme="@style/CustomSeekbar"
                     android:contentDescription="@string/seekbar_volume_cd"/>
+                <Button
+                    android:id="@+id/demo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/setting_btn_height"
+                    android:text="@string/txtDemo"
+                    android:textSize="@dimen/setting_btn_txt_size"
+                    android:layout_marginBottom="@dimen/setting_btn_margin_bottom"
+                    android:paddingLeft="@dimen/setting_btn_padding_horizontal"
+                    android:paddingRight="@dimen/setting_btn_padding_horizontal"/>
                 <TextView
                     android:id="@+id/tv3"
                     android:layout_width="match_parent"
@@ -130,21 +139,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/setting_extra_space_height"
+        android:layout_height="@dimen/setting_bottom_bar_height"
         android:background="@color/menu_screen_bottom_bar"
         android:layout_alignParentBottom="true"
         android:importantForAccessibility="yes">
-        <Button
-            android:id="@+id/demo"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/setting_btn_height"
-            android:text="@string/txtDemo"
-            android:textSize="@dimen/setting_btn_txt_size"
-            android:paddingLeft="@dimen/setting_btn_padding_horizontal"
-            android:paddingRight="@dimen/setting_btn_padding_horizontal"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/setting_btn_margin_left"
-            android:layout_marginStart="@dimen/setting_btn_margin_left"/>
         <Button
             android:id="@+id/button4"
             android:layout_width="wrap_content"
@@ -152,6 +150,8 @@
             android:text="@string/txtSave"
             android:textSize="@dimen/setting_btn_txt_size"
             android:layout_gravity="center_vertical"
+            android:paddingLeft="@dimen/setting_btn_padding_horizontal"
+            android:paddingRight="@dimen/setting_btn_padding_horizontal"
             android:layout_marginLeft="@dimen/setting_btn_margin_left"
             android:layout_marginStart="@dimen/setting_btn_margin_left"/>
     </LinearLayout>

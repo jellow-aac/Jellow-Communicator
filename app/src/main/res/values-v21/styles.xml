@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.Bridge">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionBarStyle">@style/ActionBar.Solid.MyAppTheme</item>
+        <item name="actionOverflowButtonStyle">@style/OverFlow</item>
+        <item name="android:spinnerItemStyle">@style/spinnerItemStyle</item>
+        <item name="android:spinnerDropDownItemStyle">@style/spinnerDropDownItemStyle</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="buttonStyle">@style/customButtonStyle</item>
+        <item name="android:fontFamily">@font/mukta_regular</item>
+        <item name="android:textAppearanceLargePopupMenu">@style/defaultTextViewStyle</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+</resources>

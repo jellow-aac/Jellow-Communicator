@@ -2,24 +2,33 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:id="@+id/menuGroupInfo">
-
-
         <item
-            android:id="@+id/search"
-            android:title="@string/search_hint"
+            android:id="@+id/action_search"
+            android:title="@string/search_title"
             android:icon="@drawable/ic_search_large"
             app:showAsAction="always"
             android:checked="true"
             android:orderInCategory="1"
             />
         <item
+            android:id="@+id/action_home_app"
+            android:title="@string/menuMyBoards"
+            app:showAsAction="always"
+            android:orderInCategory="1"
+            android:icon="@drawable/ic_my_boards"/>
+        <item
             android:id="@+id/grid_size"
-            android:title="Grid size"
+            android:title="@string/number_of_icons_per_screen"
             android:icon="@drawable/ic_grid_size"
             android:checked="true"
             app:showAsAction="always"
             android:orderInCategory="1"
             />
+        <item android:id="@+id/reposition_lock"
+            android:title="@string/enable_reposition_icons"
+            app:showAsAction="always"
+            android:icon="@drawable/ic_locked"
+            android:orderInCategory="1"/>
 
 
 

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_background"
-    tools:context="com.dsource.idc.jellowintl.LanguageDownloadActivity">
+    android:background="@color/app_background">
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/lang_dl_parent_margin_lr"
         android:layout_marginRight="@dimen/lang_dl_parent_margin_lr"
         android:layout_marginBottom="@dimen/lang_dl_parent_margin_bottom"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
         <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
             android:id="@+id/pg"
@@ -28,7 +28,6 @@
             app:rcSecondaryProgressColor="@color/app_background"
             android:contentDescription="@string/language_download_in_process" />
         <TextView
-            android:id="@+id/txtDownloadCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

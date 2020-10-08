@@ -13,7 +13,6 @@
         <item name="buttonStyle">@style/customButtonStyle</item>
         <item name="android:fontFamily">@font/mukta_regular</item>
         <item name="android:textAppearanceLargePopupMenu">@style/defaultTextViewStyle</item>
-        <item name="materialAlertDialogTheme">@style/materialDialogStyle</item>
     </style>
     <style name="CustomSeekbar" parent="Widget.AppCompat.SeekBar">
         <item name="colorAccent">#dc5252</item>
@@ -36,15 +35,10 @@
     <style name="OverFlow" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:src">@drawable/ic_action_image_dehaze</item>
         <item name="android:scaleX">.75</item>
-        <item name="android:scaleY">.95</item>
-        <item name="android:layout_marginTop">-50dp</item>
-        <item name="android:paddingTop">-50dp</item>
-        <item name="android:layout_marginBottom">30dp</item>
-        <item name="android:paddingBottom">5dp</item>
+        <item name="android:scaleY">.80</item>
     </style>
 
     <style name="ActionBar.Solid.MyAppTheme" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
-        <item name="android:background">@drawable/red_bg</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="elevation">0dp</item>
         <item name="titleTextStyle">@style/MyTitleTextStyle</item>
@@ -79,7 +73,7 @@
         <item name="windowNoTitle">true</item>
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
-	</style>
+    </style>
     <style name="Material.Widget.Slider">
         <item name="sl_trackSize">2dp</item>
         <item name="sl_trackCap">square</item>
@@ -145,9 +139,7 @@
         <item name="android:windowExitAnimation">@anim/slide_bottom</item>
     </style>
 
-    <style name="materialDialogStyle" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
-        <item name="android:scrollbarFadeDuration">0</item>
-        <item name="android:textColor">@color/black_eighty</item>
-        <item name="android:textColorAlertDialogListItem">@color/black_eighty</item>
+    <style name="mmb_spinner_text_size">
+        <item name="android:textSize">13sp</item>
     </style>
 </resources>

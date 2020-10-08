@@ -1,55 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <RelativeLayout
-    android:padding="8dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/app_background"
-    android:layout_marginTop="@dimen/my_boards_card_margin"
-    android:layout_marginLeft="@dimen/my_boards_card_margin"
-    android:layout_marginRight="@dimen/my_boards_card_margin"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <ImageView
-        android:layout_width="@dimen/my_board_four_grid_icon_size"
-        android:padding="@dimen/my_boards_card_margin"
-        android:layout_height="@dimen/my_board_four_grid_icon_size"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_board_person"
-        android:id="@+id/board_icon"
-        android:background="@drawable/board_list_back"
-        />
-
-    <TextView
-        android:id="@+id/board_title"
+    android:layout_marginHorizontal="@dimen/my_boards_card_margin_horizontal"
+    android:layout_marginVertical="@dimen/my_boards_card_margin_vertical"
+    android:focusable="true"
+    android:importantForAccessibility="yes">
+    <RelativeLayout
+        android:id="@+id/icon_parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxWidth="@dimen/my_board_four_grid_icon_size"
-        android:layout_marginTop="@dimen/my_board_title_top_margin"
-        android:layout_below="@+id/board_icon"
-        android:layout_centerHorizontal="true"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/my_board_text_size"
-        />
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="-4dp"
-        android:layout_height="wrap_content">
+        android:layout_centerHorizontal="true">
         <ImageView
-            android:layout_width="@dimen/my_board_edit_icon_size"
-            android:layout_height="@dimen/my_board_edit_icon_size"
-            android:src="@drawable/ic_edit_icon_red_back"
-            android:id="@+id/edit_board"/>
-    </FrameLayout>
-    <ImageView
-        android:layout_width="@dimen/my_board_edit_icon_size"
-        android:layout_height="@dimen/my_board_edit_icon_size"
-        android:src="@drawable/ic_delete_icon_red_back"
-        android:layout_toRightOf="@id/board_icon"
-        android:layout_marginLeft="-16dp"
-        android:id="@+id/remove_board"
-         />
+            android:id="@+id/board_icon"
+            android:layout_width="@dimen/my_board_grid_icon_size"
+            android:layout_height="@dimen/my_board_grid_icon_size"
+            android:importantForAccessibility="no"/>
+        <View
+            android:id="@+id/borderView"
+            android:layout_width="@dimen/my_board_grid_icon_size"
+            android:layout_height="@dimen/my_board_grid_icon_size"
+            android:importantForAccessibility="no"
+            android:background="@drawable/border_drawable_nocolor_board_icon"/>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="-4dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="@dimen/my_board_edit_delete_size"
+                android:layout_height="@dimen/my_board_edit_delete_size"
+                android:src="@drawable/ic_edit_icon_red_back"
+                android:id="@+id/edit_board"
+                android:importantForAccessibility="yes"
+                android:contentDescription="@string/edit_board"/>
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/board_icon"
+            android:layout_toRightOf="@id/board_icon"
+            android:layout_marginLeft="@dimen/delete_icon_margin"
+            android:layout_marginTop="@dimen/delete_icon_margin"
+            android:layout_marginStart="@dimen/delete_icon_margin"
+            android:layout_toEndOf="@id/board_icon">
+            <ImageView
+                android:layout_width="@dimen/my_board_edit_delete_size"
+                android:layout_height="@dimen/my_board_edit_delete_size"
+                android:src="@drawable/ic_delete_icon_red_back"
+                android:id="@+id/remove_board"
+                android:importantForAccessibility="yes"
+                android:contentDescription="@string/delete_the_board"/>
+        </FrameLayout>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/board_title"
+        android:layout_width="@dimen/my_board_grid_text_width"
+        android:layout_height="wrap_content"
+        android:maxWidth="@dimen/my_board_grid_icon_size"
+        android:layout_marginTop="@dimen/my_board_title_top_margin"
+        android:layout_below="@+id/icon_parent"
+        android:gravity="center"
+        android:lineSpacingExtra="1dp"
+        android:lineSpacingMultiplier=".7"
+        android:text="This is the experimental board name"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/my_board_text_size"/>
+
 </RelativeLayout>

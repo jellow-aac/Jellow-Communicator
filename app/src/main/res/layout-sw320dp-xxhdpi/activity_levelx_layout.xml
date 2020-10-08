@@ -14,7 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
-                android:id="@+id/expressiveOne"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -38,11 +37,9 @@
                     android:layout_width="82dp"
                     android:layout_height="76dp"
                     android:src="@drawable/more"
-
                     android:contentDescription="@string/more"/>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/expressiveTwo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -71,15 +68,15 @@
         </RelativeLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:layout_width="375dp"
+            android:layout_width="424dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
             android:scrollbars="vertical"
             android:scrollbarFadeDuration="0"
-            android:layout_marginBottom="68dp"/>
+            android:layout_marginBottom="65dp"/>
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/relativeLayoutNavigation"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:layout_alignParentBottom="true"
@@ -106,26 +103,6 @@
             android:layout_toLeftOf="@+id/ivhome"
             android:contentDescription="@string/back"/>
     </RelativeLayout>
-    <LinearLayout
-        android:layout_width="375dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal">
-        <EditText
-            android:id="@+id/et"
-            android:layout_width="320dp"
-            android:layout_height="80dp"
-            android:imeOptions="actionDone|flagNoExtractUi"
-            android:textSize="20sp"
-            android:contentDescription="@string/edttxt_msg"/>
-        <ImageView
-            android:id="@+id/ttsbutton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_search_list_speaker"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="@string/speak"/>
-    </LinearLayout>
     <ImageView
         android:layout_width="100dp"
         android:layout_height="50dp"
@@ -141,6 +118,8 @@
         android:layout_height="@dimen/profile_save_btn_height"
         android:layout_gravity="center_vertical"
         android:textSize="@dimen/profile_save_btn_txt_size"
+        android:paddingLeft="@dimen/mmb_btn_pad"
+        android:paddingRight="@dimen/mmb_btn_pad"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="16dp"
         android:textAlignment="center"
@@ -149,7 +128,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:textAllCaps="false"
-        android:text="Save"
+        android:text="@string/txtSave"
         android:visibility="gone"
         android:textColor="@color/colorPrimary"
         android:layout_marginStart="8dp"

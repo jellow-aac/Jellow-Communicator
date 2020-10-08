@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/level_select_pane_min_width"
+    android:background="@color/app_background"
+    android:layout_height="wrap_content">
+    <View
+        android:layout_width="@dimen/level_select_pane_min_width"
+        android:layout_height="1.5dp"
+        android:background="@color/dark_base"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/icon_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="6dp"
+        android:paddingLeft="12dp"
+        android:layout_centerInParent="true"
+        android:paddingRight="12dp"
+        android:paddingTop="6dp"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@id/collapseView"
+        android:text="Times and weather"
+        android:textColor="@color/level_select_text_color"
+        android:textSize="@dimen/level_select_pane_text_size"
+        android:layout_alignParentLeft="true"
+        android:lineSpacingExtra="1dp"
+        android:lineSpacingMultiplier=".7"/>
+    <ImageView
+        android:layout_width="38dp"
+        android:padding="3dp"
+        android:id="@+id/collapseView"
+        android:layout_height="38dp"
+        android:layout_marginEnd="12dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_action_navigation_arrow_down"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="12dp"/>
+
+</RelativeLayout>

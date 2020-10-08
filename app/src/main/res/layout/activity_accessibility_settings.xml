@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ll"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -20,15 +20,16 @@
             android:fillViewport="true"
             android:fadeScrollbars="false">
             <LinearLayout
-                android:layout_width="@dimen/access_scroll_margin_end"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginRight="@dimen/access_ll_margin_right"
+                android:layout_marginEnd="@dimen/access_ll_margin_right">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <TextView
-                        android:id="@+id/title_visual_access"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/visual_access_title"
@@ -49,24 +50,144 @@
                             android:gravity="center"
                             android:importantForAccessibility="no"/>
                         <TextView
-                            android:id="@+id/info_visual_access"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/visual_acesss_info"
+                            android:text="@string/visual_access_info_one"
                             style="@style/defaultTextViewStyle"
                             android:layout_marginTop="@dimen/access_tv_margin_top"
                             android:layout_marginLeft="@dimen/access_tv_margin_left"
                             android:layout_marginStart="@dimen/access_tv_margin_left"
                             android:paddingBottom="@dimen/access_tv_margin_bottom"/>
                     </LinearLayout>
-                    <com.google.android.youtube.player.YouTubeThumbnailView
-                        android:id="@+id/thumbnailVisualAccess"
-                        android:layout_width="@dimen/access_yt_thumbnail_width"
-                        android:layout_height="@dimen/access_yt_thumbnail_height"
-                        android:src="@drawable/no_thumbnail"
-                        android:layout_marginTop="@dimen/access_tv_margin_top"
-                        android:paddingBottom="@dimen/access_tv_margin_bottom"
-                        android:onClick="startVideoIntent"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black_eighty"
+                            android:text="@string/bullet"
+                            android:scaleX="@dimen/access_bullet_scale"
+                            android:scaleY="@dimen/access_bullet_scale"
+                            android:layout_marginTop="@dimen/access_bullet_margin_top"
+                            android:gravity="center"
+                            android:importantForAccessibility="no"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/visual_access_info_two"
+                            style="@style/defaultTextViewStyle"
+                            android:layout_marginTop="@dimen/access_tv_margin_top"
+                            android:layout_marginLeft="@dimen/access_tv_margin_left"
+                            android:layout_marginStart="@dimen/access_tv_margin_left"
+                            android:paddingBottom="@dimen/access_tv_margin_bottom"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black_eighty"
+                            android:text="@string/bullet"
+                            android:scaleX="@dimen/access_bullet_scale"
+                            android:scaleY="@dimen/access_bullet_scale"
+                            android:layout_marginTop="@dimen/access_bullet_margin_top"
+                            android:gravity="center"
+                            android:importantForAccessibility="no"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/visual_access_info_three"
+                            style="@style/defaultTextViewStyle"
+                            android:layout_marginTop="@dimen/access_tv_margin_top"
+                            android:layout_marginLeft="@dimen/access_tv_margin_left"
+                            android:layout_marginStart="@dimen/access_tv_margin_left"
+                            android:paddingBottom="@dimen/access_tv_margin_bottom"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black_eighty"
+                            android:text="@string/bullet"
+                            android:scaleX="@dimen/access_bullet_scale"
+                            android:scaleY="@dimen/access_bullet_scale"
+                            android:layout_marginTop="@dimen/access_bullet_margin_top"
+                            android:gravity="center"
+                            android:importantForAccessibility="no"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/visual_access_info_four"
+                            style="@style/defaultTextViewStyle"
+                            android:layout_marginTop="@dimen/access_tv_margin_top"
+                            android:layout_marginLeft="@dimen/access_tv_margin_left"
+                            android:layout_marginStart="@dimen/access_tv_margin_left"
+                            android:paddingBottom="@dimen/access_tv_margin_bottom"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black_eighty"
+                            android:text="@string/bullet"
+                            android:scaleX="@dimen/access_bullet_scale"
+                            android:scaleY="@dimen/access_bullet_scale"
+                            android:layout_marginTop="@dimen/access_bullet_margin_top"
+                            android:gravity="center"
+                            android:importantForAccessibility="no"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/visual_access_info_five"
+                            style="@style/defaultTextViewStyle"
+                            android:layout_marginTop="@dimen/access_tv_margin_top"
+                            android:layout_marginLeft="@dimen/access_tv_margin_left"
+                            android:layout_marginStart="@dimen/access_tv_margin_left"
+                            android:paddingBottom="@dimen/access_tv_margin_bottom"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black_eighty"
+                            android:text="@string/bullet"
+                            android:scaleX="@dimen/access_bullet_scale"
+                            android:scaleY="@dimen/access_bullet_scale"
+                            android:layout_marginTop="@dimen/access_bullet_margin_top"
+                            android:gravity="center"
+                            android:importantForAccessibility="no"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/visual_access_info_video"
+                            style="@style/defaultTextViewStyle"
+                            android:layout_marginTop="@dimen/access_tv_margin_top"
+                            android:layout_marginLeft="@dimen/access_tv_margin_left"
+                            android:layout_marginStart="@dimen/access_tv_margin_left"
+                            android:paddingBottom="@dimen/access_tv_margin_bottom"/>
+                    </LinearLayout>
+                    <Button
+                        android:id="@+id/btn_access_video_one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/about_btn_height"
+                        android:textSize="@dimen/about_btn_txt_size"
+                        android:text="@string/play_video"
+                        android:paddingLeft="@dimen/access_btn_padding_horizontal"
+                        android:paddingRight="@dimen/access_btn_padding_horizontal"
+                        android:onClick="playInfoVideo"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -74,7 +195,6 @@
                     android:orientation="vertical"
                     android:layout_marginTop="@dimen/access_ll_margin_top">
                     <TextView
-                        android:id="@+id/title_switch_access"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/switch_access_title"
@@ -95,7 +215,6 @@
                             android:gravity="center"
                             android:importantForAccessibility="no"/>
                         <TextView
-                            android:id="@+id/info_switch_access_one"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/switch_access_info_one"
@@ -120,7 +239,6 @@
                             android:gravity="center"
                             android:importantForAccessibility="no"/>
                         <TextView
-                            android:id="@+id/info_switch_access_two"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/switch_access_info_two"
@@ -145,7 +263,6 @@
                             android:gravity="center"
                             android:importantForAccessibility="no"/>
                         <TextView
-                            android:id="@+id/info_switch_access_three"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/switch_access_info_three"
@@ -170,7 +287,6 @@
                             android:gravity="center"
                             android:importantForAccessibility="no"/>
                         <TextView
-                            android:id="@+id/info_switch_access_four"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/switch_access_info_four"
@@ -195,7 +311,6 @@
                             android:gravity="center"
                             android:importantForAccessibility="no"/>
                         <TextView
-                            android:id="@+id/info_switch_access_five"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/switch_access_info_five"
@@ -205,14 +320,38 @@
                             android:layout_marginStart="@dimen/access_tv_margin_left"
                             android:paddingBottom="@dimen/access_tv_margin_bottom"/>
                     </LinearLayout>
-                    <com.google.android.youtube.player.YouTubeThumbnailView
-                        android:id="@+id/thumbnailSwitchAccess"
-                        android:layout_width="190dp"
-                        android:layout_height="90dp"
-                        android:src="@drawable/no_thumbnail"
-                        android:layout_marginTop="@dimen/access_tv_margin_top"
-                        android:paddingBottom="@dimen/access_tv_margin_bottom"
-                        android:onClick="startVideoIntent"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black_eighty"
+                            android:text="@string/bullet"
+                            android:scaleX="@dimen/access_bullet_scale"
+                            android:scaleY="@dimen/access_bullet_scale"
+                            android:layout_marginTop="@dimen/access_bullet_margin_top"
+                            android:gravity="center"
+                            android:importantForAccessibility="no"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/switch_access_info_video"
+                            style="@style/defaultTextViewStyle"
+                            android:layout_marginTop="@dimen/access_tv_margin_top"
+                            android:layout_marginLeft="@dimen/access_tv_margin_left"
+                            android:layout_marginStart="@dimen/access_tv_margin_left"
+                            android:paddingBottom="@dimen/access_tv_margin_bottom"/>
+                    </LinearLayout>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/about_btn_height"
+                        android:textSize="@dimen/about_btn_txt_size"
+                        android:text="@string/play_video"
+                        android:paddingLeft="@dimen/access_btn_padding_horizontal"
+                        android:paddingRight="@dimen/access_btn_padding_horizontal"
+                        android:onClick="playInfoVideo"/>
                 </LinearLayout>
                 <View
                     android:layout_width="wrap_content"
@@ -229,7 +368,6 @@
         android:gravity="center_vertical"
         android:importantForAccessibility="yes">
         <Button
-            android:id="@+id/btnAccessibilitySetting"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/access_btn_height"
             android:layout_gravity="center_vertical"

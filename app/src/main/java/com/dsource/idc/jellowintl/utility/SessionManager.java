@@ -9,9 +9,11 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.models.GlobalConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class SessionManager {
 
@@ -23,31 +25,42 @@ public class SessionManager {
     public final static String BN_IN = "bn-rIN";    // BN_IN -> Bengali
     public final static String BE_IN = "be-rIN";    // BE_IN -> Bengali (for some old API devices which return Bengali locale as be-rIN)
     public final static String MR_IN = "mr-rIN";
-
-
-
+    public final static String ES_ES = "es-rES";
+    public final static String TA_IN = "ta-rIN";
+    public final static String DE_DE = "de-rDE";
+    public final static String FR_FR = "fr-rFR";
+    public static final String UNIVERSAL_PACKAGE = "universal";
+    public final static String BOARD_ICON_LOCATION = "board_icons";
 
     public final static HashMap<String,String> LangMap = new HashMap<String,String>(){
         {
+            put("German (Deutschland)", DE_DE);
+            put("English (Australia)", ENG_AU);
             put("English (India)", ENG_IN);
-            put("हिंदी", HI_IN);
-            put("मराठी", MR_IN);
             put("English (United Kingdom)", ENG_UK);
             put("English (United States)", ENG_US);
-            put("English (Australia)", ENG_AU);
-            put("বাঙালি", BN_IN);
+            put ("French (France)", FR_FR);
+            put("Spanish (Spain)", ES_ES);
+            put("मराठी (Marathi)", MR_IN);
+            put("हिंदी (Hindi)", HI_IN);
+            put("বাংলা (Bengali)", BN_IN);
+            put("தமிழ் (Tamil)", TA_IN);
         }
     };
 
     public final static HashMap<String,String> LangValueMap = new HashMap<String,String>(){
         {
+            put(DE_DE, "German (Deutschland)");
+            put(ENG_AU,"English (Australia)");
             put(ENG_IN,"English (India)");
-            put(HI_IN,"हिंदी");
-            put(MR_IN,"मराठी");
             put(ENG_UK,"English (United Kingdom)");
             put(ENG_US,"English (United States)");
-            put(ENG_AU,"English (Australia)");
-            put(BN_IN,"বাঙালি");
+            put(FR_FR, "French (France)");
+            put(ES_ES, "Spanish (Spain)");
+            put(MR_IN,"मराठी (Marathi)");
+            put(HI_IN,"हिंदी (Hindi)");
+            put(BN_IN,"বাংলা (Bengali)");
+            put(TA_IN, "தமிழ் (Tamil)");
         }
     };
 
@@ -55,13 +68,13 @@ public class SessionManager {
         add(MR_IN);
     }};
 
-    private SharedPreferences mPreferences;
-    private Editor mEditor;
-    private Context mContext;
+    public final static ArrayList<String> NOT_SUPPORTED_API_BELOW_21 = new ArrayList<String>(){{
+        add(TA_IN);
+    }};
 
-    private final String PREF_NAME = "AndroidHiveLogin";
+    private final String PREF_NAME = "JellowPreferences";
     private final String KEY_IS_LOGGEDIN = "isLoggedIn";
-    public final String Name = "name";
+    private final String Name = "name";
     private final String EmergencyContact = "number";
     private final String Blood = "blood" ;
     private final String Father_name = "father";
@@ -72,21 +85,17 @@ public class SessionManager {
     private final String Pitch = "voicepitch";
     private final String PictureViewMode = "PictureViewMode";
     private final String GridSize = "GridSize";
-    public static final String ChangeLanguageNeverAsk = "ChangeLang";
+    private final String sessionId = "SessionId";
+
+    private SharedPreferences mPreferences;
+    private Editor mEditor;
+    private Context mContext;
 
 
     public SessionManager(Context context) {
         this.mContext = context;
         mPreferences = mContext.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         mEditor = mPreferences.edit();
-    }
-
-    public void setChangeLanguageNeverAsk(boolean ChangeLang){
-        storePreferenceKeyWithValue(Boolean.class.toString(), ChangeLanguageNeverAsk, ChangeLang);
-    }
-
-    public boolean isChangeLanguageNeverAsk(){
-        return (Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), ChangeLanguageNeverAsk);
     }
 
     public void setUserLoggedIn(boolean isLoggedIn) {
@@ -103,18 +112,6 @@ public class SessionManager {
 
     public int getBlood(){
         return (Integer) retrievePreferenceKeyWithValue(Integer.class.toString(), Blood);
-    }
-
-    public void setDownloaded(String lang) {
-        storePreferenceKeyWithValue(Boolean.class.toString(), lang, true);
-    }
-
-    public void setRemoved(String lang) {
-        storePreferenceKeyWithValue(Boolean.class.toString(), lang, false);
-    }
-
-    public Boolean isDownloaded(String lang){
-        return (Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), lang);
     }
 
     public void setName(String name) {
@@ -207,39 +204,6 @@ public class SessionManager {
         return pitch;
     }
 
-    public void setPeoplePreferences(String peoplePreferences) {
-        if(getLanguage().contains("en") || getLanguage().contains("bn") || getLanguage().contains("be"))
-            storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_eng), peoplePreferences);
-        else if(getLanguage().contains("hi"))
-            storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_hindi), peoplePreferences);
-        else if(getLanguage().contains("mr"))
-            storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_marathi), peoplePreferences);
-    }
-
-    public String getPeoplePreferences() {
-        if(getLanguage().contains("en") || getLanguage().contains("bn") || getLanguage().contains("be"))
-            return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_eng));
-        else if(getLanguage().contains("hi"))
-            return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_hindi));
-        else if(getLanguage().contains("mr"))
-            return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_marathi));
-        return "";
-    }
-
-    public void resetUserPeoplePlacesPreferences(){
-        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_eng), "");
-        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_hindi), "");
-        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_marathi), "");
-    }
-
-    public boolean isRequiredToPerformDbOperations() {
-        return !((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.perform_db_update)));
-    }
-
-    public void setCompletedDbOperations(boolean value) {
-        storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.perform_db_update), value);
-    }
-
     public void setUserCountryCode(String selectedCountryCode) {
         storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.user_country_code), selectedCountryCode);
     }
@@ -256,19 +220,6 @@ public class SessionManager {
         storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.completed_intro), value);
     }
 
-    public void setEncryptionData(String encryptData) {
-        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.encrypt_data), encryptData);
-    }
-
-    public String getEncryptedData() {
-        return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.encrypt_data));
-    }
-
-    // This flag is only for device who doesnt support direct switching between devices.
-    public void setLangSettingIsCorrect(boolean settingStatus) {
-        storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.lang_setting_status), settingStatus);
-    }
-
     public void setSessionCreatedAt(long timeStamp) {
         storePreferenceKeyWithValue(Long.class.toString(), mContext.getString(R.string.last_session_created), timeStamp);
     }
@@ -277,28 +228,12 @@ public class SessionManager {
         return ((Long) retrievePreferenceKeyWithValue(Long.class.toString(), mContext.getString(R.string.last_session_created)));
     }
 
-    public void setUserGroup(String userGroup) {
-        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.user_group), userGroup);
-    }
-
-    public String getUserGroup() {
-        return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.user_group));
-    }
-
     public void setEnableCalling(boolean enableCalling) {
         storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.enable_calling), enableCalling);
     }
 
-    public boolean getEnableCalling() {
+    public boolean isCallingEnabled() {
         return ((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.enable_calling)));
-    }
-
-    public void setExtraValToContact(String val){
-        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.random_val), val);
-    }
-
-    public String getExtraValToContact(){
-        return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.random_val));
     }
 
     public void setToastMessage(String message) {
@@ -309,16 +244,6 @@ public class SessionManager {
         return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.string_msg));
     }
 
-    public void setUpdatedFirebase(boolean updateFlag) {
-        storePreferenceKeyWithValue(Boolean.class.toString(),
-                mContext.getString(R.string.updated_user_data_on_firebase), updateFlag);
-    }
-
-    public boolean getUpdatedFirebase() {
-        return ((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(),
-                mContext.getString(R.string.updated_user_data_on_firebase)));
-    }
-
     public void setLastCrashReported(long timeStamp) {
         storePreferenceKeyWithValue(Long.class.toString(), mContext.getString(R.string.last_crash_reported), timeStamp);
     }
@@ -326,76 +251,75 @@ public class SessionManager {
     public Long getLastCrashReported() {
         return ((Long) retrievePreferenceKeyWithValue(Long.class.toString(), mContext.getString(R.string.last_crash_reported)));
     }
-    //This flag is used for v1.2.3
-    public void setLanguagePackageUpdated(boolean updateFlag) {
-        storePreferenceKeyWithValue(Boolean.class.toString(),
-                mContext.getString(R.string.updated_locale_package_from_firebase), updateFlag);
+
+    public String getUserId() {
+        return (String) retrievePreferenceKeyWithValue(String.class.toString(), sessionId);
     }
-    public boolean isLanguagePackageUpdated() {
-        return ((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(),
-                mContext.getString(R.string.updated_locale_package_from_firebase)));
+    public void setUserId(String uuid) {
+        storePreferenceKeyWithValue(String.class.toString(), sessionId, uuid);
     }
 
-    public void setPackageUpdate(boolean updateFlag) {
-        storePreferenceKeyWithValue(Boolean.class.toString(),
-                mContext.getString(R.string.locale_package_update_from_firebase), updateFlag);
+    /**
+     * Created by Ayaz
+     **
+     * Updated by Rahul on 30th June 2020*
+     **/
+    public void setLanguageDataUpdateState(String langCode, int state){
+        storePreferenceKeyWithValue(Integer.class.toString(), langCode, state);
+    }
+    public int getLanguageDataUpdateState(String langCode){
+        try{
+            return (!checkPreferenceExist(langCode)) ?
+                    GlobalConstants.LANGUAGE_STATE_CREATE_DB :
+                    (Integer)retrievePreferenceKeyWithValue(Integer.class.toString(), langCode);
+        }catch (ClassCastException e){
+            return GlobalConstants.LANGUAGE_STATE_CREATE_DB;
+        }
     }
 
-    public boolean isPackageUpdateIsSet() {
-        return ((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(),
-                mContext.getString(R.string.locale_package_update_from_firebase)));
+    private boolean checkPreferenceExist(String langCode) {
+        return mPreferences.contains(langCode);
     }
 
-    public void setWifiOnlyBtnPressedOnce(boolean isPressed) {
-        storePreferenceKeyWithValue(Boolean.class.toString(),
-            mContext.getString(R.string.wifi_only_pressed_in_LangSettings), isPressed);
-    }
-
-    public boolean isWifiOnlyBtnPressedOnce() {
-        return ((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(),
-                mContext.getString(R.string.wifi_only_pressed_in_LangSettings)));
-    }
-
-    public void packages2Update(String packages2Download) {
-        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.package_name_comma_separated), packages2Download);
-    }
-
-    public String getPackages2Update(){
-        return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.package_name_comma_separated));
-    }
-
- /**
-  * Ayaz
-  * */
-    public void setLanguageChange(int code)
+    /**
+     * Ayaz
+     **/
+    public void setBoardDatabaseStatus(boolean set,String language)
     {
-        final int CHANGED=1;
-        final int CREATE_DATABASE=0;
-        final int NO_CHANGE=2;
-        if(code==CHANGED)
-            storePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code),"Yes");
-        else if(code==CREATE_DATABASE)
-            storePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code),"Create");
-        else if(code==NO_CHANGE)
-            storePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code),"No");
-
-
-
+        String Tag="Board_Database"+language;
+        if(set)
+            storePreferenceKeyWithValue(String.class.toString(),Tag,"Yes");
+        else
+            storePreferenceKeyWithValue(String.class.toString(),Tag,"No");
     }
 
-    public int isLanguageChanged()
-    {
-        final int CHANGED=1;
-        final int CREATE_DATABASE=0;
-        final int NO_CHANGE=2;
+    public String getCurrentBoardLanguage() {
+        String Tag = "cur_board_lang";
+        return retrievePreferenceKeyWithValue(String.class.toString(),Tag).toString();
+    }
 
-        String lang_change=(String)retrievePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code));
-        if(lang_change.equals("Yes"))
-            return CHANGED;
-        else if(lang_change.equals("Create"))
-            return CREATE_DATABASE;
-        else return NO_CHANGE;
+    public void setCurrentBoardLanguage(String language){
+        String Tag = "cur_board_lang";
+        storePreferenceKeyWithValue(String.class.toString(),Tag,language);
+    }
 
+    public void changePreferencesFile(Context context){
+        SharedPreferences settingsOld = context.getSharedPreferences("AndroidHiveLogin", Context.MODE_PRIVATE);
+        settingsOld.edit().remove(mContext.getString(R.string.perform_db_update)).apply();
+        SharedPreferences settingsNew = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editorNew = settingsNew.edit();
+        Map<String, ?> all = settingsOld.getAll();
+        for (Map.Entry<String, ?> x : all.entrySet()) {
+
+            if      (x.getValue().getClass().equals(Boolean.class)) editorNew.putBoolean(x.getKey(), (Boolean)x.getValue());
+            else if (x.getValue().getClass().equals(Float.class))   editorNew.putFloat(x.getKey(),   (Float)x.getValue());
+            else if (x.getValue().getClass().equals(Integer.class)) editorNew.putInt(x.getKey(),     (Integer)x.getValue());
+            else if (x.getValue().getClass().equals(Long.class))    editorNew.putLong(x.getKey(),    (Long)x.getValue());
+            else if (x.getValue().getClass().equals(String.class))  editorNew.putString(x.getKey(),  (String)x.getValue());
+
+        }
+        editorNew.apply();
+        settingsOld.edit().clear().apply();
     }
 
 
@@ -425,24 +349,5 @@ public class SessionManager {
         else if(classType.equals(String.class.toString()))
             valueOfKey = mPreferences.getString(key, "");
         return valueOfKey;
-    }
-
-    public boolean
-    isBoardDatabaseCreated() {
-        String board_code=(String)retrievePreferenceKeyWithValue(String.class.toString(),"Board_Database");
-        return board_code.equals("Yes");
-    }
-    /**
-     * Ayaz
-     * */
-    public void setBoardDatabaseStatus(int code)
-    {
-        String Tag="Board_Database";
-        final int DatabaseCreated=1;
-        final int DatabaseNotCreated=-1;
-        if(code==DatabaseCreated)
-            storePreferenceKeyWithValue(String.class.toString(),Tag,"Yes");
-        else if(code==DatabaseNotCreated)
-            storePreferenceKeyWithValue(String.class.toString(),Tag,"No");
     }
 }

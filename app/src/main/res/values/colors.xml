@@ -1,22 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#dc5252</color>
-    <color name="colorPrimaryDark">#dc5252</color>
-    <color name="colorAccent">#dc5252</color>
-    <color name="bg_gradient_start">#03adfc</color>
-    <color name="bg_gradient_end">#8ac4df</color>
-    <color name="bg">#4aea00</color>
-
-    <color name="colorControlNormal">#FF78909C</color>
-    <color name="colorControlActivated">#FF03A9F4</color>
-    <color name="colorSwitchThumbNormal">#FF78909C</color>
-
-    <color name="colorPrimaryQuarter">#3303A9F4</color>
-    <color name="colorPrimaryHalf">#9003A9F4</color>
-    <color name="colorControlNormalHalf">#9078909C</color>
-    <color name="colorControlActivatedHalf">#9003A9F4</color>
-    <color name="colorAccentQuarter">#3300E5FF</color>
-    <color name="colorAccentHalf">#9000E5FF</color>
+    <color name="colorPrimary">#d85155</color>
+    <color name="colorPrimaryDark">#d85155</color>
+    <color name="colorAccent">#d85155</color>
 
     <color name="colorSelect">#9E846D</color>
     <color name="colorLike">#FFEB3B</color>
@@ -25,39 +11,6 @@
     <color name="colorNo">#CC322E</color>
     <color name="colorMore">#788E96</color>
     <color name="colorLess">#656451</color>
-
-    <array name="progress_colors_light">
-        <item>#FF03A9F4</item>
-        <item>#FFD8433C</item>
-        <item>#FFF2AF3A</item>
-        <item>#FF279B5E</item>
-    </array>
-
-    <array name="progress_colors_dark">
-        <item>#FF00E5FF</item>
-        <item>#ffd81d5a</item>
-        <item>#fff27512</item>
-        <item>#ff63bc34</item>
-    </array>
-
-    <array name="in_colors_light">
-        <item>#4B03A9F4</item>
-        <item>#3303A9F4</item>
-        <item>#1903A9F4</item>
-    </array>
-
-    <array name="in_colors_dark">
-        <item>#4B00E5FF</item>
-        <item>#3300E5FF</item>
-        <item>#1900E5FF</item>
-    </array>
-
-    <color name="tpi_checked">#FFFFFFFF</color>
-    <color name="tpi_unchecked">#99FFFFFF</color>
-
-    <color name="et_divider_focused">@color/colorControlActivated</color>
-    <color name="et_divider_not_focused">#FF6D6D6D</color>
-    <color name="et_divider_disable">#FFC1C1C1</color>
     <color name="search_list_divider">#e1dedbdb</color>
 
     <color name="search_list_dir_hint">#d0868383</color>
@@ -65,27 +18,23 @@
     <color name="black_80">#333333</color>
     <color name="search_bar_color">#dedab1</color>
 
-
-    <color name="search_highlight">#74dac6</color>
     <color name="pressed_btn">#E17C6F</color>
     <color name="app_background">#F7F3C6</color>
     <color name="text_color">#404040</color>
-    <color name="black_eighty">#414042</color>
-    <color name="menu_screen_bottom_bar">#F7E2AC</color>
-    <color name="yellow_silhouette">#ffcc14</color>
+    <color name="black_eighty">#333333</color>
+    <color name="menu_screen_bottom_bar">#EDD89F</color>
     <color name="white">#FFFFFF</color>
     <color name="seq_btn_background_unpressed">#FFBEBCB6</color>
     <color name="seq_btn_background_pressed">#93918C</color>
     <color name="colorSerialKeyboardBackground">#C9CED1</color>
     <color name="colorSeriaKeyboardKeyText">#5D5D5D</color>
     <color name="colorSerialKeyboardKeyBackground">#EDEEF2</color>
-
-    <color name="green">#289702</color>
-    <color name="dark_base">#EDD99F</color>
-    <color name="light_black">#bf333333</color>
     <color name="light_grey">#C47B7878</color>
-    <color name="transparent">#00d70202</color>
+    <color name="dark_base">#EDD99F</color>
     <color name="level_select_text_color">#767272</color>
-    <color name="indigo_500">#FF23FF</color>
-
+    <color name="transparent">#00d70202</color>
+    <color name="fourty_percent_translucent">#40000000</color>
+    <color name="light_base">#f9f5d9</color>
+    <color name="navigation_bar_color">#444D53</color>
+    <color name="color_app_bar_title">#58595A</color>
 </resources>

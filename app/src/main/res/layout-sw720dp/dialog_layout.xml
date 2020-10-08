@@ -18,7 +18,7 @@
         android:layout_height="36dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="@android:drawable/ic_menu_close_clear_cancel"
+        android:background="@drawable/ic_close"
         android:contentDescription="@string/close"/>
     <Button
         android:id="@+id/enterCategory"
@@ -44,7 +44,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
-                    android:id="@+id/expressiveOne"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -73,7 +72,6 @@
                         android:src="@drawable/more" />
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/expressiveTwo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -103,7 +101,6 @@
                 </LinearLayout>
             </RelativeLayout>
             <RelativeLayout
-                android:id="@+id/relativeLayoutNavigation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"

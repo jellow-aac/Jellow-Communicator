@@ -3,28 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/translucent"
-    android:id="@+id/search_layout"
-    >
+    android:id="@+id/parent">
     <RelativeLayout
         android:layout_width="@dimen/search_bar_width"
         android:background="@drawable/search_list_back"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_gravity="right">
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/llSearchBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginHorizontal="8dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_close"
+                android:layout_marginHorizontal="@dimen/search_list_margin"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/close_button"
+                android:onClick="closeSearchBar"
+                android:contentDescription="@string/close_searchbar"
+                android:importantForAccessibility="yes"/>
             <EditText
                 android:padding="@dimen/searchView_padding"
-                android:layout_marginLeft="@dimen/search_edit_margin_left"
-                android:layout_marginTop="@dimen/search_edit_text_top_margin"
-                android:layout_marginBottom="@dimen/search_edit_text_margin_bottom"
-                android:layout_width="wrap_content"
-                android:layout_weight="4"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black_80"
+                android:layout_toLeftOf="@+id/close_button"
                 android:maxLines="1"
                 android:inputType="text"
                 android:textSize="@dimen/search_edit_text_size"
@@ -35,19 +44,7 @@
                 android:drawablePadding="@dimen/search_drawable_padding"
                 android:id="@+id/search_auto_complete"
                 android:importantForAccessibility="yes"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/search_list_icon_size"
-                android:layout_weight=".1"
-                android:padding="2dp"
-                android:src="@android:drawable/ic_menu_close_clear_cancel"
-                android:layout_margin="@dimen/search_list_margin"
-                android:id="@+id/close_button"
-                android:onClick="closeActivity"
-                android:contentDescription="@string/close_searchbar"
-                android:importantForAccessibility="yes"
-                />
-        </LinearLayout>
+        </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_margin="@dimen/search_recycler_margin"
         android:layout_centerHorizontal="true"

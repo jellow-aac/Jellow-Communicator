@@ -6,28 +6,12 @@
     android:orientation="vertical"
     android:layout_marginLeft="@dimen/nineIcon_parentHorizontal"
     android:layout_marginRight="@dimen/nineIcon_parentHorizontal"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:focusable="true">
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/frame_layout">
-        <ImageView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:id="@+id/delete_icons"
-            android:src="@drawable/ic_delete_icon_red_back"
-            android:layout_gravity="end"
-            android:visibility="gone"
-            android:layout_marginRight="@dimen/def_margin_flt"
-            />
-        <ImageView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:id="@+id/edit_icons"
-            android:src="@drawable/ic_edit_icon_red_back"
-            android:visibility="gone"
-            android:layout_marginLeft="@dimen/def_margin_flt"
-            />
         <ImageView
             android:id="@+id/icon1"
             android:layout_width="@dimen/nineIcon_width"
@@ -40,6 +24,30 @@
             android:layout_height="@dimen/nineIcon_width"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/border_drawable_nocolor_nine_icon"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:id= "@+id/edit_remove_container"
+            android:layout_height="@dimen/nineIcon_width">
+
+            <ImageView
+                android:id="@+id/delete_icons"
+                android:layout_width="@dimen/nineIcon_remove_btn"
+                android:layout_height="@dimen/nineIcon_remove_btn"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/nineIcon_width"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_delete_icon_red_back" />
+
+            <ImageView
+                android:layout_marginRight="-12dp"
+                android:layout_width="@dimen/nineIcon_remove_btn"
+                android:layout_height="@dimen/nineIcon_remove_btn"
+                android:id="@+id/edit_icons"
+                android:src="@drawable/ic_edit_icon_red_back"
+                android:layout_marginLeft="@dimen/def_margin_flt"
+                />
+        </RelativeLayout>
     </FrameLayout>
     <TextView
         android:id="@+id/te1"
@@ -48,5 +56,7 @@
         android:text="festivals &amp; hodidays"
         android:gravity="center"
         android:textSize="@dimen/nineIcon_textSize"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:lineSpacingExtra="1dp"
+        android:lineSpacingMultiplier=".8"/>
 </LinearLayout>

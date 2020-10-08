@@ -29,4 +29,14 @@
 -keep public class * extends java.lang.Exception
 
 -dontwarn com.rey.material.**
+
+#Androidx rules
+-dontwarn com.google.android.material.**
+-keep class com.google.android.material.** { *; }
+
+-dontwarn androidx.**
+-keep class androidx.** { *; }
+-keep interface androidx.** { *; }
+
+
 -dontpreverify

@@ -19,16 +19,10 @@
         <item>\tরাতের কাজ </item>
     </string-array>
     <string name="app_name">জেলো</string>
-    <string name="action_settings">সেটিংস্‌</string>
-    <string name="Profile">প্রোফাইল</string>
+    <string name="action_settings">সেটিংস্‌ (Settings)</string>
 
-    <string name="Language">ভাষা</string>
-    <string name="ChangeLanguage">ভাষা বদলাও</string>
-    <string name="saveLanguage">বদলগুলি প্রয়োগ করো</string>
-    <string name="addLanguage">ভাষা যুক্ত করো</string>
-    <string name="deleteLanguage">ভাষা মুছে দাও</string>
-
-
+    <string name="Language">ভাষা (Language)</string>
+    <string name="saveLanguage">বদলগুলি প্রয়োগ করো (Apply Changes)</string>
     <string-array name="bloodgroup">
         <item>নির্বাচিত হয়নি</item>
         <item>এ+</item>
@@ -74,90 +68,64 @@
         <item>নয়</item>
     </string-array>
 
-    <string name="change_language_line2">প্রথম ধাপঃ নীচের ডাউনলোড করা ভাষাগুলি থেকে যে-কোনো একটি ভাষা নির্বাচন করো</string>
+    <string name="change_language_line2">প্রথম ধাপঃ নিচের ড্রপডাউন থেকে যেকোনো একটি ভাষা সিলেক্ট করুন</string>
     <string name="simple_ime">জেলো কীবোর্ড</string>
     <string name="subtype_en_US">সিরিয়াল এবিসি</string>
-
     <string name="action_bar_title">হোম</string>
-    <string name="txtLanguage">ভাষা</string>
     <string name="txtSpeechSpeed">কথার গতি</string>
     <string name="txtVoiceSpeech">আওয়াজের গতি</string>
     <string name="txtDisplayMode">প্রদর্শনের প্রকার</string>
     <string name="txtVoiceVolume">কথার আওয়াজ</string>
-    <string name="txtNumOfPerPerScr">প্রতি স্ক্রিনে আইকনের সংখ্যা</string>
-    <string name="txtDemo">কথার নমুনা</string>
-    <string name="txtSave">সেভ</string>
+    <string name="txtNumOfPerPerScr">স্ক্রিন প্রতি ইকোনের সংখ্যা</string>
+    <string name="txtDemo">কথার নমুনা (SPEECH DEMO)</string>
+    <string name="txtSave">সেভ (Save)</string>
     <string name="demoTtsSpeech">নমস্কার! তুমি জেলো কমিউনিকেটর ব্যবহার করছ।</string>
     <string name="savedSettingsMessage">সেটিংস সেভ করা হল</string>
     <string name="languageChanged">ভাষা সেভ করা হল</string>
-    <string name="no_more_lang_2_add">যোগ করার জন্য আর কোনো ভাষা নেই</string>
-    <string name="no_more_lang_2_del">আর কোন ভাষা মুছে ফেলা হয় না</string>
     <string name="checkConnectivity">দয়া করে ইন্টারনেট সংযোগ যাচাই করো</string>
-    <string name="languageCurrentlyInUse">ভাষা বর্তমানে ব্যবহার করা হচ্ছে</string>
-    <string name="languageRemoved">ভাষা মুছে ফেলা হয়েছে</string>
 
-
-    <string name="menuProfile">প্রোফাইল</string>
-    <string name="menuMyBards">আমার বোর্ড</string>
-    <string name="menuAbout">জেলো সম্পর্কে</string>
-    <string name="menuTutorials">টিউটোরিয়াল</string>
-    <string name="menuKeyboardInput">কীবোর্ড নিয়ন্ত্রণ</string>
-    <string name="menuResetPref">পছন্দগুলি রিসেট করো</string>
-    <string name="menuFeedback">প্রতিক্রিয়া</string>
+    <string name="menuProfile">প্রোফাইল (Profile)</string>
+    <string name="menuMyBoards">আমার বোর্ড (My Boards)</string>
+    <string name="menuAbout">জেলো সম্পর্কে (About Jellow)</string>
+    <string name="menuTutorials">টিউটোরিয়াল (Tutorial)</string>
+    <string name="menuKeyboardInput">কীবোর্ড নিয়ন্ত্রণ (Keyboard Control)</string>
+    <string name="menuResetPref">পছন্দগুলি রিসেট করো (Reset Preferences)</string>
+    <string name="menuFeedback">প্রতিক্রিয়া (Feedback)</string>
     <string name="menuUserRegistration">নিবন্ধন পৃষ্ঠা</string>
-    <string name="menuAccessibility">অভিগম্যতা</string>
+    <string name="menuAccessibility">অভিগম্যতা (Accessibility)</string>
+    <string name="menuClosePopup">বন্ধ মেনু (Close menu)</string>
     <string name="labelSplash">জেলো লোড হচ্ছে। অনুগ্রহপূর্বক অপেক্ষা করুন!</string>
-    <string name="menuClosePopup">বন্ধ মেনু</string>
-
-    <string name="endString"> </string>
 
     <string name="easyToUse">সহজেই ব্যবহৃত</string>
-    <string name="feedback_talkback_heading">১ থেকে ৫ স্কেলে, অনুগ্রহ করে অনুসরণ করুন</string>
     <string name="clearPictures">স্পষ্ট ছবি</string>
     <string name="clearVoice">স্পষ্ট আওয়াজ</string>
     <string name="easyToNavigate">সহজেই সঠিক পথ খুঁজে পাওয়া</string>
     <string name="commentSuggestions">মন্তব্য/ পরামর্শ</string>
-    <string name="submit">পেশ করা</string>
-    <string name="appLoading">অ্যাপ লোডিং</string>
-    <string name="activateGoogleTts">১। গুগল টেক্সট-টু-স্পীচ সক্রিয় করা</string>
-    <string name="changeDefaultToHindi">২। পছন্দের ভাষাকে ডিফল্ট করা</string>
-    <string name="downloadVoiceTts">৩। পছন্দের ভাষার আওয়াজ ডাউনলোড করা</string>
-    <string name="activate">সক্রিয় করা</string>
-    <string name="download">ডাউনলোড করা</string>
-    <string name="cancel">বাতিল করা</string>
-    <string name="keyboardControl">কীবোর্ড নিয়ন্ত্রণঃ</string>
+    <string name="submit">পেশ করা (SUBMIT)</string>
     <string name="serial_keyboard_title">ধারাবাহিক কীবোর্ড</string>
     <string name="serial_keyboard_info">জেলো কমিউনিকেটর তার নিজস্ব \' ধারাবাহিক জেলো কীবোর্ড \' দ্বারা সজ্জিত। বিশেষ শিক্ষাবিদ এবং শিক্ষাবিদদের মতামত অনুসারে এই কীবোর্ড নির্মিত এবং এতে \' A \' থেকে বাকি কী-গুলি ক্রমানুসারে সাজানো রয়েছে। এই ধারাবাহিক কীবোর্ড ব্যবহারকারীর পক্ষে নির্দিষ্ট কী খোঁজার জন্য বিশেষভাবে সহায়ক এবং শিশুদের পক্ষে আদি ভাষাজ্ঞান দক্ষতা অর্জনের জন্য অত্যন্ত উপযোগী। একইভাবে এই কীবোর্ডে গণনাঙ্কের কী ক্রমান্বয়ে 0–9 এবং দৈনন্দিন কাজের পক্ষে সুবিধেজনক চিহ্ন মজুত রয়েছে।</string>
     <string name="keyboardControlTxt">পছন্দের কীবোর্ড সক্রিয় করা এবং তাকে ডিফল্ট করার জন্য তোমাকে দুটি ধাপ পেরোতে হবেঃ</string>
     <string name="step1">প্রথম ধাপঃ সেটিংস-এর কীবোর্ডটিকে সক্রিয় করো</string>
-    <string name="qwertyKeyboard">কোয়ার্টি</string>
-    <string name="serialKeyboard">ক্রমিক এবিসি</string>
+    <string name="qwertyKeyboard">কোয়ার্টি (QWERTY)</string>
+    <string name="serialKeyboard">ক্রমিক এবিসি (SERIAL ABC)</string>
     <string name="step2">দ্বিতীয় ধাপঃ কীবোর্ডটিকে ডিফল্ট পছন্দ হিসেবে সেভ করো</string>
-    <string name="saveAsDefault">ডিফল্ট হিসেবে সেভ করো</string>
-    <string name="voiceControl">আওয়াজ নিয়ন্ত্রণ</string>
+    <string name="saveAsDefault">ডিফল্ট হিসেবে সেভ করো (SAVE AS DEFAULT)</string>
     <string name="getKeyboardControl">কীবোর্ড নিয়ন্ত্রণ</string>
-    <string name="childName">শিশুর নাম *</string>
-    <string name="caregiverName">কেয়ারগিভারের নাম </string>
-    <string name="careGiverContact">এই ডিভাইসের সিম নম্বর ছাড়া অন্যের তত্ত্বাবধানকারীর যোগাযোগ নম্বর দিন *</string>
-<string name="homeAddress">বাড়ির ঠিকানা</string>
-    <string name="emailAddress">ই-মেলের ঠিকানা *</string>
-    <string name="bloodGroup">রক্তের গ্রুপ</string>
+    <string name="childName">শিশুর নাম **</string>
+    <string name="caregiverName">কেয়ারগিভারের নাম **</string>
+    <string name="careGiverContact">এই ডিভাইসের সিম নম্বর ছাড়া অন্যের তত্ত্বাবধানকারীর যোগাযোগ নম্বর দিন **</string>
+    <string name="homeAddress">বাড়ির ঠিকানা **</string>
+    <string name="emailAddress">ই-মেলের ঠিকানা **</string>
+    <string name="bloodGroup">রক্তের গ্রুপ **</string>
     <string name="detailSaved">খুঁটিনাটি তথ্যগুলি সেভ করা হল</string>
+    <string name="invalid_address">অকার্যকরী ঠিকানা</string>
     <string name="invalid_emailId">অকার্যকরী ই-মেল ঠিকানা</string>
-    <string name="invalidContactNumber">অকার্যকর যোগাযোগের নাম্বার</string>
     <string name="enterTheName">দয়া করে আপনার সন্তানের নাম লিখুন</string>
-    <string name="search_act_title">জেলোতে কথার আইকন</string>
-    <string name="resetPreferenceMessage">
-       <![CDATA[ <ul>
-            <li>জেলো ব্যবহারকারীর \'সবচাইতে ব্যবহৃত/ পছন্দের\' আইকনগুলি মনে রাখে এবং সেগুলি সর্বাধিক পছন্দরূপে স্ক্রিনে ফুটিয়ে তোলে</li><br/>
-            <li>পছন্দগুলি পুনরায় সাজানোর পর আইকনগুলি অ্যাপ্লিকেশন প্রথমবার খোলার পর যে-অবস্থায় ছিল, তেমন অবস্থায় ফিরে যাবে</li><br/>
-            <li> তুমি কি পছন্দগুলি পুনরায় সাজাতে চাও?</li><br/><br/>
-       </ul>]]>
-    </string>
+    <string name="search_act_title">জেলোতে অনুসন্ধান আইকন</string>
     <string name="iconsHasBeenReset">পছন্দগুলি পুনরায় সাজানো হয়েছে</string>
-    <string name="speak">বলা</string>
-    <string name="stop">থামা</string>
-    <string name="about_jellow_speech">জেলো যোগাযোগ তৈরিতে উপযোগী একটি অ্যাপ্লিকেশন যা আইকন ব্যবহার করে আওয়াজ সক্রিয় করে এবং এটি যারা সদ্য কথা বলতে শিখছে কিংবা যারা কথা বলতে অসুবিধার মুখে পড়ে তারা ব্যবহার করতে পারে। অ্যাপ্লিকেশনটি বিকশিত হয়েছে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বোম্বে-র আই ডি সি স্কুল অফ ডিজাইন ( মুম্বই )-তে। জেলো-র ভাষাগত সক্ষমতা বৃদ্ধির জন্য প্রকল্পের তত্ত্বাবধায়কেরা নভেল ইমোশনাল ল্যাংগুয়েজ প্রোটোকল অথবা ELP তৈরি করে তাকে বিকশিত করেছিলেন। ELP ছ-টি ভাবমূলক আইকনকে প্রকাশ করে যেগুলি ইন্টারফেসের মূল অংশ নির্মাণ করে থাকে। এই মূল আইকনগুলি ব্যবহার করে শিশুরা তাদের ইচ্ছে, অনিচ্ছে, চাহিদা বিষয়ে অন্যদের সাথে যোগাযোগ তৈরি করতে সমর্থ হবে। শিশুদের উপযোগী এবং সহজেই শেখা যায় — এমন ইন্টারফেস হিসেবে জেলো নির্মিত হয়েছে। এই অ্যাপ্লিকেশনটি অ্যান্ড্রয়েড ট্যাবলেটে ব্যবহারের জন্য নির্মিত। জেলো আপাতত ইংরেজি, হিন্দিতে এবং বাঙালি ব্যবহারযোগ্য। জেলো-র সাম্প্রতিক সফটওয়্যার ভার্সানঃ ৫.০। বর্তমানে এই অ্যাপ্লিকেশনটি উন্নততর করার লক্ষ্যে পরীক্ষার অধীনে রয়েছে। তাই আপনার যদি আমাদের উদ্দেশে কোনো পরামর্শ থাকে, তাহলে দয়া করে তা ফিডব্যাক ট্যাব-এ সাবমিট করুন। জেলো ৪.০ আন্তর্জাতিক লাইসেন্সের মতোই সৃজনমূলক, সদৃশ্যবাচক অবাণিজ্যিক শেয়ার হিসেবে নথিভুক্ত করা হয়েছে। জেলো নিয়ে গবেষণার কাজ সম্পন্ন হয়েছে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বম্বে-তে। অ্যাপ্লিকেশনের অন্তর্গত বিষয়, যথা — আইকন, নকশা, নির্মাণকৌশল, দৃশ্যগত উপস্থাপনা, অনুবাদ এবং সফটওয়্যার কোডগুলি গ্রহণ কিংবা প্রচার করা যাবে কিন্তু এগুলি কোনো বাণিজ্যিক স্বার্থে ব্যবহার করা যাবে না। যখন বিষয়বস্তু ব্যবহার করবেন, আমাদের অনুরোধ রইল, তখন দয়া করে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বম্বে-র ঋণ স্বীকার করবেন। কোডটিকে আরও উন্নত করতে চাইলে দয়া করে যোগাযোগ করুন অধ্যাপক রবি পুভেয়ার সঙ্গে এই ঠিকানায়ঃ ravi @ i i t b dot a  c.in অথবা, j e l l o w c o m m u n i c a t o r @ g m a i l . c o m</string>
+    <string name="speak">বলা (Speak)</string>
+    <string name="stop">থামা (Stop)</string>
+    <string name="about_jellow_speech">জেলো যোগাযোগ তৈরিতে উপযোগী একটি অ্যাপ্লিকেশন যা আইকন ব্যবহার করে আওয়াজ সক্রিয় করে এবং এটি যারা সদ্য কথা বলতে শিখছে কিংবা যারা কথা বলতে অসুবিধার মুখে পড়ে তারা ব্যবহার করতে পারে। অ্যাপ্লিকেশনটি বিকশিত হয়েছে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বোম্বে-র আই ডি সি স্কুল অফ ডিজাইন ( মুম্বই )-তে। জেলো-র ভাষাগত সক্ষমতা বৃদ্ধির জন্য প্রকল্পের তত্ত্বাবধায়কেরা নভেল ইমোশনাল ল্যাংগুয়েজ প্রোটোকল অথবা ELP তৈরি করে তাকে বিকশিত করেছিলেন। ELP ছ-টি ভাবমূলক আইকনকে প্রকাশ করে যেগুলি ইন্টারফেসের মূল অংশ নির্মাণ করে থাকে। এই মূল আইকনগুলি ব্যবহার করে শিশুরা তাদের ইচ্ছে, অনিচ্ছে, চাহিদা বিষয়ে অন্যদের সাথে যোগাযোগ তৈরি করতে সমর্থ হবে। শিশুদের উপযোগী এবং সহজেই শেখা যায় — এমন ইন্টারফেস হিসেবে জেলো নির্মিত হয়েছে। এই অ্যাপ্লিকেশনটি অ্যান্ড্রয়েড ট্যাবলেটে ব্যবহারের জন্য নির্মিত। জেলো আপাতত ইংরেজি, হিন্দিতে, বাঙালি, মারাঠি, তামিল, স্প্যানিশ, জার্মান এবং ফরাসি ব্যবহারযোগ্য। জেলো-র সাম্প্রতিক সফটওয়্যার ভার্সানঃ _। বর্তমানে এই অ্যাপ্লিকেশনটি উন্নততর করার লক্ষ্যে পরীক্ষার অধীনে রয়েছে। তাই আপনার যদি আমাদের উদ্দেশে কোনো পরামর্শ থাকে, তাহলে দয়া করে তা ফিডব্যাক ট্যাব-এ সাবমিট করুন। জেলো ৪.০ আন্তর্জাতিক লাইসেন্সের মতোই সৃজনমূলক, সদৃশ্যবাচক অবাণিজ্যিক শেয়ার হিসেবে নথিভুক্ত করা হয়েছে। জেলো নিয়ে গবেষণার কাজ সম্পন্ন হয়েছে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বম্বে-তে। অ্যাপ্লিকেশনের অন্তর্গত বিষয়, যথা — আইকন, নকশা, নির্মাণকৌশল, দৃশ্যগত উপস্থাপনা, অনুবাদ এবং সফটওয়্যার কোডগুলি গ্রহণ কিংবা প্রচার করা যাবে কিন্তু এগুলি কোনো বাণিজ্যিক স্বার্থে ব্যবহার করা যাবে না। যখন বিষয়বস্তু ব্যবহার করবেন, আমাদের অনুরোধ রইল, তখন দয়া করে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বম্বে-র ঋণ স্বীকার করবেন। কোডটি আরও বিকাশ করতে বা আপনার জায়গায় কোনও জেলো ওয়ার্কশপ পরিচালনা করতে আগ্রহী হলে অনুগ্রহ করে এখানে অধ্যাপক রবি পূওয়াইয়াকে লিখুনঃ j e l l o w c o m m u n i c a t o r @ g m a i l . c o m</string>
     <string name="catBtnDesc">জেলো-তে ৯টি কেন্দ্রীয় শ্রেণিগত বটন এবং ৬টি ভাবপ্রকাশক পার্শ্ববর্তী বটন রয়েছেঃ</string>
     <string name="catBtn">শ্রেণিগত বটনঃ</string>
     <string name="expBtn">ভাবপ্রকাশক বটনঃ</string>
@@ -170,10 +138,7 @@
     <string name="seqActDesc">শিশুদের দৈনন্দিন কাজকর্মের ধারাবাহিক স্তরগুলি শেখানোর কাজেও জেলো ব্যবহার করা যেতে পারে। প্রতিটি স্তরে ক্লিক করে ব্যবহারকারী ভাবপ্রকাশক বটন দেখতে পারেঃ</string>
     <string name="toiletSeq">টইলেটের ধারাবাহিক ক্রমঃ</string>
     <string name="expBtnSeq">একপ্রেসিভ বটনের ধারাবাহিক ক্রমঃ</string>
-    <string name="ttsDesc">ইংরেজি, হিন্দি এবং বাংলাতে জেলো ব্যবহার করুন জন্য আপনার যন্ত্রের \'<b>ভাষা</b>\' সেটিংস-এ গিয়ে \'<b>গুগল টেক্সট-টু-স্পীচ</b>\' সক্রিয় করুন</string>
-    <string name="softwareVersion">সফটওয়্যার সংস্করণঃ</string>
-    <string name="string_to_speak">বলার জন্য শব্দ লিখুন</string>
-    <string name="speak_written_text">লিখিত বাক্য পড়া</string>
+    <string name="ttsDesc">ইংরেজি, হিন্দিতে, বাঙালি, তামিল, স্প্যানিশ, জার্মান এবং ফরাসি জেলো ব্যবহার করুন জন্য আপনার যন্ত্রের \'<b>ভাষা</b>\' সেটিংস-এ গিয়ে \'<b>গুগল টেক্সট-টু-স্পীচ</b>\' সক্রিয় করুন</string>
     <string name="resetPrefPointOne">জেলো ব্যবহারকারীর \'সর্বাধিক ব্যবহৃত/ পছন্দের\' আইকনগুলি স্মরণে রাখে এবং সেগুলি স্ক্রিনে সর্বাধিক পছন্দ রূপে দেখায়।</string>
     <string name="resetPrefPointTwo">পছন্দগুলি পুররায় নতুন করে সাজানোর পর আইকনগুলি অ্যাপটি প্রথমবার খোলার সময় যেভাবে সাজানো ছিল সেই সজ্জায় ফিরে যাবে।</string>
     <string name="resetPrefPointThree">আপনি কি আপনার পছন্দগুলি নতুন করে সাজাতে চান?</string>
@@ -192,51 +157,24 @@
     <string name="txt_intro3_navWithJellow">জেলোর মধ্যে চলাচল করা</string>
     <string name="txt_intro4_customizeAppDesc">অ্যাপ্লিকেশনের ডান দিকের ওপরের অংশটি ক্লিক করে অ্যাপ্লিকেশনের সেটিংস সাজানো যেতে পারে</string>
     <string name="txt_intro4_customizeJellow">জেলো-র সেটিংস</string>
-    <string name="txt_intro6_skipActiveTtsDesc">- উচ্চারণের জন্য _ ভাষা নির্বাচন করুন</string>
-    <string name="txt_intro6_ttsStep1">১। গুগল টেক্সট-টু-স্পীচ সক্রিয় করুন</string>
-    <string name="txt_intro6_activate">সক্রিয় করুন</string>
-    <string name="txt_intro6_step2">২। পছন্দের ভাষাকে মূল ভাষা হিসেবে নির্বাচন করুন</string>
-    <string name="txt_intro6_changeLang">ভাষা বদল করুন</string>
-    <string name="txt_intro6_step3">৩। _আওয়াজ ডাউনলোড করুন</string>
-    <string name="txt_intro6_download">ডাউনলোড</string>
     <string name="txt_intro7_getStartedDesc">এবার আপনি জেলোর সঙ্গে কাজ শুরু করতে প্রস্তুত আছেন</string>
     <string name="txt_intro7_getStarted">শুরু করো</string>
     <string name="txt_registration_jellowCalluDesc">( এভাবেই জেলো আপনাকে সম্বোধন করে )</string>
     <string name="txt_registration_emergencynoDesc">( শিশুর আপৎকালীন বিপদ সম্পর্কে অবহিত করতে )</string>
-    <string name="txt_registration_emailDesc">( জেলো-র আপডেট সম্পর্কে আপনাকে অবহিত করতে )</string>
-    <string name="txt_registration_selectLangDesc">জেলো-র জন্য একটি ভাষা বেছে নিন *</string>
-    <string name="txt_registration_selectLangDesc_contentDesc">জেলো-র জন্য একটি ভাষা বেছে নিন। প্রয়োজনীয় ক্ষেত্র</string>
+    <string name="txt_registration_selectLangDesc">জেলো-র জন্য একটি ভাষা বেছে নিন **</string>
+    <string name="txt_registration_selectLangDesc_contentDesc">জেলো-র জন্য একটি ভাষা বেছে নিন। প্রয়োজনীয় ক্ষেত্র। **</string>
     <string name="txt_registration_registerBtn">নথিভুক্ত করুন</string>
     <string name="enternonemptycontact">কার্যকরী যোগাযোগের নাম্বার দিন</string>
-    <string name="change_tts_lang">টেক্সট-টু-স্পীচ প্রয়োগ করুন।</string>
-    <string name="txt_actLangSel_completestep3">দয়া করে ইন্টারনেট চালু করুন এবং তৃতীয় ধাপ সম্পূর্ণ করুন।</string>
-    <string name="change_language_line5">দ্বিতীয় ধাপঃ যাচাই করে দেখুন _-র জন্য ভয়েস ডেটা আপনার যন্ত্রে মজুত আছে কি না। ইন্টারনেটে তীর্থযাত্রী চালু করুন এবং নির্বাচিত ভাষাতে ভয়েস ডেটা ডাউনলোড করুন। প্রক্রিয়াটি স্থগিত হলে দয়া করে আপনার ইন্টারনেট সংযোগ চেক করুন এবং পুনরায় চেষ্টা করুন।</string>
-    <string name="change_language_line4">তৃতীয় ধাপঃ \'গুগল টেক্সট-টু-স্পীচ ইঞ্জিনের\'-কে টেক্সট-টু-স্পীচ ইঞ্জিনের হিসেবে নির্বাচন করুন এবং ইঞ্জিনের ডিফল্ট ভাষা হিসাবে _ সেট করুন</string>
-    <string name="txtChangeLanguage">২) মূল ভাষা বদল করুনঃ</string>
+    <string name="change_language_line5">তৃতীয় ধাপঃ যাচাই করে দেখুন _-র জন্য ভয়েস ডেটা আপনার যন্ত্রে মজুত আছে কি না। ইন্টারনেটে তীর্থযাত্রী চালু করুন এবং নির্বাচিত ভাষাতে ভয়েস ডেটা ডাউনলোড করুন। প্রক্রিয়াটি স্থগিত হলে দয়া করে আপনার ইন্টারনেট সংযোগ চেক করুন এবং পুনরায় চেষ্টা করুন।</string>
+    <string name="txtChangeLanguage">মূল ভাষা বদল করুনঃ</string>
     <string name="txtApplyChanges">চতুর্থ ধাপঃ নতুন ভাষাকে মূল ভাষা হিসেবে প্রয়োগ করতে \'বদলগুলি প্রয়োগ করুন\' বাটনটি ক্লিক করুন।</string>
-    <string name="change_language_line6">নতুন যুক্ত হওয়া ভাষা মূল ভাষা হিসেবে প্রয়োগ করতে আপনি নিম্নলিখিত ধাপগুলি অনুসরণ করতে পারেন।</string>
-    <string name="txt_set_tts_setup">দয়া করে টেক্সট-টু-স্পীচ ইঞ্জিনের সেট আপ, যা আগের পাতায় দেওয়া রয়েছে, তা সমাপ্ত করুন।</string>
-    <string name="txt_save_same_lang_def">নির্বাচিত ভাষাটি ইতিমধ্যে আপনার মূল ভাষা হয়ে রয়েছে।</string>
-    <string name="speech_engin_lang_sam">দয়া করে অ্যাপের \'ভাষা\' সেটিং-টি পরীক্ষা করুন</string>
-    <string name="txt_intro6_skipTtsSetup">যে-সমস্ত যন্ত্রে গুগল টিটিএস ইঞ্জিন সক্রিয় রয়েছেঃ দয়া করে বর্তমান ধাপটি অগ্রাহ্য করুন।</string>
-    <string name="txt_actLangSel_downloadDat">ভয়েস ডেটা পরীক্ষা করুন।</string>
-    <string name="txt_actLangSel_complete_mainscreen_msg">ভয়েস ডেটা প্রাপ্ত হয়নি। ইন্টারনেট চালু করুন এবং অ্যাপ্লিকেশন ভাষা সেটিংস যান।</string>
+    <string name="txt_actLangSel_downloadDat">ভয়েস ডেটা পরীক্ষা করুন। (Check voice data)</string>
     <string name="language_downloaded">_ ভাষা ডাউনলোড করা হল</string>
     <string name="language_downloading">_  ভাষা ডাউনলোড করা হচ্ছে</string>
-    <string name="ok">ঠিক আছে</string>
-    <string name="call_permission_info">কথা বলার অনুমতি উপলব্ধ নয়। আপৎকালীন প্রয়োজনে কথা বলার জন্য অনুমতি জরুরি</string>
     <string name="granted_call_permission_req">কথা বলার অনুমতি প্রদত্ত হল</string>
     <string name="rejected_call_permission_req">কথা বলার অনুমতি অস্বীকৃত হল</string>
     <string name="grant_permission_from_settings">সেটিংস-এ গিয়ে কথা বলার অনুমতি সক্রিয় করুন</string>
-    <string name="request">অনুরোধ</string>
-    <string name="userGroup">ব্যবহারকারী গোষ্ঠী *</string>
-    <string name="groupTeacher">থেরাপিস্ট/ শিক্ষক</string>
-    <string name="groupParent">অভিভাবক/ কেয়ারগিভার</string>
-    <string name="invalid_usergroup">ব্যবহারকারী গোষ্ঠীকে নির্বাচন করুন</string>
     <string name="txtEnableBuiltInCalling">জেলো থেকে জরুরি অবস্থায় কল গ্রহণ সক্রিয় করুন</string>
-    <string name="downloadableLang">ডাউনলোড উপযোগী ভাষা</string>
-    <string name="downloadedLang">ডাউনলোড করা ভাষা</string>
-    <string name="remove">অপসারণ করুন</string>
     <string name="dismiss">বাদ দিন</string>
     <string name="register_user">রেজিস্ট্রেশন চলাকালীন দয়া করে অপেক্ষা করুন…</string>
     <string name="exit">প্রস্থান</string>
@@ -263,7 +201,8 @@
     <string name="about_je_intro4">এই মূল আইকনগুলির সাহায্যে একজন শিশু তাদের পছন্দ, অপছন্দ এবং চাহিদা বিষয়ে অন্যদের সঙ্গে ভাবের আদানপ্রদান করতে পারে।</string>
     <string name="about_je_intro5">শিশুদের উপযোগী এবং সহজেই শেখা যায় — এমন ইন্টারফেস হিসেবে জেলো নির্মিত হয়েছে।</string>
     <string name="about_je_intro6">এই অ্যাপ্লিকেশনটি অ্যান্ড্রয়েড ট্যাবলেটে ব্যবহারের জন্য নির্মিত।</string>
-    <string name="about_je_intro7">জেলো আপাতত ইংরেজি, হিন্দিতে, বাঙালি এবং মারাঠি ব্যবহারযোগ্য।</string>
+    <string name="about_je_intro7">জেলো আপাতত ইংরেজি, হিন্দিতে, বাঙালি, মারাঠি, তামিল, স্প্যানিশ, জার্মান এবং ফরাসি ব্যবহারযোগ্য।</string>
+    <string name="play_video">ভিডিও দেখাও (Play video)</string>
     <string name="software_info">সফটওয়্যার সংস্করণঃ _</string>
     <string name="about_je_intro8">জেলো-র সাম্প্রতিক সফটওয়্যার ভার্সানঃ _। বর্তমানে এই অ্যাপ্লিকেশনটি উন্নততর করার লক্ষ্যে পরীক্ষার অধীনে রয়েছে। তাই আপনার যদি আমাদের উদ্দেশে কোনো পরামর্শ থাকে, তাহলে দয়া করে তা ফিডব্যাক ট্যাব-এ সাবমিট করুন।</string>
     <string name="terms_of_use">ব্যবহারের শর্তাদিঃ</string>
@@ -271,15 +210,15 @@
     <string name="about_je_intro10">জেলো নিয়ে গবেষণার কাজ সম্পন্ন হয়েছে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বম্বে-তে।</string>
     <string name="about_je_intro11">অ্যাপ্লিকেশনের অন্তর্গত বিষয়, যথা — আইকন, নকশা, নির্মাণকৌশল, দৃশ্যগত উপস্থাপনা, অনুবাদ এবং সফটওয়্যার কোডগুলি গ্রহণ কিংবা প্রচার করা যাবে কিন্তু এগুলি কোনো বাণিজ্যিক স্বার্থে ব্যবহার করা যাবে না।</string>
     <string name="about_je_intro12">যখন বিষয়বস্তু ব্যবহার করবেন, আমাদের অনুরোধ রইল, তখন দয়া করে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বম্বে-র ঋণ স্বীকার করবেন।</string>
-    <string name="about_je_intro13">জেলো নিম্নলিখিত লিঙ্ক থেকে ডাউনলোড করতে পারেনঃ</string>
-    <string name="about_je_intro14">কোডটিকে আরও উন্নত করতে চাইলে দয়া করে যোগাযোগ করুন অধ্যাপক রবি পুভেয়ার সঙ্গে এই ঠিকানায়ঃ</string>
+    <string name="about_je_intro13">জেলো নিম্নলিখিত লিঙ্ক থেকে ডাউনলোড করতে পারেনঃ _</string>
+    <string name="about_je_intro14">কোডটি আরও বিকাশ করতে বা আপনার জায়গায় কোনও জেলো ওয়ার্কশপ পরিচালনা করতে আগ্রহী হলে অনুগ্রহ করে এখানে অধ্যাপক রবি পূওয়াইয়াকে লিখুনঃ jellowcommunicator@gmail.com</string>
     <string name="credits">ঋণঃ</string>
     <string name="about_je_intro15">ধারণা নির্মাণ, প্রকল্প অনুসন্ধান এবং তত্ত্বাবধায়নঃ</string>
     <string name="about_je_intro16">অধ্যাপক রবি পুভিয়া এবং ড. অজন্তা সেন</string>
     <string name="about_je_intro17">প্রাথমিক ধারণা বিকাশঃ</string>
     <string name="about_je_intro18">আঁচল কুমার, সম্রাট সারদেশাই, পিটার জোসেফ, অন্তরা হাজারিকা</string>
     <string name="about_je_intro19">সফটওয়্যারের বিকাশঃ</string>
-    <string name="about_je_intro20">রাহুল রূপচাঁদ জিজ, নারায়ণ রেড্ডী, নিখিল অহিরাও, আয়াজ আলম, হারিশিত বুদ্রজা, সুমিত আগরওয়াল, রূপা নারায়ণ সাহু, শ্রুতি গুপ্ত, আস্থা জোশি, ধৈর্যদণ্ড, প্রীতম পিবাম</string>
+    <string name="about_je_intro20">রাহুল রূপচাঁদ জিজ, আয়াজ আলম, সৌরভ জৈন, লাক্সমান কুমার, নারায়ণ রেড্ডী, নিখিল অহিরাও, হারিশিত বুদ্রজা, সুমিত আগরওয়াল, রূপা নারায়ণ সাহু, শ্রুতি গুপ্ত, আস্থা জোশি, ধৈর্যদণ্ড, প্রীতম পিবাম</string>
     <string name="about_je_intro31">সফটওয়্যারের এবং ব্যবহারযোগ্যতা পরীক্ষা:</string>
     <string name="about_je_intro32">ড. সুধা শ্রীনিবাসন, বিনয় তৌদে, সচিন সোনাওয়ানে, রূপ সাহু, রাহুল রূপচাঁদ জিজ, রাহুল রূপচাঁদ জিজ</string>
     <string name="about_je_intro21">ওয়েবসাইট অলংকরণঃ</string>
@@ -287,23 +226,32 @@
     <string name="about_je_intro23">আইকন, দৃশ্যগত অলংকরণ এবং শব্দঃ</string>
     <string name="about_je_intro24">বিনয় তৌদে, শ্বেতা গৌরিশ পাঠের, অনিষা মলখো, সিমোন সেন, নিকিতা আয়ার, গণেশ গাজীলা</string>
     <string name="about_je_intro25">অনুবাদঃ</string>
-    <string name="about_je_intro26">ড. রুপক মিসরা, সচিন সোনাওয়ানে, ড. সুধা শ্রীনিবাসন</string>
+    <string name="about_je_intro26">সচিন সোনাওয়ানে, ড. সুধা শ্রীনিবাসন, কৌস্তুভ রাজবাদে, শশাঙ্ক খোবরাগাড়ে, জীব কান্নান মুথুকুমার, দীপালি শেঠিয়া, ড. রুপক মিসরা</string>
     <string name="about_je_intro27">গবেষণা, শব্দাবলির বিকাশসাধন এবং ব্যবহারিক বিশ্লেষণঃ</string>
     <string name="about_je_intro28">ড. সুধা শ্রীনিবাসন, পুস্কর দেশপন্ধু, সাক্ষী পাল, সিদ্ধি প্যাটেল</string>
     <string name="about_je_intro29">সহায়তাঃ</string>
     <string name="about_je_intro30">ই-কল্প প্রোজেক্ট  MHRD-র NMEICT, মাইক্রোসফট ডিজাইন এক্সপো ২০০৪ এবং ইউনিসেফ-এর এক বছরের অনুদানপ্রাপ্ত।</string>
     <string name="about_je_intro38">অনুদৈর্ঘ্য ব্যবহারকারী অধ্যয়ন এবং ক্ষেত্র পরীক্ষা জেলও:</string>
     <string name="about_je_intro39">টুপিওয়ালা ন্যাশনাল মেডিকেল কলেজ এন্ড বা. যা. ল. নারী চারিটিবিলে হাসপাতাল (ডিপার্টমেন্ট সাইকিয়াট্রি এন্ড অডিওলজি এন্ড স্পিচ থেরাপি )</string>
+    <string name="about_je_intro40">ইউএক্স / ইউআই ডিজাইন এবং সামগ্রিক সমন্বয়:</string>
+    <string name="about_je_intro41">অধ্যাপক রবি পুভিয়া, রূপ সাহু, বিনয় তৌদে</string>
+    <string name="feedback_talkback_heading">১ থেকে ৫ স্কেলে, অনুগ্রহ করে অনুসরণ করুন</string>
+
+    <string name="langauge_correction_message">\'"-"\' ভাষাটি ঠিকমতো সেটআপ করা হয়নি। ভাষার সেটিং ঠিক করার জন্য \'"_"\' বাটনটা প্রেস করুন। অথবা, ডিফল্ট ভাষায় সুইচ করুন। এটা  করতে \'"$"\' প্রেস করুন।</string>
+    <string name="changeLanguage">ভাষার সেটিং ঠিক করুন।</string>
+    <string name="dialog_default_language_option">ডিফল্ট ল্যাংগুয়েজ</string>
+    <string name="txt_data_info">** উপরের ডেটা কেবলমাত্র আপনার ডিভাইসে সংরক্ষণ করা হবে। আমরা আপনার গোপনীয়তার মূল্যবান তাই এটি কোনও সার্ভার / ক্লাউডে (জেলোর বা তৃতীয় পক্ষের সহ) আপলোড করা হবে না।</string>
+    <string name="txt_view_privacy_policy">জেল্লোর <![CDATA[<font color="#dc5252"><b><u>প্রাইভেসী পলিসি</u></b></font>]]> পড়ুন।</string>
+    <string name="privacy_link_info">আমি জেল্লোর <![CDATA[<font color="#dc5252"><b><u>প্রাইভেসী পলিসি</u></b></font>]]> পড়েছি।</string>
+    <string name="consent_privacy">অনুগ্রহ করে জিল্লুর প্রাইভেসি পলিসি পড়ুন এবং সেই হিসেবে চেক করুন</string>
 
 
     <!--Content description-->
     <string name="language_download_in_process">ভাষা ডাউনলোড করা হচ্ছে</string>
-    <string name="child_s_name">শিশুর নাম। প্রয়োজনীয় ক্ষেত্র</string>
-    <string name="caregiver_s_contact_number">েয়ারগিভারের যোগাযোগের নাম্বার</string>
-    <string name="user_s_group">ব্যবহারকারীর গ্রুপ। প্রয়োজনীয় ক্ষেত্র</string>
-    <string name="enter_caregiver_s_contact_number">কেয়ারগিভারের যোগাযোগের নাম্বার লিখুন</string>
+    <string name="child_s_name">শিশুর নাম। প্রয়োজনীয় ক্ষেত্র। **</string>
     <string name="enter_home_address">বাড়ির ঠিকানা লিখুন</string>
-    <string name="email_address">কেয়ারগিভারের ইমেলের ঠিকানা লিখুন</string>
+    <string name="enter_caregiver_s_contact_number">কেয়ারগিভারের যোগাযোগের নাম্বার লিখুন</string>
+    <string name="enter_caregiver_s_name">কেয়ারগিভারের লিখুন</string>
     <string name="enter_caregiver_s_email_address">কেয়ারগিভারের ইমেলের ঠিকানা লিখুন</string>
     <string name="category_cd">এই ছবি জেলোর মূল পাতার একটি স্ক্রিনশট। এই মূল পাতাটিতে রয়েছে নয়টি আইকন, যাদের বলা হয় ক্যাটাগরি বাটন এবং তা তিনটি রো ও তিনটি কলামে সজ্জিত। উল্লিখিত নয়টি ক্যাটাগরি বাটন হল - " অভিবাদন এবং অনুভূতি ", " দৈনন্দিন কাজ ", " খাওয়া ", " মজা ", " শেখা ", " লোকজন ", " জায়গা ", " সময় এবং আবহাওয়া " এবং " সাহায্য "। নীচে যে ক্যাটাগরি বাটন আছে সেগুলি আসলে তিনটি নেভিগেশন বাটন, যথা - ফেরা, মূল পাতা এবং কীবোর্ড। এগুলি মূল পাতায় নির্দিষ্ট ক্রমে সজ্জিত। মূল ক্যাটাগরির আইকনের ডান দিক এবং বাম দিকে রয়েছে তিনটি করে অনুভূতিসূচক আইকন। মূল সজ্জার বাম দিকে তিনটি অনুভূতিসূচক বাটন হচ্ছে - পছন্দ, হ্যাঁ এবং আরও, যেগুলি ওপর থেকে নীচ বরাবর সজ্জিত রয়েছে। মূল সজ্জার ডান দিকে রয়েছে বাকি তিনটি অনুভূতিসূচক বাটন - পছন্দ করি না, না এবং কম, যেগুলি ওপর থেকে নীচ বরাবর সাজানো। মূল স্ক্রিনের ওপরের ডান দিকের কোণে দেখতে পাবেন সেটিংস আইকন। এই ছবিতে নয়টি আইকনের সজ্জা রঙযুক্ত এবং বাদবাকি আইকনগুলি বিবর্ণ।</string>
     <string name="expressive_cd">এই ছবি জেলোর মূল পাতার স্ক্রিনশট। এই ছবিতে রয়েছে ছটি ভাবপ্রকাশক বাটন। মূল শ্রেণির বাটনগুলি রঙিন রূপে উভয়দিকে তিনটি করে সাজানো রয়েছে। বাকি বাটনগুলি রঙহীন। ওপর থেকে নীচে শ্রেণিগত বাটনের মূল সজ্জার বাম দিকে রয়েছে তিনটি ভাবপ্রকাশক বাটন, যথা - " হাসিমুখ " আইকন "। এটি " চিহ্ন পরীক্ষা করুন " দ্বারা প্রকাশ করা হয়েছে। একইভাবে " হ্যাঁ " সূচিত হয়েছে " যোগ চিহ্ন "-এর মাধ্যমে। শ্রেণিগত বাটনের ডান দিকে রয়েছে আরও কিছু ভাবপ্রকাশক আইকন, যথা - " পছন্দ করি না ", যা সূচিত হয়েছে দু:খিত মুখের দ্বারা। " না " প্রকাশিত হয়েছে " ক্রস " চিহ্নের দ্বারা। " কম " " বিয়োগ চিহ্নের " মাধ্যমে প্রকাশ পেয়েছে। ছবিতে তিনটি নেভিগেশন বাটন রয়েছে - স্ক্রিনের নীচে, বাম দিক থেকে ডান দিকে, যথা - " পেছনে ", " মূল পাতা " এবং " কীবোর্ড "।</string>
@@ -318,11 +266,9 @@
     <string name="gtts2">দ্বিতীয় ছবিটি এই প্রক্রিয়ার দ্বিতীয় ধাপ সংক্রান্ত, যেখানে ব্যবহারকারীকে দেখা যায় " গিয়ার " চিহ্নে ক্লিক করতে, যা আসলে " google text to speech " -এর " সেটিংস " সংক্রান্ত।</string>
     <string name="gtts3">তৃতীয় ছবিটি হচ্ছে প্রক্রিয়ার তৃতীয় ধাপ, যখন ব্যবহারকারী রয়েছে "google TTS voice data" স্ক্রিনে। এই স্ক্রিনে রয়েছে একাধিক স্বর নির্বাচনের সু্যোগ, যেমন - “French (France)”, “German (Germany)”, “Hindi (India)”, “Hungarian (Hungary)”, and “Indonesian (Indonesia)”। " hindi ( india)  " অপশনটি রঙিন রয়েছে, যা দেখাচ্ছে ১৯ এমবি-র  " voice set 1 " নামক অপশনটি ডাউনলোডের জন্য লভ্য। ব্যবহারকারীর আঙুল উক্ত অপশনে ক্লিক করতে দেখা যায়।</string>
     <string name="enter_child_s_name">শিশুর নাম লিখুন</string>
-    <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">এই ডিভাইসের সিম নম্বর ছাড়া অন্যের তত্ত্বাবধানকারীর যোগাযোগ নম্বর দিন। প্রয়োজনীয় ক্ষেত্র</string>
+    <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">এই ডিভাইসের সিম নম্বর ছাড়া অন্যের তত্ত্বাবধানকারীর যোগাযোগ নম্বর দিন। প্রয়োজনীয় ক্ষেত্র। **</string>
     <string name="select_country_code">দেশের কোড লিখুন</string>
-    <string name="enter_caregiver_s_name">কেয়ারগিভারের লিখুন</string>
-    <string name="caregiver_s_email_address">কেয়ারগিভারের ইমেলের ঠিকানা। প্রয়োজনীয় ক্ষেত্র</string>
-    <string name="txt_registration_usergrp_desc">এই ডিভাইসে জেলো ব্যবহার করা হবে ব্যক্তি নির্বাচন করুন</string>
+    <string name="caregiver_s_email_address">কেয়ারগিভারের ইমেলের ঠিকানা। প্রয়োজনীয় ক্ষেত্র। **</string>
     <string name="like">পছন্দ করি</string>
     <string name="yes">হ্যাঁ</string>
     <string name="more">আরও</string>
@@ -330,24 +276,19 @@
     <string name="no">না</string>
     <string name="less">কম</string>
     <string name="back">পিছনে</string>
+    <string name="yes_btn">হ্যাঁ (Yes)</string>
     <string name="enter_category">বিভাগ প্রবেশ করান</string>
     <string name="intro_cd">এই ছবি জেলোর মূল পাতার একটি স্ক্রিনশট। এই মূল পাতাটিতে রয়েছে নয়টি আইকন, যাদের বলা হয় ক্যাটাগরি বাটন এবং তা তিনটি রো ও তিনটি কলামে সজ্জিত। উল্লিখিত নয়টি ক্যাটাগরি বাটন হল - " অভিবাদন এবং অনুভূতি ", " দৈনন্দিন কাজ ", " খাওয়া ", " মজা ", " শেখা ", " লোকজন ", " জায়গা ", " সময় এবং আবহাওয়া " এবং " সাহায্য "। নীচে যে ক্যাটাগরি বাটন আছে সেগুলি আসলে তিনটি নেভিগেশন বাটন, যথা - ফেরা, মূল পাতা এবং কীবোর্ড। এগুলি মূল পাতায় নির্দিষ্ট ক্রমে সজ্জিত। মূল ক্যাটাগরির আইকনের ডান দিক এবং বাম দিকে রয়েছে তিনটি করে অনুভূতিসূচক আইকন। মূল সজ্জার বাম দিকে তিনটি অনুভূতিসূচক বাটন হচ্ছে - পছন্দ, হ্যাঁ এবং আরও, যেগুলি ওপর থেকে নীচ বরাবর সজ্জিত রয়েছে। মূল সজ্জার ডান দিকে রয়েছে বাকি তিনটি অনুভূতিসূচক বাটন - পছন্দ করি না, না এবং কম, যেগুলি ওপর থেকে নীচ বরাবর সাজানো। মূল স্ক্রিনের ওপরের ডান দিকের কোণে দেখতে পাবেন সেটিংস আইকন। এই ছবিতে নয়টি আইকনের সজ্জা রঙযুক্ত এবং বাদবাকি আইকনগুলি বিবর্ণ।</string>
     <string name="intro2_cd">এই ছবিতে জেলোর মূল পাতা ফুটে উঠেছে, যেখানে দুটি আইকন " খাওয়া " এবং " হ্যাঁ "-কে রঙিন করা হয়েছে। বাকি বাটনগুলি রংহীন। এই ছবিতে একথা স্পষ্ট যে, জেলোর মাধ্যমে কথা বলতে গেলে ব্যবহারকারীকে প্রথমে যে-কোনো শ্রেণির বাটনে ক্লিক করতে হবে। যেমন - প্রথমে " খাওয়া " এবং তারপর কোনো অভিব্যক্তিমূলক বাটন, ধরা যাক " হ্যাঁ "-এ ক্লিক করতে হবে। এইভাবে ব্যবহারকারী জেলোর মাধ্যমে কথা বলতে পারেন।</string>
     <string name="intro3_cd">এই ছবি " খাওয়া " ক্যাটাগরির অন্তর্ভুক্ত উপ-ক্যাটাগরিগুলিকে চিহ্নিত করে। এই আইকনগুলি মূল সজ্জায় দৃশ্যমান এবং সজ্জাটি তিনটি বনাম তিনটি শ্রেণিতে বিভক্ত, যথা - " সকালের জলখাবার ", " দুপুরের খাবার ও রাতের খাবার ", " মিষ্টি ", " স্ন্যাক্স ", " ফল ", " পানীয় ", " ছুরিচামচ " এবং " আরও কিছু "। এই ছবিতে বোঝা যায়, ব্যবহারকারীর আঙুল " সকালের জলখাবার " আইকনে দু-বার ক্লিক করলে এর অধীনে থাকা অন্যান্য অপশনগুলি সে ব্যবহার করতে পারবে।</string>
     <string name="intro4_cd">এই ছবিতে দেখা যায় জেলোর মূল পাতার ওপর দিকের ডান হাতের অংশ নেমে এসেছে। এই নেমে আসার ফলে কয়েকটি অপশন চোখে পড়ে, যেমন - " প্রোফাইল ", " জেলো সম্পর্কে ", " টিউটোরিয়াল ", " কীবোর্ড নিয়ন্ত্রণ ", " ভাষা ", " সেটিংস ", " পছন্দের পুনর্বিন্যাস " এবং " ফিডব্যাক "। ওপরের যে-কোনো একটি অপশনে ক্লিক করে ব্যবহারকারী অ্যাপের সেটিংস নিয়ন্ত্রণ করতে পারে।</string>
     <string name="intro5_cd">এই ছবি জেলোর মূল পাতার স্ক্রিনশট। এই ছবিতে রয়েছে ছটি ভাবপ্রকাশক বাটন। মূল শ্রেণির বাটনগুলি রঙিন রূপে উভয়দিকে তিনটি করে সাজানো রয়েছে। বাকি বাটনগুলি রঙহীন। ওপর থেকে নীচে শ্রেণিগত বাটনের মূল সজ্জার বাম দিকে রয়েছে তিনটি ভাবপ্রকাশক বাটন, যথা - " হাসিমুখ " আইকন "। এটি " চিহ্ন পরীক্ষা করুন " দ্বারা প্রকাশ করা হয়েছে। একইভাবে " হ্যাঁ " সূচিত হয়েছে " যোগ চিহ্ন "-এর মাধ্যমে। শ্রেণিগত বাটনের ডান দিকে রয়েছে আরও কিছু ভাবপ্রকাশক আইকন, যথা - " পছন্দ করি না ", যা সূচিত হয়েছে দু:খিত মুখের দ্বারা। " না " প্রকাশিত হয়েছে " ক্রস " চিহ্নের দ্বারা। " কম " " বিয়োগ চিহ্নের " মাধ্যমে প্রকাশ পেয়েছে। ছবিতে তিনটি নেভিগেশন বাটন রয়েছে - স্ক্রিনের নীচে, বাম দিক থেকে ডান দিকে, যথা - " পেছনে ", " মূল পাতা " এবং " কীবোর্ড "।</string>
-    <string name="intro6_1_cd">প্রথম ছবি " text to speech " সংক্রান্ত, যেখানে দুটি পছন্দসই ইঞ্জিন দৃশ্যমান। প্রথমটি " samsung text to speech engine " এবং দ্বিতীয় " google text to speech engine "। ব্যবহারকারী দ্বিতীয় ইঞ্জিনটিকে প্রথম ধাপ হিসেবে নির্বাচন করেন।</string>
-    <string name="intro6_2_cd">দ্বিতীয় ছবিটি এই প্রক্রিয়ার দ্বিতীয় ধাপ সংক্রান্ত, যেখানে ব্যবহারকারীকে দেখা যায় " গিয়ার " চিহ্নে ক্লিক করতে, যা আসলে " google text to speech " -এর " সেটিংস " সংক্রান্ত।</string>
-    <string name="intro6_3_cd">তৃতীয় ছবিটি এই পদ্ধতির তৃতীয় ফহাও যেখানে ব্যবহারকারী রয়েছে " Google TTS voice data " স্ক্রিনে। তিন ধরনের সেটিংস স্ক্রিনে চোখে পড়ে, যথা - নামকরণ, google text-to-speech engine এবং install voice data. ব্যবহারকারীকে দেখা গেল ভাষার প্রথম অপশনটিকে নির্বাচন করে  TTS engine-এর মূল ভাষা হিন্দিকে প্রয়োগ করতে।</string>
     <string name="talkback_single_click">আলতো চাপুন</string>
     <string name="talkback_dropdown_menu">দেশের তালিকা ব্যবহার করতে</string>
-    <string name="close_dialog">বন্ধ ডায়ালগ</string>
     <string name="next">পরবর্তী</string>
     <string name="previous">আগে</string>
     <string name="edttxt_msg">কথা বলতে এখানে লিখুন।</string>
     <string name="keyboard_open">কীবোর্ড খুলুন।</string>
-    <string name="therapist_or_teacher_cd">থেরাপিস্ট বা শিক্ষক</string>
-    <string name="parent_or_caregiver_cd">অভিভাবক বা কেয়ারগিভার</string>
     <string name="child_s_name_dialog_btn">আমার নাম</string>
     <string name="caregiverName_dialog_btn">কেয়ারগিভারের নাম</string>
     <string name="caregiver_s_email_address_dialog_btn">কেয়ারগিভারের ইমেলের ঠিকানা</string>
@@ -360,23 +301,10 @@
     <string name="lang_setting_option1_cd">নীচের ছবিটি জেলোর ব্যবহৃত গুগল টেক্সট টু স্পিচ ইঞ্জিন গঠনের তিনটি পর্যায় ফুটিয়ে তোলে। ছবিটি ব্যবহারকারীর ডিভাইসের "" টেক্সট টু স্পিচ আউটপুট "" এবং "" গুগল টিটিএস সেটিংস ""-এর তিনটি স্ক্রিনশটের সমন্বয়ে তৈরি। প্রথম ছবি অর্থাৎ "" টেক্সট টু স্পীচ আউটপুট ""-এ দুটি পছন্দসই ইঞ্জিন দৃশ্যমান। প্রথমটি "" স্যামসাং টেক্সট টু স্পিচ ইঞ্জিন "" এবং দ্বিতীয় "" গুগল টেক্সট টু স্পিচ ইঞ্জিন ""। ব্যবহারকারীকে প্রথম ধাপে "" গুগল টেক্সট টু স্পিচ ইঞ্জিন "" নির্বাচন করতে দেখা যায়।</string>
     <string name="lang_setting_option2_cd">দ্বিতীয় ছবি হচ্ছে প্রক্রিয়ার দ্বিতীয় ধাপ যেখানে ব্যবহারকারীকে " গুগল টেক্সট টু স্পিচ ইঞ্জিনের " সেটিংসের " গিয়ার " সিম্বলে ক্লিক করতে দেখা যায়। </string>
     <string name="lang_setting_option3_cd">তৃতীয় ছবিটি হচ্ছে প্রক্রিয়ার তৃতীয় ধাপ, যেখানে ব্যবহারকারীকে " গুগল টিটিএস অপশনস ''-এর স্ক্রিনে দেখা যায়। স্কিনের দ্বিতীয় বিষয়, যা " কেবল ওয়াই-ফাই ব্যবহার করো " অপশনের সংযোগসূত্র, তা ছবিতে স্পষ্টভাবে ফুটে ওঠে। ব্যবহারকারীকে এই সংযোগসূত্রটি বন্ধ অথবা নিস্ক্রিয় করতে বলা হয়।</string>
-    <string name="lang_setting_option3_gtt3_cd">তৃতীয় ছবিটি প্রক্রিয়ার তৃতীয় ধাপের অনুরূপ, যেখানে ব্যবহারকারীকে গুগল টিটিএস ভয়েস ডেটা পেজের " ভাষা\ " অপশনটি ক্লিক করতে দেখা যায়। তাঁকে দেখা যায় গুগল টেক্সট-টু-স্পিচ ইঞ্জিনে " হিন্দি ( ভারত) "-কে মূল ভাষা হিসেবে নির্বাচন করতে।</string>
     <!--end content description-->
 
-
-    <string name="intro8_step2">বন্ধ করো \"কেবল ওয়াই-ফাই ব্যবহার করো\" </string>
-    <string name="txt_tts_stting">টেক্সট-টু-স্পীচ সেটিংস</string>
-    <string name="txt_intro8_step1">১. গুগল টেক্সট-টু-স্পীচ ইঞ্জিনের খোলো</string>
-    <string name="txt_intro8_step2">২. গুগল টেক্সট-টু-স্পীচ ইঞ্জিনের-এর জন্য সেটিংস-এ যাও</string>
-    <string name="txt_intro8_step3">৩. \"কেবল ওয়াই-ফাই ব্যবহার করো\" বন্ধ করো</string>
-    <string name="change_language_tts_wifi">গুগলের টিটিএসের সেটংস-এ গিয়ে \' টিটিএস সেটিংস \' বোতামটি স্পর্শ করে \' শুধু ওয়াই-ফাই \' অপশনটি চালু করুন। যদি অপশনটি ইতিমধ্যে নিস্ক্রিয় থাকে, তাহলে এই পর্যায়টি এড়িয়ে যান।</string>
-    <string name="icon_update_msg">বর্তমান ভাষার আইকনগুলির সংযোজন:</string>
-    <string name="editLanguage">১) ভাষা যুক্ত করো/মুছে দাওঃ</string>
-    <string name="add_new_language">যোগ / মুছতে একটি ভাষা নির্বাচন করুন</string>
-    <string name="disable_wifi_only">গুগল টেক্সট-টু-স্পীচ- এর সেটিংস-এ যাও এবং \'কেবল ওয়াই-ফাই ব্যবহার করো\' বন্ধ করো।</string>
-    <string name="step3">তৃতীয় ধাপঃ</string>
-    <string name="txt_intro8_txtTitle">নীচের পদক্ষেপগুলি সম্পন্ন করুনঃ</string>
-    <string name="txt_actLangSel_completestep2">ভয়েস ডেটা প্রাপ্ত হয়নি। দয়া করে ইন্টারনেট চালু করুন এবং দ্বিতীয় ধাপ সম্পূর্ণ করুন।</string>
+    <string name="txt_tts_stting">টেক্সট-টু-স্পীচ সেটিংস (TTS SETTINGS)</string>
+    <string name="change_language_tts_wifi">দ্বিতীয় ধাপঃ গুগলের টিটিএসের সেটংস-এ গিয়ে \' টিটিএস সেটিংস \' বোতামটি স্পর্শ করে \' শুধু ওয়াই-ফাই \' অপশনটি চালু করুন। যদি অপশনটি ইতিমধ্যে নিস্ক্রিয় হয়ে গিয়ে থাকে, তাহলে এই পর্যায়টি এড়িয়ে যান।</string>
     <string name="txtStep2">দ্বিতীয় ধাপঃ</string>
     <string name="close">বন্ধ ডায়ালগ</string>
     <string name="access_dialog_title">অপশন সঙ্গে ডায়ালগ</string>
@@ -388,21 +316,153 @@
     <string name="acc_lang_eng_gb">ইংরেজি (যুক্তরাজ্য)</string>
     <string name="acc_lang_eng_us">ইংরেজি (মার্কিন যুক্তরাষ্ট্র)</string>
     <string name="acc_lang_eng_au">ইংরেজি (অস্ট্রেলিয়া)</string>
+    <string name="acc_lang_span_span">ஸ்பானிஷ் (ஸ்பெயின்)</string>
+    <string name="acc_lang_tamil_in">தமிழ்</string>
+    <string name="acc_lang_german_ger">জার্মান (জার্মানি)</string>
+
+    <string name="_1_icon">১ আইকন</string>
+    <string name="_2_icons">২ আইকনের</string>
+    <string name="_3_icons">৩ আইকনের</string>
+    <string name="_4_icons">৪  আইকনের</string>
+    <string name="_9_icons">৯ আইকনের</string>
+    <string name="number_of_icons_per_screen">প্রতি স্ক্রিনে আইকনের সংখ্যা</string>
 
     <string name="level_1_screen">স্তর এক</string>
     <string name="level_2_screen">স্তর দুই</string>
     <string name="level_3_screen">স্তর তিন</string>
     <string name="sequence_screen">কার্যকলাপ ক্রম</string>
-    <string name="close_searchbar">Close search bar</string>
+    <string name="close_searchbar">সন্ধানের বারটি বন্ধ করুন</string>
 
 
-    <string name="txt_accessibility_setting">Accessibility Setting</string>
+    <string name="txt_accessibility_setting">ব্যবহারযোগ্যতা সেটিংস (Accessibility Setting)</string>
     <string name="visual_access_title">দৃশ্যগত ব্যবহারযোগ্যতা</string>
-    <string name="visual_acesss_info">জেলোর দৃশ্যগত ব্যবহারযোগ্যতার বৈশিষ্ট্যটি এখন স্বল্প দৃষ্টিশক্তিমান অথবা পুরোপুরি অন্ধ অতিরিক্ত দৃষ্টিশক্তিহীন ব্যবহারকারীকে জেলো ব্যবহার করতে ও অন্যদের সঙ্গে সংযোগ তৈরিতে সাহায্য করে। এটি অ্যান্ড্রয়েড ফোনের \' টক ব্যাক \' বিষয়টির সাহায্য নিয়ে অ্যাপ্লিকেশনের মাধ্যমে চলাফেরার কাজে ফলপ্রসু হয়। মোবাইলে টক ব্যাক বিষয়টি চালু থাকলে ব্যবহারকারী স্ক্রিন স্পর্শ করামাত্র অডিয়ো বিবরণ শুনতে পারবে। এখন ব্যবহারকারী জেলোর সঙ্গে সংযোগ করামাত্র টক ব্যাকের বৈশিষ্ট্যসমূহ বদলাতে পারবে অথবা পূর্ববর্তী বৈশিষ্ট্যগুলির সুবিধে নিতে পারবে। উদাহরণ হিসেবে বলা যায়, ডান দিকে ঘোরানোর বৈশিষ্ট্যটি ব্যবহারকারীকে স্ক্রিনের আইকনগুলি বরাবর চলাচলের সুযোগ করে দেবে। একইভাবে স্ক্রিনের যে-কোথাও দুবার স্পর্শ করলে ব্যবহারকারী তার নিজের পছন্দসই আইকন ব্যবহারের সুযোগ পাবে।</string>
+    <string name="visual_access_info_one">জেলোর দর্শন সহায়ক বৈশিষ্ট্য ক্ষীণ দৃষ্টি এমনকি দৃষ্টিহীনদের জেলো ব্যবহারের ও অন্যের সাথে সঠিক ভাবের যোগাযোগের ক্ষমতা প্রদান করে।</string>
+    <string name="visual_access_info_two">অ্যানড্রোয়েট স্মার্ট ফোনের "কথা বলা" বৈশিষ্ট্যকে ব্যবহার করে জেলো ব্যবহার করা যায়।</string>
+    <string name="visual_access_info_three">"কথা বলা" বৈশিষ্ট্যকে চালু করে ব্যবহারকারী শব্দ দ্বারা ফোনের পর্দায় সমস্ত কিছুর পরিচয় লাভ করতে পারে।</string>
+    <string name="visual_access_info_four">ব্যবহারকারী নিজস্ব প্রদত্ত কোন সংকেত অথবা আরোপিত কোনো সংকেতের দ্বারা জেলোর সাথে কোনো বার্তা আদানপ্রদান করতে পারেন।</string>
+    <string name="visual_access_info_five">উদাহরণ স্বরূপ,ডানদিকে হাত সরালে ফোনের পর্দায় ক্রমান্বয়ে একের পর এক প্রতিমূর্তি ফুটে উঠবে। পর্দার কোনো জায়গায় দুবার টোকা দিলে যে কোনো প্রতিমূর্তি কে নির্বাচন করা যাবে।</string>
     <string name="switch_access_title">ব্যবহারযোগ্যতার বদল</string>
     <string name="switch_access_info_one">অ্যাপের নেভিগেশনে ব্যবহারযোগ্যতার বদল শারীরিকভাবে অক্ষম ব্যক্তিদের কাজ সহজ করে। এই বৈশিষ্ট্যটি একটি কিংবা দুটি ধাপের মাধ্যমে নেভিগেশন ব্যবহার করার অনুমতি দেয়।</string>
-    <string name="switch_access_info_two">To enable this feature the user has to turn on the \"switch access\" in the accessibility category in the phone setting.</string>
+    <!--not translated (verify this translation)-->
+    <string name="switch_access_info_two">এই বৈশিষ্ট্যটি সক্ষম করতে ব্যবহারকারীকে ফোন সেটিংসে অ্যাক্সেসযোগ্যতার বিভাগে "স্যুইচ অ্যাক্সেস " চালু করতে হবে।</string>
     <string name="switch_access_info_three">স্যামসাং ব্যবহারকারী ফোনের সেটিংসের \' ব্যবহার‍যোগ্যতা \' শ্রেণির " ডেক্সটারিটি অ্যান্ড ইন্টেরাকশন " অপশনে বদলের অনুমতি পেতে পারে।</string>
     <string name="switch_access_info_four">ব্যবহারযোগ্যতা একবার প্রয়োগে বদলাতে — সেটিংস খুলুন — অ্যাকসেসিবিলিটি-তে যান — সুইচ অ্যাকসেস খুলুন — ইউএসবি অথবা ব্লুটুথ সুইচেস নির্বাচন করুন — সেটিংসে গিয়ে একবার স্পর্শ করে সুইচের সংখ্যা নির্বাচন করুন।</string>
     <string name="switch_access_info_five">দুটো সুইচ দিয়ে ব্যবহারযোগ্যতা বদলাতে — সেটিংস খুলুন — অ্যাকসিসিবিলিটিতে যান — সুইচ অ্যসসেস চালু করুন — হয় ইউএসবি অথবা ব্লুটুথের সুইচ নির্বাচন করুন — সেটিংসে গিয়ে দুটো সুইচের নাম্বার নির্বাচন করুন — স্ক্যানিং-এর টাইপ বেছে নিয়ে পরবর্তী ধাপে যেতে ক্লিক করুন এবং দুটো সুইচের কাজগুলি নির্বাচন করে সুইচগুলি পরীক্ষার মাধ্যমে প্রক্রিয়াটি সম্পন্ন করুন।</string>
+
+    <!--Language package update strings are here-->
+    <string
+        name="lpu_start_update">ভাষা প্যাকেজ আপডেট শুরু হয়েছে</string>
+    <string name="lpu_parse_update">ডাউনলোড করা ডেটা প্রক্রিয়াজাতকরণ</string>
+    <string name="lpu_download_icons">আইকন ফাইলগুলি ডাউনলোড করা হচ্ছে</string>
+    <string name="lpu_download_verbiage">স্পিচ ফাইলগুলি ডাউনলোড করা হচ্ছে</string>
+    <string name="lpu_update_success">ভাষা প্যাকটি সফলভাবে আপডেট হয়েছে।</string>
+    <string name="lpu_toast_update_success">সফল আপডেট.</string>
+    <string name="lpu_toast_check_success">আপডেট সাফল্য পরীক্ষা করা হচ্ছে।</string>
+    <string name="lpu_no_updates_found">কোনও আপডেট পাওয়া যায় নি।</string>
+    <string name="lpu_update_error">আপডেট শেষ করার সময় ত্রুটি। অনুগ্রহপূর্বক আবার চেষ্টা করুন.</string>
+    <string name="lpu_toast_check_error">ভাষা প্যাকেজ আপডেট ব্যর্থ।</string>
+    <string name="update_now">এখন হালনাগাদ করুন</string>
+    <string name="update_later">পরবর্তীতে</string>
+    <string name="update_message">অ্যাপে নতুন সামগ্রী উপলব্ধ। আপনি কি এখনই আপডেট করতে চান?</string>
+    <string name="app_update_message">জেলো অ্যাপ্লিকেশনটির নতুন সংস্করণ উপলব্ধ। আপনি কি এখনই আপডেট করতে চান?</string>
+
+    <!--String resources for MMB-->
+    <string name="delete_board">\"-\" বোর্ড মোছা হবে?</string>
+    <string name="icon_select_exit_warning">আপনার নির্বাচনটি হারিয়ে যাবে</string>
+    <string name="current_board">যুক্ত আইকন</string>
+    <string name="place_holder_text">আপনার দ্বারা নির্বাচিত আইকনটি এখানে উপস্থিত হবে</string>
+    <string name="board_name">বোর্ড নাম</string>
+    <string name="select_all">সমস্ত নির্বাচন করুন</string>
+    <string name="reset">রিসেট (Reset)</string>
+    <string name="select_icon_title">আইকন নির্বাচন করুন</string>
+    <string name="add_category">বিভাগ যুক্ত করুন</string>
+    <string name="add_icon">আইকন প্রবেশ করান</string>
+    <string name="addicon_title">প্রবেশ করান-সম্পাদনা আইকন</string>
+    <string name="i_like">পছন্দ করি</string>
+    <string name="really_like">আমি সত্যি পচ্ছ্ন্দ করি</string>
+    <string name="i_want">আমি চাই</string>
+    <string name="really_want">আমি সত্যিই চাই</string>
+    <string name="want_more">আমি আরো চাই</string>
+    <string name="really_want_more">আমি সত্যিই আরও চাই</string>
+    <string name="i_dont_like">আমি পছন্দ করি না</string>
+    <string name="really_dont_like">আমি সত্যিই পছন্দ করি না</string>
+    <string name="dont_want">আমি চাই না</string>
+    <string name="really_dont_want">আমি সত্যিই চাই না</string>
+    <string name="dont_want_more">আমি আর চাই না</string>
+    <string name="really_dont_want_more">আমি সত্যিই আরও চাই না</string>
+    <string name="please_enter_name">নাম লিখুন</string>
+    <string name="photos">ফটো</string>
+    <string name="library">জেলো লাইব্রেরি</string>
+    <string name="icon_name">আইকন নাম</string>
+    <string name="add_board">বোর্ড প্রবেশ করান</string>
+    <string name="custom_icon">কাস্টম আইকন</string>
+    <string name="cancel">বাতিল (Cancel)</string>
+    <string name="database_not_created_info">ভাষার জন্য ডাটাবেস তৈরি করা।</string>
+    <string name="icon_already_present">আইকন ইতিমধ্যে নির্বাচিত</string>
+    <string name="camera_missing">ক্যামেরা পাওয়া যায়নি</string>
+    <string name="no_icon_warning">এগিয়ে যেতে দয়া করে কমপক্ষে একটি আইকন যুক্ত করুন।</string>
+    <string name="reposition_text">পুনঃস্থাপন করতে যে কোনও আইকনটিতে দীর্ঘক্ষণ চাপুন</string>
+    <string name="reposition_complete_msg">আইকনের নতুন অবস্থানটি সংরক্ষণ করা হয়েছে</string>
+    <string name="please_select_icon">দয়া করে প্রথমে একটি চিত্র নির্বাচন করুন</string>
+    <string name="txtContinue">চালিয়ে (Continue)</string>
+    <string name="expressive_heading1">ভাবটি নির্বাচন করতে</string>
+    <string name="expressive_heading2">বোতামে আলতো চাপুন</string>
+    <string name="expressive_heading3">আইকনটি অনির্বাচিত করতে</string>
+    <string name="expressive_heading4">বোতামটি আলতো চাপুন</string>
+    <string name="icon_delete_warning">\"-\" আইকন মুছে যাবে?</string>
+    <string name="board_not_found">বোর্ড পাওয়া গেল না</string>
+    <string name="setting_up_the_language">ভাষা নির্ধারণ, দয়া করে অপেক্ষা করুন…</string>
+    <string name="completed_process">ভাষার সেটআপ সম্পন্ন হয়েছে।</string>
+    <string name="unable_to_create_board">বোর্ড তৈরি করতে অক্ষম, দয়া করে আবার চেষ্টা করুন</string>
+
+    <string name="board">বোর্ড</string>
+    <string name="press_next_to_select_icons">নির্বাচিত আইকন যুক্ত করতে \"পরবর্তী\" টিপুন।</string>
+    <string name="edit_board">বর্তমান বোর্ডটি সম্পাদনা করুন</string>
+    <string name="delete_the_board">বর্তমান বোর্ড মুছুন</string>
+    <string name="edit_board_image">বোর্ড আইকন এবং নাম সম্পাদনা করুন</string>
+    <string name="search_board_in_jellow">অনুসন্ধান বোর্ড</string>
+    <string name="enter_board_name_to_search">অনুসন্ধানের জন্য বোর্ডের নাম প্রবেশ করান</string>
+    <string name="search_board_screen">অনুসন্ধান বোর্ডের পর্দা স্ক্রিন</string>
+    <string name="enter_icon_name">অনুসন্ধান করতে আইকন নাম লিখুন</string>
+
+    <!--Content Description-->
+    <string name="my_boards_screen">আমার বোর্ডগুলির স্ক্রিন</string>
+    <string name="select_image_for_board">বোর্ডের জন্য চিত্র নির্বাচন করুন</string>
+    <string name="select_source_for_image_for_board">বোর্ড চিত্রের জন্য উত্স নির্বাচন করুন</string>
+    <string name="select_language_for_board">বোর্ডের জন্য ভাষা নির্বাচন করুন</string>
+    <string name="icon_select_screen">আইকন যুক্ত করুন স্ক্রিন</string>
+    <string name="icons_selected">_ আইকন নির্বাচিত</string>
+    <string name="icon_add_edit_screen">আইকনগুলি যুক্ত বা সম্পাদনা করুন স্ক্রিন</string>
+    <string name="edit_current_icon">বর্তমান আইকন সম্পাদনা করুন</string>
+    <string name="delete_current_icon">বর্তমান আইকন মুছুন</string>
+    <string name="add_edit_icons_dialog">আইকন যোগ বা সম্পাদনা করুন ডায়ালগ</string>
+    <string name="select_image_for_icon">আইকন জন্য চিত্র নির্বাচন করুন</string>
+    <string name="enable_reposition_icons">আইকনগুলির পুনঃস্থাপন সক্ষম করুন</string>
+    <string name="disable_reposition_icons">আইকনগুলির প্রতিস্থাপন অক্ষম করুন</string>
+    <string name="tap_icon_to_select_expression">অভিব্যক্তি যোগ করতে আলতো চাপুন</string>
+    <string name="tap_icon_to_deselect_expression">অভিব্যক্তি অপসারণ করতে আলতো চাপুন</string>
+    <string name="tap_add_to_add_expression">এক্সপ্রেশন নির্বাচন করতে অ্যাড বোতামে আলতো চাপুন</string>
+    <string name="tap_delete_to_delete_expression">আইকনটি অনির্বাচিত করতে মুছে ফেলা বোতামটি আলতো চাপুন</string>
+    <string name="open_jellow_privacy_policy">জেলোর গোপনীয়তা নীতি খুলুন।</string>
+    <string name="board_deleted">_ বোর্ড মোছা হয়েছে</string>
+    <string name="search_icon_available_in_jellow">জেলোতে উপলব্ধ একটি আইকন অনুসন্ধান করুন</string>
+    <string name="search_icon_the_board">বর্তমান বোর্ডে অনুসন্ধান আইকন</string>
+    <string name="preparing_language_screen">ভাষা সেটআপ স্ক্রিন</string>
+    <string name="language_package_update">জুও কন্টেন্ট আপডেট স্ক্রিন</string>
+    <string name="dialog">ডায়ালগ</string>
+    <string name="close_content_download_screen">কন্টেন্ট ডাউনলোড পর্দা বন্ধ করুন</string>
+    <string name="share_jellow_app">জেলো অ্যাপ্লিকেশনটি ভাগ করুন</string>
+    <string name="rate_jellow_app">গুগল প্লে স্টোর এ জ্যালো অ্যাপ্লিকেশন রেট করুন</string>
+    <string name="received_your_feedback">আপনার প্রতিক্রিয়ার জন্য ধন্যবাদ</string>
+    <string name="no_btn">না (No)</string>
+    <string name="next_btn">পরবর্তী (Next)</string>
+    <string name="my_boards">আমার বোর্ড</string>
+    <string name="board_settings">বোর্ড সেটিংস</string>
+    <string name="add_expression_here">আপনার নিজস্ব অভিব্যক্তিপূর্ণ লাইন যুক্ত করুন</string>
+    <string name="about_je_intro42">মাই বোর্ড (আমার বোর্ড) ব্যবহার করে আপনি নিজের নিজস্ব কাস্টমাইজড আইকন এবং তাদের অভিব্যক্তিপূর্ণ পাঠ্য যুক্ত করতে বা সম্পাদনা করতে পারেন।</string>
+    <string name="about_je_intro43">প্রচার এবং প্রচার:</string>
+    <string name="about_je_intro44">বিদ্যা উপাধ্যা, শ্বেতা গৌরিশ পাঠের, সম্মতি হোসুরে</string>
+    <string name="about_je_more_info">আরও তথ্যের জন্য, নীচের ভিডিও বোতামে ট্যাবঃ</string>
+    <string name="visual_access_info_video">জেলোতে ভিজ্যুয়াল অ্যাক্সেসিবিলিটির ডেমোটি দেখতে, নীচের ভিডিও বোতামে আলতো চাপুনঃ</string>
+    <string name="switch_access_info_video">জেলোতে স্যুইচ অ্যাক্সেসিবিলিটির ডেমোটি দেখতে, নীচের ভিডিও বোতামে আলতো চাপুনঃ</string>
 </resources>

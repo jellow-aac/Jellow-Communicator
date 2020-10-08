@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/icon_title"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/lang_popup_item_height"
+    android:paddingVertical="6dp"
+    android:paddingHorizontal="12dp"
+    android:maxLines="2"
+    android:textColor="@color/level_select_text_color"
+    android:textSize="@dimen/board_dialog_edit_text"
+    android:background="@drawable/background_divider_color">
+</TextView>

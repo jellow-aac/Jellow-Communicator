@@ -2,10 +2,13 @@ package com.dsource.idc.jellowintl.factories;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.dsource.idc.jellowintl.models.ExpressiveIcon;
 import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.models.MiscellaneousIcon;
 import com.dsource.idc.jellowintl.models.SeqNavigationButton;
+import com.google.firebase.database.annotations.NotNull;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -15,8 +18,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-import androidx.annotation.NonNull;
-
 public class TextFactory {
 
     static JSONObject JSON = null;
@@ -25,135 +26,7 @@ public class TextFactory {
         JSON = null;
     }
 
-    /**
-     *
-     * @param file - the JSON file location
-     * @param iconNames - iconNames without extension
-     * @return
-     *
-     *  Returns the JSON text from disk
-     */
-
-    public static Icon[] getIconObjects(@NonNull File file, @NonNull String[] iconNames) {
-        if (JSON == null) {
-            try {
-                JSON = new JSONObject(getStringFromFile(file));
-            } catch (Exception e) {
-                Log.d("JSON", e.getMessage());
-            }
-        }
-
-        ArrayList<Icon> iconObjects = new ArrayList<>();
-
-        for (String iconName : iconNames) {
-            try {
-                String jsonString = JSON.getJSONObject(iconName).toString();
-                Gson gson = new Gson();
-                Icon icon = gson.fromJson(jsonString, Icon.class);
-                iconObjects.add(icon);
-            } catch (Exception e) {
-                Log.d("JSON", e.getMessage());
-            }
-        }
-
-        Icon[] generalIconObjects = new Icon[iconObjects.size()];
-
-        iconObjects.toArray(generalIconObjects);
-
-        return generalIconObjects;
-    }
-
-
-    public static ExpressiveIcon[] getExpressiveIconObjects(@NonNull File file, @NonNull String[] iconNames) {
-        if (JSON == null) {
-            try {
-                JSON = new JSONObject(getStringFromFile(file));
-            } catch (Exception e) {
-                Log.d("JSON", e.getMessage());
-            }
-        }
-
-        ArrayList<ExpressiveIcon> iconObjects = new ArrayList<>();
-
-        for (String iconName : iconNames) {
-            try {
-                String jsonString = JSON.getJSONObject(iconName).toString();
-                Gson gson = new Gson();
-                ExpressiveIcon icon = gson.fromJson(jsonString, ExpressiveIcon.class);
-                iconObjects.add(icon);
-            } catch (Exception e) {
-                Log.d("JSON", e.getMessage());
-            }
-        }
-
-        ExpressiveIcon[] expressiveIconsObjects = new ExpressiveIcon[iconObjects.size()];
-
-        iconObjects.toArray(expressiveIconsObjects);
-
-        return expressiveIconsObjects;
-    }
-
-    public static MiscellaneousIcon[] getMiscellaneousIconObjects(@NonNull File file, @NonNull String[] iconNames) {
-        if (JSON == null) {
-            try {
-                JSON = new JSONObject(getStringFromFile(file));
-            } catch (Exception e) {
-                Log.d("JSON", e.getMessage());
-            }
-        }
-
-        ArrayList<MiscellaneousIcon> iconObjects = new ArrayList<>();
-
-        for (String iconName : iconNames) {
-            try {
-                String jsonString = JSON.getJSONObject(iconName).toString();
-                Gson gson = new Gson();
-                MiscellaneousIcon icon = gson.fromJson(jsonString, MiscellaneousIcon.class);
-                iconObjects.add(icon);
-            } catch (Exception e) {
-                Log.d("JSON", e.getMessage());
-            }
-        }
-
-        MiscellaneousIcon[] miscellaneousIconsObjects = new MiscellaneousIcon[iconObjects.size()];
-
-        iconObjects.toArray(miscellaneousIconsObjects);
-
-        return miscellaneousIconsObjects;
-    }
-
-    public static SeqNavigationButton[] getSeqNavigationButtonObjects(@NonNull File file, @NonNull String[] iconNames){
-        if (JSON == null) {
-            try {
-                JSON = new JSONObject(getStringFromFile(file));
-            } catch (Exception e) {
-                Log.d("JSON", e.getMessage());
-            }
-        }
-
-        ArrayList<SeqNavigationButton> iconObjects = new ArrayList<>();
-
-        for (String iconName : iconNames) {
-            try {
-                String jsonString = JSON.getJSONObject(iconName).toString();
-                Gson gson = new Gson();
-                SeqNavigationButton icon = gson.fromJson(jsonString, SeqNavigationButton.class);
-                iconObjects.add(icon);
-            } catch (Exception e) {
-                Log.d("JSON", e.getMessage());
-            }
-        }
-
-        SeqNavigationButton[] seqNavigationButtonObjects = new SeqNavigationButton[iconObjects.size()];
-
-        iconObjects.toArray(seqNavigationButtonObjects);
-
-        return seqNavigationButtonObjects;
-
-    }
-
-
-    private static String getStringFromFile(@NonNull File file) {
+    public static String getStringFromFile(@NonNull File file) {
 
         StringBuilder text = new StringBuilder();
         try {
@@ -210,7 +83,6 @@ public class TextFactory {
         return title.toArray(titleArray);
     }
 
-
     public static String[] getSpeechText(Icon[] iconObjects){
 
         ArrayList<String> speechText = new ArrayList<>();
@@ -223,4 +95,73 @@ public class TextFactory {
         return speechText.toArray(speechTextArray);
     }
 
+
+    /*RAHUL*/
+    public static Icon[] getIconObjects(@NotNull String[] iconNames) {
+        ArrayList<Icon> iconObjects = new ArrayList<>();
+        for (String iconName : iconNames) {
+            try {
+                String jsonString = JSON.getJSONObject(iconName).toString();
+                Icon icon = new Gson().fromJson(jsonString, Icon.class);
+                iconObjects.add(icon);
+            } catch (Exception e) {
+                Log.d("JSON", e.getMessage());
+            }
+        }
+
+        Icon[] generalIconObjects = new Icon[iconObjects.size()];
+        iconObjects.toArray(generalIconObjects);
+        return generalIconObjects;
+    }
+
+    public static MiscellaneousIcon[] getMiscellaneousIconObjects(@NotNull String[] iconNames) {
+        ArrayList<MiscellaneousIcon> iconObjects = new ArrayList<>();
+        for (String iconName : iconNames) {
+            try {
+                String jsonString = JSON.getJSONObject(iconName).toString();
+                MiscellaneousIcon icon = new Gson().fromJson(jsonString, MiscellaneousIcon.class);
+                iconObjects.add(icon);
+            } catch (Exception e) {
+                Log.d("JSON", e.getMessage());
+            }
+        }
+
+        MiscellaneousIcon[] miscellaneousIconObjects = new MiscellaneousIcon[iconObjects.size()];
+        iconObjects.toArray(miscellaneousIconObjects);
+        return miscellaneousIconObjects;
+    }
+
+    public static ExpressiveIcon[] getExpressiveIconObjects(@NotNull String[] iconNames){
+        ArrayList<ExpressiveIcon> iconObjects = new ArrayList<>();
+        for (String iconName : iconNames) {
+            try {
+                String jsonString = JSON.getJSONObject(iconName).toString();
+                ExpressiveIcon icon = new Gson().fromJson(jsonString, ExpressiveIcon.class);
+                iconObjects.add(icon);
+            } catch (Exception e) {
+                Log.d("JSON", e.getMessage());
+            }
+        }
+
+        ExpressiveIcon[] expressiveIconObjects = new ExpressiveIcon[iconObjects.size()];
+        iconObjects.toArray(expressiveIconObjects);
+        return expressiveIconObjects;
+    }
+
+    public static SeqNavigationButton[] getMiscellaneousNavigationIconObjects(@NotNull String[] iconNames){
+        ArrayList<SeqNavigationButton> iconObjects = new ArrayList<>();
+        for (String iconName : iconNames) {
+            try {
+                String jsonString = JSON.getJSONObject(iconName).toString();
+                SeqNavigationButton icon = new Gson().fromJson(jsonString, SeqNavigationButton.class);
+                iconObjects.add(icon);
+            } catch (Exception e) {
+                Log.d("JSON", e.getMessage());
+            }
+        }
+
+        SeqNavigationButton[] expressiveIconObjects = new SeqNavigationButton[iconObjects.size()];
+        iconObjects.toArray(expressiveIconObjects);
+        return expressiveIconObjects;
+    }
 }

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:background="@color/app_background"
+    android:id="@+id/relative_layout"
+    android:layout_width="wrap_content"
+    android:background="@color/light_base"
     android:layout_height="wrap_content">
     <View
         android:layout_width="@dimen/level_select_pane_min_width"
@@ -19,10 +20,8 @@
         android:layout_centerHorizontal="true"
         android:paddingBottom="6dp"
         android:paddingLeft="12dp"
-        android:layout_centerInParent="true"
         android:paddingRight="12dp"
         android:paddingTop="6dp"
-        android:textAlignment="center"
         android:text="Times and weather"
         android:textColor="@color/level_select_text_color"
         android:textSize="@dimen/level_select_pane_text_size" />
